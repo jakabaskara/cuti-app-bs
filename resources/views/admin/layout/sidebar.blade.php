@@ -14,11 +14,12 @@
             {{-- <li class="sidebar-title">
                 Apps
             </li> --}}
-            <li class="active-page">
-                <a href="index.html" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+            <li class="{{ request()->route()->uri == 'admin' ? 'active-page' : '' }}">
+                {{-- <a href="index.html" class="{{ if(R)route ? "active" : "" }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a> --}}
+                <a href="index.html" class="{{ request()->route()->uri == 'admin/' ? 'active' : '' }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li>
-                <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Karyawan<span
+            <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.karyawan.index') }}" class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i class="material-icons-two-tone">inbox</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li>
