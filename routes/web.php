@@ -19,8 +19,8 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function(){
+    Route::get('/', function () {
         return view('admin.index');
-    });
+    })->name('admin.index');
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
 });

@@ -16,10 +16,14 @@
             </li> --}}
             <li class="{{ request()->route()->uri == 'admin' ? 'active-page' : '' }}">
                 {{-- <a href="index.html" class="{{ if(R)route ? "active" : "" }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a> --}}
-                <a href="index.html" class="{{ request()->route()->uri == 'admin/' ? 'active' : '' }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+                <a href="{{ route('admin.index') }}"
+                    class="{{ request()->route()->uri == 'admin/' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
             <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
-                <a href="{{ route('admin.karyawan.index') }}" class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i class="material-icons-two-tone">inbox</i>Karyawan<span
+                <a href="{{ route('admin.karyawan.index') }}"
+                    class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">inbox</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li>
