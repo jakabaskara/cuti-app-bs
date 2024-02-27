@@ -11,20 +11,20 @@
     </div>
     <div class="app-menu">
         <ul class="accordion-menu">
-            <li class="sidebar-title">
+            {{-- <li class="sidebar-title">
                 Apps
-            </li>
+            </li> --}}
             <li class="active-page">
                 <a href="index.html" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
             <li>
                 <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Mailbox<span
-                        class="badge rounded-pill badge-danger float-end">87</span></a>
+                        class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li>
                 <a href="file-manager.html"><i class="material-icons-two-tone">cloud_queue</i>File Manager</a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>
             </li>
@@ -303,7 +303,7 @@
             </li>
             <li>
                 <a href="#"><i class="material-icons-two-tone">access_time</i>Change Log</a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

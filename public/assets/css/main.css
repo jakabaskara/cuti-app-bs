@@ -904,13 +904,13 @@ h1, h2, h3, h4, h5, h6 {
     width: 40px;
     height: 40px;
     font-size: 18px;
-    background: url(../images/neptune.png) no-repeat;
+    background: url(../images/avatars/avatarlogo.png) no-repeat;
     background-position: center left;
     background-size: 40px;
     display: block;
     text-decoration: none;
     font-weight: 700;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     float: left;
     padding-left: 45px;
     line-height: 40px;
