@@ -26,8 +26,10 @@
                         class="material-icons-two-tone">inbox</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li>
-                <a href="file-manager.html"><i class="material-icons-two-tone">cloud_queue</i>File Manager</a>
+            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.sisacuti.index') }}"
+                class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i 
+                class="material-icons-two-tone">cloud_queue</i>Kelola Sisa Cuti</a>
             </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
