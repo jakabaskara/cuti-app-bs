@@ -8,15 +8,15 @@
 @section('content')
     <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-respon">
+                    <div class="table-responsive">
                         <table class="display table-hover" id="datatable2">
-                            <thead class="table-dark" style="margin-bottom: -10px">
+                            <thead class="table-dark">
                                 <tr class="text-center align-middle">
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK SAP</th>
@@ -26,20 +26,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center align-middle">
-                                    <td>1.</td>
-                                    <td>13002775</td>
-                                    <td>Prabowo Widodo</td>
-                                    <td>10</td>
-                                    <td>21</td>
-                                </tr>
-                                <tr class="text-center align-middle">
-                                    <td>1.</td>
-                                    <td>13002775</td>
-                                    <td>Prabowo Widodo</td>
-                                    <td>10</td>
-                                    <td>21</td>
-                                </tr>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($karyawans as $karyawan)
+                                    <tr class="text-center">
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $karyawan->NIK }}</td>
+                                        <td>{{ $karyawan->nama }}</td>
+                                        <td>0</td>
+                                        <td>{{ $karyawan->sisaCutiPanjang->isEmpty() ? 0 : $karyawan->sisaCutiPanjang->first()->sisa_cuti }}
+                                        </td>
+                                    </tr>
+                                    @php
+                                        $i++;
+                                    @endphp
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -127,9 +129,9 @@
                                 <label for="nama" class="form-label">Nama Karyawan</label>
                                 <select class="form-select" aria-label="Nama Karyawan">
                                     <option selected value=""> </option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    @foreach ($karyawans as $karyawan)
+                                        <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -138,9 +140,8 @@
                                 <label for="nama" class="form-label">Jenis Cuti</label>
                                 <select class="form-select" aria-label="Nama Karyawan">
                                     <option selected value=""> </option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="1">Cuti Tahunan</option>
+                                    <option value="2">Cuti Panjang</option>
                                 </select>
                             </div>
                         </div>
@@ -187,11 +188,7 @@
                     .format('YYYY-MM-DD'));
             });
 
-            $('#datatable2').DataTable({
-                "scrollY": "300px",
-                "scrollCollapse": true,
-                "paging": false
-            });
+            $('#datatable2').DataTable();
         });
     </script>
 @endsection

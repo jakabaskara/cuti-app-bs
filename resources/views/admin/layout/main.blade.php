@@ -44,7 +44,7 @@
 </head>
 
 <body>
-    <div class="app align-content-stretch d-flex flex-wrap">
+    <div class="app align-content-stretch d-flex flex-wrap ">
         @include('admin.layout.sidebar')
         <div class="app-container">
             @include('admin.layout.app-header')
