@@ -22,17 +22,17 @@
     <link
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet">
-    <link href="../../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../assets/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
-    <link href="../../assets/plugins/pace/pace.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/pace/pace.css') }}assets/plugins/pace/pace.css" rel="stylesheet">
 
 
     <!-- Theme Styles -->
-    <link href="../../assets/css/main.min.css" rel="stylesheet">
-    <link href="../../assets/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/neptune.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/neptune.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/avatars/avatar.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/avatars/avatar.png') }}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
