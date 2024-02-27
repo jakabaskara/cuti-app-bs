@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,6 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', function () {
-        return view('admin.index');
-    })->name('admin.index');
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('admin.karyawan.index');
 });
