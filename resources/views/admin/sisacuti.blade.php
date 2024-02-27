@@ -12,22 +12,19 @@
                         <table class="table table-sm table-bordered table-hover ">
                             <thead class="table-dark">
                                 <tr class="text-center align-middle">
-                                    <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Sisa Cuti Tahunan</th>
-                                    <th class="text-dark">Sisa Cuti Panjang</th>
+                                    <th rowspan="2" class="text-dark">No.</th>
+                                    <th rowspan="2" class="text-dark">NIK</th>
+                                    <th rowspan="2" class="text-dark">Nama</th>
+                                    <th colspan="2" class="text-dark">Sisa Cuti Tahunan
+                                    <th colspan="2" class="text-dark">Sisa Cuti Panjang</th>
+                                </tr>
+                                <tr class="text-center align-middle">
+                                    <th class="text-dark">Periode Awal</th>
+                                    <th class="text-dark">Periode Akhir</th>
+                                    <th class="text-dark">Periode Awal</th>
+                                    <th class="text-dark">Periode Akhir</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {{-- <tr class="text-center">
-                                    <td>1.</td>
-                                    <td>13002775</td>
-                                    <td>Prabowo Widodo</td>
-                                    <td>10</td>
-                                    <td>21</td>
-                                </tr> --}}
-                            </tbody>
                         </table>
                     </div>
                 </div>
