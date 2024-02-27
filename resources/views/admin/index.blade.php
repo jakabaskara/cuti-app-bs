@@ -2,21 +2,22 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
     <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <div class="card">
                 <div class="card-header">
-                    <h5>Daftar Sisa Cuti Karyawan</h5>
+                    <h5 class="">Daftar Sisa Cuti Karyawan</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover ">
-                            <thead class="table-dark">
-                                <tr class="text-center">
+                    <div class="table-respon">
+                        <table class="display table-hover" id="datatable2">
+                            <thead class="table-dark" style="margin-bottom: -10px">
+                                <tr class="text-center align-middle">
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK SAP</th>
                                     <th class="text-dark">Nama</th>
@@ -25,7 +26,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
+                                <tr class="text-center align-middle">
+                                    <td>1.</td>
+                                    <td>13002775</td>
+                                    <td>Prabowo Widodo</td>
+                                    <td>10</td>
+                                    <td>21</td>
+                                </tr>
+                                <tr class="text-center align-middle">
                                     <td>1.</td>
                                     <td>13002775</td>
                                     <td>Prabowo Widodo</td>
@@ -165,6 +173,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+
     <script>
         $(function() {
             $('input[name="daterange"]').daterangepicker({
@@ -172,6 +182,12 @@
             }, function(start, end, label) {
                 console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
                     .format('YYYY-MM-DD'));
+            });
+
+            $('#datatable2').DataTable({
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "paging": false
             });
         });
     </script>
