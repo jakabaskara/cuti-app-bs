@@ -8,14 +8,22 @@
                     <h5>Data Karyawan</h5>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                + Ajukan Cuti
+                            </button>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover ">
                             <thead class="table-dark">
-                                <tr class="text-center">
+                                <tr class="text-center align-middle">
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK</th>
                                     <th class="text-dark">Nama</th>
-                                    <th class="text-dark">BRM</th>
+                                    <th class="text-dark">Status Karyawan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staff</th>
                                     <th class="text-dark">Unit Kerja</th>

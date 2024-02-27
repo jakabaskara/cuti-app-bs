@@ -24,15 +24,15 @@
         rel="stylesheet">
     <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/plugins/pace/pace.css') }}assets/plugins/pace/pace.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/pace/pace.css') }}" rel="stylesheet">
 
 
     <!-- Theme Styles -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/avatars/avatar.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/avatars/avatar.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/avatars/avatarlogo.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/avatars/avatarlogo.png') }}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
