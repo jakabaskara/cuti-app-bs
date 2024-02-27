@@ -18,7 +18,7 @@ class Karyawan extends Model
         'nama',
         'level',
         'TMT_bekerja',
-        'tgl_diangkat_staff',
+        'tgl_diangkat_staf',
         'id_unit_kerja',
         'id_users',
     ];
@@ -27,5 +27,9 @@ class Karyawan extends Model
     public function unitKerja()
     {
         return $this->belongsTo(UnitKerja::class, 'id_unit_kerja');
+    }
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id_users');
     }
 }
