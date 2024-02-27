@@ -85,6 +85,9 @@
                                 + Ajukan Cuti
                             </button>
                         </div>
+                        <div class="col">
+                            <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
+                        </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col">

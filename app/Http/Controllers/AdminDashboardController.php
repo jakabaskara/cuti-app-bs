@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -14,6 +14,7 @@ class AdminDashboardController extends Controller
 
     public function downloadPermintaanCutiPDF()
     {
-        // $pdf = PDF::loadView('')
+        $pdf = PDF::loadView('form');
+        return $pdf->download('pdf.pdf');
     }
 }
