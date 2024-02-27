@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('permintaan_cuti', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_karyawan')->constrained('karyawan');
-            $table->enum('jenis_cuti',['panjang','tahunan']);
+            $table->enum('jenis_cuti', ['panjang', 'tahunan']);
             $table->string('alasan');
             $table->string('alamat');
             $table->enum('status',['disetujui','dibatalkan','pending']);
