@@ -20,6 +20,11 @@ class PermintaanCuti extends Model
         'id_unit_kerja',
     ];
 
+    
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class,'id_karyawan');
+    }
     public function unitKerja()
     {
         return $this->belongsTo(UnitKerja::class,'id_unit_kerja');

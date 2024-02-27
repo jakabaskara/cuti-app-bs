@@ -18,7 +18,7 @@ class SisaCutiPanjang extends Model
         'id_karyawan',
     ];
 
-    public function Karyawan()
+    public function karyawan()
     {
         return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }

@@ -19,4 +19,9 @@ class UnitKerja extends Model
     {
         return $this->hasMany(Karyawan::class, 'id_unit_kerja');
     }
+
+    public function permintaanCuti()
+    {
+        return $this->hasMany(PermintaanCuti::class, 'id_unit_kerja');
+    }
 }
