@@ -82,34 +82,47 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="nama" class="form-label">Nama</label>
-                            <select class="form-select" aria-label="Nama Karyawan">
-                                <option selected value=""> </option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                    <form action="" method="post">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nama" class="form-label">Nama Karyawan</label>
+                                <select class="form-select" aria-label="Nama Karyawan">
+                                    <option selected value=""> </option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="nama" class="form-label">Nama</label>
-                            <select class="form-select" aria-label="Nama Karyawan">
-                                <option selected value=""> </option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nama" class="form-label">Jenis Cuti</label>
+                                <select class="form-select" aria-label="Nama Karyawan">
+                                    <option selected value=""> </option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="daterange" class="form-label">Tanggal Cuti</label>
-                            <input type="text" class="form-control flatpickr1" name="daterange" value="" />
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="daterange" class="form-label">Tanggal Cuti</label>
+                                <input type="text" class="form-control flatpickr1" name="daterange" value="" />
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="alasan" class="form-label">Alasan Cuti</label>
+                                <input type="text" class="form-control" name="alasan" value="" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="text" class="form-control" name="alamat" value="" />
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
