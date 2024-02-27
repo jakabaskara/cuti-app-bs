@@ -1,11 +1,11 @@
 <div class="app-sidebar">
     <div class="logo">
-        <a href="index.html" class="logo-icon"><span class="logo-text">Neptune</span></a>
+        <a href="index.html" class="logo-icon"><span class="logo-text">Relico</span></a>
         <div class="sidebar-user-switcher user-activity-online">
             <a href="#">
-                <img src="{{ asset('assets/images/avatars/avatar.png') }}">
+                <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Chloe<br><span class="user-state-info">On a call</span></span>
+                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info">PIC Absensi</span></span>
             </a>
         </div>
     </div>
