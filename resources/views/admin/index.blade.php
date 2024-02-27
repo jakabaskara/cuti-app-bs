@@ -54,7 +54,7 @@
                                             <th>Nama</th>
                                             <th>Jenis Cuti</th>
                                             <th>Periode Tanggal</th>
-                                            <th>Sisa Cuti</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                 </table>
