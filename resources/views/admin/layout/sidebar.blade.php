@@ -18,7 +18,7 @@
                 <a href="index.html" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
             <li>
-                <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Mailbox<span
+                <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li>
