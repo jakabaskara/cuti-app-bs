@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->enum('level',['karpim','karpel']);
             $table->date('TMT_bekerja');
-            $table->date('tgl_diangkat_staff')->nullable();
+            $table->date('tgl_diangkat_staf')->nullable();
             $table->foreignId('id_unit_kerja')->constrained('unit_kerja');
             $table->foreignId('id_users')->constrained('users');
             $table->timestamps();
