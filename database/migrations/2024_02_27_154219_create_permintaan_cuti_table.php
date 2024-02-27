@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('alamat');
             $table->enum('status',['disetujui','dibatalkan','pending']);
             $table->timestamps();
+            $table->foreignId('id_unit_kerja')->constrained('unit_kerja');
+            $table->integer('sisa_cuti');
         });
     }
 
