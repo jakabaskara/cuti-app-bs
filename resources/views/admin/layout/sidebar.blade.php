@@ -3,7 +3,7 @@
         <a href="index.html" class="logo-icon"><span class="logo-text">Neptune</span></a>
         <div class="sidebar-user-switcher user-activity-online">
             <a href="#">
-                <img src="../../assets/images/avatars/avatar.png">
+                <img src="{{ asset('assets/images/avatars/avatar.png') }}">
                 <span class="activity-indicator"></span>
                 <span class="user-info-text">Chloe<br><span class="user-state-info">On a call</span></span>
             </a>
