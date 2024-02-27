@@ -5,8 +5,9 @@
 @endsection
 
 @section('content')
+    <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
     <div class="row">
-        <div class="col">
+        <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
                     <h5>Daftar Sisa Cuti Karyawan</h5>
@@ -30,6 +31,33 @@
                                     <td>Prabowo Widodo</td>
                                     <td>10</td>
                                     <td>21</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">No.</th>
+                                    <th>Nama</th>
+                                    <th>Alasan Cuti</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">1.</td>
+                                    <td>Jeno</td>
+                                    <td>Mager</td>
                                 </tr>
                             </tbody>
                         </table>
