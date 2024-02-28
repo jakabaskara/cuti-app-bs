@@ -8,7 +8,7 @@
 @section('content')
     <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-10">
             <div class="card">
                 <div class="card-header">
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
@@ -23,6 +23,7 @@
                                     <th class="text-dark">Nama</th>
                                     <th class="text-dark">Sisa Cuti Tahunan</th>
                                     <th class="text-dark">Sisa Cuti Panjang</th>
+                                    <th class="text-dark">Periode Cuti</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,6 +38,7 @@
                                         <td>0</td>
                                         <td>{{ $karyawan->sisaCutiPanjang->isEmpty() ? 0 : $karyawan->sisaCutiPanjang->first()->sisa_cuti }}
                                         </td>
+                                        <td></td>
                                     </tr>
                                     @php
                                         $i++;
@@ -67,7 +69,7 @@
                                 <tr>
                                     <td class="text-center">1.</td>
                                     <td>Jeno</td>
-                                    <td>Mager</td>
+                                    <td>Urusan Keluarga</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -123,50 +125,52 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Nama Karyawan</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
-                                    @foreach ($karyawans as $karyawan)
-                                        <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="nama" class="form-label">Nama Karyawan</label>
+                            <select class="form-select" aria-label="Nama Karyawan">
+                                <option selected value=""> </option>
+                                @foreach ($karyawans as $karyawan)
+                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Jenis Cuti</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
-                                    <option value="1">Cuti Tahunan</option>
-                                    <option value="2">Cuti Panjang</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="nama" class="form-label">Jenis Cuti</label>
+                            <select class="form-select" aria-label="Nama Karyawan">
+                                <option selected value=""> </option>
+                                <option value="1">Cuti Tahunan</option>
+                                <option value="2">Cuti Panjang</option>
+                            </select>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="daterange" class="form-label">Tanggal Cuti</label>
-                                <input type="text" class="form-control flatpickr1" name="daterange" value="" />
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="daterange" class="form-label">Tanggal Cuti</label>
+                            <input type="text" class="form-control flatpickr1" name="daterange" value="" />
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="alasan" class="form-label">Alasan Cuti</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="alasan" class="form-label">Alasan Cuti</label>
+                            <input type="text" class="form-control" name="alasan" value="" />
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" value="" />
-                            </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" name="alamat" value="" />
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <button type="button" class="btn btn-primary">Ajukan</button>
+                    <form action="{{ route('admin.tambahCuti') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Ajukan</button>
+                    </form>
                 </div>
             </div>
         </div>

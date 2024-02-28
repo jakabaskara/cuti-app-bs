@@ -26,4 +26,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
+
+    Route::post('/ajukanCuti', [AdminDashboardController::class, 'tambahCuti'])->name('admin.tambahCuti');
 });
