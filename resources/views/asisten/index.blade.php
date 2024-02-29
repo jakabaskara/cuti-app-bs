@@ -3,6 +3,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    @livewireStyles()
 @endsection
 
 @section('content')
@@ -68,28 +69,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-hover table-striped">
-                            <thead>
-                                <tr class="text-center">
-                                    <th class="text-dark"><strong>NIK</strong></th>
-                                    <th class="text-dark"><strong>Nama</strong></th>
-                                    <th class="text-dark"><strong>Periode Cuti</strong></th>
-                                    <th class="text-dark"><strong>Jumlah Cuti</strong></th>
-                                    <th class="text-dark"><strong>Jumlah Cuti</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-center">
-                                    <td class="text-dark"></td>
-                                    <td class="text-dark"></td>
-                                    <td class="text-dark"></td>
-                                    <td class="text-dark"></td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    @livewire('asisten-table-persetujuan-cuti')
                 </div>
             </div>
         </div>
@@ -283,4 +263,5 @@
             $('#datatable2').DataTable();
         });
     </script>
+    @livewireScripts()
 @endsection
