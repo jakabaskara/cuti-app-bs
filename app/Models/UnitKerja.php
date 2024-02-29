@@ -14,9 +14,11 @@ class UnitKerja extends Model
     protected $fillable = [
         'nama_unit_kerja',
         'bagian',
+        'kode_unit_kerja',
     ];
 
-    public function posisi(){
+    public function posisi()
+    {
         return $this->hasMany(Posisi::class, 'id_unit_kerja');
     }
 }
