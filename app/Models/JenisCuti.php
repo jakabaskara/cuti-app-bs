@@ -15,11 +15,13 @@ class JenisCuti extends Model
         'jenis_cuti',
     ];
 
-    public function SisaCuti(){
+    public function sisaCuti()
+    {
         return $this->hasMany(SisaCuti::class, 'id_jenis_cuti');
     }
 
-    public function PermintaanCuti(){
+    public function permintaanCuti()
+    {
         return $this->hasMany(PermintaanCuti::class, 'id_jenis_cuti');
     }
 }
