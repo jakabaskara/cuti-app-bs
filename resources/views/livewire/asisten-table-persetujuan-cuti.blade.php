@@ -1,5 +1,5 @@
 <div>
-    <div class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div>
+    <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div>
     <div class="table-responsive">
         <table class="table table-sm table-hover table-striped">
             <thead>
@@ -23,8 +23,9 @@
                         <td class="text-dark">{{ $cutiPending->jumlah_hari_cuti }}</td>
                         <td class="text-dark">{{ $cutiPending->alasan }}</td>
                         <td class="text-dark">{{ $cutiPending->alamat }}</td>
-                        <td class="text-dark"></td>
-                        <td class="text-dark"></td>
+                        <td class="text-dark">Pending</td>
+                        <td class="text-dark"> <button class="btn btn-success"
+                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> </td>
                     </tr>
                 @endforeach
             </tbody>
