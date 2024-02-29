@@ -19,11 +19,13 @@ class SisaCuti extends Model
         'jumlah_sisa_cuti',
     ];
 
-    public function karyawan(){
+    public function karyawan()
+    {
         return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 
-    public function JenisCuti(){
+    public function jenisCuti()
+    {
         return $this->belongsTo(JenisCuti::class, 'id_jenis_cuti');
     }
 }

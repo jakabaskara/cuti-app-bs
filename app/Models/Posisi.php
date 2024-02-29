@@ -17,19 +17,29 @@ class Posisi extends Model
         'jabatan',
     ];
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function pairing(){
-        return $this->hasMany(Pairing::class, 'id_posisi');
-    }
 
-    public function UnitKerja(){
+    public function UnitKerja()
+    {
         return $this->belongsTo(UnitKerja::class, 'id_unit_kerja');
     }
-    
-    public function karyawan(){
+
+    public function karyawan()
+    {
         return $this->hasMany(Karyawan::class, 'id_posisi');
+    }
+
+    public function atasan()
+    {
+        return $this->hasMany(Pairing::class, 'id_atasan');
+    }
+
+    public function bawahan()
+    {
+        return $this->hasMany(Pairing::class, 'id_bawahan');
     }
 }

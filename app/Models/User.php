@@ -46,7 +46,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function karyawan(){
+    public function karyawan()
+    {
         return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 }

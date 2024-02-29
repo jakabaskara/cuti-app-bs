@@ -20,19 +20,23 @@ class Karyawan extends Model
         'id_posisi',
     ];
 
-    public function posisi(){
+    public function posisi()
+    {
         return $this->belongsTo(Posisi::class, 'id_posisi');
     }
 
-    public function SisaCuti(){
+    public function pisaCuti()
+    {
         return $this->hasMany(SisaCuti::class, 'id_karyawan');
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->hasMany(User::class, 'id_karyawan');
     }
 
-    public function PermintaanCuti(){
+    public function permintaanCuti()
+    {
         return $this->hasMany(PermintaanCuti::class, 'id_karyawan');
     }
 }

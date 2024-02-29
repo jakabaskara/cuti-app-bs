@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('permintaan_cuti', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_karyawan')->constrained('karyawan');
+            $table->foreignId('id_jenis_cuti')->constrained('jenis_cuti');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->foreignId('id_karyawan')->constrained('karyawan');
-            $table->enum('jenis_cuti', ['panjang', 'tahunan']);
-            $table->string('alasan');
+            $table->integer('jumlah_hari_cuti');
             $table->string('alamat');
-            $table->enum('status', ['disetujui', 'dibatalkan', 'pending']);
-            $table->foreignId('id_unit_kerja')->constrained('unit_kerja');
-            $table->integer('sisa_cuti');
+            $table->string('alasan');
+            $table->boolean('is_approved');
+            $table->boolean('is_rejected');
+            $table->boolean('is_checked');
             $table->timestamps();
         });
     }

@@ -16,7 +16,13 @@ class Pairing extends Model
         'id_bawahan',
     ];
 
-    public function Posisi(){
-        return $this->belongsTo(Posisi::class, 'id_posisi');
+    public function atasan()
+    {
+        return $this->belongsTo(Posisi::class, 'id_atasan');
+    }
+
+    public function bawahan()
+    {
+        return $this->belongsTo(Posisi::class, 'id_bawahan');
     }
 }

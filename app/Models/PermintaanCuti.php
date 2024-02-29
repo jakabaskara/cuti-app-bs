@@ -22,15 +22,18 @@ class PermintaanCuti extends Model
         'is_checked',
     ];
 
-    public function karyawan(){
+    public function karyawan()
+    {
         return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 
-    public function JenisCuti(){
+    public function jenisCuti()
+    {
         return $this->belongsTo(JenisCuti::class, 'id_jenis_cuti');
     }
 
-    public function RiwayatCuti(){
+    public function riwayatCuti()
+    {
         return $this->hasMany(RiwayatCuti::class, 'id_permintaan_cuti');
     }
 }
