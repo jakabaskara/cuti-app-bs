@@ -32,18 +32,8 @@ class Karyawan extends Model
     {
         return $this->belongsTo(User::class, 'id_users');
     }
-    public function sisaCutiTahunan()
-    {
-        return $this->hasMany(SisaCutiTahunan::class, 'id_karyawan');
-    }
-    public function sisaCutiPanjang()
-    {
-        return $this->hasMany(SisaCutiPanjang::class, 'id_karyawan');
-    }
-    public function pimpinan()
-    {
-        return $this->hasMany(Pimpinan::class, 'id_karyawan');
-    }
+
+
     public function permintaanCuti()
     {
         return $this->hasMany(PermintaanCuti::class, 'id_karyawan');
