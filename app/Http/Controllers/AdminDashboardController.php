@@ -11,10 +11,12 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        $karyawans = Karyawan::where('id_unit_kerja', 1)->with('sisaCutiPanjang')->get();
-        return view('admin.index', [
-            'karyawans' => $karyawans,
-        ]);
+        // $karyawans = Karyawan::where('id_unit_kerja', 1)->with('sisaCutiPanjang')->get();
+        // return view('admin.index', [
+        //     'karyawans' => $karyawans,
+        // ]);
+
+        return view('admin.index');
     }
 
     public function downloadPermintaanCutiPDF()
