@@ -39,6 +39,6 @@ Route::group(['prefix' => 'asisten'], function () {
     Route::get('/', [AsistenDashboardController::class, 'index'])->name('asisten.index');
 });
 
-Route::group(['prefix' => 'asisten'], function () {
-    Route::get('/', [ManajerDashboardController::class, 'index'])->name('asisten.index');
+Route::group(['prefix' => 'manajer'], function () {
+    Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
 });
