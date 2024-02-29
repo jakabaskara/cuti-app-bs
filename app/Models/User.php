@@ -18,12 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-    protected $table = 'user';
+    protected $table = 'users';
 
     protected $fillable = [
         'username',
-        'email',
         'password',
+        'id_karyawan',
     ];
 
     /**
@@ -46,8 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function karyawan()
-    {
-        return $this->hasMany(Karyawan::class, 'id_users');
+    public function karyawan(){
+        return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 }

@@ -29,7 +29,7 @@ class Karyawan extends Model
     }
 
     public function users(){
-        return $this->hasMany(Users::class, 'id_karyawan');
+        return $this->hasMany(User::class, 'id_karyawan');
     }
 
     public function PermintaanCuti(){
