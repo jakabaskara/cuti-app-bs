@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\SisaCutiController;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,8 @@ Route::group(['prefix' => 'pic'], function () {
 
 Route::group(['prefix' => 'asisten'], function () {
     Route::get('/', [AsistenDashboardController::class, 'index'])->name('asisten.index');
+});
+
+Route::group(['prefix' => 'asisten'], function () {
+    Route::get('/', [ManajerDashboardController::class, 'index'])->name('asisten.index');
 });
