@@ -14,6 +14,7 @@ class ManajerDashboardController extends Controller
         return view('manajer.index');
     }
 
+    // tess
 
 
     public function tambahCuti(Request $request)
