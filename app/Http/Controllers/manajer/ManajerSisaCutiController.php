@@ -12,4 +12,6 @@ class ManajerSisaCutiController extends Controller
     {
        return view('manajer.sisacuti');
     }
+
+    //tess
 }

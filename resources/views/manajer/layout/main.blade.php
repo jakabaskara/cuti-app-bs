@@ -9,7 +9,7 @@
     <meta name="keywords" content="manajer,dashboard">
     <meta name="author" content="stacks">
     <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+{{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
     <!-- Title -->
     <title>RELICO - Regional Lima Cuti Online</title>
 

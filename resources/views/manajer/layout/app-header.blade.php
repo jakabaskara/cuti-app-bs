@@ -7,6 +7,8 @@
                           <a class="nav-link hide-sidebar-toggle-button" href="#"><i
                                   class="material-icons">first_page</i></a>
                       </li>
+
+                      {{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
                       {{-- <li class="nav-item dropdown hidden-on-mobile">
                           <a class="nav-link dropdown-toggle" href="#" id="addDropdownLink" role="button"
                               data-bs-toggle="dropdown" aria-expanded="false">

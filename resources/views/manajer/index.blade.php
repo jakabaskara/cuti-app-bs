@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
-
+{{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
 @section('content')
     <h3 class="mb-4">Halo, Manajer 👋</h3>
     <div class="row">
