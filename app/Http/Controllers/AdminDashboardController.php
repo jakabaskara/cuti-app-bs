@@ -26,12 +26,14 @@ class AdminDashboardController extends Controller
     public function tambahCuti(Request $request)
     {
 
-        $karyawan = Karyawan::where('id', 55)->first();
-        $sisaCuti = SisaCutiPanjang::where('id_karyawan', $karyawan->id)->first();
-        $sisa = $sisaCuti->sisa_cuti;
+        // $karyawan = Karyawan::where('id', 55)->first();
+        // $sisaCuti = SisaCutiPanjang::where('id_karyawan', $karyawan->id)->first();
+        // $sisa = $sisaCuti->sisa_cuti;
 
-        $sisaCuti->sisa_cuti = $sisa - 1;
-        $sisaCuti->save();
-        return redirect()->route('admin.index');
+        // $sisaCuti->sisa_cuti = $sisa - 1;
+        // $sisaCuti->save();
+        // return redirect()->route('admin.index');
+
+        return view('admin.index');
     }
 }

@@ -30,7 +30,7 @@
                                 @php
                                     $i = 1;
                                 @endphp
-                                @foreach ($karyawans as $karyawan)
+                                {{-- @foreach ($karyawans as $karyawan)
                                     <tr class="text-center">
                                         <td>{{ $i }}</td>
                                         <td>{{ $karyawan->NIK }}</td>
@@ -43,7 +43,7 @@
                                     @php
                                         $i++;
                                     @endphp
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -130,9 +130,9 @@
                             <label for="nama" class="form-label">Nama Karyawan</label>
                             <select class="form-select" aria-label="Nama Karyawan">
                                 <option selected value=""> </option>
-                                @foreach ($karyawans as $karyawan)
+                                {{-- @foreach ($karyawans as $karyawan)
                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>
