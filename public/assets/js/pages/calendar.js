@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialDate: '2020-09-12',
+      initialDate: '2024-02-29',
       editable: true,
       selectable: true,
       businessHours: true,

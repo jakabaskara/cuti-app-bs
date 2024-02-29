@@ -5,7 +5,7 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info">PIC Absensi</span></span>
+                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info"> Kerani</span></span>
             </a>
         </div>
     </div>
@@ -19,16 +19,11 @@
                 <a href="{{ route('kerani.index') }}" class="{{ request()->route()->uri == 'kerani' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
-                <a href="{{ route('admin.karyawan.index') }}"
-                    class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">inbox</i>Karyawan<span
+            <li class="{{ request()->route()->uri == 'kerani/cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('kerani.cuti.index') }}"
+                    class="{{ request()->route()->uri == 'kerani/cuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">inbox</i>Berita Karyawan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
-            </li>
-            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
-                <a href="{{ route('admin.sisacuti.index') }}"
-                    class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
             </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span

@@ -6,6 +6,7 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\kerani\KeraniDashboardController;
+use App\Http\Controllers\kerani\KeraniBeritaCutiController;
 use App\Http\Controllers\SisaCutiController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,10 @@ Route::group(['prefix' => 'manajer'], function () {
 
 Route::group(['prefix' => 'kerani'], function () {
     Route::get('/', [KeraniDashboardController::class, 'index'])->name('kerani.index');
+    Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
+    // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');
+
+    Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
+
+    Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 });

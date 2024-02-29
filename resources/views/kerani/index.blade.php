@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
+    <h3 class="mb-4">Halo, Kerani 👋</h3>
     <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
@@ -64,91 +64,42 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="">Daftar Sisa Cuti Karyawan</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display table-hover" id="datatable2">
-                            <thead class="table-dark">
-                                <tr class="text-center align-middle">
-                                    <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK SAP</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Sisa Cuti Tahunan</th>
-                                    <th class="text-dark">Sisa Cuti Panjang</th>
-                                    <th class="text-dark">Periode Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                                {{-- @foreach ($karyawans as $karyawan)
-                                    <tr class="text-center">
-                                        <td>{{ $i }}</td>
-                                        <td>{{ $karyawan->NIK }}</td>
-                                        <td>{{ $karyawan->nama }}</td>
-                                        <td>0</td>
-                                        <td>{{ $karyawan->sisaCutiPanjang->isEmpty() ? 0 : $karyawan->sisaCutiPanjang->first()->sisa_cuti }}
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    @php
-                                        $i++;
-                                    @endphp
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
-                </div>
-                <div class="card-body" style="min-height: 300px">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No.</th>
-                                    <th>Nama</th>
-                                    <th>Alasan Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">1.</td>
-                                    <td>Jeno</td>
-                                    <td>Urusan Keluarga</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-1">
-        <div class="col">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                                + Ajukan Cuti
+                                Buat Surat
                             </button>
                         </div>
                         <div class="col">
                             <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <div class="row mt-1">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="">Surat Cuti Karyawan</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Buat Surat
+                            </button>
+                        </div>
+                        {{-- <div class="col">
+                            <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
+                        </div> --}}
                     </div>
                     <div class="row mt-3">
                         <div class="col">
@@ -156,14 +107,34 @@
                                 <table class="table table-bordered table-sm table-hover">
                                     <thead class="table-dark">
                                         <tr class="text-center">
-                                            <th>No.</th>
                                             <th>NIK</th>
                                             <th>Nama</th>
                                             <th>Jenis Cuti</th>
                                             <th>Periode Tanggal</th>
                                             <th>Status</th>
+                                            <th>Alasan</th>
+                                            <th>Alamat</th>
+                                            <th>PDF</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        <tr class="text-center">
+                                            <td>12345</td>
+                                            <td>Jone</td>
+                                            <td>Tahunan</td>
+                                            <td>29 Februari 2024 - 30 Februari 2024</td>
+                                            <td>Disetujui</td>
+                                            <td>Sakit</td>
+                                            <td>Pontianak</td>
+                                            <td>
+                                                <div class="col">
+                                                    <a href="{{ route('kerani.download.pdf') }}" class="btn btn-primary"><span class="material-icons">
+                                                        file_download
+                                                        </span></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -172,13 +143,12 @@
             </div>
         </div>
     </div>
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Cuti</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Data Pembuatan Surat Pengajuan Cuti</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
