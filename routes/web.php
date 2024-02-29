@@ -5,6 +5,7 @@ use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
+use App\Http\Controllers\kerani\KeraniDashboardController;
 use App\Http\Controllers\SisaCutiController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,8 @@ Route::group(['prefix' => 'asisten'], function () {
 
 Route::group(['prefix' => 'manajer'], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
+});
+
+Route::group(['prefix' => 'kerani'], function () {
+    Route::get('/', [KeraniDashboardController::class, 'index'])->name('kerani.index');
 });
