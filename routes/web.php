@@ -42,6 +42,12 @@ Route::group(['prefix' => 'asisten'], function () {
 
 Route::group(['prefix' => 'manajer'], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
+    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('manajer.karyawan.index');
+    Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
+
+    Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('manajer.download.pdf');
+
+    Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('manajer.tambahCuti');
 });
 
 Route::group(['prefix' => 'kerani'], function () {
