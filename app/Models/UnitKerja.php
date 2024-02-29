@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class UnitKerja extends Model
 {
     use HasFactory;
+
+    protected $table = 'unit_kerja';
+
+    protected $fillable = [
+        'nama_unit_kerja',
+        'bagian',
+    ];
+
+    public function posisi(){
+        return $this->hasMany(Posisi::class, 'id_unit_kerja');
+    }
 }
