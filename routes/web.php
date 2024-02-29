@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\SisaCutiController;
@@ -31,4 +32,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'pic'], function () {
     Route::get('/', [PICDashboardController::class, 'index'])->name('pic.index');
+});
+
+Route::group(['prefix' => 'asisten'], function () {
+    Route::get('/', [AsistenDashboardController::class, 'index'])->name('asisten.index');
 });
