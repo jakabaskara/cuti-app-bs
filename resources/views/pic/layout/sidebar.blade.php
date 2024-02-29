@@ -1,30 +1,36 @@
 <div class="app-sidebar">
     <div class="logo">
-        <a href="index.html" class="logo-icon"><span class="logo-text">Neptune</span></a>
+        <a href="index.html" class="logo-icon"><span class="logo-text">Relico</span></a>
         <div class="sidebar-user-switcher user-activity-online">
             <a href="#">
-                <img src="{{ asset('assets/images/avatars/avatar.png') }}">
+                <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Chloe<br><span class="user-state-info">On a call</span></span>
+                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info">PIC Absensi</span></span>
             </a>
         </div>
     </div>
     <div class="app-menu">
         <ul class="accordion-menu">
-            <li class="sidebar-title">
+            {{-- <li class="sidebar-title">
                 Apps
+            </li> --}}
+            <li class="{{ request()->route()->uri == 'pic' ? 'active-page' : '' }}">
+                {{-- <a href="index.html" class="{{ if(R)route ? "active" : "" }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a> --}}
+                <a href="{{ route('pic.index') }}" class="{{ request()->route()->uri == 'pic' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="active-page">
-                <a href="index.html" class="active"><i class="material-icons-two-tone">dashboard</i>Dashboard</a>
+            <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.karyawan.index') }}"
+                    class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">inbox</i>Karyawan<span
+                        class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li>
-                <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Mailbox<span
-                        class="badge rounded-pill badge-danger float-end">87</span></a>
+            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.sisacuti.index') }}"
+                    class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">cloud_queue</i>Kelola Sisa Cuti</a>
             </li>
-            <li>
-                <a href="file-manager.html"><i class="material-icons-two-tone">cloud_queue</i>File Manager</a>
-            </li>
-            <li>
+            {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>
             </li>
@@ -303,7 +309,7 @@
             </li>
             <li>
                 <a href="#"><i class="material-icons-two-tone">access_time</i>Change Log</a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

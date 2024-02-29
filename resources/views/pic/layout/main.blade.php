@@ -24,15 +24,15 @@
         rel="stylesheet">
     <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/plugins/pace/pace.css') }}assets/plugins/pace/pace.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/pace/pace.css') }}" rel="stylesheet">
 
 
     <!-- Theme Styles -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/avatars/avatar.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/avatars/avatar.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/avatars/avatarlogo.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/avatars/avatarlogo.png') }}" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,13 +40,14 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    @yield('css')
 </head>
 
 <body>
-    <div class="app align-content-stretch d-flex flex-wrap">
-        @include('admin.layout.sidebar')
+    <div class="app align-content-stretch d-flex flex-wrap ">
+        @include('pic.layout.sidebar')
         <div class="app-container">
-            @include('admin.layout.app-header')
+            @include('pic.layout.app-header')
             <div class="app-content">
                 <div class="content-wrapper">
                     <div class="container">
@@ -67,6 +68,7 @@
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>

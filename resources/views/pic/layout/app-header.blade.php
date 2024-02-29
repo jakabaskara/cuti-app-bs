@@ -7,7 +7,7 @@
                           <a class="nav-link hide-sidebar-toggle-button" href="#"><i
                                   class="material-icons">first_page</i></a>
                       </li>
-                      <li class="nav-item dropdown hidden-on-mobile">
+                      {{-- <li class="nav-item dropdown hidden-on-mobile">
                           <a class="nav-link dropdown-toggle" href="#" id="addDropdownLink" role="button"
                               data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="material-icons">add</i>
@@ -17,8 +17,8 @@
                               <li><a class="dropdown-item" href="#">New Board</a></li>
                               <li><a class="dropdown-item" href="#">Create Project</a></li>
                           </ul>
-                      </li>
-                      <li class="nav-item dropdown hidden-on-mobile">
+                      </li> --}}
+                      {{-- <li class="nav-item dropdown hidden-on-mobile">
                           <a class="nav-link dropdown-toggle" href="#" id="exploreDropdownLink" role="button"
                               data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="material-icons-outlined">explore</i>
@@ -55,16 +55,16 @@
                                   <button class="btn btn-primary">Create new repository</button>
                               </li>
                           </ul>
-                      </li>
+                      </li> --}}
                   </ul>
 
               </div>
               <div class="d-flex">
                   <ul class="navbar-nav">
                       <li class="nav-item hidden-on-mobile">
-                          <a class="nav-link active" href="#">Applications</a>
+                          <a class="nav-link active" href="#">Beranda</a>
                       </li>
-                      <li class="nav-item hidden-on-mobile">
+                      {{-- <li class="nav-item hidden-on-mobile">
                           <a class="nav-link" href="#">Reports</a>
                       </li>
                       <li class="nav-item hidden-on-mobile">
@@ -85,7 +85,7 @@
                               <li><a class="dropdown-item" href="#"><img src="{{ asset('assets/images/avatars/avatar.png') }}"
                                           alt="">Chinese</a></li>
                           </ul>
-                      </li>
+                      </li> --}}
                       <li class="nav-item hidden-on-mobile">
                           <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#"
                               data-bs-toggle="dropdown">4</a>
@@ -97,13 +97,12 @@
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
-                                                  <i class="material-icons-outlined">campaign</i>
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p class="bold-notifications-text">Donec tempus nisi sed erat vestibulum,
-                                                  eu suscipit ex laoreet</p>
-                                              <small>19:00</small>
+                                                  <i class="material-icons-outlined">account_circle</i>
+                                                </span>
+                                                <div class="notifications-dropdown-item-text">
+                                                    <p class="bold-notifications-text">Profile</p>
+                                                    {{-- <small>19:00</small> --}}
+                                                </div>
                                           </div>
                                       </div>
                                   </a>
@@ -111,13 +110,12 @@
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-danger text-white">
-                                                  <i class="material-icons-outlined">bolt</i>
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p class="bold-notifications-text">Quisque ligula dui, tincidunt nec
-                                                  pharetra eu, fringilla quis mauris</p>
-                                              <small>18:00</small>
+                                                  <i class="material-icons-outlined">lock</i>
+                                                </span>
+                                                <div class="notifications-dropdown-item-text">
+                                                    <p class="bold-notifications-text">Ubah Password</p>
+                                                    {{-- <small>18:00</small> --}}
+                                                </div>
                                           </div>
                                       </div>
                                   </a>
@@ -125,16 +123,16 @@
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-success text-white">
-                                                  <i class="material-icons-outlined">alternate_email</i>
+                                                  <i class="material-icons-outlined">logout</i>
                                               </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p>Nulla id libero mattis justo euismod congue in et metus</p>
-                                              <small>yesterday</small>
+                                              <div class="notifications-dropdown-item-text">
+                                                  <p>Logout</p>
+                                                  {{-- <small>yesterday</small> --}}
+                                              </div>
                                           </div>
                                       </div>
                                   </a>
-                                  <a href="#">
+                                  {{-- <a href="#">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge">
@@ -160,7 +158,7 @@
                                               <small>yesterday</small>
                                           </div>
                                       </div>
-                                  </a>
+                                  </a> --}}
                               </div>
                           </div>
                       </li>
