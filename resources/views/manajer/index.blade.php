@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
+    <h3 class="mb-4">Halo, Manajer 👋</h3>
     <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
@@ -30,15 +30,12 @@
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
                         <div class="widget-stats-icon widget-stats-icon-warning">
-                            <i class="material-icons-outlined">person</i>
+                            <i class="material-icons-outlined">info</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title">Active Users</span>
-                            <span class="widget-stats-amount">23,491</span>
-                            <span class="widget-stats-info">790 unique this month</span>
-                        </div>
-                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                            <i class="material-icons">keyboard_arrow_up</i> 12%
+                            <span class="widget-stats-title">Pending</span>
+                            <span class="widget-stats-amount">2</span>
+                            <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
                     </div>
                 </div>
@@ -48,16 +45,13 @@
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-danger">
-                            <i class="material-icons-outlined">file_download</i>
+                        <div class="widget-stats-icon widget-stats-icon-success">
+                            <i class="material-icons-outlined">check_circle</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title">Downloads</span>
-                            <span class="widget-stats-amount">140,390</span>
-                            <span class="widget-stats-info">87 items downloaded</span>
-                        </div>
-                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                            <i class="material-icons">keyboard_arrow_up</i> 7%
+                            <span class="widget-stats-title">Form Cuti</span>
+                            <span class="widget-stats-amount">13</span>
+                            <span class="widget-stats-info">Form Cuti Dibuat</span>
                         </div>
                     </div>
                 </div>
@@ -147,7 +141,7 @@
                             </button>
                         </div>
                         <div class="col">
-                            <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
+                            <a href="{{ route('manajer.download.pdf') }}" class="btn btn-primary">PDF</a>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -224,7 +218,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <form action="{{ route('admin.tambahCuti') }}" method="post">
+                    <form action="{{ route('manajer.tambahCuti') }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-primary">Ajukan</button>
                     </form>
