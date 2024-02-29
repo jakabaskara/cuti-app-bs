@@ -3,7 +3,6 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endsection
-{{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
 
 @section('content')
     <div class="row">

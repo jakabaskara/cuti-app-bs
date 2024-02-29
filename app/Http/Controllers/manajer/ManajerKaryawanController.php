@@ -13,5 +13,5 @@ class ManajerKaryawanController extends Controller
         return view('manajer.karyawan');
     }
 
-    //tess
+  
 }

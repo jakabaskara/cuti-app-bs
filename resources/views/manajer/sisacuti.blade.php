@@ -1,5 +1,4 @@
 @extends('manajer.layout.main')
-{{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
 @section('content')
     <div class="row">
         <div class="col">

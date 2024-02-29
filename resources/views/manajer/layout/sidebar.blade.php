@@ -10,7 +10,6 @@
         </div>
     </div>
     <div class="app-menu">
-        {{-- {!! link_to_asset(url, title = null, attributes = [], secure = null) !!} --}}
         <ul class="accordion-menu">
             {{-- <li class="sidebar-title">
                 Apps
