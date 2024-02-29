@@ -25,7 +25,7 @@ class Karyawan extends Model
         return $this->belongsTo(Posisi::class, 'id_posisi');
     }
 
-    public function pisaCuti()
+    public function sisaCuti()
     {
         return $this->hasMany(SisaCuti::class, 'id_karyawan');
     }

@@ -23,7 +23,7 @@ class Posisi extends Model
     }
 
 
-    public function UnitKerja()
+    public function unitKerja()
     {
         return $this->belongsTo(UnitKerja::class, 'id_unit_kerja');
     }
