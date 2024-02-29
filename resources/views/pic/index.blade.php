@@ -8,7 +8,64 @@
 @section('content')
     <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-primary">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Karyawan</span>
+                            <span class="widget-stats-amount">108</span>
+                            <span class="widget-stats-info">Jumlah Karyawan</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-warning">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Active Users</span>
+                            <span class="widget-stats-amount">23,491</span>
+                            <span class="widget-stats-info">790 unique this month</span>
+                        </div>
+                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            <i class="material-icons">keyboard_arrow_up</i> 12%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-danger">
+                            <i class="material-icons-outlined">file_download</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title">Downloads</span>
+                            <span class="widget-stats-amount">140,390</span>
+                            <span class="widget-stats-info">87 items downloaded</span>
+                        </div>
+                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            <i class="material-icons">keyboard_arrow_up</i> 7%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
@@ -55,7 +112,7 @@
                 <div class="card-header">
                     <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="min-height: 300px">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
