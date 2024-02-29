@@ -23,7 +23,7 @@
             <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">inbox</i>Karyawan<span
+                        class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
