@@ -1,6 +1,8 @@
 @extends('asisten.layout.main')
 
 @section('css')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
+
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     @livewireStyles()
@@ -249,6 +251,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
@@ -262,6 +266,24 @@
 
             $('#datatable2').DataTable();
         });
+
+        function round_success_noti() {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Cuti Disetujui!'
+            });
+        }
+
+        $('.noti').on('click', function() {
+            round_success_noti();
+        })
     </script>
+
     @livewireScripts()
 @endsection
