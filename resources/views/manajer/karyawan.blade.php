@@ -29,7 +29,7 @@
                                     <th class="text-dark">Nama</th>
                                     <th class="text-dark">Status Karyawan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
-                                    <th class="text-dark">Tanggal Diangkat Staff</th>
+                                    <th class="text-dark">Tanggal Diangkat Staf</th>
                                     <th class="text-dark">ID Posisi</th>
                                 </tr>
                             </thead>
