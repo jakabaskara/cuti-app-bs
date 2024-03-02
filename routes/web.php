@@ -65,11 +65,14 @@ Route::group(['prefix' => 'manajer'], function () {
 Route::group(['prefix' => 'kerani'], function () {
     Route::get('/', [KeraniDashboardController::class, 'index'])->name('kerani.index');
     Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
+    Route::get('/', [KeraniDashboardController::class, 'pengajuanCuti'])->name('kerani.index');
+
+    Route::post('/add-cuti', [KeraniDashboardController::class, 'submitCuti'])->name('kerani.submit-cuti');
     // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');
 
-    Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
+    // Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
 
-    Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
+    // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 });
 
 Route::group(['prefix' => 'login'], function () {
