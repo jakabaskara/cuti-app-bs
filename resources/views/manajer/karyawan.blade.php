@@ -59,8 +59,9 @@
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
-
                                     </tr>
+
+
                                 @empty
                                     <td colspan="6" class="text-center">Data Not Found</td>
                                 @endforelse
@@ -107,7 +108,8 @@
                                     <option value="3">Three</option> --}}
                                     <option selected disabled=>Pilih Jabatan</option>
                                     @foreach ($karyawan as $karyawans)
-                                        <option value="{{ $karyawan->id }}">{{ $karyawan->jabatan }}</option>
+                                        <option value="{{ $karyawan->id_posisi }}">
+                                            {{ $karyawan->jabatan }}</option>
                                     @endforeach
                                 </select>
                             </div>
