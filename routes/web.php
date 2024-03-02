@@ -11,6 +11,7 @@ use App\Http\Controllers\manajer\ManajerBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerKaryawanController;
 use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\SisaCutiController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,4 +67,9 @@ Route::group(['prefix' => 'kerani'], function () {
     Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
 
     Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
+});
+
+Route::group(['prefix' => 'login'], function () {
+    Route::get('/', [LoginController::class, 'index'])->name('login.index');
+    Route::post('/login', [LoginController::class, 'ceklogin']);
 });

@@ -6770,10 +6770,11 @@ span.flatpickr-weekday {
     height: 100vh;
     width: 650px;
     background: #fff;
-    display: flex;
+    display: absolute;
     justify-content: center;
     flex-direction: column;
     padding: 80px;
+    align-items: center;
 }
 
 @media (max-width: 1200px) {
