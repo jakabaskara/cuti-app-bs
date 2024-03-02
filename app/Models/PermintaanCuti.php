@@ -45,9 +45,11 @@ class PermintaanCuti extends Model
         return $this->belongsTo(pairing::class, 'id_pairing');
     }
 
-    public static function getPendingCuti()
+    public static function getPendingCuti($idAtasan)
     {
-        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1');
+        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->whereHas('pairing', function ($query) use ($idAtasan) {
+            $query->where('id_atasan', $idAtasan)->where('id_atasan', '!=', $idAtasan);
+        });
         return $data;
     }
 

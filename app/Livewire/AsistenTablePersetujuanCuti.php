@@ -12,7 +12,8 @@ class AsistenTablePersetujuanCuti extends Component
 
     public function render()
     {
-        $this->cutiPendings  = PermintaanCuti::getPendingCuti()->get();
+        $idAtasan = 1;
+        $this->cutiPendings  = PermintaanCuti::getPendingCuti(1)->get();
         return view('livewire.asisten-table-persetujuan-cuti');
     }
 
