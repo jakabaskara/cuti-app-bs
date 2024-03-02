@@ -9,7 +9,7 @@ class Pairing extends Model
 {
     use HasFactory;
 
-    protected $table = 'Pairing';
+    protected $table = 'pairing';
 
     protected $fillable = [
         'id_atasan',
