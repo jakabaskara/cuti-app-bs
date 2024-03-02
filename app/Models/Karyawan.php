@@ -16,7 +16,7 @@ class Karyawan extends Model
         'nama_karyawan',
         'jabatan',
         'tmt_bekerja',
-        'tgl_diangkat_start',
+        'tgl_diangkat_staf',
         'id_posisi',
     ];
 

@@ -89,37 +89,43 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nama" class="form-label">Status Karyawan</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
+                                <label for="Jabatan" class="form-label">Jabatan</label>
+                                <select class="form-select" aria-label="Jabatan">
+                                    {{-- <option selected value="{{ old('jabatan') }}"> </option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="3">Three</option> --}}
+                                    <option selected disabled=>Pilih Jabatan</option>
+                                    @foreach ($karyawan as $karyawans)
+                                        <option value="{{ $karyawan->id }}">{{ $karyawan->jabatan }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="date" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="date" class="form-control" name="date" value="" />
+                                <input type="date" class="form-control" name="date" value="{{ 'tmt_bekerja' }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="date" class="form-label">Tanggal Diangkat Menjadi Staff</label>
-                                <input type="date" class="form-control" name="date" value="" />
+                                <label for="date" class="form-label">Tanggal Diangkat Menjadi Staf</label>
+                                <input type="date" class="form-control" name="date"
+                                    value="{{ old('tgl_diangkat_staf') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="id posisi" class="form-label">ID Posisi</label>
-                                <input type="text" class="form-control" name="id posisi" value="" />
+                                <input type="text" class="form-control" name="id posisi"
+                                    value="{{ old('id_posisi') }}" />
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <button type="button" class="btn btn-primary">Ajukan</button>
+                    <button type="submit" class="btn btn-primary">Ajukan</button>
                 </div>
             </div>
         </div>
