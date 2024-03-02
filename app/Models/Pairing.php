@@ -26,6 +26,11 @@ class Pairing extends Model
         return $this->belongsTo(Posisi::class, 'id_bawahan');
     }
 
+    public function permintaanCuti()
+    {
+        return $this->hasMany(PermintaanCuti::class, 'id_pairing');
+    }
+
     public static function getDaftarKaryawanCuti($idAtasan)
     {
         return self::where('id_atasan', $idAtasan);

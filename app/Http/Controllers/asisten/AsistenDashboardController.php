@@ -13,6 +13,9 @@ class AsistenDashboardController extends Controller
 
     public function index()
     {
+        $idUser = 1;
+
+
         return view('asisten.index');
     }
 
@@ -22,8 +25,13 @@ class AsistenDashboardController extends Controller
         // return view('asisten.pengajuan-cuti', [
         //     'dataPairing' => $dataPairing
         // ]);
+        $idUser = 1;
 
-        return view('asisten.pengajuan-cuti');
+        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
+
+        return view('asisten.pengajuan-cuti', [
+            'riwayats' => $riwayat,
+        ]);
     }
 
     public function submitCuti(Request $request)
@@ -37,15 +45,20 @@ class AsistenDashboardController extends Controller
             'alamat' => 'required',
         ]);
 
-        list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
+        if (strlen($request->tanggal_cuti) != 10) {
+            list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
+            // Konversi string tanggal menjadi format timestamp
+            $startDate = strtotime($startDate);
+            $endDate = strtotime($endDate);
 
-        // Konversi string tanggal menjadi format timestamp
-        $startDate = strtotime($startDate);
-        $endDate = strtotime($endDate);
+            // Format ulang tanggal ke format yang diinginkan
+            $startDate = date("Y-m-d", $startDate);
+            $endDate = date("Y-m-d", $endDate);
+        } else {
+            $startDate = $request->tanggal_cuti;
+            $endDate = $request->tanggal_cuti;
+        };
 
-        // Format ulang tanggal ke format yang diinginkan
-        $startDate = date("Y-m-d", $startDate);
-        $endDate = date("Y-m-d", $endDate);
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 

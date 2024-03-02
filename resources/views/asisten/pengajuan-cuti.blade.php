@@ -24,7 +24,55 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            @livewire('asisten-tabel-pengajuan-cuti')
+                            {{-- @livewire('asisten-tabel-pengajuan-cuti') --}}
+                            <div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-sm table-hover">
+                                        <thead class="table-dark">
+                                            <tr class="text-center align-middle">
+                                                <th>No.</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>Jenis Cuti</th>
+                                                <th>Jumlah<br>Hari</th>
+                                                <th>Periode Tanggal</th>
+                                                <th>Alasan</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @foreach ($riwayats as $riwayat)
+                                                <tr class="text-center">
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ $riwayat->karyawan->NIK }}</td>
+                                                    <td>{{ $riwayat->karyawan->nama }}</td>
+                                                    <td>{{ $riwayat->jenisCuti->jenis_cuti }}</td>
+                                                    <td>{{ $riwayat->jumlah_hari_cuti }}</td>
+                                                    <td>{{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
+                                                    </td>
+                                                    <td>{{ $riwayat->alasan }}</td>
+                                                    @if ($riwayat->is_approved == 1)
+                                                        <td> <span class="badge badge-success p-2">Disetujui</span> </td>
+                                                    @elseif ($riwayat->is_rejected == 1)
+                                                        <td> <span class="badge badge-danger p-2">Ditolak</span> </td>
+                                                    @else
+                                                        <td> <span class="badge badge-warning p-2">Pending</span> </td>
+                                                    @endif
+                                                    <td></td>
+                                                </tr>
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

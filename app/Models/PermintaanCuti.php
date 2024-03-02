@@ -40,6 +40,11 @@ class PermintaanCuti extends Model
         return $this->hasMany(RiwayatCuti::class, 'id_permintaan_cuti');
     }
 
+    public function pairing()
+    {
+        return $this->belongsTo(pairing::class, 'id_pairing');
+    }
+
     public static function getPendingCuti()
     {
         $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1');
@@ -49,6 +54,15 @@ class PermintaanCuti extends Model
     public static function getPendingCutiAtAsisten($id)
     {
         $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->where('id_pairing', $id);
+        return $data;
+    }
+
+    public static function getHistoryCuti($idAtasan)
+    {
+        $data = self::whereHas('pairing', function ($query) use ($idAtasan) {
+            $query->where('id_atasan', $idAtasan);
+        })->get()->sortByDesc('id');
+
         return $data;
     }
 }

@@ -24,8 +24,9 @@ class AsistenModalAddCuti extends Component
 
     public function render()
     {
+        $idUser = 1;
         $this->jenisCuti = JenisCuti::get();
-        $this->dataPairing = Pairing::getDaftarKaryawanCuti(1)->get();
+        $this->dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         return view('livewire.asisten-modal-add-cuti');
     }
 
