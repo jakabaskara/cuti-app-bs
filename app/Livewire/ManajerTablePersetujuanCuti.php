@@ -12,7 +12,7 @@ class ManajerTablePersetujuanCuti extends Component
 
     public function render()
     {
-        $this->cutiPendings  = PermintaanCuti::getPendingCuti()->get();
+        $this->cutiPendings  = PermintaanCuti::getPendingCuti(1)->get();
         return view('livewire.manajer-table-persetujuan-cuti');
     }
 
