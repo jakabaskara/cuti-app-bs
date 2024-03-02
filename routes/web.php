@@ -45,9 +45,9 @@ Route::group(['prefix' => 'asisten'], function () {
 Route::group(['prefix' => 'manajer'], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('manajer.karyawan.index');
-    Route::get('/pengajuan-cuti', [AsistenDashboardController::class, 'pengajuanCuti'])->name('asisten.pengajuan-cuti');
+    Route::get('/pengajuan-cuti', [AsistenDashboardController::class, 'pengajuanCuti'])->name('manajer.pengajuan-cuti');
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
-    Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
+    Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('manajer.cuti.index');
 
 
     Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('manajer.download.pdf');

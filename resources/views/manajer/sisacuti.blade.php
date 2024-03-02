@@ -1,4 +1,5 @@
 @extends('manajer.layout.main')
+
 @section('content')
     <div class="row">
         <div class="col">
