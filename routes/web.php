@@ -8,6 +8,7 @@ use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\kerani\KeraniDashboardController;
 use App\Http\Controllers\kerani\KeraniBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerBeritaCutiController;
+use App\Http\Controllers\manajer\ManajerKaryawanController;
 use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\SisaCutiController;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +47,7 @@ Route::group(['prefix' => 'asisten'], function () {
 
 Route::group(['prefix' => 'manajer'], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
-    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('manajer.karyawan.index');
+    Route::get('/karyawan', [ManajerKaryawanController::class, 'index'])->name('manajer.karyawan.index');
     Route::get('/pengajuan-cuti', [ManajerDashboardController::class, 'pengajuanCuti'])->name('manajer.pengajuan-cuti');
     Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
     Route::get('/cuti', [ManajerBeritaCutiController::class, 'index'])->name('manajer.cuti.index');
