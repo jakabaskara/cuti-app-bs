@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
+        Schema::create('keanggotaan', function (Blueprint $table) {
             $table->id();
-            $table->enum('nama_role', ['user', 'kerani', 'asisten', 'gm', 'sevp', 'manajer', 'kabag']);
+            $table->foreignId('id_posisi')->constrained('posisi');
+            $table->foreignId('id_anggota')->constrained('posisi');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('role');
+        Schema::dropIfExists('keanggotaan');
     }
 };
