@@ -148,99 +148,13 @@
             </div>
         </div>
     </div>
-    <div class="row mt-1">
+
+    <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                + Ajukan Cuti
-                            </button>
-                        </div>
-                        <div class="col">
-                            <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-sm table-hover">
-                                    <thead class="table-dark">
-                                        <tr class="text-center">
-                                            <th>No.</th>
-                                            <th>NIK</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Cuti</th>
-                                            <th>Periode Tanggal</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Cuti</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="nama" class="form-label">Nama Karyawan</label>
-                            <select class="form-select" aria-label="Nama Karyawan">
-                                <option selected value=""> </option>
-                                {{-- @foreach ($karyawans as $karyawan)
-                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="nama" class="form-label">Jenis Cuti</label>
-                            <select class="form-select" aria-label="Nama Karyawan">
-                                <option selected value=""> </option>
-                                <option value="1">Cuti Tahunan</option>
-                                <option value="2">Cuti Panjang</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="daterange" class="form-label">Tanggal Cuti</label>
-                            <input type="text" class="form-control flatpickr1" name="daterange" value="" />
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="alasan" class="form-label">Alasan Cuti</label>
-                            <input type="text" class="form-control" name="alasan" value="" />
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" name="alamat" value="" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <form action="{{ route('admin.tambahCuti') }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-primary">Ajukan</button>
-                    </form>
+                <div class="card-header">
+                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <hr>
                 </div>
             </div>
         </div>

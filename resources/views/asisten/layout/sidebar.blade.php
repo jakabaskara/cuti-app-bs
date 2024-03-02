@@ -20,9 +20,9 @@
                     class="{{ request()->route()->uri == 'asisten' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
-                <a href="{{ route('admin.karyawan.index') }}"
-                    class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
+            <li class="{{ request()->route()->uri == 'asisten/pengajuan-cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('asisten.pengajuan-cuti') }}"
+                    class="{{ request()->route()->uri == 'asisten/pengajuan-cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
