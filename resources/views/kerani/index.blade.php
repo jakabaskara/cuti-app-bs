@@ -3,6 +3,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 
 @section('content')
@@ -176,7 +177,8 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="daterange" class="form-label">Tanggal Cuti</label>
-                            <input type="text" class="form-control flatpickr1" name="daterange" value="" />
+                            <input type="text" class="form-control flatpickr1" name="daterange" id="daterange" value="" />
+                            <p id="jumlah-hari"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -209,17 +211,36 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
+        // $(function() {
+        //     $('input[name="daterange"]').daterangepicker({
+        //         opens: 'left'
+        //     }, function(start, end, label) {
+        //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+        //             .format('YYYY-MM-DD'));
+        //     });
 
-            $('#datatable2').DataTable();
-        });
+        //     $('#datatable2').DataTable();
+        // });
+
+        flatpickr('.flatpickr1', {
+        mode: 'range',
+        onChange: function(selectedDates, dateStr, instance) {
+            if(selectedDates.length >= 2) {
+                var startDate = selectedDates[0];
+                var endDate = selectedDates[selectedDates.length - 1];
+                
+                // Hitung selisih dalam milidetik
+                var difference = endDate.getTime() - startDate.getTime();
+                
+                // Konversi selisih ke jumlah hari
+                var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+                
+                document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+            }
+        }
+    });
     </script>
 @endsection
