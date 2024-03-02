@@ -29,8 +29,8 @@
                                     <th class="text-dark">Nama</th>
                                     <th class="text-dark">Status Karyawan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
-                                    <th class="text-dark">Tanggal Diangkat Staff</th>
-                                    <th class="text-dark">Unit Kerja</th>
+                                    <th class="text-dark">Tanggal Diangkat Staf</th>
+                                    <th class="text-dark">ID Posisi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,7 +41,7 @@
                                     <td>10</td>
                                     <td>21</td>
                                 </tr> --}}
-                                @forelse ($karyawans as $karyawan)
+                                @forelse ($karyawan as $karyawan)
                                     <tr>
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
