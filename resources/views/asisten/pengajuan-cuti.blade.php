@@ -1,7 +1,7 @@
 @extends('asisten.layout.main')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 
 @section('content')
@@ -51,7 +51,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Cuti</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" x-data="{ dateRange: '', numberOfDays: 0 }">
+                <div class="modal-body">
                     <div class="row mb-3">
                         <div class="col">
                             <label for="nama" class="form-label">Nama Karyawan</label>
@@ -81,14 +81,13 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="daterange" class="form-label">Tanggal Cuti</label>
-                            <input type="text" class="form-control flatpickr1" name="daterange" value=""
-                                x-on:change="dateRange = $event.target.value" />
+                            <input type="text" class="form-control flatpickr1" name="daterange" value="" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <p class="text-dark" x-text="dateRange"> Jumlah Hari Cuti: 0</p>
-                            <input type="hidden" name="jumlahCuti">
+                            <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
+                            <input type="hidden" id="jumlahHari" name="jumlahCuti">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -118,30 +117,25 @@
 @section('script')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
-        });
+        flatpickr('.flatpickr1', {
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
 
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('dateRange', () => ({
-                dateRange: '',
-                numberOfDays: 0,
-                updateNumberOfDays() {
-                    const dates = this.dateRange.split(' - ');
-                    const start = new Date(dates[0]);
-                    const end = new Date(dates[1]);
-                    const differenceInTime = end.getTime() - start.getTime();
-                    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-                    this.numberOfDays = Math.abs(Math.round(differenceInDays)) + 1;
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
+
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+
+                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+                    document.getElementById("jumlahHari").value = daysDifference;
                 }
-            }));
-        });
+            }
+        })
     </script>
 @endsection

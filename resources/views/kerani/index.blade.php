@@ -129,8 +129,9 @@
                                             <td>Pontianak</td>
                                             <td>
                                                 <div class="col">
-                                                    <a href="{{ route('kerani.download.pdf') }}" class="btn btn-primary"><span class="material-icons">
-                                                        file_download
+                                                    <a href="{{ route('kerani.download.pdf') }}"
+                                                        class="btn btn-primary"><span class="material-icons">
+                                                            file_download
                                                         </span></a>
                                                 </div>
                                             </td>
@@ -158,6 +159,11 @@
                             <label for="nama" class="form-label">Nama Karyawan</label>
                             <select class="form-select" aria-label="Nama Karyawan">
                                 <option selected value=""> </option>
+                                @foreach ($dataPairing as $pairing)
+                                    <option value="{{ $pairing->bawahan->karyawan->first()->id }}">
+                                        {{ $pairing->bawahan->karyawan->first()->nama }}
+                                    </option>
+                                @endforeach
                                 {{-- @foreach ($karyawans as $karyawan)
                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
                                 @endforeach --}}
@@ -177,7 +183,8 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="daterange" class="form-label">Tanggal Cuti</label>
-                            <input type="text" class="form-control flatpickr1" name="daterange" id="daterange" value="" />
+                            <input type="text" class="form-control flatpickr1" name="daterange" id="daterange"
+                                value="" />
                             <p id="jumlah-hari"></p>
                         </div>
                     </div>
@@ -226,21 +233,21 @@
         // });
 
         flatpickr('.flatpickr1', {
-        mode: 'range',
-        onChange: function(selectedDates, dateStr, instance) {
-            if(selectedDates.length >= 2) {
-                var startDate = selectedDates[0];
-                var endDate = selectedDates[selectedDates.length - 1];
-                
-                // Hitung selisih dalam milidetik
-                var difference = endDate.getTime() - startDate.getTime();
-                
-                // Konversi selisih ke jumlah hari
-                var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
-                
-                document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
+
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
+
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+                }
             }
-        }
-    });
+        });
     </script>
 @endsection

@@ -156,6 +156,9 @@
                     <h5>Daftar Cuti yang Disetujui</h5>
                     <hr>
                 </div>
+                <div class="card-body">
+
+                </div>
             </div>
         </div>
     </div>
