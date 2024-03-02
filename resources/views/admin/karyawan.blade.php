@@ -41,6 +41,20 @@
                                     <td>10</td>
                                     <td>21</td>
                                 </tr> --}}
+                                @forelse ($karyawans as $karyawan)
+                                    <tr>
+                                        <th>{{ $loop->iteration }}</th>
+                                        <td>{{ $karyawan->NIK }}</td>
+                                        <td>{{ $karyawan->nama }}</td>
+                                        <td>{{ $karyawan->jabatan }}</td>
+                                        <td>{{ $karyawan->TMT_bekerja }}</td>
+                                        <td>{{ $karyawan->tgl_diangkat_staf }}</td>
+                                        <td>{{ $karyawan->id_posisi }}</td>
+
+                                    </tr>
+                                @empty
+                                    <td colspan="6" class="text-center">Data Not Found</td>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
