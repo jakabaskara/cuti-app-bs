@@ -14,8 +14,8 @@ class PermintaanCuti extends Model
     protected $fillable = [
         'id_karyawan',
         'id_jenis_cuti',
-        'tgl_mulai',
-        'tgl_selesai',
+        'tanggal_mulai',
+        'tanggal_selesai',
         'jumlah_hari_cuti',
         'id_pairing',
         'alamat',
@@ -42,13 +42,13 @@ class PermintaanCuti extends Model
 
     public static function getPendingCuti()
     {
-        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0');
+        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1');
         return $data;
     }
 
     public static function getPendingCutiAtAsisten($id)
     {
-        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0')->where('id_pairing', $id);
+        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->where('id_pairing', $id);
         return $data;
     }
 }
