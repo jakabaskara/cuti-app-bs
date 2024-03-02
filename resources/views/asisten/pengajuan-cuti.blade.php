@@ -2,11 +2,12 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    @livewireStyles();
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    {{-- @livewireStyles; --}}
 @endsection
 
 @section('content')
-    <div class="row mt-1">
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -27,7 +28,7 @@
                             {{-- @livewire('asisten-tabel-pengajuan-cuti') --}}
                             <div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-sm table-hover">
+                                    <table class="table table-bordered table-sm table-hover" id="datatable1">
                                         <thead class="table-dark">
                                             <tr class="text-center align-middle">
                                                 <th>No.</th>
@@ -62,7 +63,26 @@
                                                     @else
                                                         <td> <span class="badge badge-warning p-2">Pending</span> </td>
                                                     @endif
-                                                    <td></td>
+                                                    @if ($riwayat->is_rejected == 0 && $riwayat->is_approved == 0 && $riwayat->is_checked == 1)
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <button
+                                                                        class="btn btn-sm px-2 py-0 m-0 btn-warning"><span
+                                                                            class="material-icons">
+                                                                            edit_note
+                                                                        </span></button>
+                                                                    <button
+                                                                        class="btn btn-sm px-2 py-0 m-0 btn-danger"><span
+                                                                            class="material-icons">
+                                                                            delete
+                                                                        </span></button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @else
+                                                        <td></td>
+                                                    @endif
                                                 </tr>
                                                 @php
                                                     $i++;
@@ -72,7 +92,6 @@
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -86,8 +105,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
+
+            $('#datatable1').DataTable();
+
 
             flatpickr('.flatpickr1', {
                 mode: 'range',
@@ -110,5 +134,5 @@
             })
         })
     </script>
-    @livewireScripts;
+    @livewireScripts();
 @endsection

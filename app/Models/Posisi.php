@@ -42,4 +42,9 @@ class Posisi extends Model
     {
         return $this->hasMany(Pairing::class, 'id_bawahan');
     }
+
+    public function keanggotaan()
+    {
+        return $this->hasMany(Keanggotaan::class, 'id_posisi');
+    }
 }
