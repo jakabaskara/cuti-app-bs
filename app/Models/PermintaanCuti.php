@@ -17,6 +17,7 @@ class PermintaanCuti extends Model
         'tgl_mulai',
         'tgl_selesai',
         'jumlah_hari_cuti',
+        'id_pairing',
         'alamat',
         'alasan',
         'is_approved',
@@ -45,9 +46,9 @@ class PermintaanCuti extends Model
         return $data;
     }
 
-    public static function getPendingCutiAtAsisten()
+    public static function getPendingCutiAtAsisten($id)
     {
-        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0');
+        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0')->where('id_pairing', $id);
         return $data;
     }
 }
