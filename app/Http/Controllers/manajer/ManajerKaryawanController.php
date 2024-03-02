@@ -35,9 +35,11 @@ class ManajerKaryawanController extends Controller
                 'id_posisi'=> 'required',
             ]
             );
+
+
             Karyawan::create([
                 'nik'=> $validateData['nik'],
-                'nama_karyawan'=> $validateData['nama_karyawan'],
+                'nama'=> $validateData['nama_karyawan'],
                 'jabatan'=> $validateData['jabatan'],
                 'tmt_bekerja'=> $validateData['tmt_bekerja'],
                 'tgl_diangkat_staf'=> $validateData['tgl_diangkat_staf'],

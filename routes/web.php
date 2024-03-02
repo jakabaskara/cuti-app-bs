@@ -51,7 +51,7 @@ Route::group(['prefix' => 'asisten'], function () {
 Route::group(['prefix' => 'manajer'], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
     Route::get('/karyawan', [ManajerKaryawanController::class, 'index'])->name('manajer.karyawan.index');
-    Route::post('/karyawan', [ManajerKaryawanController::class, 'tambahKaryawan'])->name('manajer.karyawan.index');
+    Route::post('/karyawan', [ManajerKaryawanController::class, 'tambahKaryawan'])->name('manajer.tambahKaryawan');
     Route::get('/pengajuan-cuti', [ManajerKaryawanController::class, 'pengajuanCuti'])->name('manajer.pengajuan-cuti');
     Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
     Route::get('/cuti', [ManajerBeritaCutiController::class, 'index'])->name('manajer.cuti.index');

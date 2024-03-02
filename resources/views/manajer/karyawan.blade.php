@@ -5,6 +5,15 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row">
         <div class="col">
             <div class="card">
@@ -27,7 +36,7 @@
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK</th>
                                     <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Status Karyawan</th>
+                                    <th class="text-dark">Jabatan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staf</th>
                                     <th class="text-dark">ID Posisi</th>
@@ -71,26 +80,27 @@
                     <h5 class="modal-title" id="exampleModalLabel">Form Penambahan Karyawan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="" method="post">
+                <form action="{{ route('manajer.tambahKaryawan') }}" method="post">
+                    @csrf
+                    <div class="modal-body">
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="NIK" class="form-label">NIK</label>
-                                <input type="text" class="form-control" id="NIK" name="NIK"
+                                <input type="text" class="form-control" id="NIK" name="nik"
                                     value="{{ old('nik') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="Nama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="Nama"
+                                <input type="text" class="form-control" name="nama_karyawan"
                                     value="{{ old('nama_karyawan') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="Jabatan" class="form-label">Jabatan</label>
-                                <select class="form-select" aria-label="Jabatan">
+                                <select class="form-select" aria-label="jabatan" name="jabatan">
                                     {{-- <option selected value="{{ old('jabatan') }}"> </option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -105,28 +115,30 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="date" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="date" class="form-control" name="date" value="{{ 'tmt_bekerja' }}" />
+                                <input type="date" class="form-control" name="tmt_bekerja"
+                                    value="{{ 'tmt_bekerja' }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="date" class="form-label">Tanggal Diangkat Menjadi Staf</label>
-                                <input type="date" class="form-control" name="date"
+                                <input type="date" class="form-control" name="tgl_diangkat_staf"
                                     value="{{ old('tgl_diangkat_staf') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="id posisi" class="form-label">ID Posisi</label>
-                                <input type="text" class="form-control" name="id posisi"
+                                <input type="text" class="form-control" name="id_posisi"
                                     value="{{ old('id_posisi') }}" />
                             </div>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <button type="submit" class="btn btn-primary">Ajukan</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn btn-primary">Ajukan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
