@@ -31,9 +31,9 @@
                     class="{{ request()->route()->uri == 'manajer/sisacuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
             </li>
-            <li class="{{ request()->route()->uri == 'kerani/cuti' ? 'active-page' : '' }}">
-                <a href="{{ route('kerani.cuti.index') }}"
-                    class="{{ request()->route()->uri == 'kerani/cuti' ? 'active' : '' }}"><i
+            <li class="{{ request()->route()->uri == 'manajer/cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('manajer.cuti.index') }}"
+                    class="{{ request()->route()->uri == 'manajer/cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">inbox</i>Berita Karyawan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
