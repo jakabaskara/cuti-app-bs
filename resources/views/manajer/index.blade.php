@@ -145,7 +145,8 @@
             </div>
         </div>
     </div>
-    <div class="row mt-1">
+
+    {{-- <div class="row mt-1">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -181,10 +182,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,9 +198,9 @@
                             <label for="nama" class="form-label">Nama Karyawan</label>
                             <select class="form-select" aria-label="Nama Karyawan">
                                 <option selected value=""> </option>
-                                {{-- @foreach ($karyawans as $karyawan)
+                                @foreach ($karyawans as $karyawan)
                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -241,6 +242,20 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <hr>
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -248,38 +263,37 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
-        //     $(function() {
-        //         $('input[name="daterange"]').daterangepicker({
-        //             opens: 'left'
-        //         }, function(start, end, label) {
-        //             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-        //                 .format('YYYY-MM-DD'));
-        //         });
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+            }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+                    .format('YYYY-MM-DD'));
+            });
 
-        //         $('#datatable2').DataTable();
-        //     });
-        // 
-
-        flatpickr('.flatpickr1', {
-            mode: 'range',
-            onChange: function(selectedDates, dateStr, instance) {
-                if (selectedDates.length >= 2) {
-                    var startDate = selectedDates[0];
-                    var endDate = selectedDates[selectedDates.length - 1];
-
-                    // Hitung selisih dalam milidetik
-                    var difference = endDate.getTime() - startDate.getTime();
-
-                    // Konversi selisih ke jumlah hari
-                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
-
-                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
-                }
-            }
+            $('#datatable2').DataTable();
         });
+
+        function round_success_noti() {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Cuti Disetujui!'
+            });
+        }
+        $('.noti').on('click', function() {
+            round_success_noti();
+        })
     </script>
+
+    @livewireScripts()
 @endsection

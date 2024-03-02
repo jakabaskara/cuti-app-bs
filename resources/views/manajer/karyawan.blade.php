@@ -30,7 +30,7 @@
                                     <th class="text-dark">Status Karyawan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staff</th>
-                                    <th class="text-dark">Unit Kerja</th>
+                                    <th class="text-dark">ID Posisi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +41,20 @@
                                     <td>10</td>
                                     <td>21</td>
                                 </tr> --}}
+                                @forelse ($karyawan as $karyawan)
+                                    <tr>
+                                        <th>{{ $loop->iteration }}</th>
+                                        <td>{{ $karyawan->NIK }}</td>
+                                        <td>{{ $karyawan->nama }}</td>
+                                        <td>{{ $karyawan->jabatan }}</td>
+                                        <td>{{ $karyawan->TMT_bekerja }}</td>
+                                        <td>{{ $karyawan->tgl_diangkat_staf }}</td>
+                                        <td>{{ $karyawan->id_posisi }}</td>
+
+                                    </tr>
+                                @empty
+                                    <td colspan="6" class="text-center">Data Not Found</td>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -61,14 +75,16 @@
                     <form action="" method="post">
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">NIK</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="NIK" class="form-label">NIK</label>
+                                <input type="text" class="form-control" id="NIK" name="NIK"
+                                    value="{{ old('nik') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="Nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" name="Nama"
+                                    value="{{ old('nama_karyawan') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -96,8 +112,8 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">Unit Kerja</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="id posisi" class="form-label">ID Posisi</label>
+                                <input type="text" class="form-control" name="id posisi" value="" />
                             </div>
                         </div>
                 </div>

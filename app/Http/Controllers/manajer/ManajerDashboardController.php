@@ -4,6 +4,7 @@ namespace App\Http\Controllers\manajer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pairing;
+use App\Models\PermintaanCuti;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Livewire\Features\SupportFormObjects\Form;

@@ -10,8 +10,10 @@ class ManajerKaryawanController extends Controller
 {
     public function index()
     {
-        return view('manajer.karyawan');
+        $karyawan = Karyawan::all();
+        return view('manajer.karyawan',['karyawan' => $karyawan]);
     }
 
+    
   
 }

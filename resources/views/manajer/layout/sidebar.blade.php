@@ -20,10 +20,16 @@
                     class="{{ request()->route()->uri == 'manajer' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
+            <li class="{{ request()->route()->uri == 'manajer/pengajuan-cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('manajer.pengajuan-cuti') }}"
+                    class="{{ request()->route()->uri == 'manajer/pengajuan-cuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">create</i>Pengajuan Cuti<span
+                        class="badge rounded-pill badge-danger float-end"></span></a>
+            </li>
             <li class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('manajer.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">inbox</i>Karyawan<span
+                        class="material-icons-two-tone">groups_2</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li class="{{ request()->route()->uri == 'manajer/sisacuti' ? 'active-page' : '' }}">
@@ -34,8 +40,7 @@
             <li class="{{ request()->route()->uri == 'manajer/cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('manajer.cuti.index') }}"
                     class="{{ request()->route()->uri == 'manajer/cuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">inbox</i>Berita Karyawan Cuti<span
-                        class="badge rounded-pill badge-danger float-end"></span></a>
+                        class="material-icons-two-tone">event</i>Berita Karyawan Cuti</a>
             </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
