@@ -41,7 +41,7 @@
                                     <td>10</td>
                                     <td>21</td>
                                 </tr> --}}
-                                @forelse ($karyawan as $karyawan)
+                                @forelse ($karyawan as $karyawans)
                                     <tr>
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
