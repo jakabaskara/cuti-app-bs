@@ -50,20 +50,24 @@
                     <img src="assets/images/avatars/avatarlogo.png" height="80" width="80" alt="">
                     <h3 class="mt-3">Regional Lima Cuti Online</h3>
                 </div>
-                <div class="auth-credentials m-b-xxl">
-                    <label class="form-label">Username</label>
-                    <input type="" class="form-control m-b-md" id="signInUsername"
-                        aria-describedby="signInUsername" placeholder="username">
+                <form action="" method="post">
 
-                    <label for="signInPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="signInPassword" aria-describedby="signInPassword"
-                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
-                </div>
+                    <div class="auth-credentials m-b-xxl">
+                        <label class="form-label">Username</label>
+                        <input type="" class="form-control m-b-md" id="signInUsername"
+                            aria-describedby="signInUsername" placeholder="username">
 
-                <div class="auth-submit">
-                    <a href="#" class="btn btn-primary">Sign In</a>
-                    <a href="#" class="auth-forgot-password float-end">Forgot password?</a>
-                </div>
+                        <label for="signInPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="signInPassword"
+                            aria-describedby="signInPassword"
+                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                    </div>
+
+                    <div class="auth-submit">
+                        <a href="#" class="btn btn-primary">Sign In</a>
+                        <a href="#" class="auth-forgot-password float-end">Forgot password?</a>
+                    </div>
+                </form>
                 <div class="divider"></div>
                 <p class="text-muted text-center mb-5">Versi 1.0</p>
                 <p class="mt-5  text-center">@Copyright Bagian SDM & Sistem Manajemen 2024</p>
