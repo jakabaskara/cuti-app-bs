@@ -53,7 +53,7 @@ Route::group(['prefix' => 'manajer'], function () {
     Route::get('/karyawan', [ManajerKaryawanController::class, 'index'])->name('manajer.karyawan.index');
     Route::post('/karyawan', [ManajerKaryawanController::class, 'tambahKaryawan'])->name('manajer.karyawan.index');
     Route::get('/pengajuan-cuti', [ManajerKaryawanController::class, 'pengajuanCuti'])->name('manajer.pengajuan-cuti');
-    Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');   
+    Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
     Route::get('/cuti', [ManajerBeritaCutiController::class, 'index'])->name('manajer.cuti.index');
 
 
@@ -65,7 +65,6 @@ Route::group(['prefix' => 'manajer'], function () {
 Route::group(['prefix' => 'kerani'], function () {
     Route::get('/', [KeraniDashboardController::class, 'index'])->name('kerani.index');
     Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
-    Route::get('/', [KeraniDashboardController::class, 'pengajuanCuti'])->name('kerani.index');
 
     Route::post('/add-cuti', [KeraniDashboardController::class, 'submitCuti'])->name('kerani.submit-cuti');
     // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');

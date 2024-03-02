@@ -4,15 +4,20 @@ namespace App\Http\Controllers\kerani;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pairing;
+use App\Models\PermintaanCuti;
 use Illuminate\Http\Request;
 
 class KeraniDashboardController extends Controller
 {
     public function index()
     {
-        $dataPairing = Pairing::getDaftarKaryawanCuti(1)->get();
+        $idUser = 1;
+        $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
+        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
+
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
+            'riwayats' => $riwayat,
         ]);
     }
 
@@ -70,5 +75,4 @@ class KeraniDashboardController extends Controller
             'riwayats' => $riwayat,
         ]);
     }
-
 }
