@@ -42,7 +42,7 @@ class PermintaanCuti extends Model
 
     public function pairing()
     {
-        return $this->belongsTo(pairing::class, 'id_pairing');
+        return $this->belongsTo(Pairing::class, 'id_pairing');
     }
 
     public static function getPendingCuti($idAtasan)
