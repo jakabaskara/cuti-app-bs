@@ -44,4 +44,10 @@ class PermintaanCuti extends Model
         $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0');
         return $data;
     }
+
+    public static function getPendingCutiAtAsisten()
+    {
+        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '0');
+        return $data;
+    }
 }
