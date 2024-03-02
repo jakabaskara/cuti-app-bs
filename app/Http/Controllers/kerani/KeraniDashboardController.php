@@ -60,19 +60,4 @@ class KeraniDashboardController extends Controller
 
         return redirect()->back();
     }
-
-    public function pengajuanCuti()
-    {
-        // $dataPairing = Pairing::getDaftarKaryawanCuti(1)->get();
-        // return view('asisten.pengajuan-cuti', [
-        //     'dataPairing' => $dataPairing
-        // ]);
-        $idUser = 1;
-
-        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
-
-        return view('kerani.index', [
-            'riwayats' => $riwayat,
-        ]);
-    }
 }
