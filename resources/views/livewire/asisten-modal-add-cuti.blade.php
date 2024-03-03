@@ -68,9 +68,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        {{-- <div wire:loading class="f-14 text-dark"> <span
+                        <div wire:loading class="f-14 text-dark"> <span
                                 class="spinner-grow text-danger align-middle"></span>
-                            Loading...</div> --}}
+                            Loading...</div>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
                         <button type="submit" class="btn btn-primary">Ajukan</button>
                     </div>

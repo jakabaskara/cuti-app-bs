@@ -55,7 +55,7 @@
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
                                         <td>{{ $karyawan->nama }}</td>
-                                        <td>{{ $karyawan->jabatan }}</td>
+                                        <td>{{ $karyawan->posisi->jabatan }}</td>
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
@@ -108,9 +108,10 @@
                                     <option value="3">Three</option> --}}
                                     <option selected disabled=>Pilih Jabatan</option>
                                     @foreach ($karyawan as $karyawans)
-                                        <option value="{{ $karyawan->id_posisi }}">
+                                        <option value="{{ $karyawan->id }}">
                                             {{ $karyawan->jabatan }}</option>
                                     @endforeach
+
                                 </select>
                             </div>
                         </div>

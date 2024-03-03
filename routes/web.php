@@ -10,6 +10,7 @@ use App\Http\Controllers\kerani\KeraniBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerKaryawanController;
 use App\Http\Controllers\manajer\ManajerSisaCutiController;
+use App\Http\Controllers\kabag\KabagDashboardController;
 use App\Http\Controllers\SisaCutiController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::get('/', [AdminDashboardController::class, 'index']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
     Route::get('/karyawan', [AdminKaryawanController::class, 'index'])->name('admin.karyawan.index');
+    Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
@@ -72,6 +74,14 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     // Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
 
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
+});
+
+
+Route::group(['prefix' => 'kabag'], function () {
+    Route::get('/', [KabagDashboardController::class, 'index'])->name('kabag.index');
+    Route::get('/pengajuan-cuti', [KabagDashboardController::class, 'pengajuanCuti'])->name('kabag.pengajuan-cuti');
+
+    Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');

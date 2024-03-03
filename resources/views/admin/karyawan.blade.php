@@ -27,10 +27,11 @@
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK</th>
                                     <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Status Karyawan</th>
+                                    <th class="text-dark">Jabatan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staf</th>
                                     <th class="text-dark">ID Posisi</th>
+                                    <th class="text-dark">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +43,7 @@
                                     <td>21</td>
                                 </tr> --}}
                                 @forelse ($karyawan as $karyawan)
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
                                         <td>{{ $karyawan->nama }}</td>
@@ -50,7 +51,21 @@
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button class="btn btn-sm px-2 py-0 m-0 btn-warning"><span
+                                                            class="material-icons">
+                                                            edit_note
+                                                        </span></button>
 
+                                                    <button class="btn btn-sm px-2 py-0 m-0 btn-danger"><span
+                                                            class="material-icons">
+                                                            delete
+                                                        </span></button>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <td colspan="6" class="text-center">Data Not Found</td>
@@ -63,64 +78,95 @@
         </div>
     </div>
 
+
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Form Penambahan Karyawan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
+        <form action="{{ route('admin.tambahKaryawan') }}" method="post">
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Penambahan Karyawan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">NIK</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="NIK" class="form-label">NIK</label>
+                                <input type="text" class="form-control" id="NIK" name="nik"
+                                    value="{{ old('nik') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="Nama" class="form-label">Nama</label>
+                                <input type="text" class="form-control" name="nama_karyawan"
+                                    value="{{ old('nama_karyawan') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nama" class="form-label">Status Karyawan</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
+                                <label for="Jabatan" class="form-label">Jabatan</label>
+                                <select class="form-select" aria-label="jabatan" name="jabatan">
+                                    {{-- <option selected value="{{ old('jabatan') }}"> </option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="3">Three</option> --}}
+                                    <option selected value="">Pilih Jabatan</option>
+                                    @foreach ($karyawan as $karyawans)
+                                        <option value="{{ $karyawan->id }}">
+                                            {{ $karyawan->jabatan }}</option>
+                                    @endforeach
+
                                 </select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="date" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="date" class="form-control" name="date" value="" />
+                                <label for="daterange" class="form-label">Tanggal Mulai Bekerja</label>
+                                <input type="date" class="form-control " name="tmt_bekerja"
+                                    value="{{ 'tmt_bekerja' }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="date" class="form-label">Tanggal Diangkat Menjadi Staff</label>
-                                <input type="date" class="form-control" name="date" value="" />
+                                <label for="date" class="form-label">Tanggal Diangkat Menjadi Staf</label>
+                                <input type="date" class="form-control" name="tgl_diangkat_staf"
+                                    value="{{ old('tgl_diangkat_staf') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="alasan" class="form-label">Unit Kerja</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
+                                <label for="id posisi" class="form-label">ID Posisi</label>
+                                <input type="text" class="form-control" name="id_posisi"
+                                    value="{{ old('id_posisi') }}" />
+                            </div>
+                            <div class="col">
+                                <label for="id posisi" class="form-label">ID Posisi</label>
+                                <select class="form-select" aria-label="id_posisi" name="id_posisi">
+                                    <option value="">Select Position</option>
+                                    @foreach (\App\Models\Posisi::all() as $position)
+                                        <option value="{{ $position->id }}">{{ $position->name }}</option>
+                                    @endforeach
+                                    {{-- <option selected disabled=>Pilih Jabatan</option>
+                                    @foreach ($karyawan as $karyawans)
+                                        <option value="{{ $karyawan->id }}">
+                                            {{ $karyawan->jabatan }}</option>
+                                    @endforeach --}}
+
+                                </select>
                             </div>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <button type="button" class="btn btn-primary">Ajukan</button>
-                </div>
-            </div>
-        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn btn-primary">Ajukan</button>
+                    </div>
+        </form>
+    </div>
+    </div>
     </div>
     {{-- <div class="row mt-1">
         <div class="col">
