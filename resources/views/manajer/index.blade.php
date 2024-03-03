@@ -70,7 +70,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    @livewire('manajer-table-persetujuan-cuti')
+                    {{-- @livewire('manajer-table-persetujuan-cuti') --}}
                 </div>
             </div>
         </div>
