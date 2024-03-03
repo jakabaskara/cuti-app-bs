@@ -10,6 +10,7 @@ use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\SisaCuti;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -102,5 +103,42 @@ class KeraniDashboardController extends Controller
 
 
         return redirect()->back();
+    }
+
+    public function downloadPermintaanCutiPDF($id)
+    {
+        $permintaanCuti = PermintaanCuti::find($id);
+        $karyawan = $permintaanCuti->karyawan;
+        $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
+        $jabatan = $pairing->atasan->jabatan;
+        $nama = $pairing->atasan->karyawan->first()->nama;
+        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        $cutiPanjangDijalani = 0;
+        $cutiTahunanDijalani = 0;
+        if ($permintaanCuti->id_jenis_cuti == 1) {
+            $cutiPanjangDijalani = $permintaanCuti->jumlah_hari_cuti;
+        } else {
+            $cutiTahunanDijalani = $permintaanCuti->jumlah_hari_cuti;
+        }
+
+        $cutiPanjangDijalani += $sisaCutiPanjang;
+        $cutiTahunanDijalani += $sisaCutiTahunan;
+
+        $pdf = Pdf::loadView('form', [
+            'karyawan' => $karyawan,
+            'namaAtasan' => $nama,
+            'jabatan' => $jabatan,
+            'permintaanCuti' => $permintaanCuti,
+            'sisaCutiPanjang' => $sisaCutiPanjang,
+            'sisaCutiTahunan' => $sisaCutiTahunan,
+            'cutiPanjangDijalani' => $cutiPanjangDijalani,
+            'cutiTahunanDijalani' => $cutiTahunanDijalani,
+
+        ]);
+
+        // return view('form');
+
+        return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
     }
 }

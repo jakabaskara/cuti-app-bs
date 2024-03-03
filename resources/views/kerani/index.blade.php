@@ -158,9 +158,9 @@
                                 Buat Surat
                             </button>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <a href="{{ route('kerani.download.pdf') }}" class="btn btn-primary">PDF</a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div>
                         {{-- <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div> --}}
@@ -199,11 +199,12 @@
                                                         class="badge badge-success p-2">Disetujui</span>
                                                 </td>
                                                 <td class="">
-                                                    <button class="btn btn-sm btn-success px-1 py-0">
+                                                    <a href="{{ route('kerani.download.pdf', $riwayat->id) }}"
+                                                        class="btn btn-sm btn-success px-1 py-0">
                                                         <span class="material-icons text-sm p-0 align-middle">
                                                             description
                                                         </span>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             @elseif ($riwayat->is_rejected == 1)
                                                 <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span>

@@ -20,7 +20,7 @@
             <tr>
                 <td>Dari</td>
                 <td>:</td>
-                <td>Rafizah Lubis</td>
+                <td>{{ $karyawan->nama }}</td>
             </tr>
             <tr>
                 <td>Nomor</td>
@@ -49,10 +49,13 @@
             <table>
                 <tr>
                     <td>1.1.</td>
-                    <td>Tgl. 26 Februari 2024 <span>&nbsp;</span></td>
+                    <td>Tgl. {{ date('d F Y', strtotime($permintaanCuti->tanggal_mulai)) }} s.d
+                        {{ date('d F Y', strtotime($permintaanCuti->tanggal_selesai)) }}
+                        <span>&nbsp;</span>
+                    </td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>1</td>
+                    <td>{{ $permintaanCuti->jumlah_hari_cuti }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -68,7 +71,7 @@
                     <td>- Cuti Tahunan 2022/2023</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>3</td>
+                    <td>{{ $cutiPanjangDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -76,7 +79,7 @@
                     <td>- Cuti Panjang 2016/2022</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>19</td>
+                    <td>{{ $cutiTahunanDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -92,7 +95,7 @@
                     <td>- Cuti Tahunan 2022/2023</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>2</td>
+                    <td>{{ $sisaCutiTahunan }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -100,7 +103,7 @@
                     <td>- Cuti Panjang 2016/2022</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>19</td>
+                    <td>{{ $sisaCutiPanjang }}</td>
                     <td>HK</td>
                 </tr>
             </table>
@@ -167,12 +170,12 @@
                 <tr>
                     <td>Alasan cuti</td>
                     <td>:</td>
-                    <td>Urusan Keluarga</td>
+                    <td>{{ $permintaanCuti->alasan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>Kembayan</td>
+                    <td>{{ $permintaanCuti->alamat }}</td>
                 </tr>
             </table>
         </div>
@@ -182,7 +185,7 @@
                 <tr>
                     <td>Disetujui oleh</td>
                     <td><br></td>
-                    <td>Pontianak, 22 Februari 2024</td>
+                    <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
                     <td>Bagian SDM Sistem Magajemen</td>
@@ -198,13 +201,13 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td><b><u>Ahmad Ridwan</u></b></td>
+                    <td><b><u>{{ $namaAtasan }}</u></b></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Kepala Bagian</td>
-                    <td style="color: transparent;">Rafizah Lubis</td>
-                    <td><b><u>Rafizah Lubis</u></b></td>
+                    <td>{{ $jabatan }}</td>
+                    <td style="color: transparent;">{{ $namaAtasan }}</td>
+                    <td><b><u>{{ $karyawan->nama }}</u></b></td>
                 </tr>
             </table>
         </div>
