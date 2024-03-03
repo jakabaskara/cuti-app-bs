@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AdminKaryawanController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
+use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\kerani\KeraniDashboardController;
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/karyawan', [AdminKaryawanController::class, 'index'])->name('admin.karyawan.index');
     Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
+    Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
 
