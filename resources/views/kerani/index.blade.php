@@ -62,23 +62,23 @@
 
     <div class="col">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="">Daftar Sisa Cuti Karyawan</h5>
+                            <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col">
-                                <div class="table-responcive">
-                                <table class="table table-bordered table-sm table-hover">
-                                    <thead class="table-dark">
+                        <div class="card-body" style="min-height: 300px">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
                                         <tr class="text-center align-middle">
-                                            <th class="text-dark">No.</th>
-                                            <th class="text-dark">NIK SAP</th>
-                                            <th class="text-dark">Nama</th>
-                                            <th class="text-dark">Sisa Cuti Tahunan</th>
-                                            <th class="text-dark">Sisa Cuti Panjang</th>
-                                            <th class="text-dark">Periode Cuti</th>
+                                            <th>No.</th>
+                                            <th>No.</th>
+                                            <th>NIK SAP</th>
+                                            <th>Nama</th>
+                                            <th>Sisa Cuti Tahunan</th>
+                                            <th>Sisa Cuti Panjang</th>
+                                            <th>Periode Cuti</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,7 +87,6 @@
                                         @endphp
                                     </tbody>
                                 </table>
-                            </div>
                             </div>
                         </div>
                     </div>
