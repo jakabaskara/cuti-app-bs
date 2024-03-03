@@ -39,4 +39,9 @@ class Karyawan extends Model
     {
         return $this->hasMany(PermintaanCuti::class, 'id_karyawan');
     }
+
+
+    // public function getKeanggotaan(){
+    //     self::
+    // }
 }

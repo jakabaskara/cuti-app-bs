@@ -16,8 +16,8 @@
                                     wire:model='karyawan'>
                                     <option selected value=""> </option>
                                     @foreach ($dataPairing as $pairing)
-                                        <option value="{{ $pairing->bawahan->karyawan->first()->id }}">
-                                            {{ $pairing->bawahan->karyawan->first()->nama }}
+                                        <option value="{{ $pairing->posisi->karyawan }}">
+                                            {{ $pairing->id_anggota }}
                                         </option>
                                     @endforeach
                                     {{-- @foreach ($karyawans as $karyawan)

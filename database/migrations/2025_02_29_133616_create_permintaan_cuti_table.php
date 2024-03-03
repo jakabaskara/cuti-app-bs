@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('jumlah_hari_cuti');
             $table->string('alamat');
             $table->string('alasan');
+            $table->string('alasan_ditolak')->nullable();
             $table->foreignId('id_pairing')->constrained('pairing');
             $table->boolean('is_approved');
             $table->boolean('is_rejected');

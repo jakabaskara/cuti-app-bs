@@ -110,7 +110,12 @@
     <script>
         $(document).ready(function() {
 
-            $('#datatable1').DataTable();
+            $('#datatable1').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
 
 
             flatpickr('.flatpickr1', {

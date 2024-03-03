@@ -20,6 +20,7 @@ class PermintaanCuti extends Model
         'id_pairing',
         'alamat',
         'alasan',
+        'alasan_ditolak',
         'is_approved',
         'is_rejected',
         'is_checked',
