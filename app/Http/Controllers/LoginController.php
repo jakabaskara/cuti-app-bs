@@ -21,7 +21,6 @@ class LoginController extends Controller
         ]);
 
         $userId = User::where('username', $request->username)->get();
-        dd($userId);
 
         $credential = $request->only([
             'username',
@@ -29,6 +28,9 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credential)) {
+            dd($userId);
+        } else {
+            return back()->with('failed', 'Username atau Password Anda Salah');
         }
     }
 }

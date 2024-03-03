@@ -75,4 +75,4 @@ Route::group(['prefix' => 'kerani'], function () {
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/auth', [LoginController::class, 'login'])->name('auth');
+Route::post('/auth', [LoginController::class, 'login'])->name('auth');

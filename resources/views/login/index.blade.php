@@ -46,25 +46,41 @@
     <div class="container">
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <div class="app-auth-container">
-                <div style="text-align: center" class="mb-4">
-                    <img src="assets/images/avatars/avatarlogo.png" height="80" width="80" alt="">
+                <div style="text-align: center" class="mt-5 pt-5">
+                    <img src="assets/images/avatars/avatarlogo.png" class="" height="80" width="80"
+                        alt="">
                     <h3 class="mt-3">Regional Lima Cuti Online</h3>
                 </div>
-                <form action="" method="post">
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (session()->has('failed'))
+                    <div class="alert alert-danger">
+                        Username atau Password Anda Salah
+                    </div>
+                @endif
+                <form action="{{ route('auth') }}" method="post">
+                    @csrf
                     <div class="auth-credentials m-b-xxl">
                         <label class="form-label">Username</label>
                         <input type="" class="form-control m-b-md" id="signInUsername"
-                            aria-describedby="signInUsername" placeholder="username">
+                            aria-describedby="signInUsername" placeholder="username" name="username" required>
 
                         <label for="signInPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="signInPassword"
                             aria-describedby="signInPassword"
-                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="password"
+                            required>
                     </div>
 
                     <div class="auth-submit">
-                        <a href="#" class="btn btn-primary">Sign In</a>
+                        <button type="submit" class="btn btn-primary">Masuk</button>
                         <a href="#" class="auth-forgot-password float-end">Forgot password?</a>
                     </div>
                 </form>
