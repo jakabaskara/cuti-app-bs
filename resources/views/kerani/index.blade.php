@@ -141,10 +141,59 @@
                             <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
                         </div> --}}
                     </div>
-                    <div class="row mt-3">
+                    <div>
+                        {{-- <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div> --}}
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-striped">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="text-dark">No.</th>
+                                        <th class="text-dark">NIK</th>
+                                        <th class="text-dark">Nama</th>
+                                        <th class="text-dark">Jenis Cuti</th>
+                                        <th class="text-dark">Jumlah<br>Hari</th>
+                                        <th class="text-dark">Periode Tanggal</th>
+                                        <th class="text-dark">Alasan</th>
+                                        <th class="text-dark">Status</th>
+                                        <th class="text-dark">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($riwayats as $riwayat)
+                                        <tr class="text-center">
+                                            <td class="text-dark">{{ $i }}</td>
+                                            <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
+                                            <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
+                                            <td class="text-dark">{{ $riwayat->jenisCuti->jenis_cuti }}</td>
+                                            <td class="text-dark">{{ $riwayat->jumlah_hari_cuti }}</td>
+                                            <td class="text-dark">{{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
+                                            </td>
+                                            <td class="text-dark">{{ $riwayat->alasan }}</td>
+                                            @if ($riwayat->is_approved == 1)
+                                                <td class="text-dark"> <span class="badge badge-success p-2">Disetujui</span> </td>
+                                            @elseif ($riwayat->is_rejected == 1)
+                                                <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span> </td>
+                                            @else
+                                                <td class="text-dark"> <span class="badge badge-warning p-2">Pending</span> </td>
+                                            @endif
+                                            <td class="text-dark"></td>
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {{-- <div class="row mt-3">
                         <div class="col">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-sm table-hover">
+                                <table class="table table-sm table-hover table-striped">
                                     <thead class="table-dark">
                                         <tr class="text-center align-middle">
                                             <th>No.</th>
@@ -189,7 +238,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
     </div>
