@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
 use App\Models\Posisi;
+use App\Models\SisaCuti;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class KabagTablePersetujuanCuti extends Component
@@ -25,5 +27,20 @@ class KabagTablePersetujuanCuti extends Component
         // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;
         // $this->cutiPendings  = PermintaanCuti::getPending(1)->get();
         return view('livewire.kabag-table-persetujuan-cuti');
+    }
+
+    public function setujui($id)
+    {
+        $dataCuti = PermintaanCuti::find($id);
+        DB::transaction(function () use ($dataCuti) {
+
+            $sisaCuti = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', $dataCuti->id_jenis_cuti)->get()->first();
+            $sisaCuti->jumlah -= $dataCuti->jumlah_hari_cuti;
+            $sisaCuti->save();
+
+            $dataCuti->is_approved = 1;
+            $dataCuti->is_checked = 1;
+            $dataCuti->save();
+        });
     }
 }
