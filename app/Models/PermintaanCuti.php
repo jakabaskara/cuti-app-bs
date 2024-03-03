@@ -46,12 +46,14 @@ class PermintaanCuti extends Model
         return $this->belongsTo(Posisi::class, 'id_posisi_pembuat');
     }
 
-    public static function getPendingCuti($idAtasan)
+    public static function getPendingCuti($idPosisi)
     {
-        $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->whereHas('pairing', function ($query) use ($idAtasan) {
-            $query->where('id_atasan', $idAtasan)->where('id_atasan', '!=', $idAtasan);
+        $pairings = Pairing::where('id_atasan', $idPosisi)->get();
+
+        $permintaanCuti = $pairings->flatMap(function ($pairing) {
+            return $pairing->bawahan->permintaanCuti->where('is_approved', 0);
         });
-        return $data;
+        return $permintaanCuti;
     }
 
     public static function getPendingCutiAtAsisten($id)
