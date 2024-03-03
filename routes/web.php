@@ -74,7 +74,5 @@ Route::group(['prefix' => 'kerani'], function () {
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 });
 
-Route::group(['prefix' => 'login'], function () {
-    Route::get('/', [LoginController::class, 'index'])->name('login.index');
-    Route::post('/login', [LoginController::class, 'ceklogin']);
-});
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/auth', [LoginController::class, 'login'])->name('auth');

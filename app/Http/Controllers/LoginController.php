@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -11,20 +13,22 @@ class LoginController extends Controller
         return view('login.index');
     }
 
-    public function ceklogin(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
-            'email' => ['required'],
-            'password' => ['required'],
+            'username' => 'required',
+            'password' => 'required',
         ]);
-        $user = \App\Models\User::where('email', $request->email)->first();
-        if (!Hash::check($request->password, $user?->password)) {
-            throw ValidationException::withMessages([
-                'password' => 'Email atau Password Salah!',
-            ]);
-        }
-        Auth::login($user, $request->remember);
 
-        return to_route('admin.index');
+        $userId = User::where('username', $request->username)->get();
+        dd($userId);
+
+        $credential = $request->only([
+            'username',
+            'password',
+        ]);
+
+        if (Auth::attempt($credential)) {
+        }
     }
 }
