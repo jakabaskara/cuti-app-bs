@@ -3,21 +3,30 @@
 namespace App\Http\Controllers\kerani;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\Karyawan;
+use App\Models\Keanggotaan;
+use App\Models\Pairing;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class KeraniDashboardController extends Controller
 {
     public function index()
     {
-        $idUser = 1;
-        $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
+        // $idUser = 1;
+        $idUser = Auth::user()->id;
+        $idPosisi = User::find($idUser)->karyawan->posisi->id;
+        $dataPairing = Keanggotaan::getAnggota($idPosisi);
+        // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
 
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
+            'idPosisi' => $idPosisi,
         ]);
     }
 

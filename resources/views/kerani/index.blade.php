@@ -73,7 +73,6 @@
                                     <thead>
                                         <tr class="text-center align-middle">
                                             <th>No.</th>
-                                            <th>No.</th>
                                             <th>NIK SAP</th>
                                             <th>Nama</th>
                                             <th>Sisa Cuti Tahunan</th>
@@ -209,8 +208,8 @@
                             <select class="form-select" aria-label="Nama Karyawan">
                                 <option selected value=""> </option>
                                 @foreach ($dataPairing as $pairing)
-                                    <option value="{{ $pairing->bawahan->karyawan->first()->id }}">
-                                        {{ $pairing->bawahan->karyawan->first()->nama }}
+                                    <option value="{{ $pairing->id }}">
+                                        {{ $pairing->nama}}
                                     </option>
                                 @endforeach
                                 {{-- @foreach ($karyawans as $karyawan)
