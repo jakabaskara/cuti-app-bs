@@ -74,7 +74,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    {{-- @livewire('kabag-table-persetujuan-cuti') --}}
+                    @livewire('kabag-table-persetujuan-cuti')
                 </div>
             </div>
         </div>

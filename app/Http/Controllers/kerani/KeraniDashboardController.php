@@ -50,6 +50,7 @@ class KeraniDashboardController extends Controller
             'pending' => $getPending,
             'ditolak' => $getDitolak,
             'karyawanCuti' => $getKaryawanCuti,
+
         ]);
     }
 
