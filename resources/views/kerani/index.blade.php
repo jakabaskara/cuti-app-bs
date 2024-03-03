@@ -251,7 +251,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                    <form action="{{ route('admin.tambahCuti') }}" method="post">
+                    <form action="{{ route('kerani.submit-cuti') }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-primary">Ajukan</button>
                     </form>
@@ -304,10 +304,11 @@
                     // Hitung selisih dalam milidetik
                     var difference = endDate.getTime() - startDate.getTime();
 
-                    // Konversi selisih ke jumlah hari
-                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
-                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
+                            daysDifference;
+                        document.getElementById("jumlahHari").value = daysDifference;
                 }
             }
         });
