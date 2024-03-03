@@ -78,7 +78,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-xl-8">
             <div class="card">
                 <div class="card-header">
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
@@ -181,7 +181,12 @@
                     .format('YYYY-MM-DD'));
             });
 
-            $('#datatable2').DataTable();
+            $('#datatable2').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
         });
 
         function round_success_noti() {

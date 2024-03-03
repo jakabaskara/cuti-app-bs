@@ -4,9 +4,12 @@ namespace App\Http\Controllers\asisten;
 
 use App\Http\Controllers\Controller;
 use App\Models\Karyawan;
+use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsistenDashboardController extends Controller
 {
@@ -25,12 +28,15 @@ class AsistenDashboardController extends Controller
         // return view('asisten.pengajuan-cuti', [
         //     'dataPairing' => $dataPairing
         // ]);
-        $idUser = 1;
+        $idUser = Auth::user()->id;
+        $idPosisi = User::find($idUser)->karyawan->posisi->id;
+        $anggota = Keanggotaan::getAnggota($idPosisi);;
 
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
 
         return view('asisten.pengajuan-cuti', [
             'riwayats' => $riwayat,
+            'anggotas' => $anggota,
         ]);
     }
 

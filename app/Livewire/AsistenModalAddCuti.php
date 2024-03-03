@@ -3,8 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\JenisCuti;
+use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class AsistenModalAddCuti extends Component
@@ -24,9 +27,11 @@ class AsistenModalAddCuti extends Component
 
     public function render()
     {
-        $idUser = 1;
+        $idUser = Auth::user()->id;
+        // $idPosisi = User::find($idUser)->karyawan->posisi->id;
+        $idPosisi = 4;
+        $this->dataPairing = Keanggotaan::getAnggota($idPosisi)->get();
         $this->jenisCuti = JenisCuti::get();
-        $this->dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         return view('livewire.asisten-modal-add-cuti');
     }
 

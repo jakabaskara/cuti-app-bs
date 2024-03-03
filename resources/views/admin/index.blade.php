@@ -181,6 +181,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
@@ -194,5 +196,33 @@
 
             $('#datatable2').DataTable();
         });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#datatable1').DataTable();
+
+
+            flatpickr('.flatpickr1', {
+                mode: 'range',
+                onChange: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length >= 2) {
+                        var startDate = selectedDates[0];
+                        var endDate = selectedDates[selectedDates.length - 1];
+
+                        // Hitung selisih dalam milidetik
+                        var difference = endDate.getTime() - startDate.getTime();
+
+                        // Konversi selisih ke jumlah hari
+                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+
+                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
+                            daysDifference;
+                        document.getElementById("jumlahHari").value = daysDifference;
+                    }
+                }
+            })
+        })
     </script>
 @endsection
