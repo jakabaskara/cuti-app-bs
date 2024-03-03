@@ -27,7 +27,7 @@
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK</th>
                                     <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Status Karyawan</th>
+                                    <th class="text-dark">Jabatan</th>
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staf</th>
                                     <th class="text-dark">ID Posisi</th>
@@ -47,7 +47,7 @@
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
                                         <td>{{ $karyawan->nama }}</td>
-                                        <td>{{ $karyawan->posisi->jabatan }}</td>
+                                        <td>{{ $karyawan->jabatan }}</td>
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
@@ -116,8 +116,8 @@
                                     <option value="3">Three</option> --}}
                                     <option selected value="">Pilih Jabatan</option>
                                     @foreach ($karyawan as $karyawans)
-                                        <option value="{{ $karyawan->posisi->id_posisi }}">
-                                            {{ $karyawan->posisi->jabatan }}</option>
+                                        <option value="{{ $karyawan->id }}">
+                                            {{ $karyawan->jabatan }}</option>
                                     @endforeach
 
                                 </select>
@@ -126,7 +126,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="daterange" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="text" class="form-control" name="tmt_bekerja"
+                                <input type="date" class="form-control " name="tmt_bekerja"
                                     value="{{ 'tmt_bekerja' }}" />
                             </div>
                         </div>
