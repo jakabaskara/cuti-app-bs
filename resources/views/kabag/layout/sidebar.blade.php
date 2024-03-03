@@ -5,7 +5,7 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info">PIC Absensi</span></span>
+                <span class="user-info-text">Sayaaa<br><span class="user-state-info">Kepala Bagian</span></span>
             </a>
         </div>
     </div>

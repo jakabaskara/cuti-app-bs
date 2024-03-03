@@ -10,7 +10,10 @@
 
 @section('content')
     <h3 class="mb-4">Halo, Kepala Bagian Bagian SDM & Sistem Manajemen 👋</h3>
-    <div class="row">
+
+    @livewire('kabag-status-bar-index')
+
+    {{-- <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
@@ -61,7 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- <div class="row">
         <div class="col">

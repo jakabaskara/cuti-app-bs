@@ -11,7 +11,7 @@
                     <th class="text-dark"><strong>Jumlah Cuti</strong></th>
                     <th class="text-dark"><strong>Alasan Cuti</strong></th>
                     <th class="text-dark"><strong>Alamat</strong></th>
-                    <th class="text-dark"><strong>Status Cuti Cuti</strong></th>
+                    <th class="text-dark"><strong>Status Cuti</strong></th>
                 </tr>
             </thead>
             <tbody>
