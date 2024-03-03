@@ -32,6 +32,12 @@ class KeraniDashboardController extends Controller
             $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         });
+
+        $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
+        $getPending = PermintaanCuti::getPending($idPosisi);
+        $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
+
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
@@ -40,6 +46,10 @@ class KeraniDashboardController extends Controller
             'jabatan' => $jabatan,
             'jenisCuti' => $jenisCuti,
             'sisaCutis' => $sisaCuti,
+            'disetujui' => $getDisetujui,
+            'pending' => $getPending,
+            'ditolak' => $getDitolak,
+            'karyawanCuti' => $getKaryawanCuti,
         ]);
     }
 
