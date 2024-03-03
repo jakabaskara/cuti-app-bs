@@ -5,7 +5,7 @@
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 @section('content')
-    <h3 class="mb-4">Halo, Manajer 👋</h3>
+    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     @livewire('manajer-status-bar-index')
 
