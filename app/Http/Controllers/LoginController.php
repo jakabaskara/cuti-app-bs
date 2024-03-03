@@ -26,9 +26,13 @@ class LoginController extends Controller
             'username',
             'password',
         ]);
-
+        $role = $userId->first()->karyawan->posisi->role->nama_role;
         if (Auth::attempt($credential)) {
-            dd($userId);
+            if ($role == 'kerani') {
+                return redirect()->route('kerani.index');
+            } else {
+                return redirect()->route('asisten.index');
+            }
         } else {
             return back()->with('failed', 'Username atau Password Anda Salah');
         }
