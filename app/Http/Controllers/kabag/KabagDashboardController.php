@@ -3,34 +3,54 @@
 namespace App\Http\Controllers\kabag;
 
 use App\Http\Controllers\Controller;
+use App\Models\JenisCuti;
 use Illuminate\Http\Request;
 use App\Models\Karyawan;
+use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\SisaCuti;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class KabagDashboardController extends Controller
 {
 
     public function index()
     {
-        $idUser = 1;
+        // $idUser = 1;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $idPosisi = $user->karyawan->posisi->id;
+        // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
+        $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
+        $namaUser = $user->karyawan->nama;
+        $jabatan = $user->karyawan->posisi->jabatan;
+        $jenisCuti = JenisCuti::get();
+        $dataPairing = Keanggotaan::getAnggota($idPosisi);
+        $sisaCuti = $dataPairing->each(function ($data) {
+            $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+            $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        });
 
+        $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
+        $getPending = PermintaanCuti::getPending($idPosisi);
+        $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
-        return view('kabag.index');
-    }
-
-    public function pengajuanCuti()
-    {
-        // $dataPairing = Pairing::getDaftarKaryawanCuti(1)->get();
-        // return view('asisten.pengajuan-cuti', [
-        //     'dataPairing' => $dataPairing
-        // ]);
-        $idUser = 1;
-
-        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
-
-        return view('kabag.pengajuan-cuti', [
+        return view('kabag.index', [
+            'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
+            'idPosisi' => $idPosisi,
+            'nama' => $namaUser,
+            'jabatan' => $jabatan,
+            'jenisCuti' => $jenisCuti,
+            'sisaCutis' => $sisaCuti,
+            'disetujui' => $getDisetujui,
+            'pending' => $getPending,
+            'ditolak' => $getDitolak,
+            'karyawanCuti' => $getKaryawanCuti,
+
         ]);
     }
 
@@ -44,6 +64,10 @@ class KabagDashboardController extends Controller
             'alasan' => 'required',
             'alamat' => 'required',
         ]);
+
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $idPosisi = $user->karyawan->id_posisi;
 
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
@@ -70,11 +94,12 @@ class KabagDashboardController extends Controller
             'jumlah_hari_cuti' => $validate['jumlah_cuti'],
             'alamat' => $validate['alamat'],
             'alasan' => $validate['alasan'],
-            'id_pairing' => '1',
+            'id_posisi_pembuat' => $idPosisi,
             'is_approved' => 0,
             'is_rejected' => 0,
             'is_checked' => $isChecked,
         ]);
+
 
         return redirect()->back();
     }
