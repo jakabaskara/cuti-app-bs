@@ -48,6 +48,7 @@ Route::group(['prefix' => 'asisten'], function () {
     Route::get('/pengajuan-cuti', [AsistenDashboardController::class, 'pengajuanCuti'])->name('asisten.pengajuan-cuti');
 
     Route::post('/add-cuti', [AsistenDashboardController::class, 'submitCuti'])->name('asisten.submit-cuti');
+    Route::delete('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
 });
 
 Route::group(['prefix' => 'manajer'], function () {

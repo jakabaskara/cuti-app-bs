@@ -16,7 +16,7 @@
                                     wire:model='karyawan'>
                                     <option selected value=""> </option>
                                     @foreach ($dataPairing as $pairing)
-                                        <option value="{{ $pairing->posisi->karyawan }}">
+                                        <option value="{{ $pairing->id }}">
                                             {{ $pairing->nama }}
                                         </option>
                                     @endforeach
@@ -68,9 +68,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <div wire:loading class="f-14 text-dark"> <span
-                                class="spinner-grow text-danger align-middle"></span>
-                            Loading...</div>
+
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
                         <button type="submit" class="btn btn-primary">Ajukan</button>
                     </div>
