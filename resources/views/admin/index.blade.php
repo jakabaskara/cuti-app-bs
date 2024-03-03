@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-1">
+    {{-- <div class="row mt-1">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -114,10 +114,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,9 +130,9 @@
                             <label for="nama" class="form-label">Nama Karyawan</label>
                             <select class="form-select" aria-label="Nama Karyawan">
                                 <option selected value=""> </option>
-                                {{-- @foreach ($karyawans as $karyawan)
+                                @foreach ($karyawans as $karyawan)
                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('script')
