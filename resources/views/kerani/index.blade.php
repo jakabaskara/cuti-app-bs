@@ -31,15 +31,12 @@
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
                         <div class="widget-stats-icon widget-stats-icon-warning">
-                            <i class="material-icons-outlined">person</i>
+                            <i class="material-icons-outlined">info</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title">Active Users</span>
-                            <span class="widget-stats-amount">23,491</span>
-                            <span class="widget-stats-info">790 unique this month</span>
-                        </div>
-                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                            <i class="material-icons">keyboard_arrow_up</i> 12%
+                            <span class="widget-stats-title">Pending</span>
+                            <span class="widget-stats-amount">3</span>
+                            <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
                     </div>
                 </div>
@@ -50,21 +47,84 @@
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
                         <div class="widget-stats-icon widget-stats-icon-danger">
-                            <i class="material-icons-outlined">file_download</i>
+                            <i class="material-icons-outlined">check_circle</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title">Downloads</span>
-                            <span class="widget-stats-amount">140,390</span>
-                            <span class="widget-stats-info">87 items downloaded</span>
-                        </div>
-                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                            <i class="material-icons">keyboard_arrow_up</i> 7%
+                            <span class="widget-stats-title">Form Cuti</span>
+                            <span class="widget-stats-amount">14</span>
+                            <span class="widget-stats-info">Form Cuti Dibuat</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="">Daftar Sisa Cuti Karyawan</h5>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="table-responcive">
+                                <table class="table table-bordered table-sm table-hover">
+                                    <thead class="table-dark">
+                                        <tr class="text-center align-middle">
+                                            <th class="text-dark">No.</th>
+                                            <th class="text-dark">NIK SAP</th>
+                                            <th class="text-dark">Nama</th>
+                                            <th class="text-dark">Sisa Cuti Tahunan</th>
+                                            <th class="text-dark">Sisa Cuti Panjang</th>
+                                            <th class="text-dark">Periode Cuti</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
+                        </div>
+                        <div class="card-body" style="min-height: 300px">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No.</th>
+                                            <th>Nama</th>
+                                            <th>Alasan Cuti</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">1.</td>
+                                            <td>Jeno</td>
+                                            <td>Urusan Keluarga</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="row mt-1">
         <div class="col">
             <div class="card">
@@ -134,7 +194,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -198,6 +257,20 @@
                         @csrf
                         <button type="submit" class="btn btn-primary">Ajukan</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Riwayat Cuti Karyawan</h5>
+                    <hr>
+                </div>
+                <div class="card-body">
+
                 </div>
             </div>
         </div>
