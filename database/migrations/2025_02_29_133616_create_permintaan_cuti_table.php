@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('alasan');
             $table->string('alasan_ditolak')->nullable();
-            $table->foreignId('id_pairing')->constrained('pairing');
+            $table->foreignId('id_posisi_pembuat')->constrained('posisi');
             $table->boolean('is_approved');
             $table->boolean('is_rejected');
             $table->boolean('is_checked');

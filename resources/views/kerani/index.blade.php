@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -74,15 +75,27 @@
                                         <th>No.</th>
                                         <th>NIK SAP</th>
                                         <th>Nama</th>
-                                        <th>Sisa Cuti Tahunan</th>
-                                        <th>Sisa Cuti Panjang</th>
-                                        <th>Periode Cuti</th>
+                                        <th>Sisa<br>Cuti<br>Tahunan</th>
+                                        <th>Sisa<br>Cuti<br>Panjang</th>
+                                        {{-- <th>Periode Cuti</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
                                         $i = 1;
                                     @endphp
+                                    @foreach ($sisaCutis as $sisaCuti)
+                                        <tr class="text-center align-middle">
+                                            <td>{{ $i }}</td>
+                                            <td>{{ $sisaCuti->NIK }}</td>
+                                            <td class="text-start">{{ $sisaCuti->nama }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -143,7 +156,7 @@
                     <div>
                         {{-- <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div> --}}
                         <div class="table-responsive">
-                            <table class="table table-sm table-hover table-striped">
+                            <table class="table table-sm table-hover table-striped" id="dataTable2">
                                 <thead>
                                     <tr class="text-center">
                                         <th class="text-dark">No.</th>
@@ -179,7 +192,8 @@
                                                 <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span>
                                                 </td>
                                             @else
-                                                <td class="text-dark"> <span class="badge badge-warning p-2">Pending</span>
+                                                <td class="text-dark"> <span
+                                                        class="badge badge-warning p-2">Pending</span>
                                                 </td>
                                             @endif
                                             <td class="text-dark"></td>
@@ -197,71 +211,77 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Data Pembuatan Surat Pengajuan Cuti</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Nama Karyawan</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
-                                    @foreach ($dataPairing as $pairing)
-                                        <option value="{{ $pairing->id }}">
-                                            {{ $pairing->nama }}
-                                        </option>
-                                    @endforeach
-                                    {{-- @foreach ($karyawans as $karyawan)
+        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+            <form method="post" action="{{ route('kerani.submit-cuti') }}">
+                @csrf
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Cuti</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="nama" class="form-label">Nama Karyawan</label>
+                                    <select class="form-select" aria-label="Nama Karyawan" name="karyawan" required>
+                                        <option selected value=""> </option>
+                                        @foreach ($dataPairing as $pairing)
+                                            <option value="{{ $pairing->id }}">
+                                                {{ $pairing->nama }}
+                                            </option>
+                                        @endforeach
+                                        {{-- @foreach ($karyawans as $karyawan)
                                     <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
                                 @endforeach --}}
-                                </select>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="nama" class="form-label">Jenis Cuti</label>
+                                    <select class="form-select" aria-label="Nama Karyawan" name="jenis_cuti" required>
+                                        <option selected value=""> </option>
+                                        @foreach ($jenisCuti as $jenis)
+                                            <option value="{{ $jenis->id }}">{{ $jenis->jenis_cuti }} </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="daterange" class="form-label">Tanggal Cuti</label>
+                                    <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
+                                    <input type="hidden" id="jumlahHari" name="jumlah_cuti" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="alasan" class="form-label">Alasan Cuti</label>
+                                    <input type="text" class="form-control" name="alasan" required />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="alamat" class="form-label">Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" required />
+                                </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Jenis Cuti</label>
-                                <select class="form-select" aria-label="Nama Karyawan">
-                                    <option selected value=""> </option>
-                                    <option value="1">Cuti Tahunan</option>
-                                    <option value="2">Cuti Panjang</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="daterange" class="form-label">Tanggal Cuti</label>
-                                <input type="text" class="form-control flatpickr1" name="daterange" id="daterange"
-                                    value="" />
-                                <p id="jumlah-hari"></p>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="alasan" class="form-label">Alasan Cuti</label>
-                                <input type="text" class="form-control" name="alasan" value="" />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="alamat" class="form-label">Alamat</label>
-                                <input type="text" class="form-control" name="alamat" value="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                        <form action="{{ route('kerani.submit-cuti') }}" method="post">
-                            @csrf
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
                             <button type="submit" class="btn btn-primary">Ajukan</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="row">
@@ -285,11 +305,22 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
 
         <script>
             $(document).ready(function() {
 
                 $('#tableData1').DataTable();
+
+                $('#dataTable2').DataTable({
+                    responsive: true,
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    }
+                });
+
+
 
                 // $(function() {
                 //     $('input[name="daterange"]').daterangepicker({
@@ -312,6 +343,7 @@
                             // Hitung selisih dalam milidetik
                             var difference = endDate.getTime() - startDate.getTime();
 
+                            // Konversi selisih ke jumlah hari
                             var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
                             document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
@@ -319,7 +351,7 @@
                             document.getElementById("jumlahHari").value = daysDifference;
                         }
                     }
-                });
+                })
             })
         </script>
     @endsection

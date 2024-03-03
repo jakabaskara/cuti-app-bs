@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\kerani;
 
 use App\Http\Controllers\Controller;
+use App\Models\JenisCuti;
 use App\Models\PermintaanCuti;
 use App\Models\Karyawan;
 use App\Models\Keanggotaan;
 use App\Models\Pairing;
+use App\Models\SisaCuti;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,18 +22,24 @@ class KeraniDashboardController extends Controller
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->posisi->id;
-        $dataPairing = Keanggotaan::getAnggota($idPosisi);
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
-
+        $jenisCuti = JenisCuti::get();
+        $dataPairing = Keanggotaan::getAnggota($idPosisi);
+        $sisaCuti = $dataPairing->each(function ($data) {
+            $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+            $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        });
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
             'idPosisi' => $idPosisi,
             'nama' => $namaUser,
             'jabatan' => $jabatan,
+            'jenisCuti' => $jenisCuti,
+            'sisaCutis' => $sisaCuti,
         ]);
     }
 
@@ -46,17 +54,26 @@ class KeraniDashboardController extends Controller
             'alamat' => 'required',
         ]);
 
-        list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $idPairing = $user->karyawan->posisi->bawahan->first()->id;
 
-        // Konversi string tanggal menjadi format timestamp
-        $startDate = strtotime($startDate);
-        $endDate = strtotime($endDate);
+        if (strlen($request->tanggal_cuti) != 10) {
+            list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
+            // Konversi string tanggal menjadi format timestamp
+            $startDate = strtotime($startDate);
+            $endDate = strtotime($endDate);
 
-        // Format ulang tanggal ke format yang diinginkan
-        $startDate = date("Y-m-d", $startDate);
-        $endDate = date("Y-m-d", $endDate);
-        // $isKer = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
-        // $isChecked = $isManager ? 0 : 1;
+            // Format ulang tanggal ke format yang diinginkan
+            $startDate = date("Y-m-d", $startDate);
+            $endDate = date("Y-m-d", $endDate);
+        } else {
+            $startDate = $request->tanggal_cuti;
+            $endDate = $request->tanggal_cuti;
+        };
+
+        $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
+        $isChecked = $isManager ? 0 : 1;
 
         PermintaanCuti::create([
             'id_karyawan' => $validate['karyawan'],
@@ -66,11 +83,12 @@ class KeraniDashboardController extends Controller
             'jumlah_hari_cuti' => $validate['jumlah_cuti'],
             'alamat' => $validate['alamat'],
             'alasan' => $validate['alasan'],
-            'id_pairing' => '1',
+            'id_pairing' => $idPairing,
             'is_approved' => 0,
             'is_rejected' => 0,
-            'is_checked' => 1,
+            'is_checked' => $isChecked,
         ]);
+
 
         return redirect()->back();
     }

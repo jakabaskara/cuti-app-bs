@@ -17,7 +17,7 @@ class PermintaanCuti extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'jumlah_hari_cuti',
-        'id_pairing',
+        'id_posisi_pembuat',
         'alamat',
         'alasan',
         'alasan_ditolak',
