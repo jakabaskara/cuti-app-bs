@@ -41,9 +41,9 @@ class PermintaanCuti extends Model
         return $this->hasMany(RiwayatCuti::class, 'id_permintaan_cuti');
     }
 
-    public function pairing()
+    public function posisi()
     {
-        return $this->belongsTo(Pairing::class, 'id_pairing');
+        return $this->belongsTo(Posisi::class, 'id_pairing');
     }
 
     public static function getPendingCuti($idAtasan)

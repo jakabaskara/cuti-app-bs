@@ -47,4 +47,9 @@ class Posisi extends Model
     {
         return $this->hasMany(Keanggotaan::class, 'id_posisi');
     }
+
+    public function permintaanCuti()
+    {
+        return $this->hasMany(PermintaanCuti::class, 'id_posisi_pembuat');
+    }
 }
