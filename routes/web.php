@@ -62,7 +62,7 @@ Route::group(['prefix' => 'manajer'], function () {
     Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('manajer.tambahCuti');
 });
 
-Route::group(['prefix' => 'kerani'], function () {
+Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function () {
     Route::get('/', [KeraniDashboardController::class, 'index'])->name('kerani.index');
     Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
 
@@ -75,4 +75,5 @@ Route::group(['prefix' => 'kerani'], function () {
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');

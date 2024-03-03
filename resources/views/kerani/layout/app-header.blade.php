@@ -98,11 +98,11 @@
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
                                                   <i class="material-icons-outlined">account_circle</i>
-                                                </span>
-                                                <div class="notifications-dropdown-item-text">
-                                                    <p class="bold-notifications-text">Profile</p>
-                                                    {{-- <small>19:00</small> --}}
-                                                </div>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text">
+                                                  <p class="bold-notifications-text">Profile</p>
+                                                  {{-- <small>19:00</small> --}}
+                                              </div>
                                           </div>
                                       </div>
                                   </a>
@@ -111,15 +111,15 @@
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-danger text-white">
                                                   <i class="material-icons-outlined">lock</i>
-                                                </span>
-                                                <div class="notifications-dropdown-item-text">
-                                                    <p class="bold-notifications-text">Ubah Password</p>
-                                                    {{-- <small>18:00</small> --}}
-                                                </div>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text">
+                                                  <p class="bold-notifications-text">Ubah Password</p>
+                                                  {{-- <small>18:00</small> --}}
+                                              </div>
                                           </div>
                                       </div>
                                   </a>
-                                  <a href="#">
+                                  <a href="{{ route('logout') }}">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-success text-white">
