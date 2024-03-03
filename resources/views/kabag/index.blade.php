@@ -66,7 +66,7 @@
         </div>
     </div> --}}
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-header">
@@ -74,11 +74,11 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    @livewire('kabag-table-persetujuan-cuti')
+                    {{-- @livewire('kabag-table-persetujuan-cuti') --}}
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <div class="row">
         <div class="col-sm-6">
