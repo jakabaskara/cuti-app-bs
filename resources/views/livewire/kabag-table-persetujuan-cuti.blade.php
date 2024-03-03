@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cutiPending as $cutiPending)
+                @foreach ($cutiPendings as $cutiPending)
                     <tr class="text-center">
                         <td class="text-dark noti"> <button class="btn btn-success"
                                 wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> </td>
