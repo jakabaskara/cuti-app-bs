@@ -122,24 +122,20 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Panggil rute delete-cuti menggunakan metode DELETE
-                    axios.delete('delete-cuti/' + id)
+                    axios.get('delete-cuti/' + id)
                         .then(response => {
-                            Swal.fire({
-                                title: response.data.title,
-                                text: response.data.message,
-                                icon: response.data.icon
-                            });
-                        })
-                        .catch(error => {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Terjadi kesalahan saat memproses permintaan.',
-                                icon: 'error'
-                            });
+                            // Swal.fire({
+                            //     title: 'Data Berhasil Dihapus',
+                            //     text: response.data.message,
+                            //     icon: response.data.icon
+                            // });
+                            location.reload();
                         });
                 }
             });
         }
+
+
 
 
         $(document).ready(function() {
