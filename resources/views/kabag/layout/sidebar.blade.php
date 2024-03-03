@@ -16,8 +16,7 @@
             </li> --}}
             <li class="{{ request()->route()->uri == 'kabag' ? 'active-page' : '' }}">
                 {{-- <a href="index.html" class="{{ if(R)route ? "active" : "" }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a> --}}
-                <a href="{{ route('kabag.index') }}"
-                    class="{{ request()->route()->uri == 'kabag' ? 'active' : '' }}"><i
+                <a href="{{ route('kabag.index') }}" class="{{ request()->route()->uri == 'kabag' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
             <li class="{{ request()->route()->uri == 'kabag/pengajuan-cuti' ? 'active-page' : '' }}">
@@ -26,11 +25,12 @@
                         class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active-page' : '' }}">
+            {{-- <li class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('kabag.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
-            </li>
+            </li> --}}
+
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>

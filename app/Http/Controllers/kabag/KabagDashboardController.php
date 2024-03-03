@@ -16,7 +16,7 @@ class KabagDashboardController extends Controller
         $idUser = 1;
 
 
-        return view('asisten.index');
+        return view('kabag.index');
     }
 
     public function pengajuanCuti()
@@ -29,7 +29,7 @@ class KabagDashboardController extends Controller
 
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
 
-        return view('asisten.pengajuan-cuti', [
+        return view('kabag.pengajuan-cuti', [
             'riwayats' => $riwayat,
         ]);
     }
