@@ -31,6 +31,7 @@
                                     <th class="text-dark">Tanggal Mulai Bekerja</th>
                                     <th class="text-dark">Tanggal Diangkat Staf</th>
                                     <th class="text-dark">ID Posisi</th>
+                                    <th class="text-dark">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,15 +43,29 @@
                                     <td>21</td>
                                 </tr> --}}
                                 @forelse ($karyawan as $karyawan)
-                                    <tr>
+                                    <tr class="text-center">
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
                                         <td>{{ $karyawan->nama }}</td>
-                                        <td>{{ $karyawan->jabatan }}</td>
+                                        <td>{{ $karyawan->posisi->jabatan }}</td>
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button class="btn btn-sm px-2 py-0 m-0 btn-warning"><span
+                                                            class="material-icons">
+                                                            edit_note
+                                                        </span></button>
 
+                                                    <button class="btn btn-sm px-2 py-0 m-0 btn-danger"><span
+                                                            class="material-icons">
+                                                            delete
+                                                        </span></button>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <td colspan="6" class="text-center">Data Not Found</td>
@@ -63,8 +78,10 @@
         </div>
     </div>
 
+
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +138,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="row mt-1">
         <div class="col">
             <div class="card">
@@ -153,6 +170,8 @@
             </div>
         </div>
     </div> --}}
+
+    @livewire('admin-modal-add-cuti')
 @endsection
 @section('script')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
