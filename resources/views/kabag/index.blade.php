@@ -2,31 +2,30 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
-
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     @livewireStyles()
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, Kepala Bagian Bagian SDM & Sistem Manajemen 👋</h3>
+    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
-    @livewire('kabag-status-bar-index')
+    {{-- @livewire('kabag-status-bar-index') --}}
 
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-primary">
-                            <i class="material-icons-outlined">person</i>
+                        <div class="widget-stats-icon widget-stats-icon-success">
+                            <i class="material-icons-outlined">check_circle</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Karyawan</span>
-                            <span class="widget-stats-amount">108</span>
-                            <span class="widget-stats-info">Jumlah Karyawan</span>
+                            <span class="widget-stats-title text-dark">Disetujui</span>
+                            <span class="widget-stats-amount">{{ $disetujui }}</span>
+                            <span class="widget-stats-info">Form Cuti Disetujui</span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -39,11 +38,10 @@
                             <i class="material-icons-outlined">info</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark"> Pending</span>
-                            <span class="widget-stats-amount">3</span>
+                            <span class="widget-stats-title text-dark">Pending</span>
+                            <span class="widget-stats-amount">{{ $pending }}</span>
                             <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -52,19 +50,19 @@
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-success">
-                            <i class="material-icons-outlined">check_circle</i>
+                        <div class="widget-stats-icon widget-stats-icon-danger">
+                            <i class="material-icons-outlined">highlight_off</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Form Cuti</span>
-                            <span class="widget-stats-amount">14</span>
-                            <span class="widget-stats-info">Form Cuti Dibuat</span>
+                            <span class="widget-stats-title text-dark">Dibatalkan</span>
+                            <span class="widget-stats-amount">{{ $ditolak }}</span>
+                            <span class="widget-stats-info">Form Cuti Ditolak</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <div class="row">
         <div class="col">
@@ -80,72 +78,74 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="">Daftar Sisa Cuti Karyawan</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display table-hover" id="datatable2">
-                            <thead class="table-dark">
-                                <tr class="text-center align-middle">
-                                    <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK SAP</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Sisa Cuti Tahunan</th>
-                                    <th class="text-dark">Sisa Cuti Panjang</th>
-                                    <th class="text-dark">Periode Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                                {{-- @foreach ($karyawans as $karyawan)
-                                    <tr class="text-center">
-                                        <td>{{ $i }}</td>
-                                        <td>{{ $karyawan->NIK }}</td>
-                                        <td>{{ $karyawan->nama }}</td>
-                                        <td>0</td>
-                                        <td>{{ $karyawan->sisaCutiPanjang->isEmpty() ? 0 : $karyawan->sisaCutiPanjang->first()->sisa_cuti }}
-                                        </td>
-                                        <td></td>
+    <div class="col">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tableData1">
+                                <thead class="table-dark">
+                                    <tr class="text-center align-middle">
+                                        <th>No.</th>
+                                        <th>NIK SAP</th>
+                                        <th>Nama</th>
+                                        <th>Sisa<br>Cuti<br>Tahunan</th>
+                                        <th>Sisa<br>Cuti<br>Panjang</th>
+                                        {{-- <th>Periode Cuti</th> --}}
                                     </tr>
+                                </thead>
+                                <tbody>
                                     @php
-                                        $i++;
+                                        $i = 1;
                                     @endphp
-                                @endforeach --}}
-                            </tbody>
-                        </table>
+                                    @foreach ($sisaCutis as $sisaCuti)
+                                        <tr class="text-center align-middle">
+                                            <td>{{ $i }}</td>
+                                            <td>{{ $sisaCuti->NIK }}</td>
+                                            <td class="text-start">{{ $sisaCuti->nama }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
-                </div>
-                <div class="card-body" style="min-height: 300px">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No.</th>
-                                    <th>Nama</th>
-                                    <th>Alasan Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">1.</td>
-                                    <td>Jeno</td>
-                                    <td>Urusan Keluarga</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="col">
+                <div class="card" style="min-height: 700px">
+                    <div class="card-header">
+                        <h5 class="text-center">Karyawan Cuti</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No.</th>
+                                        <th>Nama</th>
+                                        <th>Alasan Cuti</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($karyawanCuti as $cuti)
+                                        <tr>
+                                            <td class="text-center">1.</td>
+                                            <td>Jeno</td>
+                                            <td>Urusan Keluarga</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
