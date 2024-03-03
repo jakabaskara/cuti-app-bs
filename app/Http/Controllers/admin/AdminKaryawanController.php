@@ -37,6 +37,6 @@ class AdminKaryawanController extends Controller
                 'id_posisi'=> $validateData['id_posisi'],
             ]);
             session()->flash('pesan', "Penambahan data {$validateData['nama_karyawan']} berhasil");
-            return redirect()->route('manajer.karyawan.index');
+            return redirect()->route('admin.karyawan.index');
     }
 }

@@ -95,14 +95,14 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="NIK" class="form-label">NIK</label>
-                                <input type="text" class="form-control" id="NIK" name="nik"
+                                <input type="text" class="form-control" id="NIK" name="nik" required
                                     value="{{ old('nik') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="Nama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="nama_karyawan"
+                                <input type="text" class="form-control" name="nama_karyawan" required
                                     value="{{ old('nama_karyawan') }}" />
                             </div>
                         </div>
@@ -120,20 +120,21 @@
                                             {{ $karyawan->jabatan }}</option>
                                     @endforeach
                                 </select> --}}
-                                <input type="text" class="form-control " name="jabatan" value="{{ old('jabatan') }}" />
+                                <input type="text" class="form-control " name="jabatan" required
+                                    value="{{ old('jabatan') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="daterange" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="date" class="form-control " name="tmt_bekerja"
+                                <input type="text" class="form-control flatpickr1" name="tmt_bekerja" required
                                     value="{{ old('tmt_bekerja') }}" />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="date" class="form-label">Tanggal Diangkat Menjadi Staf</label>
-                                <input type="date" class="form-control" name="tgl_diangkat_staf"
+                                <label for="daterange" class="form-label">Tanggal Diangkat Menjadi Staf</label>
+                                <input type="text" class="form-control flatpickr1" name="tgl_diangkat_staf" required
                                     value="{{ old('tgl_diangkat_staf') }}" />
                             </div>
                         </div>
@@ -145,7 +146,7 @@
                             </div> --}}
                             <div class="col">
                                 <label for="id posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" aria-label="id posisi" name="id_posisi">
+                                <select class="form-select" aria-label="id posisi" name="id_posisi" required>
                                     <option selected value="{{ old('id_posisi') }}">Pilih Jabatan</option>
                                     <option value="1">Kerani Administrasi</option>
                                     <option value="2">Kepala Bagian</option>

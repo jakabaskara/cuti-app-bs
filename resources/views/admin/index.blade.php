@@ -3,10 +3,11 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
+    <h3 class="mb-4">Halo, Admin 👋</h3>
     <div class="row">
         <div class="col-sm-10">
             <div class="card">
@@ -186,43 +187,33 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
+        // $(function() {
+        //     $('input[name="daterange"]').daterangepicker({
+        //         opens: 'left'
+        //     }, function(start, end, label) {
+        //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+        //             .format('YYYY-MM-DD'));
+        //     });
 
-            $('#datatable2').DataTable();
-        });
-    </script>
+        //     $('#datatable2').DataTable();
+        // });
 
-    <script>
-        $(document).ready(function() {
+        flatpickr('.flatpickr1', {
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
 
-            $('#datatable1').DataTable();
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
 
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
-            flatpickr('.flatpickr1', {
-                mode: 'range',
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length >= 2) {
-                        var startDate = selectedDates[0];
-                        var endDate = selectedDates[selectedDates.length - 1];
-
-                        // Hitung selisih dalam milidetik
-                        var difference = endDate.getTime() - startDate.getTime();
-
-                        // Konversi selisih ke jumlah hari
-                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
-
-                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
-                            daysDifference;
-                        document.getElementById("jumlahHari").value = daysDifference;
-                    }
+                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
                 }
-            })
-        })
+            }
+        });
     </script>
 @endsection
