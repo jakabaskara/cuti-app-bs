@@ -176,6 +176,8 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
+        $('#tableData1').DataTable();
+
         $(function() {
             $('input[name="daterange"]').daterangepicker({
                 opens: 'left'

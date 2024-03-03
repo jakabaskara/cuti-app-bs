@@ -85,6 +85,7 @@
                                         <th>Nama</th>
                                         <th>Sisa<br>Cuti<br>Tahunan</th>
                                         <th>Sisa<br>Cuti<br>Panjang</th>
+                                        <th>Jumlah</th>
                                         {{-- <th>Periode Cuti</th> --}}
                                     </tr>
                                 </thead>
@@ -99,6 +100,7 @@
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
                                         @php
                                             $i++;
@@ -126,12 +128,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
                                     @foreach ($karyawanCuti as $cuti)
                                         <tr>
-                                            <td class="text-center">1.</td>
-                                            <td>Jeno</td>
-                                            <td>Urusan Keluarga</td>
+                                            <td class="text-center">{{ $i }}</td>
+                                            <td>{{ $cuti->karyawan->nama }}</td>
+                                            <td>{{ $cuti->alasan }}</td>
                                         </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>
