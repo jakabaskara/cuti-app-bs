@@ -190,15 +190,9 @@
                     <td>Pemohon</td>
                 </tr>
                 <tr>
-                    <td><br></td>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td><br></td>
+                    <td>
+                        <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
+                    </td>
                     <td><br></td>
                 </tr>
                 <tr>
