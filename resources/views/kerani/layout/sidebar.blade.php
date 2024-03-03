@@ -5,7 +5,8 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info"> Kerani</span></span>
+                <span class="user-info-text">{{ $nama }}<br><span class="user-state-info">
+                        {{ $jabatan }}</span></span>
             </a>
         </div>
     </div>
@@ -16,7 +17,8 @@
             </li> --}}
             <li class="{{ request()->route()->uri == 'kerani' ? 'active-page' : '' }}">
                 {{-- <a href="index.html" class="{{ if(R)route ? "active" : "" }}"><i class="material-icons-two-tone">dashboard</i>Dashboard</a> --}}
-                <a href="{{ route('kerani.index') }}" class="{{ request()->route()->uri == 'kerani' ? 'active' : '' }}"><i
+                <a href="{{ route('kerani.index') }}"
+                    class="{{ request()->route()->uri == 'kerani' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
             <li class="{{ request()->route()->uri == 'kerani/cuti' ? 'active-page' : '' }}">

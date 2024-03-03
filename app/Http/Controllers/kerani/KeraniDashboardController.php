@@ -18,15 +18,20 @@ class KeraniDashboardController extends Controller
     {
         // $idUser = 1;
         $idUser = Auth::user()->id;
-        $idPosisi = User::find($idUser)->karyawan->posisi->id;
+        $user = User::find($idUser);
+        $idPosisi = $user->karyawan->posisi->id;
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
+        $namaUser = $user->karyawan->nama;
+        $jabatan = $user->karyawan->posisi->jabatan;
 
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
             'idPosisi' => $idPosisi,
+            'nama' => $namaUser,
+            'jabatan' => $jabatan,
         ]);
     }
 
