@@ -65,4 +65,29 @@ class PermintaanCuti extends Model
         $data = self::where('id_posisi_pembuat', $idPosisi);
         return $data;
     }
+
+    public static function getDisetujui($idPosisi)
+    {
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 1)->count();
+        return $data;
+    }
+
+    public static function getDitolak($idPosisi)
+    {
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_rejected', 1)->count();
+        return $data;
+    }
+
+    public static function getPending($idPosisi)
+    {
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->count();
+        return $data;
+    }
+
+    public static function getTodayKaryawanCuti($idPosisi)
+    {
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 1)->where('tanggal_mulai', date('Y-m-d'))->get();
+
+        return $data;
+    }
 }

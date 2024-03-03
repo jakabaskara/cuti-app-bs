@@ -5,6 +5,14 @@
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <style>
+        .table-container {
+            max-height: 500px;
+            /* Atur ketinggian maksimum sesuai kebutuhan */
+            overflow-y: auto;
+            /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -19,7 +27,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Disetujui</span>
-                            <span class="widget-stats-amount">14</span>
+                            <span class="widget-stats-amount">{{ $disetujui }}</span>
                             <span class="widget-stats-info">Form Cuti Disetujui</span>
                         </div>
                     </div>
@@ -35,7 +43,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Pending</span>
-                            <span class="widget-stats-amount">3</span>
+                            <span class="widget-stats-amount">{{ $pending }}</span>
                             <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
                     </div>
@@ -51,7 +59,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Dibatalkan</span>
-                            <span class="widget-stats-amount">14</span>
+                            <span class="widget-stats-amount">{{ $ditolak }}</span>
                             <span class="widget-stats-info">Form Cuti Ditolak</span>
                         </div>
                     </div>
@@ -67,7 +75,7 @@
                     <div class="card-header">
                         <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
                     </div>
-                    <div class="card-body" style="min-height: 300px">
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" id="tableData1">
                                 <thead class="table-dark">
@@ -107,8 +115,8 @@
                     <div class="card-header">
                         <h5 class="text-center">Karyawan Cuti</h5>
                     </div>
-                    <div class="card-body" style="min-height: 300px">
-                        <div class="table-responsive">
+                    <div class="card-body">
+                        <div class="table-container">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
