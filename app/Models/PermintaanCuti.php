@@ -62,7 +62,7 @@ class PermintaanCuti extends Model
 
     public static function getHistoryCuti($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi);
+        $data = self::where('id_posisi_pembuat', $idPosisi)->orderBy('id', 'DESC');
         return $data;
     }
 
