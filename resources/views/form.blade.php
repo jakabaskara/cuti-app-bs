@@ -191,7 +191,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
+                        {{-- <img src="{{ public_path() . '/assets/images/avatars/approved.png' }}"> --}}
                     </td>
                     <td><br></td>
                 </tr>

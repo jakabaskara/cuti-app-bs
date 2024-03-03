@@ -74,7 +74,7 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     Route::post('/add-cuti', [KeraniDashboardController::class, 'submitCuti'])->name('kerani.submit-cuti');
     // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');
 
-    // Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
+    Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
 
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 });

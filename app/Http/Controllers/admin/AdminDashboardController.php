@@ -22,7 +22,10 @@ class AdminDashboardController extends Controller
 
     public function downloadPermintaanCutiPDF()
     {
-        $pdf = PDF::loadView('form');
+        $pdf = Pdf::loadView('form');
+
+        // return view('form');
+
         return $pdf->download('pdf.pdf');
     }
 
