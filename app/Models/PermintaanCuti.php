@@ -43,7 +43,7 @@ class PermintaanCuti extends Model
 
     public function posisi()
     {
-        return $this->belongsTo(Posisi::class, 'id_pairing');
+        return $this->belongsTo(Posisi::class, 'id_posisi_pembuat');
     }
 
     public static function getPendingCuti($idAtasan)
@@ -60,12 +60,9 @@ class PermintaanCuti extends Model
         return $data;
     }
 
-    public static function getHistoryCuti($idAtasan)
+    public static function getHistoryCuti($idPosisi)
     {
-        $data = self::whereHas('pairing', function ($query) use ($idAtasan) {
-            $query->where('id_atasan', $idAtasan);
-        })->get()->sortByDesc('id');
-
+        $data = self::where('id_posisi_pembuat', $idPosisi);
         return $data;
     }
 }

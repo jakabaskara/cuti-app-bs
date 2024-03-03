@@ -23,7 +23,7 @@ class KeraniDashboardController extends Controller
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->posisi->id;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
-        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
+        $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
         $jenisCuti = JenisCuti::get();
@@ -56,7 +56,7 @@ class KeraniDashboardController extends Controller
 
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPairing = $user->karyawan->posisi->bawahan->first()->id;
+        $idPosisi = $user->karyawan->id_posisi;
 
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
@@ -83,7 +83,7 @@ class KeraniDashboardController extends Controller
             'jumlah_hari_cuti' => $validate['jumlah_cuti'],
             'alamat' => $validate['alamat'],
             'alasan' => $validate['alasan'],
-            'id_pairing' => $idPairing,
+            'id_posisi_pembuat' => $idPosisi,
             'is_approved' => 0,
             'is_rejected' => 0,
             'is_checked' => $isChecked,
