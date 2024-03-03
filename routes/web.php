@@ -31,6 +31,7 @@ Route::get('/', [AdminDashboardController::class, 'index']);
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
     Route::get('/karyawan', [AdminKaryawanController::class, 'index'])->name('admin.karyawan.index');
+    Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
