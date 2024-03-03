@@ -31,6 +31,7 @@ class AsistenDashboardController extends Controller
         $idUser = Auth::user()->id;
         $idPosisi = User::find($idUser)->karyawan->posisi->id;
         $anggota = Keanggotaan::getAnggota($idPosisi);;
+        $anggota = Keanggotaan::where('id_posisi', 4)->get();
 
         $riwayat = PermintaanCuti::getHistoryCuti($idUser);
 

@@ -28,6 +28,12 @@ class Keanggotaan extends Model
 
     public static function getAnggota($idPosisi)
     {
-        return self::where('id_posisi', $idPosisi);
+        $karyawan = Karyawan::with('keanggotaan')
+            ->whereHas('keanggotaan', function ($query) use ($idPosisi) {
+                $query->where('id_posisi', $idPosisi);
+            })
+            ->get();
+
+        return $karyawan;
     }
 }

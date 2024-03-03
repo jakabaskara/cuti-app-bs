@@ -40,7 +40,10 @@ class Karyawan extends Model
         return $this->hasMany(PermintaanCuti::class, 'id_karyawan');
     }
 
-
+    public function keanggotaan()
+    {
+        return $this->belongsTo(Keanggotaan::class, 'id_posisi', 'id_anggota');
+    }
     // public function getKeanggotaan(){
     //     self::
     // }

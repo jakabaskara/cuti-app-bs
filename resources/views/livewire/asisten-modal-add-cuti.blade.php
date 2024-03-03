@@ -17,7 +17,7 @@
                                     <option selected value=""> </option>
                                     @foreach ($dataPairing as $pairing)
                                         <option value="{{ $pairing->posisi->karyawan }}">
-                                            {{ $pairing->id_anggota }}
+                                            {{ $pairing->nama }}
                                         </option>
                                     @endforeach
                                     {{-- @foreach ($karyawans as $karyawan)

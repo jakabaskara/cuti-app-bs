@@ -30,7 +30,7 @@ class AsistenModalAddCuti extends Component
         $idUser = Auth::user()->id;
         // $idPosisi = User::find($idUser)->karyawan->posisi->id;
         $idPosisi = 4;
-        $this->dataPairing = Keanggotaan::getAnggota($idPosisi)->get();
+        $this->dataPairing = Keanggotaan::getAnggota($idPosisi);
         $this->jenisCuti = JenisCuti::get();
         return view('livewire.asisten-modal-add-cuti');
     }
