@@ -3,6 +3,10 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     {{-- @livewireStyles; --}}
 @endsection
 
@@ -67,13 +71,9 @@
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col">
-                                                                    <button
-                                                                        class="btn btn-sm px-2 py-0 m-0 btn-warning"><span
-                                                                            class="material-icons">
-                                                                            edit_note
-                                                                        </span></button>
-                                                                    <button
-                                                                        class="btn btn-sm px-2 py-0 m-0 btn-danger"><span
+                                                                    <button data-riwayat-id="{{ $riwayat->id }}"
+                                                                        onclick="confirmation({{ $riwayat->id }})"
+                                                                        class="button-confirm btn btn-sm px-2 py-0 m-0 btn-danger"><span
                                                                             class="material-icons">
                                                                             delete
                                                                         </span></button>
@@ -102,12 +102,46 @@
     @livewire('asisten-modal-add-cuti')
 @endsection
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+
 
     <script>
+        function confirmation(id) {
+            Swal.fire({
+                title: "Apakah anda yakin untuk membatalkan?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, batalkan cuti!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Panggil rute delete-cuti menggunakan metode DELETE
+                    axios.delete('delete-cuti/' + id)
+                        .then(response => {
+                            Swal.fire({
+                                title: response.data.title,
+                                text: response.data.message,
+                                icon: response.data.icon
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Terjadi kesalahan saat memproses permintaan.',
+                                icon: 'error'
+                            });
+                        });
+                }
+            });
+        }
+
+
         $(document).ready(function() {
 
             $('#datatable1').DataTable({

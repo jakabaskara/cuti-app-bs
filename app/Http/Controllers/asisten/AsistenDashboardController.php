@@ -65,7 +65,6 @@ class AsistenDashboardController extends Controller
             $startDate = $request->tanggal_cuti;
             $endDate = $request->tanggal_cuti;
         };
-
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 
@@ -84,5 +83,15 @@ class AsistenDashboardController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function deleteCuti($id)
+    {
+        $permintaanCuti = PermintaanCuti::find($id);
+        $nama = $permintaanCuti->karyawan->nama;
+        $permintaanCuti->delete();
+
+
+        return redirect()->back()->with('message', 'Data Cuti ' . $nama . "Berhasil Dihapus");
     }
 }
