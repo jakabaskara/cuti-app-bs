@@ -183,6 +183,7 @@
                                         <th class="text-dark">Jumlah<br>Hari</th>
                                         <th class="text-dark">Periode Tanggal</th>
                                         <th class="text-dark">Alasan</th>
+                                        <th class="text-dark">Alamat</th>
                                         <th class="text-dark">Status</th>
                                         <th class="text-dark">Aksi</th>
                                     </tr>
@@ -202,6 +203,7 @@
                                                 {{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
                                             </td>
                                             <td class="text-dark">{{ $riwayat->alasan }}</td>
+                                            <td class="text-dark">{{ $riwayat->alamat }}</td>
                                             @if ($riwayat->is_approved == 1)
                                                 <td class="text-dark"> <span
                                                         class="badge badge-success p-2">Disetujui</span>
