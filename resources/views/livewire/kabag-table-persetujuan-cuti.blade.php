@@ -18,7 +18,9 @@
                 @foreach ($permintaanCuti as $cutiPending)
                     <tr class="text-center">
                         <td class="text-dark noti"> <button class="btn btn-success"
-                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> </td>
+                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> <button
+                                class="btn btn-danger" wire:click='tolak({{ $cutiPending->id }})'>Tolak</button>
+                        </td>
                         <td class="text-dark">{{ $cutiPending->karyawan->NIK }}</td>
                         <td class="text-dark">{{ $cutiPending->karyawan->nama }}</td>
                         <td class="text-dark">{{ $cutiPending->tanggal_mulai }}</td>
