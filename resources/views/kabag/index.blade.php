@@ -205,6 +205,24 @@
         $('.noti').on('click', function() {
             round_success_noti();
         })
+
+
+        function round_danger_notis() {
+            Lobibox.notify('danger', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Cuti Ditolak!'
+            });
+        }
+
+        $('.noti').on('click', function() {
+            round_danger_notis();
+        })
     </script>
 
     @livewireScripts()
