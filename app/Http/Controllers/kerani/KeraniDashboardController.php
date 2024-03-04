@@ -8,12 +8,13 @@ use App\Models\PermintaanCuti;
 use App\Models\Karyawan;
 use App\Models\Keanggotaan;
 use App\Models\Pairing;
+use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class KeraniDashboardController extends Controller
 {
@@ -69,6 +70,7 @@ class KeraniDashboardController extends Controller
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->id_posisi;
+        $karyawan = $user->karyawan;
 
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
@@ -87,20 +89,28 @@ class KeraniDashboardController extends Controller
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 
-        PermintaanCuti::create([
-            'id_karyawan' => $validate['karyawan'],
-            'id_jenis_cuti' => $validate['jenis_cuti'],
-            'tanggal_mulai' => $startDate,
-            'tanggal_selesai' => $endDate,
-            'jumlah_hari_cuti' => $validate['jumlah_cuti'],
-            'alamat' => $validate['alamat'],
-            'alasan' => $validate['alasan'],
-            'id_posisi_pembuat' => $idPosisi,
-            'is_approved' => 0,
-            'is_rejected' => 0,
-            'is_checked' => $isChecked,
-        ]);
+        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan) {
 
+            $permintaanCuti = PermintaanCuti::create([
+                'id_karyawan' => $validate['karyawan'],
+                'id_jenis_cuti' => $validate['jenis_cuti'],
+                'tanggal_mulai' => $startDate,
+                'tanggal_selesai' => $endDate,
+                'jumlah_hari_cuti' => $validate['jumlah_cuti'],
+                'alamat' => $validate['alamat'],
+                'alasan' => $validate['alasan'],
+                'id_posisi_pembuat' => $idPosisi,
+                'is_approved' => 0,
+                'is_rejected' => 0,
+                'is_checked' => $isChecked,
+            ]);
+
+            RiwayatCuti::create([
+                'id_permintaan_cuti' => $permintaanCuti->id,
+                'nama_pembuat' => $karyawan->nama,
+                'jabatan_pembuat' => $karyawan->posisi->jabatan,
+            ]);
+        });
 
         return redirect()->back();
     }
