@@ -12,15 +12,19 @@ class RiwayatCuti extends Model
     protected $table = 'riwayat_cuti';
 
     protected $fillable = [
+        'id_permintaan_cuti',
         'nama_approver',
         'nama_checker',
+        'nama_pembuat',
         'jabatan_approver',
         'jabatan_checker',
+        'jabatan_pembuat',
         'approval_date',
         'checked_date',
     ];
 
-    public function PermintaanCuti(){
+    public function PermintaanCuti()
+    {
         return $this->belongsTo(PermintaanCuti::class, 'id_permintaan_cuti');
     }
 }
