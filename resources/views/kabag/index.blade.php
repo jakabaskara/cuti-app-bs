@@ -11,9 +11,9 @@
 @section('content')
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
-    {{-- @livewire('kabag-status-bar-index') --}}
+    @livewire('kabag-status-bar-index')
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         <div class="col">

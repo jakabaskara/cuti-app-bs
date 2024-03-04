@@ -56,6 +56,26 @@ class PermintaanCuti extends Model
         return $permintaanCuti;
     }
 
+    public static function getDisetujuiCuti($idAtasan)
+    {
+        $pairings = Pairing::where('id_atasan', $idAtasan)->get();
+
+        $permintaanCuti = $pairings->flatMap(function ($pairing) {
+            return $pairing->bawahan->permintaanCuti->where('is_approved', 1);
+        });
+        return $permintaanCuti;
+    }
+
+    public static function getDibatalkanCuti($idAtasan)
+    {
+        $pairings = Pairing::where('id_atasan', $idAtasan)->get();
+
+        $permintaanCuti = $pairings->flatMap(function ($pairing) {
+            return $pairing->bawahan->permintaanCuti->where('is_rejected', 1);
+        });
+        return $permintaanCuti;
+    }
+
     public static function getPendingCutiAtAsisten($id)
     {
         $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->where('id_pairing', $id);

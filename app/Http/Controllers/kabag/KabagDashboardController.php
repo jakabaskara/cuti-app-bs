@@ -21,7 +21,7 @@ class KabagDashboardController extends Controller
         // $idUser = 1;
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPosisi = $user->karyawan->posisi->id;
+        $idPosisi = $user->karyawan->id_posisi;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
         $namaUser = $user->karyawan->nama;
@@ -33,9 +33,10 @@ class KabagDashboardController extends Controller
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         });
 
-        $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
-        $getPending = PermintaanCuti::getPending($idPosisi);
-        $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        // dd(Pairing::where('id_atasan', $idPosisi)->with('bawahan')->get());
+        $getDisetujui = PermintaanCuti::getDisetujuiCuti($idPosisi)->count();
+        $getPending = PermintaanCuti::getPendingCuti($idPosisi)->count();
+        $getDitolak = PermintaanCuti::getDibatalkanCuti($idPosisi);
         $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
         return view('kabag.index', [
