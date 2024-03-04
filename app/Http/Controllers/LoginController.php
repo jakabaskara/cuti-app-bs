@@ -31,6 +31,8 @@ class LoginController extends Controller
         if (Auth::attempt($credential)) {
             if ($role == 'kerani') {
                 return redirect()->route('kerani.index');
+            } elseif ($role == 'kabag') {
+                return redirect()->route('kabag.index');
             } else {
                 return redirect()->route('asisten.index');
             }

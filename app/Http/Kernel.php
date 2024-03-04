@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'kerani.auth' => \App\Http\Middleware\KeraniAuth::class,
+        'kabag.auth' => \App\Http\Middleware\KabagAuth::class,
     ];
 }

@@ -80,7 +80,7 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
 });
 
 
-Route::group(['prefix' => 'kabag'], function () {
+Route::group(['prefix' => 'kabag', 'middleware' => ['kabag.auth']], function () {
     Route::get('/', [KabagDashboardController::class, 'index'])->name('kabag.index');
     Route::get('/pengajuan-cuti', [KabagDashboardController::class, 'pengajuanCuti'])->name('kabag.pengajuan-cuti');
 
