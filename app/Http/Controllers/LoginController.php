@@ -11,6 +11,11 @@ class LoginController extends Controller
 {
     public function index()
     {
+        // if(session_status()){
+        //     session_destroy();
+        // }
+        session_reset();
+        // if(session_status)
         return view('login.index');
     }
 

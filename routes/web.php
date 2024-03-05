@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminKaryawanController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
+use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\kerani\KeraniDashboardController;
@@ -53,7 +54,7 @@ Route::group(['prefix' => 'asisten'], function () {
     Route::get('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
 });
 
-Route::group(['prefix' => 'manajer', 'manajer' => ['manajer.auth']], function () {
+Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
     Route::get('/karyawan', [ManajerKaryawanController::class, 'index'])->name('manajer.karyawan.index');
     Route::post('/karyawan', [ManajerKaryawanController::class, 'tambahKaryawan'])->name('manajer.tambahKaryawan');
