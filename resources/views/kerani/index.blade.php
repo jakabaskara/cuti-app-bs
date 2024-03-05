@@ -265,6 +265,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="row mb-3">
+                            <label for="nama" class="form-label">Nama Karyawan</label>
+                            <select class="form-select" id="select2" style="display: none; width: 100%"
+                                aria-label="Nama Karyawan" name="karyawan" required">
+                                <option selected value=""> </option>
+                                @foreach ($dataPairing as $pairing)
+                                    <option value="{{ $pairing->id }}">
+                                        {{ $pairing->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
                             @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
@@ -341,11 +351,9 @@
 
     <script>
         $(document).ready(function() {
-            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             $('#tableData1').DataTable();
-            $('#select2').select2({
-                dropdownParent: $('#exampleModal .modal-content')
-            });
+
             $('#dataTable2').DataTable({
                 responsive: true,
                 rowReorder: {
@@ -353,6 +361,9 @@
                 }
             });
 
+            $('#select2').select2({
+                dropdownParent: $('#exampleModal .modal-content')
+            });
 
 
             // $(function() {
@@ -386,6 +397,20 @@
                 }
             })
         })
+
+        // function setname() {
+        //     console.log('berhasil');
+        //     Livewire.dispatch('setname');
+        // }
+
+        $('#select2').select2({
+            dropdownParent: $('#exampleModal .modal-content')
+        }).on('change', function() {
+            var selectedValue = $(this).val();
+            Livewire.dispatch('setname', {
+                id: selectedValue
+            });
+        });
     </script>
     @livewireScripts()
 @endsection
