@@ -53,7 +53,7 @@ Route::group(['prefix' => 'asisten'], function () {
     Route::get('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
 });
 
-Route::group(['prefix' => 'manajer'], function () {
+Route::group(['prefix' => 'manajer', 'manajer' => ['manajer.auth']], function () {
     Route::get('/', [ManajerDashboardController::class, 'index'])->name('manajer.index');
     Route::get('/karyawan', [ManajerKaryawanController::class, 'index'])->name('manajer.karyawan.index');
     Route::post('/karyawan', [ManajerKaryawanController::class, 'tambahKaryawan'])->name('manajer.tambahKaryawan');

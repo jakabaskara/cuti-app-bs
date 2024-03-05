@@ -33,10 +33,14 @@ class LoginController extends Controller
                 return redirect()->route('kerani.index');
             } elseif ($role == 'kabag') {
                 return redirect()->route('kabag.index');
+            } elseif ($role == 'manajer') {
+                return redirect()->route('manajer.index');
             } elseif ($role == 'admin') {
                 return redirect()->route('admin.index');
-            } else {
+            } elseif ($role == 'admin') {
                 return redirect()->route('asisten.index');
+            } else {
+                return back()->with('failed', 'Akun Belum Terdaftar');
             }
         } else {
             return back()->with('failed', 'Username atau Password Anda Salah');
