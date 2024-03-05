@@ -13,6 +13,7 @@
             /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
         }
     </style>
+    @livewireStyles()
 @endsection
 
 @section('content')
@@ -264,22 +265,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Nama Karyawan</label>
-                                <select class="form-select js-states form-control" id="select2"
-                                    style="display: none; width: 100%" aria-label="Nama Karyawan" name="karyawan"
-                                    required>
-                                    <option selected value=""> </option>
-                                    @foreach ($dataPairing as $pairing)
-                                        <option value="{{ $pairing->id }}">
-                                            {{ $pairing->nama }}
-                                        </option>
-                                    @endforeach
-                                    {{-- @foreach ($karyawans as $karyawan)
-                                    <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
-                                @endforeach --}}
-                                </select>
-                            </div>
+                            @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
                             <div class="col">
@@ -401,4 +387,5 @@
             })
         })
     </script>
+    @livewireScripts()
 @endsection
