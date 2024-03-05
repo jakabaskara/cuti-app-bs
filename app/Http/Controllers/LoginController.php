@@ -33,6 +33,8 @@ class LoginController extends Controller
                 return redirect()->route('kerani.index');
             } elseif ($role == 'kabag') {
                 return redirect()->route('kabag.index');
+            } elseif ($role == 'admin') {
+                return redirect()->route('admin.index');
             } else {
                 return redirect()->route('asisten.index');
             }

@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', [AdminDashboardController::class, 'index']);
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
     Route::get('/karyawan', [AdminKaryawanController::class, 'index'])->name('admin.karyawan.index');
     Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');

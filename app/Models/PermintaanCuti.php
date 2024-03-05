@@ -51,7 +51,7 @@ class PermintaanCuti extends Model
         $pairings = Pairing::where('id_atasan', $idPosisi)->get();
 
         $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_approved', 0);
+            return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
         });
         return $permintaanCuti;
     }

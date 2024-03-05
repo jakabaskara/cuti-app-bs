@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
 
         'kerani.auth' => \App\Http\Middleware\KeraniAuth::class,
         'kabag.auth' => \App\Http\Middleware\KabagAuth::class,
+        'admin.auth' => \App\Http\Middleware\KabagAuth::class,
     ];
 }
