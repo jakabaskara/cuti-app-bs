@@ -28,7 +28,6 @@ class KeraniDashboardController extends Controller
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
-        $jenisCuti = JenisCuti::get();
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
         $sisaCuti = $dataPairing->each(function ($data) {
             $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
@@ -46,7 +45,6 @@ class KeraniDashboardController extends Controller
             'idPosisi' => $idPosisi,
             'nama' => $namaUser,
             'jabatan' => $jabatan,
-            'jenisCuti' => $jenisCuti,
             'sisaCutis' => $sisaCuti,
             'disetujui' => $getDisetujui,
             'pending' => $getPending,

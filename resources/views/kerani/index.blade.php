@@ -278,20 +278,13 @@
                             @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Jenis Cuti</label>
-                                <select class="form-select " aria-label="Nama Karyawan" name="jenis_cuti" required>
-                                    <option selected value=""> </option>
-                                    @foreach ($jenisCuti as $jenis)
-                                        <option value="{{ $jenis->id }}">{{ $jenis->jenis_cuti }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @livewire('kerani-jenis-cuti')
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="daterange" class="form-label">Tanggal Cuti</label>
-                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required />
+                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required
+                                    id="tanggal_cuti" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -350,6 +343,27 @@
 
 
     <script>
+        var fp = flatpickr('.flatpickr1', {
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
+
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
+                    var tipeCuti = $('#jenisCuti option:selected').text();
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+
+                    document.getElementById("jumlah-hari").textContent = "Jumlah " +
+                        tipeCuti + ": " +
+                        daysDifference;
+                    document.getElementById("jumlahHari").value = daysDifference;
+                }
+            }
+        })
+
         $(document).ready(function() {
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             $('#tableData1').DataTable();
@@ -377,31 +391,21 @@
             //     $('#datatable2').DataTable();
             // });
 
-            flatpickr('.flatpickr1', {
-                mode: 'range',
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length >= 2) {
-                        var startDate = selectedDates[0];
-                        var endDate = selectedDates[selectedDates.length - 1];
 
-                        // Hitung selisih dalam milidetik
-                        var difference = endDate.getTime() - startDate.getTime();
-
-                        // Konversi selisih ke jumlah hari
-                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
-
-                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
-                            daysDifference;
-                        document.getElementById("jumlahHari").value = daysDifference;
-                    }
-                }
-            })
         })
 
-        // function setname() {
-        //     console.log('berhasil');
-        //     Livewire.dispatch('setname');
-        // }
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('setCuti', (event) => {
+                $('#jumlah-hari').text('');
+                $('#jumlahHari').val('');
+                try {
+                    fp.clear()
+                } catch (e) {
+                    console.log(e)
+                }
+            });
+        });
+
 
         $('#select2').select2({
             dropdownParent: $('#exampleModal .modal-content')
