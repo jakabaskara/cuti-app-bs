@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         .table-container {
             max-height: 500px;
@@ -253,7 +253,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal fade " id="exampleModal" aria-labelledby="exampleModalLabel">
         <form method="post" action="{{ route('kerani.submit-cuti') }}">
             @csrf
             <div class="modal-dialog">
@@ -266,7 +266,9 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nama" class="form-label">Nama Karyawan</label>
-                                <select class="form-select" aria-label="Nama Karyawan" name="karyawan" required>
+                                <select class="form-select js-states form-control" id="select2"
+                                    style="display: none; width: 100%" aria-label="Nama Karyawan" name="karyawan"
+                                    required>
                                     <option selected value=""> </option>
                                     @foreach ($dataPairing as $pairing)
                                         <option value="{{ $pairing->id }}">
@@ -282,7 +284,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nama" class="form-label">Jenis Cuti</label>
-                                <select class="form-select" aria-label="Nama Karyawan" name="jenis_cuti" required>
+                                <select class="form-select " aria-label="Nama Karyawan" name="jenis_cuti" required>
                                     <option selected value=""> </option>
                                     @foreach ($jenisCuti as $jenis)
                                         <option value="{{ $jenis->id }}">{{ $jenis->jenis_cuti }} </option>
@@ -342,6 +344,8 @@
 
 @section('script')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
@@ -351,9 +355,11 @@
 
     <script>
         $(document).ready(function() {
-
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             $('#tableData1').DataTable();
-
+            $('#select2').select2({
+                dropdownParent: $('#exampleModal .modal-content')
+            });
             $('#dataTable2').DataTable({
                 responsive: true,
                 rowReorder: {
