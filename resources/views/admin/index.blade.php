@@ -12,6 +12,7 @@
             /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
         }
     </style>
+    @livewireStyles()
 @endsection
 
 @section('content')

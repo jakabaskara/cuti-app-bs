@@ -38,7 +38,7 @@ class AdminDashboardController extends Controller
         $getDitolak = PermintaanCuti::getDitolak($idPosisi);
         $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
-        return view('kerani.index', [
+        return view('admin.index', [
             'dataPairing' => $dataPairing,
             'riwayats' => $riwayat,
             'idPosisi' => $idPosisi,

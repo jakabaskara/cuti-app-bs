@@ -5,6 +5,14 @@
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <style>
+        .table-container {
+            max-height: 500px;
+            /* Atur ketinggian maksimum sesuai kebutuhan */
+            overflow-y: auto;
+            /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
+        }
+    </style>
     @livewireStyles()
 @endsection
 
@@ -95,6 +103,7 @@
                                         <th>Nama</th>
                                         <th>Sisa<br>Cuti<br>Tahunan</th>
                                         <th>Sisa<br>Cuti<br>Panjang</th>
+                                        <th>Jumlah</th>
                                         {{-- <th>Periode Cuti</th> --}}
                                     </tr>
                                 </thead>
@@ -109,6 +118,7 @@
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                                            <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
                                         @php
                                             $i++;
@@ -136,12 +146,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
                                     @foreach ($karyawanCuti as $cuti)
                                         <tr>
-                                            <td class="text-center">1.</td>
-                                            <td>Jeno</td>
-                                            <td>Urusan Keluarga</td>
+                                            <td class="text-center">{{ $i }}</td>
+                                            <td>{{ $cuti->karyawan->nama }}</td>
+                                            <td>{{ $cuti->alasan }}</td>
                                         </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>
