@@ -120,7 +120,7 @@
                                           </div>
                                       </div>
                                   </a>
-                                  <a href="#">
+                                  <a href="{{ route('logout') }}">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-success text-white">

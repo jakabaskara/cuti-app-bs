@@ -3,15 +3,14 @@
         <div class="card widget widget-stats">
             <div class="card-body">
                 <div class="widget-stats-container d-flex">
-                    <div class="widget-stats-icon widget-stats-icon-primary">
+                    <div class="widget-stats-icon widget-stats-icon-success">
                         <i class="material-icons-outlined">check_circle</i>
                     </div>
                     <div class="widget-stats-content flex-fill">
                         <span class="widget-stats-title text-dark">Disetujui</span>
-                        <span class="widget-stats-amount">{{ $disetujui }}</span>
+                        <span class="widget-stats-amount" wire:model='disetujui'>{{ $disetujui }}</span>
                         <span class="widget-stats-info">Form Cuti Disetujui</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -24,11 +23,10 @@
                         <i class="material-icons-outlined">info</i>
                     </div>
                     <div class="widget-stats-content flex-fill">
-                        <span class="widget-stats-title text-dark"> Pending</span>
-                        <span class="widget-stats-amount">{{ $pending }}</span>
+                        <span class="widget-stats-title text-dark">Pending</span>
+                        <span class="widget-stats-amount" wire:model='pending'>{{ $pending }}</span>
                         <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -37,12 +35,12 @@
         <div class="card widget widget-stats">
             <div class="card-body">
                 <div class="widget-stats-container d-flex">
-                    <div class="widget-stats-icon widget-stats-icon-success">
+                    <div class="widget-stats-icon widget-stats-icon-danger">
                         <i class="material-icons-outlined">highlight_off</i>
                     </div>
                     <div class="widget-stats-content flex-fill">
-                        <span class="widget-stats-title text-dark">dibatalkan</span>
-                        <span class="widget-stats-amount">{{ $ditolak }}</span>
+                        <span class="widget-stats-title text-dark">Dibatalkan</span>
+                        <span class="widget-stats-amount" wire:model='ditolak'>{{ $ditolak }}</span>
                         <span class="widget-stats-info">Form Cuti Ditolak</span>
                     </div>
                 </div>
