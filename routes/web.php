@@ -87,6 +87,13 @@ Route::group(['prefix' => 'kabag', 'middleware' => ['kabag.auth']], function () 
     Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
 });
 
+Route::group(['prefix' => 'gm'], function () {
+    Route::get('/', [GmDashboardController::class, 'index'])->name('gm.index');
+    // Route::get('/pengajuan-cuti', [KabagDashboardController::class, 'pengajuanCuti'])->name('kabag.pengajuan-cuti');
+
+    // Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
+});
+
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
