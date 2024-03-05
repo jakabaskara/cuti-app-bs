@@ -7,6 +7,7 @@ use App\Models\SisaCuti;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class KeraniDaftarSisaCuti extends Component
 {
@@ -26,10 +27,11 @@ class KeraniDaftarSisaCuti extends Component
         $this->dataPairing = Keanggotaan::getAnggota($idPosisi);
     }
 
-    public function setNama()
+    #[On('setname')]
+    public function setNama($id)
     {
-        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $this->namaKaryawan)->where('id_jenis_cuti', 1)->first()->jumlah ?? 0;
-        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $this->namaKaryawan)->where('id_jenis_cuti', 2)->first()->jumlah ?? 0;
+        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $id)->where('id_jenis_cuti', 1)->first()->jumlah ?? 0;
+        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $id)->where('id_jenis_cuti', 2)->first()->jumlah ?? 0;
         $this->sisaCutiPanjang = $sisaCutiPanjang;
         $this->sisaCutiTahunan = $sisaCutiTahunan;
     }
