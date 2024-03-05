@@ -63,9 +63,9 @@ Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function
     Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
     Route::get('/cuti', [ManajerBeritaCutiController::class, 'index'])->name('manajer.cuti.index');
 
-  
-    
- 
+
+
+
     Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('manajer.download.pdf');
 
     Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('manajer.tambahCuti');
@@ -79,7 +79,7 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');
 
     Route::get('/downloadPDF/{id}', [KeraniDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
-
+    Route::delete('/delete-cuti/{id}', [KeraniDashboardController::class, 'delete'])->name('kerani.delete-cuti');
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 });
 

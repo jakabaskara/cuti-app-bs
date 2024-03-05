@@ -149,4 +149,17 @@ class KeraniDashboardController extends Controller
 
         return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
     }
+
+    public function delete($id)
+    {
+        DB::transaction(function () use ($id) {
+            $riwayatPermintaanCuti = RiwayatCuti::where('id_permintaan_cuti', $id);
+            $riwayatPermintaanCuti->delete();
+
+            $permintaanCuti = PermintaanCuti::find($id);
+            $permintaanCuti->delete();
+        });
+
+        return redirect()->back()->with('message', 'Data Berhasil Dihapus');
+    }
 }

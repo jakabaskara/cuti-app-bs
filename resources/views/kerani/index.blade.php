@@ -5,6 +5,8 @@
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
+
     <style>
         .table-container {
             max-height: 500px;
@@ -232,11 +234,17 @@
                                                         class="badge badge-warning p-2">Pending</span>
                                                 </td>
                                                 <td class="">
-                                                    <button class="btn btn-sm btn-danger px-1 py-0">
-                                                        <span class="material-icons text-sm p-0 align-middle">
-                                                            delete
-                                                        </span>
-                                                    </button>
+                                                    <form id="deleteForm{{ $riwayat->id }}"
+                                                        action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                        class="btn btn-sm btn-danger px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">delete</span>
+                                                    </a>
                                                 </td>
                                             @endif
                                         </tr>
@@ -340,6 +348,8 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+
 
 
     <script>
@@ -415,6 +425,25 @@
                 id: selectedValue
             });
         });
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                round_error_noti('{!! $error !!}');
+            @endforeach
+        @endif
+
+        function round_error_noti(msg) {
+            Lobibox.notify('error', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bi bi-exclamation-triangle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: msg + '!',
+            });
+        }
     </script>
     @livewireScripts()
 @endsection
