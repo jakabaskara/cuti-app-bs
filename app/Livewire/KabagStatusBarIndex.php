@@ -43,4 +43,4 @@ class KabagStatusBarIndex extends Component
 
         return view('livewire.kabag-status-bar-index');
     }
-}
+}           

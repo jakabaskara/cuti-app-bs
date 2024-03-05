@@ -172,12 +172,47 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <h5>Daftar Riwayat Cuti</h5>
                     <hr>
                 </div>
-                <div class="card-body">
-
-                </div>
+                {{-- <div class="card-body">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tableData1">
+                                <thead class="table-dark">
+                                    <tr class="text-center align-middle">
+                                        <th>No.</th>
+                                        <th>NIK SAP</th>
+                                        <th>Nama</th>
+                                        <th>Sisa<br>Cuti<br>Tahunan</th>
+                                        <th>Sisa<br>Cuti<br>Panjang</th>
+                                        <th>Jumlah</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($PermintaanCuti as $PermintaanCuti)
+                                        <tr class="text-center align-middle">
+                                            <td>{{ $i }}</td>
+                                            <td>{{ $permintaanCuti->NIK }}</td>
+                                            <td class="text-start">{{ $permintaanCuti->nama }}</td>
+                                            <td>{{ $permintaanCuti->sisa_cuti_tahunan }}</td>
+                                            <td>{{ $permintaanCuti->sisa_cuti_panjang }}</td>
+                                            <td>{{ $permintaanCuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }}
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>  --}}
             </div>
         </div>
     </div>
