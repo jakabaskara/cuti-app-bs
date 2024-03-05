@@ -26,6 +26,6 @@ class AsistenAuth
             }
             return redirect()->route('login');
         }
-        return $next($request);
+        return redirect()->route('login');
     }
 }

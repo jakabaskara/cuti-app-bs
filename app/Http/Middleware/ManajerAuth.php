@@ -26,6 +26,6 @@ class ManajerAuth
             }
             return redirect()->route('login');
         }
-        return $next($request);
+        return redirect()->route('login');
     }
 }
