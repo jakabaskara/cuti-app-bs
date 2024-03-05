@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
 use App\Models\SisaCuti;
+use App\Models\Posisi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -26,7 +27,7 @@ class ManajerTablePersetujuanCuti extends Component
         $this->permintaanCuti = $permintaanCuti;
         // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;
         // $this->cutiPendings  = PermintaanCuti::getPending(1)->get();
-        return view('livewire.kabag-table-persetujuan-cuti');
+        return view('livewire.manajer-table-persetujuan-cuti');
     }
 
     public function setujui($id)

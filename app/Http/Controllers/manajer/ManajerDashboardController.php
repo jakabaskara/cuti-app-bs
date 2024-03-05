@@ -9,6 +9,7 @@ use App\Models\Keanggotaan;
 use App\Models\PermintaanCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
+use App\Models\Pairing;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Http\Request;
@@ -55,54 +56,54 @@ class ManajerDashboardController extends Controller
         ]);
     }
 
-    // public function submitCuti(Request $request)
-    // {
-    //     $validate = $request->validate([
-    //         'karyawan' => 'required',
-    //         'jenis_cuti' => 'required',
-    //         'tanggal_cuti' => 'required',
-    //         'jumlah_cuti' => 'required',
-    //         'alasan' => 'required',
-    //         'alamat' => 'required',
-    //     ]);
+    public function submitCuti(Request $request)
+    {
+        $validate = $request->validate([
+            'karyawan' => 'required',
+            'jenis_cuti' => 'required',
+            'tanggal_cuti' => 'required',
+            'jumlah_cuti' => 'required',
+            'alasan' => 'required',
+            'alamat' => 'required',
+        ]);
 
-    //     $idUser = Auth::user()->id;
-    //     $user = User::find($idUser);
-    //     $idPosisi = $user->karyawan->id_posisi;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $idPosisi = $user->karyawan->id_posisi;
 
-    //     if (strlen($request->tanggal_cuti) != 10) {
-    //         list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
-    //         // Konversi string tanggal menjadi format timestamp
-    //         $startDate = strtotime($startDate);
-    //         $endDate = strtotime($endDate);
+        if (strlen($request->tanggal_cuti) != 10) {
+            list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
+            // Konversi string tanggal menjadi format timestamp
+            $startDate = strtotime($startDate);
+            $endDate = strtotime($endDate);
 
-    //         // Format ulang tanggal ke format yang diinginkan
-    //         $startDate = date("Y-m-d", $startDate);
-    //         $endDate = date("Y-m-d", $endDate);
-    //     } else {
-    //         $startDate = $request->tanggal_cuti;
-    //         $endDate = $request->tanggal_cuti;
-    //     };
+            // Format ulang tanggal ke format yang diinginkan
+            $startDate = date("Y-m-d", $startDate);
+            $endDate = date("Y-m-d", $endDate);
+        } else {
+            $startDate = $request->tanggal_cuti;
+            $endDate = $request->tanggal_cuti;
+        };
 
-    //     $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
-    //     $isChecked = $isManager ? 0 : 1;
+        $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
+        $isChecked = $isManager ? 0 : 1;
 
-    //     PermintaanCuti::create([
-    //         'id_karyawan' => $validate['karyawan'],
-    //         'id_jenis_cuti' => $validate['jenis_cuti'],
-    //         'tanggal_mulai' => $startDate,
-    //         'tanggal_selesai' => $endDate,
-    //         'jumlah_hari_cuti' => $validate['jumlah_cuti'],
-    //         'alamat' => $validate['alamat'],
-    //         'alasan' => $validate['alasan'],
-    //         'id_posisi_pembuat' => $idPosisi,
-    //         'is_approved' => 0,
-    //         'is_rejected' => 0,
-    //         'is_checked' => $isChecked,
-    //     ]);
+        PermintaanCuti::create([
+            'id_karyawan' => $validate['karyawan'],
+            'id_jenis_cuti' => $validate['jenis_cuti'],
+            'tanggal_mulai' => $startDate,
+            'tanggal_selesai' => $endDate,
+            'jumlah_hari_cuti' => $validate['jumlah_cuti'],
+            'alamat' => $validate['alamat'],
+            'alasan' => $validate['alasan'],
+            'id_posisi_pembuat' => $idPosisi,
+            'is_approved' => 0,
+            'is_rejected' => 0,
+            'is_checked' => $isChecked,
+        ]);
 
 
-    //     return redirect()->back();
-    // }
+        return redirect()->back();
+    }
 
 }
