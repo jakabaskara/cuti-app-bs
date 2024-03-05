@@ -317,7 +317,7 @@
                     <div class="modal-footer">
 
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
-                        <button type="submit" class="btn btn-primary">Ajukan</button>
+                        <button type="submit" id="ajukan" class="btn btn-primary">Ajukan</button>
                     </div>
                 </div>
             </div>
@@ -363,12 +363,41 @@
                     // Hitung selisih dalam milidetik
                     var difference = endDate.getTime() - startDate.getTime();
                     var tipeCuti = $('#jenisCuti option:selected').text();
+                    var kdtipeCuti = $('#jenisCuti option:selected').val();
                     // Konversi selisih ke jumlah hari
                     var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
-                    document.getElementById("jumlah-hari").textContent = "Jumlah " +
+                    var sisaCutiPanjang = $('#sisa_cuti_panjang').val();
+                    var sisaCutiTahunan = $('#sisa_cuti_tahunan').val();
+
+                    var content = document.getElementById("jumlah-hari");
+                    content.classList.add('text-dark');
+
+                    content.textContent = "Jumlah " +
                         tipeCuti + ": " +
                         daysDifference;
+                    console.log(kdtipeCuti)
+                    console.log(sisaCutiPanjang)
+                    console.log(daysDifference)
+                    if (kdtipeCuti == 1) {
+                        if (sisaCutiPanjang < daysDifference) {
+                            content.classList.remove('text-dark');
+                            content.classList.add('text-danger');
+                            $('#ajukan').prop('disabled', true).hide();
+                        } else {
+                            $('#ajukan').show().prop('disabled', false);
+                        }
+                    } else if (kdtipeCuti == 2) {
+                        if (sisaCutiTahunan < daysDifference) {
+                            content.classList.remove('text-dark');
+                            content.classList.add('text-danger');
+                            $('#ajukan').prop('disabled', true).hide();
+                        } else {
+                            $('#ajukan').show().prop('disabled', false);
+                        }
+                    } else {
+                        $('#ajukan').prop('disabled', false);
+                    }
                     document.getElementById("jumlahHari").value = daysDifference;
                 }
             }
