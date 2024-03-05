@@ -15,17 +15,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cutiPendings as $cutiPending)
+                @foreach ($permintaanCuti as $cutiPending)
                     <tr class="text-center">
                         <td class="text-dark noti"> <button class="btn btn-success"
-                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> </td>
+                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button> <button
+                                class="btn btn-danger" wire:click='tolak({{ $cutiPending->id }})'>Tolak</button>
+                        </td>
                         <td class="text-dark">{{ $cutiPending->karyawan->NIK }}</td>
                         <td class="text-dark">{{ $cutiPending->karyawan->nama }}</td>
                         <td class="text-dark">{{ $cutiPending->tanggal_mulai }}</td>
                         <td class="text-dark">{{ $cutiPending->jumlah_hari_cuti }}</td>
                         <td class="text-dark">{{ $cutiPending->alasan }}</td>
                         <td class="text-dark">{{ $cutiPending->alamat }}</td>
-                        <td class="text-dark">Pending</td>
+                        <td class="text-dark"> <span class="badge badge-warning">Pending</span> </td>
                     </tr>
                 @endforeach
             </tbody>
