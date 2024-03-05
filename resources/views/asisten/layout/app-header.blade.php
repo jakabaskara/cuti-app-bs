@@ -88,7 +88,9 @@
                       </li> --}}
                       <li class="nav-item hidden-on-mobile">
                           <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#"
-                              data-bs-toggle="dropdown">4</a>
+                              data-bs-toggle="dropdown"><span class="material-icons pt-2 pb-1">
+                                  person
+                              </span></a>
                           <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
                               aria-labelledby="notificationsDropDown">
                               <h6 class="dropdown-header">Notifications</h6>
@@ -98,11 +100,11 @@
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
                                                   <i class="material-icons-outlined">account_circle</i>
-                                                </span>
-                                                <div class="notifications-dropdown-item-text">
-                                                    <p class="bold-notifications-text">Profile</p>
-                                                    {{-- <small>19:00</small> --}}
-                                                </div>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text">
+                                                  <p class="bold-notifications-text">Profile</p>
+                                                  {{-- <small>19:00</small> --}}
+                                              </div>
                                           </div>
                                       </div>
                                   </a>
@@ -111,15 +113,15 @@
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-danger text-white">
                                                   <i class="material-icons-outlined">lock</i>
-                                                </span>
-                                                <div class="notifications-dropdown-item-text">
-                                                    <p class="bold-notifications-text">Ubah Password</p>
-                                                    {{-- <small>18:00</small> --}}
-                                                </div>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text">
+                                                  <p class="bold-notifications-text">Ubah Password</p>
+                                                  {{-- <small>18:00</small> --}}
+                                              </div>
                                           </div>
                                       </div>
                                   </a>
-                                  <a href="#">
+                                  <a href="{{ route('logout') }}">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-success text-white">
@@ -133,32 +135,32 @@
                                       </div>
                                   </a>
                                   {{-- <a href="#">
-                                      <div class="notifications-dropdown-item">
-                                          <div class="notifications-dropdown-item-image">
-                                              <span class="notifications-badge">
-                                                  <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p>Praesent sodales lobortis velit ac pellentesque</p>
-                                              <small>yesterday</small>
-                                          </div>
-                                      </div>
-                                  </a>
-                                  <a href="#">
-                                      <div class="notifications-dropdown-item">
-                                          <div class="notifications-dropdown-item-image">
-                                              <span class="notifications-badge">
-                                                  <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin velit sit
-                                                  amet auctor porta</p>
-                                              <small>yesterday</small>
-                                          </div>
-                                      </div>
-                                  </a> --}}
+                                    <div class="notifications-dropdown-item">
+                                        <div class="notifications-dropdown-item-image">
+                                            <span class="notifications-badge">
+                                                <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="notifications-dropdown-item-text">
+                                            <p>Praesent sodales lobortis velit ac pellentesque</p>
+                                            <small>yesterday</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="notifications-dropdown-item">
+                                        <div class="notifications-dropdown-item-image">
+                                            <span class="notifications-badge">
+                                                <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="notifications-dropdown-item-text">
+                                            <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin velit sit
+                                                amet auctor porta</p>
+                                            <small>yesterday</small>
+                                        </div>
+                                    </div>
+                                </a> --}}
                               </div>
                           </div>
                       </li>

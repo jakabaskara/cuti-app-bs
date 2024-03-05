@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AsistenAuth
+class GmAuth
 {
     /**
      * Handle an incoming request.
@@ -21,11 +21,12 @@ class AsistenAuth
         if ($username) {
             $user = User::where('username', $username->username)->get()->first();
             $role = $user->karyawan->posisi->role->nama_role;
-            if ($user && $role == 'asisten') {
+            if ($user && $role == 'gm') {
                 return $next($request);
             }
             return redirect()->route('login');
         }
+
         return redirect()->route('login');
     }
 }

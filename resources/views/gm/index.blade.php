@@ -5,6 +5,14 @@
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <style>
+        .table-container {
+            max-height: 500px;
+            /* Atur ketinggian maksimum sesuai kebutuhan */
+            overflow-y: auto;
+            /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
+        }
+    </style>
     @livewireStyles()
 @endsection
 
@@ -136,12 +144,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
                                     @foreach ($karyawanCuti as $cuti)
                                         <tr>
-                                            <td class="text-center">1.</td>
-                                            <td>Jeno</td>
-                                            <td>Urusan Keluarga</td>
+                                            <td class="text-center">{{ $i }}</td>
+                                            <td>{{ $cuti->karyawan->nama }}</td>
+                                            <td>{{ $cuti->alasan }}</td>
                                         </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>
