@@ -41,6 +41,6 @@ class ManajerStatusBarIndex extends Component
     public function render()
     {
 
-        return view('livewire.kabag-status-bar-index');
+        return view('livewire.manajer-status-bar-index');
     }
 }

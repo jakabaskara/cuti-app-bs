@@ -89,7 +89,9 @@
                       </li> --}}
                       <li class="nav-item hidden-on-mobile">
                           <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#"
-                              data-bs-toggle="dropdown">4</a>
+                              data-bs-toggle="dropdown"><span class="material-icons pt-2 pb-1">
+                                  person
+                              </span></a>
                           <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
                               aria-labelledby="notificationsDropDown">
                               <h6 class="dropdown-header">Notifications</h6>
@@ -134,32 +136,32 @@
                                       </div>
                                   </a>
                                   {{-- <a href="#">
-                                      <div class="notifications-dropdown-item">
-                                          <div class="notifications-dropdown-item-image">
-                                              <span class="notifications-badge">
-                                                  <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p>Praesent sodales lobortis velit ac pellentesque</p>
-                                              <small>yesterday</small>
-                                          </div>
-                                      </div>
-                                  </a>
-                                  <a href="#">
-                                      <div class="notifications-dropdown-item">
-                                          <div class="notifications-dropdown-item-image">
-                                              <span class="notifications-badge">
-                                                  <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
-                                              </span>
-                                          </div>
-                                          <div class="notifications-dropdown-item-text">
-                                              <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin velit sit
-                                                  amet auctor porta</p>
-                                              <small>yesterday</small>
-                                          </div>
-                                      </div>
-                                  </a> --}}
+                                    <div class="notifications-dropdown-item">
+                                        <div class="notifications-dropdown-item-image">
+                                            <span class="notifications-badge">
+                                                <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="notifications-dropdown-item-text">
+                                            <p>Praesent sodales lobortis velit ac pellentesque</p>
+                                            <small>yesterday</small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div class="notifications-dropdown-item">
+                                        <div class="notifications-dropdown-item-image">
+                                            <span class="notifications-badge">
+                                                <img src="{{ asset('assets/images/avatars/avatar.png') }}" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="notifications-dropdown-item-text">
+                                            <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin velit sit
+                                                amet auctor porta</p>
+                                            <small>yesterday</small>
+                                        </div>
+                                    </div>
+                                </a> --}}
                               </div>
                           </div>
                       </li>
