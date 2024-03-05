@@ -175,7 +175,7 @@
                     <h5>Daftar Riwayat Cuti</h5>
                     <hr>
                 </div>
-                {{-- <div class="card-body">
+                <div class="card-body">
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover" id="tableData1">
@@ -187,18 +187,18 @@
                                         <th>Sisa<br>Cuti<br>Tahunan</th>
                                         <th>Sisa<br>Cuti<br>Panjang</th>
                                         <th>Jumlah</th>
-                                       
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
                                         $i = 1;
                                     @endphp
-                                    @foreach ($PermintaanCuti as $PermintaanCuti)
+                                    @foreach ($permintaanCutis as $permintaanCuti)
                                         <tr class="text-center align-middle">
                                             <td>{{ $i }}</td>
-                                            <td>{{ $permintaanCuti->NIK }}</td>
-                                            <td class="text-start">{{ $permintaanCuti->nama }}</td>
+                                            <td>{{ $permintaanCuti->karyawan->NIK }}</td>
+                                            <td class="text-start">{{ $permintaanCuti->karyawan->nama }}</td>
                                             <td>{{ $permintaanCuti->sisa_cuti_tahunan }}</td>
                                             <td>{{ $permintaanCuti->sisa_cuti_panjang }}</td>
                                             <td>{{ $permintaanCuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }}
@@ -212,7 +212,7 @@
                             </table>
                         </div>
                     </div>
-                </div>  --}}
+                </div>
             </div>
         </div>
     </div>

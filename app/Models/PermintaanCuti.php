@@ -112,4 +112,5 @@ class PermintaanCuti extends Model
 
         return $data;
     }
+
 }

@@ -24,11 +24,17 @@ class KabagDashboardController extends Controller
         // $idUser = 1;
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPosisi = $user->karyawan->posisi->id;
+        $karyawan = $user->karyawan;
+        $idUnitKerja = $karyawan->posisi->id_unit_kerja;
+        $idPosisi = $karyawan->posisi->id;
+        $permintaanCuti = PermintaanCuti::whereHas('posisi', function($query) use ($idUnitKerja){
+            $query->where('id_unit_kerja', $idUnitKerja);
+        })->get();
+        $karyawan->posisi->first()->unitKerja->id_unit_kerja;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
-        $namaUser = $user->karyawan->nama;
-        $jabatan = $user->karyawan->posisi->jabatan;
+        $namaUser = $karyawan->nama;
+        $jabatan = $karyawan->posisi->jabatan;
         $jenisCuti = JenisCuti::get();
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
         $sisaCuti = $dataPairing->each(function ($data) {
@@ -53,6 +59,7 @@ class KabagDashboardController extends Controller
             'pending' => $getPending,
             'ditolak' => $getDitolak,
             'karyawanCuti' => $getKaryawanCuti,
+            'permintaanCutis' => $permintaanCuti,
 
         ]);
     }
