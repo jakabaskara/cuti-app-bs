@@ -51,7 +51,8 @@
                                         <td>{{ $karyawan->TMT_bekerja }}</td>
                                         <td>{{ $karyawan->tgl_diangkat_staf }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
-                                        <td>
+                                        <td class=" ">
+
                                             <div class="row">
                                                 <div class="col">
                                                     <button class="btn btn-sm px-2 py-0 m-0 btn-warning"><span
@@ -65,6 +66,7 @@
                                                         </span></button>
                                                 </div>
                                             </div>
+
                                         </td>
                                     </tr>
                                 @empty
