@@ -44,13 +44,13 @@
 </head>
 
 <body>
-    <div class="app align-content-stretch d-flex flex-wrap ">
+    <div class="app align-content-stretch d-flex flex-wrap">
         @include('kerani.layout.sidebar')
         <div class="app-container">
             @include('kerani.layout.app-header')
             <div class="app-content">
                 <div class="content-wrapper">
-                    <div class="container">
+                    <div class="container-fluid">
                         @yield('content')
                     </div>
                 </div>
