@@ -20,13 +20,13 @@
                 <a href="{{ route('gm.index') }}" class="{{ request()->route()->uri == 'gm' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'gm/pengajuan-cuti' ? 'active-page' : '' }}">
+            {{-- <li class="{{ request()->route()->uri == 'gm/pengajuan-cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('gm.pengajuan-cuti') }}"
                     class="{{ request()->route()->uri == 'gm/pengajuan-cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('kabag.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active' : '' }}"><i
