@@ -5,6 +5,8 @@
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
+
     <style>
         .table-container {
             max-height: 500px;
@@ -232,11 +234,17 @@
                                                         class="badge badge-warning p-2">Pending</span>
                                                 </td>
                                                 <td class="">
-                                                    <button class="btn btn-sm btn-danger px-1 py-0">
-                                                        <span class="material-icons text-sm p-0 align-middle">
-                                                            delete
-                                                        </span>
-                                                    </button>
+                                                    <form id="deleteForm{{ $riwayat->id }}"
+                                                        action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                        class="btn btn-sm btn-danger px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">delete</span>
+                                                    </a>
                                                 </td>
                                             @endif
                                         </tr>
@@ -278,20 +286,13 @@
                             @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
-                                <label for="nama" class="form-label">Jenis Cuti</label>
-                                <select class="form-select " aria-label="Nama Karyawan" name="jenis_cuti" required>
-                                    <option selected value=""> </option>
-                                    @foreach ($jenisCuti as $jenis)
-                                        <option value="{{ $jenis->id }}">{{ $jenis->jenis_cuti }} </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @livewire('kerani-jenis-cuti')
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="daterange" class="form-label">Tanggal Cuti</label>
-                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required />
+                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required
+                                    id="tanggal_cuti" />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -347,9 +348,32 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+
 
 
     <script>
+        var fp = flatpickr('.flatpickr1', {
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
+
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
+                    var tipeCuti = $('#jenisCuti option:selected').text();
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+
+                    document.getElementById("jumlah-hari").textContent = "Jumlah " +
+                        tipeCuti + ": " +
+                        daysDifference;
+                    document.getElementById("jumlahHari").value = daysDifference;
+                }
+            }
+        })
+
         $(document).ready(function() {
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             $('#tableData1').DataTable();
@@ -377,31 +401,21 @@
             //     $('#datatable2').DataTable();
             // });
 
-            flatpickr('.flatpickr1', {
-                mode: 'range',
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length >= 2) {
-                        var startDate = selectedDates[0];
-                        var endDate = selectedDates[selectedDates.length - 1];
 
-                        // Hitung selisih dalam milidetik
-                        var difference = endDate.getTime() - startDate.getTime();
-
-                        // Konversi selisih ke jumlah hari
-                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
-
-                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
-                            daysDifference;
-                        document.getElementById("jumlahHari").value = daysDifference;
-                    }
-                }
-            })
         })
 
-        // function setname() {
-        //     console.log('berhasil');
-        //     Livewire.dispatch('setname');
-        // }
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('setCuti', (event) => {
+                $('#jumlah-hari').text('');
+                $('#jumlahHari').val('');
+                try {
+                    fp.clear()
+                } catch (e) {
+                    console.log(e)
+                }
+            });
+        });
+
 
         $('#select2').select2({
             dropdownParent: $('#exampleModal .modal-content')
@@ -411,6 +425,25 @@
                 id: selectedValue
             });
         });
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                round_error_noti('{!! $error !!}');
+            @endforeach
+        @endif
+
+        function round_error_noti(msg) {
+            Lobibox.notify('error', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bi bi-exclamation-triangle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: msg + '!',
+            });
+        }
     </script>
     @livewireScripts()
 @endsection

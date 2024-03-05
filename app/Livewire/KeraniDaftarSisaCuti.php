@@ -34,6 +34,8 @@ class KeraniDaftarSisaCuti extends Component
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $id)->where('id_jenis_cuti', 2)->first()->jumlah ?? 0;
         $this->sisaCutiPanjang = $sisaCutiPanjang;
         $this->sisaCutiTahunan = $sisaCutiTahunan;
+
+        $this->dispatch('setNama', $sisaCutiPanjang, $sisaCutiTahunan);
     }
 
     public function render()
