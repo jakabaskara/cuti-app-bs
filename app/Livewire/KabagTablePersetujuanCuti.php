@@ -22,7 +22,7 @@ class KabagTablePersetujuanCuti extends Component
         $pairings = Pairing::where('id_atasan', $karyawan->id_posisi)->get();
 
         $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_approved', 0);
+            return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
         });
 
         $this->permintaanCuti = $permintaanCuti;
@@ -44,8 +44,7 @@ class KabagTablePersetujuanCuti extends Component
             $dataCuti->is_checked = 1;
             $dataCuti->save();
         });
-
-        // $this->refresh
+        $this->dispatch('refresh', []);
     }
 
     public function tolak($id)
@@ -57,5 +56,7 @@ class KabagTablePersetujuanCuti extends Component
             $dataCuti->is_rejected = 1;
             $dataCuti->save();
         });
+
+        $this->dispatch('refresh');
     }
 }

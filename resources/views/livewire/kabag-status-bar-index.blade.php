@@ -8,7 +8,7 @@
                      </div>
                      <div class="widget-stats-content flex-fill">
                          <span class="widget-stats-title text-dark">Disetujui</span>
-                         <span class="widget-stats-amount">{{ $disetujui }}</span>
+                         <span class="widget-stats-amount" wire:model='disetujui'>{{ $disetujui }}</span>
                          <span class="widget-stats-info">Form Cuti Disetujui</span>
                      </div>
                  </div>
@@ -24,7 +24,7 @@
                      </div>
                      <div class="widget-stats-content flex-fill">
                          <span class="widget-stats-title text-dark">Pending</span>
-                         <span class="widget-stats-amount">{{ $pending }}</span>
+                         <span class="widget-stats-amount" wire:model='pending'>{{ $pending }}</span>
                          <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                      </div>
                  </div>
@@ -40,7 +40,7 @@
                      </div>
                      <div class="widget-stats-content flex-fill">
                          <span class="widget-stats-title text-dark">Dibatalkan</span>
-                         <span class="widget-stats-amount">{{ $ditolak }}</span>
+                         <span class="widget-stats-amount" wire:model='ditolak'>{{ $ditolak }}</span>
                          <span class="widget-stats-info">Form Cuti Ditolak</span>
                      </div>
                  </div>
