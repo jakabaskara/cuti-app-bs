@@ -4,14 +4,27 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Karyawan;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminKaryawanController extends Controller
 {   
        public function index()
     {
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $jabatan = $user->karyawan->posisi->jabatan;
+
+        $namaUser = $user->karyawan->nama;
+
+        $idPosisi = $user->karyawan->posisi->id;
         $karyawan = Karyawan::all();
-        return view('admin.karyawan',['karyawan' => $karyawan]);
+        return view('admin.karyawan',[
+            'karyawan' => $karyawan,
+            'jabatan' => $jabatan,
+            'nama' => $namaUser
+        ]);
     }
 
     public function tambahKaryawan(Request $request)
