@@ -18,6 +18,57 @@
 @section('content')
     <h3 class="mb-4">Halo, Admin 👋</h3>
 
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-info">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Karyawan</span>
+                            <span class="widget-stats-amount">100</span>
+                            <span class="widget-stats-info">Form Cuti Disetujui</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-warning">
+                            <i class="material-icons-outlined">info</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Pending</span>
+                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-danger">
+                            <i class="material-icons-outlined">highlight_off</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Dibatalkan</span>
+                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-info">Form Cuti Ditolak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col">
         <div class="row">
             <div class="col-xl-8">
