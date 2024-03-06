@@ -178,16 +178,18 @@
                 <div class="card-body">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tableData1">
+                            <table class="table table-hover" id="tableData2">
                                 <thead class="table-dark">
                                     <tr class="text-center align-middle">
                                         <th>No.</th>
                                         <th>NIK SAP</th>
                                         <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
-                                        <th>Jumlah</th>
-
+                                        <th>Jenis Cuti</th>
+                                        <th>Jumlah Hari</th>
+                                        <th>Periode Tanggal</th>
+                                        <th>Alasan</th>
+                                        <th>Alamat</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -199,10 +201,39 @@
                                             <td>{{ $i }}</td>
                                             <td>{{ $permintaanCuti->karyawan->NIK }}</td>
                                             <td class="text-start">{{ $permintaanCuti->karyawan->nama }}</td>
-                                            <td>{{ $permintaanCuti->sisa_cuti_tahunan }}</td>
-                                            <td>{{ $permintaanCuti->sisa_cuti_panjang }}</td>
-                                            <td>{{ $permintaanCuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }}
+                                            <td class="text-center">{{ $permintaanCuti->jenisCuti->jenis_cuti }}</td>
+                                            <td class="text-center">{{ $permintaanCuti->jumlah_hari_cuti }}</td>
+                                            <td class="text-center">
+                                                {{ date('d-M', strtotime($permintaanCuti->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($permintaanCuti->tanggal_selesai)) }}
                                             </td>
+                                            <td class="text-dark">{{ $permintaanCuti->alasan }}</td>
+                                            <td class="text-dark">{{ $permintaanCuti->alamat }}</td>
+                                            {{-- <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan }}</td>
+                                            <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_panjang }}</td>
+                                            <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }} --}}
+                                            </td>
+                                            {{-- <td>{{ $permintaanCuti->karyawan->sisa_cuti_tahunan }}</td> --}}
+
+                                            </td>
+                                            @if ($permintaanCuti->is_approved == 1)
+                                                <td class="text-dark"> <span
+                                                        class="badge badge-success p-2">Disetujui</span>
+                                                </td>
+                                            @elseif ($permintaanCuti->is_rejected == 1)
+                                                <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span>
+                                                </td>
+                                            @else
+                                                <td class="text-dark"> <span class="badge badge-warning p-2">Pending</span>
+                                                </td>
+                                                <td class="">
+                                                    <form id="deleteForm{{ $permintaanCuti->id }}"
+                                                        action="{{ route('kerani.delete-cuti', $permintaanCuti->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            @endif
                                         </tr>
                                         @php
                                             $i++;
@@ -216,6 +247,99 @@
             </div>
         </div>
     </div>
+
+    {{-- <div class="row mt-1">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="">Daftar Riwayat Cuti</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-striped" id="dataTable2">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th class="text-dark">No.</th>
+                                        <th class="text-dark">NIK</th>
+                                        <th class="text-dark">Nama</th>
+                                        <th class="text-dark">Jenis Cuti</th>
+                                        <th class="text-dark">Jumlah<br>Hari</th>
+                                        <th class="text-dark">Periode Tanggal</th>
+                                        <th class="text-dark">Alasan</th>
+                                        <th class="text-dark">Alamat</th>
+                                        <th class="text-dark">Status</th>
+                                        <th class="text-dark">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($riwayats as $riwayat)
+                                        <tr class="text-center">
+                                            <td class="text-dark">{{ $i }}</td>
+                                            <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
+                                            <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
+                                            <td class="text-dark">{{ $riwayat->jenisCuti->jenis_cuti }}</td>
+                                            <td class="text-dark">{{ $riwayat->jumlah_hari_cuti }}</td>
+                                            <td class="text-dark">
+                                                {{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
+                                            </td>
+                                            <td class="text-dark">{{ $riwayat->alasan }}</td>
+                                            <td class="text-dark">{{ $riwayat->alamat }}</td>
+                                            @if ($riwayat->is_approved == 1)
+                                                <td class="text-dark"> <span
+                                                        class="badge badge-success p-2">Disetujui</span>
+                                                </td>
+                                                <td class="">
+                                                    <a href="{{ route('kerani.download.pdf', $riwayat->id) }}"
+                                                        class="btn btn-sm btn-success px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">
+                                                            description
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            @elseif ($riwayat->is_rejected == 1)
+                                                <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span>
+                                                </td>
+                                                <td class="">
+                                                    <button class="btn btn-sm btn-info px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">
+                                                            info
+                                                        </span>
+                                                    </button>
+                                                </td>
+                                            @else
+                                                <td class="text-dark"> <span class="badge badge-warning p-2">Pending</span>
+                                                </td>
+                                                <td class="">
+                                                    <form id="deleteForm{{ $riwayat->id }}"
+                                                        action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                        class="btn btn-sm btn-danger px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">delete</span>
+                                                    </a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 @endsection
 
 @section('script')
@@ -228,6 +352,7 @@
 
     <script>
         $('#tableData1').DataTable();
+        $('#tableData2').DataTable();
 
         $(function() {
             $('input[name="daterange"]').daterangepicker({
