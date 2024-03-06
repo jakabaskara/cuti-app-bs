@@ -11,10 +11,13 @@ use App\Models\Pairing;
 use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
+use App\Notifications\SendNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+
 
 class KeraniDashboardController extends Controller
 {
@@ -87,7 +90,7 @@ class KeraniDashboardController extends Controller
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 
-        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan) {
+        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan, $user) {
 
             $permintaanCuti = PermintaanCuti::create([
                 'id_karyawan' => $validate['karyawan'],
@@ -108,6 +111,9 @@ class KeraniDashboardController extends Controller
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
             ]);
+
+            $nama = Karyawan::find($validate['karyawan'])->nama;
+            Notification::send($user, new SendNotification('Terdapat Permintaan Cuti Baru \n a.n ' . $nama . 'Pada Tanggal ' . $startDate . ' sampai tanggal ' . $endDate . ' alasan ' . $validate['alasan']));
         });
 
         return redirect()->back();
@@ -161,5 +167,11 @@ class KeraniDashboardController extends Controller
         });
 
         return redirect()->back()->with('message', 'Data Berhasil Dihapus');
+    }
+
+    public function sendNoti()
+    {
+        $users = Auth::user();
+        Notification::send($users, new SendNotification('ss'));
     }
 }

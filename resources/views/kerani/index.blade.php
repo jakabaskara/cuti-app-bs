@@ -332,7 +332,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-
+                    <a href="{{ route('send.noti') }}" class="btn btn-warning">Send Notify</a>
                 </div>
             </div>
         </div>

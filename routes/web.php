@@ -81,6 +81,8 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     Route::get('/downloadPDF/{id}', [KeraniDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
     Route::delete('/delete-cuti/{id}', [KeraniDashboardController::class, 'delete'])->name('kerani.delete-cuti');
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
+
+    Route::get('/send-nontify', [KeraniDashboardController::class, 'sendNoti'])->name('send.noti');
 });
 
 
