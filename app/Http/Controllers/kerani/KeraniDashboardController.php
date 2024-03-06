@@ -111,9 +111,13 @@ class KeraniDashboardController extends Controller
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
             ]);
-
             $nama = Karyawan::find($validate['karyawan'])->nama;
-            Notification::send($user, new SendNotification('Terdapat Permintaan Cuti Baru \n a.n ' . $nama . 'Pada Tanggal ' . $startDate . ' sampai tanggal ' . $endDate . ' alasan ' . $validate['alasan']));
+            $message = "Terdapat Permintaan Cuti Baru\n";
+            $message .= "Nama: $nama\n";
+            $message .= "Tanggal Mulai: $startDate\n";
+            $message .= "Tanggal Selesai: $endDate\n";
+            $message .= "Alasan: " . $validate['alasan'];
+            Notification::send($user, new SendNotification($message));
         });
 
         return redirect()->back();
