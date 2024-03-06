@@ -27,9 +27,9 @@ class KabagDashboardController extends Controller
         $karyawan = $user->karyawan;
         $idUnitKerja = $karyawan->posisi->id_unit_kerja;
         $idPosisi = $karyawan->posisi->id;
-        $permintaanCuti = PermintaanCuti::whereHas('posisi', function($query) use ($idUnitKerja){
+        $permintaanCuti = PermintaanCuti::whereHas('posisi', function ($query) use ($idUnitKerja) {
             $query->where('id_unit_kerja', $idUnitKerja);
-        })->get()->orderBy('id', 'DESC');
+        })->orderBy('id', 'DESC')->get();
         $karyawan->posisi->first()->unitKerja->id_unit_kerja;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();

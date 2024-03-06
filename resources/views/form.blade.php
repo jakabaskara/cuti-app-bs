@@ -71,7 +71,7 @@
                     <td>- Cuti Tahunan 2022/2023</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>{{ $cutiPanjangDijalani }}</td>
+                    <td>{{ $cutiTahunanDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                     <td>- Cuti Panjang 2016/2022</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>{{ $cutiTahunanDijalani }}</td>
+                    <td>{{ $cutiPanjangDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
