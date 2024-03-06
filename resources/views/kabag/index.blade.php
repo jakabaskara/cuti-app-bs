@@ -178,18 +178,18 @@
                 <div class="card-body">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tableData1">
+                            <table class="table table-hover" id="tableData2">
                                 <thead class="table-dark">
                                     <tr class="text-center align-middle">
                                         <th>No.</th>
                                         <th>NIK SAP</th>
                                         <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
-                                        <th>Jumlah</th>
-                                        <th>Aksi</th>
-
-
+                                        <th>Jenis Cuti</th>
+                                        <th>Jumlah Hari</th>
+                                        <th>Periode Tanggal</th>
+                                        <th>Alasan</th>
+                                        <th>Alamat</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -201,9 +201,16 @@
                                             <td>{{ $i }}</td>
                                             <td>{{ $permintaanCuti->karyawan->NIK }}</td>
                                             <td class="text-start">{{ $permintaanCuti->karyawan->nama }}</td>
-                                            <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan }}</td>
+                                            <td class="text-center">{{ $permintaanCuti->jenisCuti->jenis_cuti }}</td>
+                                            <td class="text-center">{{ $permintaanCuti->jumlah_hari_cuti }}</td>
+                                            <td class="text-center">
+                                                {{ date('d-M', strtotime($permintaanCuti->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($permintaanCuti->tanggal_selesai)) }}
+                                            </td>
+                                            <td class="text-dark">{{ $permintaanCuti->alasan }}</td>
+                                            <td class="text-dark">{{ $permintaanCuti->alamat }}</td>
+                                            {{-- <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan }}</td>
                                             <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_panjang }}</td>
-                                            <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }}
+                                            <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }} --}}
                                             </td>
                                             {{-- <td>{{ $permintaanCuti->karyawan->sisa_cuti_tahunan }}</td> --}}
 
@@ -345,6 +352,7 @@
 
     <script>
         $('#tableData1').DataTable();
+        $('#tableData2').DataTable();
 
         $(function() {
             $('input[name="daterange"]').daterangepicker({
