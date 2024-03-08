@@ -103,7 +103,7 @@ Route::group(['prefix' => 'gm'], function () {
 });
 
 
-Route::group(['prefix' => 'sevp', 'middleware' => ['sevp.auth']], function () {
+Route::group(['prefix' => 'sevp', 'middleware' =>['sevp.auth']], function () {
     Route::get('/', [SevpDashboardController::class, 'index'])->name('sevp.index');
     // Route::get('/karyawan', [SevpKaryawanController::class, 'index'])->name('sevp.karyawan.index');
     // Route::post('/karyawan', [SevpKaryawanController::class, 'tambahKaryawan'])->name('sevp.tambahKaryawan');

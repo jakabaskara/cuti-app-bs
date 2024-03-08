@@ -26,17 +26,17 @@
                         class="material-icons-two-tone">create</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li class="{{ request()->route()->uri == 'sevp/karyawan' ? 'active-page' : '' }}">
+            {{-- <li class="{{ request()->route()->uri == 'sevp/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('sevp.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'sevp/karyawan' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">groups_2</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
-            </li>
-            <li class="{{ request()->route()->uri == 'sevp/sisacuti' ? 'active-page' : '' }}">
+            </li> --}}
+            {{-- <li class="{{ request()->route()->uri == 'sevp/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('sevp.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'sevp/sisacuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
-            </li>
+            </li> --}}
             <li class="{{ request()->route()->uri == 'sevp/cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('sevp.cuti.index') }}"
                     class="{{ request()->route()->uri == 'sevp/cuti' ? 'active' : '' }}"><i
