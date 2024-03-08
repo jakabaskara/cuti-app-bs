@@ -15,6 +15,8 @@ use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\kabag\KabagDashboardController;
 use App\Http\Controllers\SisaCutiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\sevp\SevpBeritaCutiController;
+use App\Http\Controllers\sevp\SevpDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +101,25 @@ Route::group(['prefix' => 'gm'], function () {
 
     // Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
 });
+
+
+Route::group(['prefix' => 'sevp', 'middleware' => ['sevp.auth']], function () {
+    Route::get('/', [SevpDashboardController::class, 'index'])->name('sevp.index');
+    // Route::get('/karyawan', [SevpKaryawanController::class, 'index'])->name('sevp.karyawan.index');
+    // Route::post('/karyawan', [SevpKaryawanController::class, 'tambahKaryawan'])->name('sevp.tambahKaryawan');
+    Route::get('/pengajuan-cuti', [SevpDashboardController::class, 'pengajuanCuti'])->name('sevp.pengajuan-cuti');
+    Route::post('/add-cuti', [SevpDashboardController::class, 'submitCuti'])->name('sevp.submit-cuti');
+    // Route::get('/sisacuti', [SevpSisaCutiController::class, 'index'])->name('sevp.sisacuti.index');
+    Route::get('/cuti', [SevpBeritaCutiController::class, 'index'])->name('sevp.cuti.index');
+
+
+
+
+    Route::get('/downloadPDF', [SevpDashboardController::class, 'downloadPermintaanCutiPDF'])->name('sevp.download.pdf');
+
+    Route::post('/ajukanCuti', [SevpDashboardController::class, 'tambahCuti'])->name('sevp.tambahCuti');
+});
+
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
