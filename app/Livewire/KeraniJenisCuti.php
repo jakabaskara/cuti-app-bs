@@ -16,7 +16,7 @@ class KeraniJenisCuti extends Component
 
     public function mount()
     {
-        $this->jenisCuti = JenisCuti::get();
+        // $this->jenisCuti = JenisCuti::get();
     }
 
     public function render()

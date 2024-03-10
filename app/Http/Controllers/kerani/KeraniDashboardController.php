@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kerani;
 
 use App\Http\Controllers\Controller;
 use App\Models\JenisCuti;
+use App\Models\JenisPermintaanCuti;
 use App\Models\PermintaanCuti;
 use App\Models\Karyawan;
 use App\Models\Keanggotaan;
@@ -63,7 +64,8 @@ class KeraniDashboardController extends Controller
             'karyawan' => 'required',
             'jenis_cuti' => 'required',
             'tanggal_cuti' => 'required',
-            'jumlah_cuti' => 'required',
+            'jumlah_cuti_panjang' => 'required',
+            'jumlah_cuti_tahunan' => 'required',
             'alasan' => 'required',
             'alamat' => 'required',
         ]);
@@ -94,10 +96,10 @@ class KeraniDashboardController extends Controller
 
             $permintaanCuti = PermintaanCuti::create([
                 'id_karyawan' => $validate['karyawan'],
-                'id_jenis_cuti' => $validate['jenis_cuti'],
                 'tanggal_mulai' => $startDate,
                 'tanggal_selesai' => $endDate,
-                'jumlah_hari_cuti' => $validate['jumlah_cuti'],
+                'jumlah_cuti_panjang' => $validate['jumlah_cuti_panjang'],
+                'jumlah_cuti_tahunan' => $validate['jumlah_cuti_tahunan'],
                 'alamat' => $validate['alamat'],
                 'alasan' => $validate['alasan'],
                 'id_posisi_pembuat' => $idPosisi,
@@ -117,6 +119,7 @@ class KeraniDashboardController extends Controller
             $message .= "Tanggal Mulai: $startDate\n";
             $message .= "Tanggal Selesai: $endDate\n";
             $message .= "Alasan: " . $validate['alasan'];
+
             Notification::send($user, new SendNotification($message));
 
             // Mendefinisikan keyboard inline
@@ -129,7 +132,7 @@ class KeraniDashboardController extends Controller
                 ]
             ];
 
-            $pesan = 'Apakah Lembur Disetujui?';
+            $pesan = 'Apakah Cuti Disetujui?';
 
             // Mengonversi keyboard menjadi JSON
             $keyboard = json_encode($keyboard);

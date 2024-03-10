@@ -13,10 +13,10 @@ class PermintaanCuti extends Model
 
     protected $fillable = [
         'id_karyawan',
-        'id_jenis_cuti',
         'tanggal_mulai',
         'tanggal_selesai',
-        'jumlah_hari_cuti',
+        'jumlah_cuti_panjang',
+        'jumlah_cuti_tahunan',
         'id_posisi_pembuat',
         'alamat',
         'alasan',
@@ -31,9 +31,9 @@ class PermintaanCuti extends Model
         return $this->belongsTo(Karyawan::class, 'id_karyawan');
     }
 
-    public function jenisCuti()
+    public function jenisPermintaanCuti()
     {
-        return $this->belongsTo(JenisCuti::class, 'id_jenis_cuti');
+        return $this->hasMany(JenisPermintaanCuti::class, 'id_jenis_permintaan_cuti');
     }
 
     public function riwayatCuti()
@@ -112,5 +112,4 @@ class PermintaanCuti extends Model
 
         return $data;
     }
-
 }

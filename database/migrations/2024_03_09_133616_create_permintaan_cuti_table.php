@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_karyawan')->constrained('karyawan');
             // $table->foreignId('id_jenis_cuti')->constrained('jenis_cuti');
+            $table->integer('jumlah_cuti_panjang');
+            $table->integer('jumlah_cuti_tahunan');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->integer('jumlah_hari_cuti');
             $table->string('alamat');
             $table->string('alasan');
             $table->string('alasan_ditolak')->nullable();

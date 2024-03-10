@@ -18,6 +18,7 @@ class KeraniAuth
     public function handle(Request $request, Closure $next): Response
     {
         $username = Auth::user();
+        dd($username);
         if ($username) {
             $user = User::where('username', $username->username)->get()->first();
             $role = $user->karyawan->posisi->role->nama_role;

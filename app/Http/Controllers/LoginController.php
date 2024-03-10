@@ -32,8 +32,8 @@ class LoginController extends Controller
             'username',
             'password',
         ]);
-        $role = $userId->first()->karyawan->posisi->role->nama_role;
         if (Auth::attempt($credential)) {
+            $role = $userId->first()->karyawan->posisi->role->nama_role;
             if ($role == 'kerani') {
                 return redirect()->route('kerani.index');
             } elseif ($role == 'kabag') {
