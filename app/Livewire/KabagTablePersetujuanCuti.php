@@ -36,13 +36,21 @@ class KabagTablePersetujuanCuti extends Component
         $dataCuti = PermintaanCuti::find($id);
         DB::transaction(function () use ($dataCuti) {
 
-            $sisaCuti = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', $dataCuti->id_jenis_cuti)->get()->first();
-            $sisaCuti->jumlah -= $dataCuti->jumlah_hari_cuti;
-            $sisaCuti->save();
+            $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->get()->first();
+            $sisaCutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->get()->first();
 
-            $dataCuti->is_approved = 1;
-            $dataCuti->is_checked = 1;
-            $dataCuti->save();
+            if ($sisaCutiPanjang) {
+                $sisaCutiPanjang->jumlah -= $dataCuti->jumlah_cuti_panjang;
+                $sisaCutiPanjang->save();
+            } else if ($sisaCutiTahunan) {
+                $sisaCutiTahunan->jumlah -= $dataCuti->jumlah_cuti_tahunan;
+                $sisaCutiTahunan->save();
+            }
+            if ($dataCuti) {
+                $dataCuti->is_approved = 1;
+                $dataCuti->is_checked = 1;
+                $dataCuti->save();
+            }
         });
         $this->dispatch('refresh', []);
     }

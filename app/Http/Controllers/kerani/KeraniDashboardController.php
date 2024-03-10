@@ -62,13 +62,14 @@ class KeraniDashboardController extends Controller
     {
         $validate = $request->validate([
             'karyawan' => 'required',
-            'jenis_cuti' => 'required',
+            // 'jenis_cuti' => 'required',
             'tanggal_cuti' => 'required',
             'jumlah_cuti_panjang' => 'required',
             'jumlah_cuti_tahunan' => 'required',
             'alasan' => 'required',
             'alamat' => 'required',
         ]);
+
 
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
@@ -113,6 +114,7 @@ class KeraniDashboardController extends Controller
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
             ]);
+
             $nama = Karyawan::find($validate['karyawan'])->nama;
             $message = "Terdapat Permintaan Cuti Baru\n";
             $message .= "Nama: $nama\n";

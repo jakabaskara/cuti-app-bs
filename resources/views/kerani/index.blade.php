@@ -182,7 +182,7 @@
                                         <th class="text-dark">No.</th>
                                         <th class="text-dark">NIK</th>
                                         <th class="text-dark">Nama</th>
-                                        <th class="text-dark">Jenis Cuti</th>
+                                        {{-- <th class="text-dark">Jenis Cuti</th> --}}
                                         <th class="text-dark">Jumlah<br>Hari</th>
                                         <th class="text-dark">Periode Tanggal</th>
                                         <th class="text-dark">Alasan</th>
@@ -200,8 +200,9 @@
                                             <td class="text-dark">{{ $i }}</td>
                                             <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
                                             <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
-                                            <td class="text-dark">{{ $riwayat->jenisCuti->jenis_cuti }}</td>
-                                            <td class="text-dark">{{ $riwayat->jumlah_hari_cuti }}</td>
+                                            {{-- <td class="text-dark">{{ $riwayat->sisa_cuti_panjang }}</td> --}}
+                                            <td class="text-dark">
+                                                {{ $riwayat->jumlah_cuti_panjang + $riwayat->jumlah_cuti_tahunan }}</td>
                                             <td class="text-dark">
                                                 {{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
                                             </td>

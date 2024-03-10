@@ -201,7 +201,7 @@
                                             <td>{{ $i }}</td>
                                             <td>{{ $permintaanCuti->karyawan->NIK }}</td>
                                             <td class="text-start">{{ $permintaanCuti->karyawan->nama }}</td>
-                                            <td class="text-center">{{ $permintaanCuti->jenisCuti->jenis_cuti }}</td>
+                                            <td class="text-center">{{ '' }}</td>
                                             <td class="text-center">{{ $permintaanCuti->jumlah_hari_cuti }}</td>
                                             <td class="text-center">
                                                 {{ date('d-M', strtotime($permintaanCuti->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($permintaanCuti->tanggal_selesai)) }}

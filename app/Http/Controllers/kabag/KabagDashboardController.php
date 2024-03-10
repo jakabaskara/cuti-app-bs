@@ -68,7 +68,7 @@ class KabagDashboardController extends Controller
     {
         $validate = $request->validate([
             'karyawan' => 'required',
-            'jenis_cuti' => 'required',
+            // 'jenis_cuti' => 'required',
             'tanggal_cuti' => 'required',
             'jumlah_cuti' => 'required',
             'alasan' => 'required',
