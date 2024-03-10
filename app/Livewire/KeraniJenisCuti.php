@@ -14,6 +14,11 @@ class KeraniJenisCuti extends Component
     public $sisaCutiPanjang;
     public $sisaCutiTahunan;
 
+    public $cutiDiambil;
+    public $sisaCuti;
+
+    public $cutiPanjangDiambil;
+    public $cutiTahunanDiambil;
     public function mount()
     {
         // $this->jenisCuti = JenisCuti::get();
@@ -29,6 +34,31 @@ class KeraniJenisCuti extends Component
     {
         $this->sisaCutiPanjang = $sisaCutiPanjang;
         $this->sisaCutiTahunan = $sisaCutiTahunan;
+
+        $this->cutiTahunanDiambil = 0;
+        $this->cutiPanjangDiambil = 0;
+    }
+
+    #[On('setJumlahHariCuti')]
+    public function validasiCuti($daysDifference, $totalCuti)
+    {
+        // daydif = cuti di ambil
+        // totalCuti = sisa cuti keseluruhan
+
+
+        if ($daysDifference > $totalCuti) {
+            $this->cutiPanjangDiambil = 0;
+            $this->cutiTahunanDiambil = 0;
+            $this->dispatch('errorCuti');
+        } else {
+            if ($daysDifference > $this->sisaCutiTahunan) {
+                $this->cutiTahunanDiambil = $this->sisaCutiTahunan;
+                $this->cutiPanjangDiambil = $daysDifference - $this->sisaCutiTahunan;
+            } else {
+                $this->cutiTahunanDiambil = $daysDifference;
+                $this->cutiPanjangDiambil = 0;
+            }
+        }
     }
 
     public function setCuti()

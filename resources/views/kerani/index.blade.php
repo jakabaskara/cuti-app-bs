@@ -286,9 +286,6 @@
                             @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
-                            @livewire('kerani-jenis-cuti')
-                        </div>
-                        <div class="row mb-3">
                             <div class="col">
                                 <label for="daterange" class="form-label">Tanggal Cuti</label>
                                 <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required
@@ -300,6 +297,9 @@
                                 <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
                                 <input type="hidden" id="jumlahHari" name="jumlah_cuti" required>
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            @livewire('kerani-jenis-cuti')
                         </div>
                         <div class="row mb-3">
                             <div class="col">
@@ -363,42 +363,57 @@
                     // Hitung selisih dalam milidetik
                     var difference = endDate.getTime() - startDate.getTime();
                     var tipeCuti = $('#jenisCuti option:selected').text();
-                    var kdtipeCuti = $('#jenisCuti option:selected').val();
+                    // var kdtipeCuti = $('#jenisCuti option:selected').val();
                     // Konversi selisih ke jumlah hari
                     var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
-                    var sisaCutiPanjang = $('#sisa_cuti_panjang').val();
-                    var sisaCutiTahunan = $('#sisa_cuti_tahunan').val();
+                    var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
+                    var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
+                    var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
 
                     var content = document.getElementById("jumlah-hari");
                     content.classList.add('text-dark');
 
                     content.textContent = "Jumlah " +
                         tipeCuti + ": " +
-                        daysDifference;
-                    console.log(kdtipeCuti)
-                    console.log(sisaCutiPanjang)
+                        daysDifference + " hari";
+                    console.log(totalCuti)
                     console.log(daysDifference)
-                    if (kdtipeCuti == 1) {
-                        if (sisaCutiPanjang < daysDifference) {
-                            content.classList.remove('text-dark');
-                            content.classList.add('text-danger');
-                            $('#ajukan').prop('disabled', true).hide();
-                        } else {
-                            $('#ajukan').show().prop('disabled', false);
-                        }
-                    } else if (kdtipeCuti == 2) {
-                        if (sisaCutiTahunan < daysDifference) {
-                            content.classList.remove('text-dark');
-                            content.classList.add('text-danger');
-                            $('#ajukan').prop('disabled', true).hide();
-                        } else {
-                            $('#ajukan').show().prop('disabled', false);
-                        }
+                    if (daysDifference > totalCuti) {
+                        content.classList.remove('text-dark');
+                        content.classList.add('text-danger');
+                        $('#ajukan').prop('disabled', true).hide();
+
                     } else {
-                        $('#ajukan').prop('disabled', false);
+                        content.classList.remove('text-danger');
+                        content.classList.add('text-dark');
+                        $('#ajukan').show().prop('disabled', false);
                     }
+                    // if (kdtipeCuti == 1) {
+                    //     if (sisaCutiPanjang < daysDifference) {
+                    //         content.classList.remove('text-dark');
+                    //         content.classList.add('text-danger');
+                    //         $('#ajukan').prop('disabled', true).hide();
+                    //     } else {
+                    //         $('#ajukan').show().prop('disabled', false);
+                    //     }
+                    // } else if (kdtipeCuti == 2) {
+                    //     if (sisaCutiTahunan < daysDifference) {
+                    //         content.classList.remove('text-dark');
+                    //         content.classList.add('text-danger');
+                    //         $('#ajukan').prop('disabled', true).hide();
+                    //     } else {
+                    //         $('#ajukan').show().prop('disabled', false);
+                    //     }
+                    // } else {
+                    //     $('#ajukan').prop('disabled', false);
+                    // }
                     document.getElementById("jumlahHari").value = daysDifference;
+
+                    Livewire.dispatch('setJumlahHariCuti', {
+                        daysDifference,
+                        totalCuti
+                    });
                 }
             }
         })
@@ -434,7 +449,7 @@
         })
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('setCuti', (event) => {
+            Livewire.on('setNama', (event) => {
                 $('#jumlah-hari').text('');
                 $('#jumlahHari').val('');
                 try {
@@ -442,6 +457,10 @@
                 } catch (e) {
                     console.log(e)
                 }
+            });
+
+            Livewire.on('errorCuti', (e) => {
+                round_error_noti('Jumlah Cuti Tidak Mencukupi');
             });
         });
 
@@ -460,6 +479,7 @@
                 round_error_noti('{!! $error !!}');
             @endforeach
         @endif
+
 
         function round_error_noti(msg) {
             Lobibox.notify('error', {

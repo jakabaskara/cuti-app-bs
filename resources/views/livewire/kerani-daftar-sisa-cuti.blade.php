@@ -8,6 +8,7 @@
             <input type="hidden" name="sisaCutiPanjang" id='sisa_cuti_panjang' readonly value="{{ $sisaCutiPanjang }}">
             <p class="mt-1 ps-3"> <strong> Sisa Cuti Tahunan: {{ $sisaCutiTahunan }} </strong></p>
             <input type="hidden" name="sisaCutiTahunan" id='sisa_cuti_tahunan' readonly value="{{ $sisaCutiTahunan }}">
+            <p class="mt-1 ps-3"> <strong> Sisa Cuti Total: {{ $sisaCutiPanjang + $sisaCutiTahunan }} </strong></p>
         @endif
     </p>
 </div>

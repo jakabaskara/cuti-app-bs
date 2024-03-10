@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_unit_kerja');
             $table->string('bagian');
-            $table->string('kode_unit_kerja');
+            $table->string('kode_unit_kerja')->nullable();
             $table->timestamps();
         });
     }
