@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('permintaan_cuti', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_karyawan')->constrained('karyawan');
-            $table->foreignId('id_jenis_cuti')->constrained('jenis_cuti');
+            // $table->foreignId('id_jenis_cuti')->constrained('jenis_cuti');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->integer('jumlah_hari_cuti');
