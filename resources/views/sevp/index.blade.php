@@ -89,37 +89,7 @@
                         <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="tableData1">
-                                <thead class="table-dark">
-                                    <tr class="text-center align-middle">
-                                        <th>No.</th>
-                                        <th>NIK SAP</th>
-                                        <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
-                                        {{-- <th>Periode Cuti</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $i = 1;
-                                    @endphp
-                                    @foreach ($sisaCutis as $sisaCuti)
-                                        <tr class="text-center align-middle">
-                                            <td>{{ $i }}</td>
-                                            <td>{{ $sisaCuti->NIK }}</td>
-                                            <td class="text-start">{{ $sisaCuti->nama }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                        </tr>
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @livewire('kabag-daftar-sisa-cuti')
                     </div>
                 </div>
             </div>
@@ -159,11 +129,11 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <h5>Riwayat Permintaan Cuti</h5>
                     <hr>
                 </div>
                 <div class="card-body">
-
+                    @livewire('kabag-daftar-riwayat-cuti')
                 </div>
             </div>
         </div>
@@ -179,17 +149,9 @@
 
     <script>
         $('#tableData1').DataTable();
+        $('#tableData2').DataTable();
 
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
 
-            $('#datatable2').DataTable();
-        });
 
         function round_success_noti() {
             Lobibox.notify('success', {
