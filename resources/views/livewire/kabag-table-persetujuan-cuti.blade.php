@@ -24,7 +24,8 @@
                         <td class="text-dark">{{ $cutiPending->karyawan->NIK }}</td>
                         <td class="text-dark">{{ $cutiPending->karyawan->nama }}</td>
                         <td class="text-dark">{{ $cutiPending->tanggal_mulai }}</td>
-                        <td class="text-dark">{{ $cutiPending->jumlah_hari_cuti }}</td>
+                        <td class="text-dark">
+                            {{ $cutiPending->jumlah_cuti_tahunan + $cutiPending->jumlah_cuti_panjang }}</td>
                         <td class="text-dark">{{ $cutiPending->alasan }}</td>
                         <td class="text-dark">{{ $cutiPending->alamat }}</td>
                         <td class="text-dark"> <span class="badge badge-warning">Pending</span> </td>

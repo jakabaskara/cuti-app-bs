@@ -20,12 +20,7 @@
                 <a href="{{ route('sevp.index') }}" class="{{ request()->route()->uri == 'sevp' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'sevp/pengajuan-cuti' ? 'active-page' : '' }}">
-                <a href="{{ route('sevp.pengajuan-cuti') }}"
-                    class="{{ request()->route()->uri == 'sevp/pengajuan-cuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">create</i>Pengajuan Cuti<span
-                        class="badge rounded-pill badge-danger float-end"></span></a>
-            </li>
+
             {{-- <li class="{{ request()->route()->uri == 'sevp/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('sevp.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'sevp/karyawan' ? 'active' : '' }}"><i

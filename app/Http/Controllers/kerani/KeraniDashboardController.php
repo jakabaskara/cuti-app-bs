@@ -109,6 +109,10 @@ class KeraniDashboardController extends Controller
                 'is_checked' => $isChecked,
             ]);
 
+            // SisaCuti::where('id_karyawan', $validate['karyawan'])->where('id_jenis_cuti', 1)->decrement('jumlah', $validate['jumlah_cuti_panjang']);
+            // SisaCuti::where('id_karyawan', $validate['karyawan'])->where('id_jenis_cuti', 2)->decrement('jumlah', $validate['jumlah_cuti_tahunan']);
+
+
             RiwayatCuti::create([
                 'id_permintaan_cuti' => $permintaanCuti->id,
                 'nama_pembuat' => $karyawan->nama,

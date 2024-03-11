@@ -35,24 +35,20 @@ class KabagTablePersetujuanCuti extends Component
     {
         $dataCuti = PermintaanCuti::find($id);
         DB::transaction(function () use ($dataCuti) {
+            // $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+            // $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->get()->first();
+            // $sisaCutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->get()->first();
 
-            $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->get()->first();
-            $sisaCutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->get()->first();
+            SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->decrement('jumlah', $dataCuti->jumlah_cuti_panjang);
+            SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->decrement('jumlah', $dataCuti->jumlah_cuti_tahunan);
 
-            if ($sisaCutiPanjang) {
-                $sisaCutiPanjang->jumlah -= $dataCuti->jumlah_cuti_panjang;
-                $sisaCutiPanjang->save();
-            } else if ($sisaCutiTahunan) {
-                $sisaCutiTahunan->jumlah -= $dataCuti->jumlah_cuti_tahunan;
-                $sisaCutiTahunan->save();
-            }
             if ($dataCuti) {
                 $dataCuti->is_approved = 1;
                 $dataCuti->is_checked = 1;
                 $dataCuti->save();
             }
         });
-        $this->dispatch('refresh', []);
+        $this->dispatch('refresh');
     }
 
     public function tolak($id)

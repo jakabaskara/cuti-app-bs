@@ -264,7 +264,7 @@
 
     <!-- Modal -->
     <div class="modal fade " id="exampleModal" aria-labelledby="exampleModalLabel">
-        <form method="post" action="{{ route('kerani.submit-cuti') }}">
+        <form method="post" action="{{ route('kerani.submit-cuti') }}" id="formSubmit">
             @csrf
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -420,6 +420,14 @@
         })
 
         $(document).ready(function() {
+            $('#ajukan').click(function() {
+
+                $(this).html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+                );
+                $(this).prop('disabled', true);
+                $('#formSubmit').submit();
+            });
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             $('#tableData1').DataTable();
 
