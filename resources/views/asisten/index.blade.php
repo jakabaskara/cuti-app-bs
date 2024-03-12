@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
+    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     @livewire('kabag-status-bar-index')
 
@@ -34,39 +34,8 @@
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="display table-hover" id="datatable2">
-                            <thead class="table-dark">
-                                <tr class="text-center align-middle">
-                                    <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK SAP</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Sisa Cuti Tahunan</th>
-                                    <th class="text-dark">Sisa Cuti Panjang</th>
-                                    <th class="text-dark">Periode Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                                {{-- @foreach ($karyawans as $karyawan)
-                                    <tr class="text-center">
-                                        <td>{{ $i }}</td>
-                                        <td>{{ $karyawan->NIK }}</td>
-                                        <td>{{ $karyawan->nama }}</td>
-                                        <td>0</td>
-                                        <td>{{ $karyawan->sisaCutiPanjang->isEmpty() ? 0 : $karyawan->sisaCutiPanjang->first()->sisa_cuti }}
-                                        </td>
-                                        <td></td>
-                                    </tr>
-                                    @php
-                                        $i++;
-                                    @endphp
-                                @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div>
+                    @livewire('kabag-daftar-sisa-cuti')
+
                 </div>
             </div>
         </div>
@@ -125,6 +94,10 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#tableData1').DataTable();
+            $('#tableData2').DataTable();
+        });
         $(function() {
             $('input[name="daterange"]').daterangepicker({
                 opens: 'left'

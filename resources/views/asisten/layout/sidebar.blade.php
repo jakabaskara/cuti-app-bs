@@ -5,7 +5,8 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">Jawahir Amirudin<br><span class="user-state-info">PIC Absensi</span></span>
+                <span class="user-info-text">{{ $nama }}<br><span class="user-state-info">
+                        {{ $jabatan }}</span></span>
             </a>
         </div>
     </div>

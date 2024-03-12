@@ -5,9 +5,23 @@
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @livewireStyles();
 
+    <style>
+        .livewire-loading,
+        .livewire-loading [wire\:loading],
+        .livewire-loading [wire\:loading\.delayed] {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
 
-    {{-- @livewireStyles; --}}
+        /* Atur margin atau padding khusus untuk komponen yang memerlukannya */
+        /* Misalnya, jika komponen Anda perlu margin top 20px, Anda bisa menambahkan aturan berikut: */
+        .my-livewire-component {
+            margin-top: 20px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -99,7 +113,70 @@
         </div>
     </div>
 
-    @livewire('asisten-modal-add-cuti')
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModal" aria-labelledby="exampleModalLabel">
+        <form method="post" action="{{ route('asisten.submit-cuti') }}" id="formSubmit">
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Form Pengajuan Cuti</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <label for="nama" class="form-label">Nama Karyawan</label>
+                            <select class="form-select" id="select2" style="display: none; width: 100%"
+                                aria-label="Nama Karyawan" name="karyawan" required">
+                                <option selected value=""> </option>
+                                @foreach ($dataPairing as $pairing)
+                                    <option value="{{ $pairing->id }}">
+                                        {{ $pairing->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @livewire('kerani-daftar-sisa-cuti')
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="daterange" class="form-label">Tanggal Cuti</label>
+                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required
+                                    id="tanggal_cuti" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
+                                <input type="hidden" id="jumlahHari" name="jumlah_cuti" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            @livewire('kerani-jenis-cuti')
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="alasan" class="form-label">Alasan Cuti</label>
+                                <input type="text" class="form-control" name="alasan" required />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <input type="text" class="form-control" name="alamat" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batalkan</button>
+                        <button type="submit" id="ajukan" class="btn btn-primary">Ajukan</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {{-- @livewire('asisten-modal-add-cuti') --}}
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -108,6 +185,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
 
     <script>
@@ -135,39 +213,141 @@
             });
         }
 
+        var fp = flatpickr('.flatpickr1', {
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length >= 2) {
+                    var startDate = selectedDates[0];
+                    var endDate = selectedDates[selectedDates.length - 1];
 
+                    // Hitung selisih dalam milidetik
+                    var difference = endDate.getTime() - startDate.getTime();
+                    var tipeCuti = $('#jenisCuti option:selected').text();
+                    // var kdtipeCuti = $('#jenisCuti option:selected').val();
+                    // Konversi selisih ke jumlah hari
+                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
+                    var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
+                    var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
+                    var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
+
+                    var content = document.getElementById("jumlah-hari");
+                    content.classList.add('text-dark');
+
+                    content.textContent = "Jumlah " +
+                        tipeCuti + ": " +
+                        daysDifference + " hari";
+                    console.log(totalCuti)
+                    console.log(daysDifference)
+                    if (daysDifference > totalCuti) {
+                        content.classList.remove('text-dark');
+                        content.classList.add('text-danger');
+                        $('#ajukan').prop('disabled', true).hide();
+
+                    } else {
+                        content.classList.remove('text-danger');
+                        content.classList.add('text-dark');
+                        $('#ajukan').show().prop('disabled', false);
+                    }
+                    // if (kdtipeCuti == 1) {
+                    //     if (sisaCutiPanjang < daysDifference) {
+                    //         content.classList.remove('text-dark');
+                    //         content.classList.add('text-danger');
+                    //         $('#ajukan').prop('disabled', true).hide();
+                    //     } else {
+                    //         $('#ajukan').show().prop('disabled', false);
+                    //     }
+                    // } else if (kdtipeCuti == 2) {
+                    //     if (sisaCutiTahunan < daysDifference) {
+                    //         content.classList.remove('text-dark');
+                    //         content.classList.add('text-danger');
+                    //         $('#ajukan').prop('disabled', true).hide();
+                    //     } else {
+                    //         $('#ajukan').show().prop('disabled', false);
+                    //     }
+                    // } else {
+                    //     $('#ajukan').prop('disabled', false);
+                    // }
+                    document.getElementById("jumlahHari").value = daysDifference;
+
+                    Livewire.dispatch('setJumlahHariCuti', {
+                        daysDifference,
+                        totalCuti
+                    });
+                }
+            }
+        })
 
         $(document).ready(function() {
+            $('#ajukan').click(function() {
 
-            $('#datatable1').DataTable({
+                $(this).html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+                );
+                $(this).prop('disabled', true);
+                $('#formSubmit').submit();
+            });
+            // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+            $('#tableData1').DataTable();
+
+            $('#dataTable2').DataTable({
                 responsive: true,
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 }
             });
 
+            $('#select2').select2({
+                dropdownParent: $('#exampleModal .modal-content')
+            });
 
-            flatpickr('.flatpickr1', {
-                mode: 'range',
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length >= 2) {
-                        var startDate = selectedDates[0];
-                        var endDate = selectedDates[selectedDates.length - 1];
-
-                        // Hitung selisih dalam milidetik
-                        var difference = endDate.getTime() - startDate.getTime();
-
-                        // Konversi selisih ke jumlah hari
-                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
-
-                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
-                            daysDifference;
-                        document.getElementById("jumlahHari").value = daysDifference;
-                    }
-                }
-            })
         })
+
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('setNama', (event) => {
+                $('#jumlah-hari').text('');
+                $('#jumlahHari').val('');
+                try {
+                    fp.clear()
+                } catch (e) {
+                    console.log(e)
+                }
+            });
+
+            Livewire.on('errorCuti', (e) => {
+                round_error_noti('Jumlah Cuti Tidak Mencukupi');
+            });
+        });
+
+
+        $('#select2').select2({
+            dropdownParent: $('#exampleModal .modal-content')
+        }).on('change', function() {
+            var selectedValue = $(this).val();
+            Livewire.dispatch('setname', {
+                id: selectedValue
+            });
+        });
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                round_error_noti('{!! $error !!}');
+            @endforeach
+        @endif
+
+
+        function round_error_noti(msg) {
+            Lobibox.notify('error', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bi bi-exclamation-triangle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: msg + '!',
+            });
+        }
     </script>
     @livewireScripts();
 @endsection

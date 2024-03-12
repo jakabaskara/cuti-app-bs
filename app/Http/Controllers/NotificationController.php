@@ -109,10 +109,8 @@ class NotificationController extends Controller
                                 ['text' => 'Tombol 1', 'callback_data' => 'tombol1'],
                                 ['text' => 'Tombol 2', 'callback_data' => 'tombol2']
                             ],
-                            [
-                                ['text' => 'Tombol 3', 'callback_data' => 'tombol3']
-                            ]
-                        ]
+                        ],
+                        'one_time_keyboard' => true,
                     ])
                 ]);
             }
