@@ -12,6 +12,7 @@
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     {{-- @livewire('sevp-status-bar-index') --}}
+    @livewire('kabag-status-bar-index')
 
     {{-- <div class="row">
         <div class="col-xl-4">
@@ -74,7 +75,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    {{-- @livewire('sevp-table-persetujuan-cuti') --}}
+                    @livewire('kabag-table-persetujuan-cuti')
                 </div>
             </div>
         </div>

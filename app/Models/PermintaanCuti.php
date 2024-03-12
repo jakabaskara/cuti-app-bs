@@ -48,31 +48,48 @@ class PermintaanCuti extends Model
 
     public static function getPendingCuti($idPosisi)
     {
-        $pairings = Pairing::where('id_atasan', $idPosisi)->get();
+        // $pairings = Pairing::where('id_atasan', $idPosisi)->get();
 
-        $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
-        });
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $idPosisi)
+            ->where('permintaan_cuti.is_approved', '=', 0)
+            ->where('permintaan_cuti.is_rejected', '=', 0)
+            ->get();
+
+        // $permintaanCuti = $pairings->flatMap(function ($pairing) {
+        //     dd($pairing->bawahan);
+        //     return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
+        // });
         return $permintaanCuti;
     }
 
     public static function getDisetujuiCuti($idAtasan)
     {
-        $pairings = Pairing::where('id_atasan', $idAtasan)->get();
+        // $pairings = Pairing::where('id_atasan', $idAtasan)->get();
 
-        $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_approved', 1);
-        });
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $idAtasan)
+            ->where('permintaan_cuti.is_approved', '=', 1)
+            ->get();
+
+        // $permintaanCuti = $pairings->flatMap(function ($pairing) {
+        //     return $pairing->bawahan->permintaanCuti->where('is_approved', 1);
+        // });
         return $permintaanCuti;
     }
 
     public static function getDibatalkanCuti($idAtasan)
     {
-        $pairings = Pairing::where('id_atasan', $idAtasan)->get();
-
-        $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_rejected', 1);
-        });
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $idAtasan)
+            ->where('permintaan_cuti.is_rejected', '=', 1)
+            ->get();
         return $permintaanCuti;
     }
 

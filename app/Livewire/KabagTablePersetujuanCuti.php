@@ -21,9 +21,21 @@ class KabagTablePersetujuanCuti extends Component
 
         $pairings = Pairing::where('id_atasan', $karyawan->id_posisi)->get();
 
-        $permintaanCuti = $pairings->flatMap(function ($pairing) {
-            return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
-        });
+        // $permintaanCuti = $pairings->flatMap(function ($pairing) {
+        //     // dd($pairing->bawahan->permintaanCuti);
+        //     return $pairing->bawahan->karyawan->permintaanCuti;
+        //     // return $
+        // });
+
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $karyawan->id_posisi)
+            ->where('permintaan_cuti.is_approved', '=', 0)
+            ->get();
+
+
+
 
         $this->permintaanCuti = $permintaanCuti;
         // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;

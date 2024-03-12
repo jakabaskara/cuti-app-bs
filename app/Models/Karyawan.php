@@ -44,6 +44,12 @@ class Karyawan extends Model
     {
         return $this->belongsTo(Keanggotaan::class, 'id_posisi', 'id_anggota');
     }
+
+    public function pairing()
+    {
+        return $this->belongsTo(Pairing::class, 'id_posisi', 'id_bawahan');
+    }
+
     // public function getKeanggotaan(){
     //     self::
     // }
