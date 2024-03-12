@@ -84,7 +84,7 @@ class NotificationController extends Controller
 
 
 
-            if (strtolower($text) === '/sisacuti') {
+            if (strtolower($text) === 'sisa cuti') {
                 Telegram::sendMessage([
                     'chat_id' => $chat_id,
                     'text' => '',
