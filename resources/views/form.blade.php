@@ -15,7 +15,7 @@
             <tr>
                 <td>Kepada</td>
                 <td>:</td>
-                <td>Kepala Bagian SDM & Sistem Management</td>
+                <td>{{ $jabatan }}</td>
             </tr>
             <tr>
                 <td>Dari</td>
@@ -55,7 +55,7 @@
                     </td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>{{ $permintaanCuti->jumlah_hari_cuti }}</td>
+                    <td>{{ $permintaanCuti->jumlah_cuti_tahunan + $permintaanCuti->jumlah_cuti_panjang }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
@@ -188,7 +188,7 @@
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
-                    <td>Bagian SDM Sistem Magajemen</td>
+                    <td>{{ $bagian }}</td>
                     <td><br></td>
                     <td>Pemohon</td>
                 </tr>

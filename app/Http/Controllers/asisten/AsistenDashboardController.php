@@ -10,6 +10,7 @@ use App\Models\PermintaanCuti;
 use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -167,5 +168,41 @@ class AsistenDashboardController extends Controller
 
 
         return redirect()->back()->with('message', 'Data Cuti ' . $nama . "Berhasil Dihapus");
+    }
+
+    public function downloadPermintaanCutiPDF($id)
+    {
+        $permintaanCuti = PermintaanCuti::find($id);
+        $karyawan = $permintaanCuti->karyawan;
+        $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
+        $jabatan = $pairing->atasan->jabatan;
+        $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
+        $nama = $pairing->atasan->karyawan->first()->nama;
+        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        $cutiPanjangDijalani = 0;
+        $cutiTahunanDijalani = 0;
+        $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
+        $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
+
+        $cutiPanjangDijalani += $sisaCutiPanjang;
+        $cutiTahunanDijalani += $sisaCutiTahunan;
+
+        $pdf = Pdf::loadView('form', [
+            'bagian' => $bagian,
+            'karyawan' => $karyawan,
+            'namaAtasan' => $nama,
+            'jabatan' => $jabatan,
+            'permintaanCuti' => $permintaanCuti,
+            'sisaCutiPanjang' => $sisaCutiPanjang,
+            'sisaCutiTahunan' => $sisaCutiTahunan,
+            'cutiPanjangDijalani' => $cutiPanjangDijalani,
+            'cutiTahunanDijalani' => $cutiTahunanDijalani,
+
+        ]);
+
+        // return view('form');
+
+        return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
     }
 }

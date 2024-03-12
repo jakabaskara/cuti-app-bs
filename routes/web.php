@@ -55,6 +55,8 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
 
     Route::post('/add-cuti', [AsistenDashboardController::class, 'submitCuti'])->name('asisten.submit-cuti');
     Route::get('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
+
+    Route::get('/downloadPDF/{id}', [AsistenDashboardController::class, 'downloadPermintaanCutiPDF'])->name('asisten.download.pdf');
 });
 
 Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {

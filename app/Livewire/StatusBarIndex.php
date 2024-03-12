@@ -37,7 +37,8 @@ class StatusBarIndex extends Component
         $this->disetujui = PermintaanCuti::getDisetujuiCuti($idPosisi)->count();
         $this->pending = PermintaanCuti::getPendingCuti($idPosisi)->count();
         $this->ditolak = PermintaanCuti::getDibatalkanCuti($idPosisi)->count();
-        $this->ditolak = PermintaanCuti::getMenungguPersetujuan($idPosisi)->count();
+        $this->menungguDiketahui = PermintaanCuti::getMenungguPersetujuan($idPosisi)->count();
+        // dd($this->menungguDiketahui);
     }
     public function render()
     {

@@ -19,27 +19,18 @@ class KabagTablePersetujuanCuti extends Component
     {
         $karyawan = Auth::user()->karyawan;
 
-        $pairings = Pairing::where('id_atasan', $karyawan->id_posisi)->get();
-
-        // $permintaanCuti = $pairings->flatMap(function ($pairing) {
-        //     // dd($pairing->bawahan->permintaanCuti);
-        //     return $pairing->bawahan->karyawan->permintaanCuti;
-        //     // return $
-        // });
-
         $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $karyawan->id_posisi)
             ->where('permintaan_cuti.is_approved', '=', 0)
+            ->where('permintaan_cuti.is_checked', '=', 1)
+            ->where('permintaan_cuti.is_rejected', '=', 0)
             ->get();
 
 
-
-
         $this->permintaanCuti = $permintaanCuti;
-        // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;
-        // $this->cutiPendings  = PermintaanCuti::getPending(1)->get();
+
         return view('livewire.kabag-table-persetujuan-cuti');
     }
 

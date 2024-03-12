@@ -51,12 +51,13 @@
          <div class="card widget widget-stats">
              <div class="card-body">
                  <div class="widget-stats-container d-flex">
-                     <div class="widget-stats-icon widget-stats-icon-danger">
-                         <i class="material-icons-outlined">highlight_off</i>
+                     <div class="widget-stats-icon widget-stats-icon-primary">
+                         <i class="material-icons-outlined">info</i>
                      </div>
                      <div class="widget-stats-content flex-fill">
                          <span class="widget-stats-title text-dark">Menunggu Dicek</span>
-                         <span class="widget-stats-amount" wire:model='ditolak'>{{ $ditolak }}</span>
+                         <span class="widget-stats-amount"
+                             wire:model='menungguDiketahui'>{{ $menungguDiketahui }}</span>
                          <span class="widget-stats-info">Form Cuti Belum di Cek</span>
                      </div>
                  </div>

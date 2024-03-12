@@ -170,10 +170,11 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <h5>Riwayat Permintaan Cuti</h5>
                     <hr>
                 </div>
                 <div class="card-body">
+                    @livewire('kabag-daftar-riwayat-cuti')
 
                 </div>
             </div>
@@ -204,7 +205,7 @@
         });
 
         function round_success_noti() {
-            Lobibox.notify('success', {
+            Lobibox.notify('info', {
                 pauseDelayOnHover: true,
                 size: 'mini',
                 rounded: true,
@@ -212,7 +213,7 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
-                msg: 'Cuti Disetujui!'
+                msg: 'Cuti Diketahui!'
             });
         }
 
