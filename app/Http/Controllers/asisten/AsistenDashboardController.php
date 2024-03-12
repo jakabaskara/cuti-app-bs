@@ -7,6 +7,7 @@ use App\Models\Karyawan;
 use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\SisaCuti;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

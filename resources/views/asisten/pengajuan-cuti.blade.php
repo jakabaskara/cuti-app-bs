@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @livewireStyles()
 @endsection
 
@@ -22,14 +22,14 @@
                             </button>
                             {{-- <button @click="showModal = true">Open Modal</button> --}}
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row mt-3">
                         <div class="col">
                             {{-- @livewire('asisten-tabel-pengajuan-cuti') --}}
-                            @livewire('kabag-daftar-sisa-cuti')
+                            @livewire('kabag-daftar-riwayat-cuti')
                             {{-- <div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-sm table-hover" id="datatable1">
@@ -274,9 +274,9 @@
                 $('#formSubmit').submit();
             });
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-            $('#tableData1').DataTable();
+            // $('#tableData1').DataTable();
 
-            $('#dataTable2').DataTable({
+            $('#tableData2').DataTable({
                 responsive: true,
                 rowReorder: {
                     selector: 'td:nth-child(2)'
@@ -331,6 +331,7 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
+                sound: false,
                 msg: msg + '!',
             });
         }
