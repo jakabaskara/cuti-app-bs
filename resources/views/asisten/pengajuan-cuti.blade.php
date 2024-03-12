@@ -28,70 +28,107 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col">
-                            {{-- @livewire('asisten-tabel-pengajuan-cuti') --}}
-                            @livewire('kabag-daftar-riwayat-cuti')
-                            {{-- <div>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-sm table-hover" id="datatable1">
-                                        <thead class="table-dark">
-                                            <tr class="text-center align-middle">
-                                                <th>No.</th>
-                                                <th>NIK</th>
-                                                <th>Nama</th>
-                                                <th>Jenis Cuti</th>
-                                                <th>Jumlah<br>Hari</th>
-                                                <th>Periode Tanggal</th>
-                                                <th>Alasan</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $i = 1;
-                                            @endphp
-                                            @foreach ($riwayats as $riwayat)
-                                                <tr class="text-center">
-                                                    <td>{{ $i }}</td>
-                                                    <td>{{ $riwayat->karyawan->NIK }}</td>
-                                                    <td>{{ $riwayat->karyawan->nama }}</td>
-                                                    <td>{{ $riwayat->jenisCuti->jenis_cuti }}</td>
-                                                    <td>{{ $riwayat->jumlah_hari_cuti }}</td>
-                                                    <td>{{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover table-striped" id="dataTable2">
+                                    <thead class="table-dark">
+                                        <tr class="text-center align-middle">
+                                            <th class="text-dark">No.</th>
+                                            <th class="text-dark">NIK</th>
+                                            <th class="text-dark">Nama</th>
+                                            {{-- <th class="text-dark">Jenis Cuti</th> --}}
+                                            <th class="text-dark">Jumlah<br>Hari</th>
+                                            <th class="text-dark">Periode<br>Tanggal</th>
+                                            <th class="text-dark">Alasan</th>
+                                            <th class="text-dark">Alamat</th>
+                                            <th class="text-dark">Status</th>
+                                            <th class="text-dark">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($riwayats as $riwayat)
+                                            <tr class="text-center">
+                                                <td class="text-dark">{{ $i }}</td>
+                                                <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
+                                                <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
+                                                {{-- <td class="text-dark">{{ $riwayat->sisa_cuti_panjang }}</td> --}}
+                                                <td class="text-dark">
+                                                    {{ $riwayat->jumlah_cuti_panjang + $riwayat->jumlah_cuti_tahunan }}</td>
+                                                <td class="text-dark">
+                                                    {{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
+                                                </td>
+                                                <td class="text-dark">{{ $riwayat->alasan }}</td>
+                                                <td class="text-dark">{{ $riwayat->alamat }}</td>
+                                                @if ($riwayat->is_approved == 1)
+                                                    <td class="text-dark"> <span
+                                                            class="badge badge-success p-2">Disetujui</span>
                                                     </td>
-                                                    <td>{{ $riwayat->alasan }}</td>
-                                                    @if ($riwayat->is_approved == 1)
-                                                        <td> <span class="badge badge-success p-2">Disetujui</span> </td>
-                                                    @elseif ($riwayat->is_rejected == 1)
-                                                        <td> <span class="badge badge-danger p-2">Ditolak</span> </td>
-                                                    @else
-                                                        <td> <span class="badge badge-warning p-2">Pending</span> </td>
-                                                    @endif
-                                                    @if ($riwayat->is_rejected == 0 && $riwayat->is_approved == 0 && $riwayat->is_checked == 1)
-                                                        <td>
-                                                            <div class="row">
-                                                                <div class="col">
-                                                                    <button data-riwayat-id="{{ $riwayat->id }}"
-                                                                        onclick="confirmation({{ $riwayat->id }})"
-                                                                        class="button-confirm btn btn-sm px-2 py-0 m-0 btn-danger"><span
-                                                                            class="material-icons">
-                                                                            delete
-                                                                        </span></button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    @else
-                                                        <td></td>
-                                                    @endif
-                                                </tr>
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> --}}
+                                                    <td class="">
+                                                        <a href="{{ route('kerani.download.pdf', $riwayat->id) }}"
+                                                            class="btn btn-sm btn-success px-1 py-0">
+                                                            <span class="material-icons text-sm p-0 align-middle">
+                                                                description
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                @elseif ($riwayat->is_rejected == 1)
+                                                    <td class="text-dark"> <span
+                                                            class="badge badge-danger p-2">Ditolak</span>
+                                                    </td>
+                                                    <td class="">
+                                                        <button class="btn btn-sm btn-info px-1 py-0">
+                                                            <span class="material-icons text-sm p-0 align-middle">
+                                                                info
+                                                            </span>
+                                                        </button>
+                                                    </td>
+                                                @elseif ($riwayat->is_checked == 0)
+                                                    <td class="text-dark"> <span class="badge badge-dark p-2">Belum
+                                                            Diperiksa</span>
+                                                    </td>
+                                                    <td class="">
+                                                        <form id="deleteForm{{ $riwayat->id }}"
+                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                        <a href="#"
+                                                            onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                            class="btn btn-sm btn-danger px-1 py-0">
+                                                            <span
+                                                                class="material-icons text-sm p-0 align-middle">delete</span>
+                                                        </a>
+                                                    </td>
+                                                @else
+                                                    <td class="text-dark"> <span
+                                                            class="badge badge-warning p-2">Pending</span>
+                                                    </td>
+                                                    <td class="">
+                                                        <form id="deleteForm{{ $riwayat->id }}"
+                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                                                        <a href="#"
+                                                            onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                            class="btn btn-sm btn-danger px-1 py-0">
+                                                            <span
+                                                                class="material-icons text-sm p-0 align-middle">delete</span>
+                                                        </a>
+                                                    </td>
+                                                @endif
+                                            </tr>
+                                            @php
+                                                $i++;
+                                            @endphp
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -276,12 +313,7 @@
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             // $('#tableData1').DataTable();
 
-            $('#tableData2').DataTable({
-                responsive: true,
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                }
-            });
+            $('#dataTable2').DataTable();
 
             $('#select2').select2({
                 dropdownParent: $('#exampleModal .modal-content')

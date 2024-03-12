@@ -7,10 +7,12 @@ use App\Models\Karyawan;
 use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
+use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AsistenDashboardController extends Controller
 {
@@ -23,11 +25,14 @@ class AsistenDashboardController extends Controller
 
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
+        $riwayat = PermintaanCuti::getHistoryCuti($karyawan->id_posisi)->get();
+
 
 
         return view('asisten.index', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
+            'riwayats' => $riwayat,
         ]);
     }
 
@@ -41,13 +46,13 @@ class AsistenDashboardController extends Controller
         $user = User::find($idUser);
 
         $idPosisi = User::find($idUser)->karyawan->posisi->id;
-        $anggota = Keanggotaan::getAnggota($idPosisi);;
-        $anggota = Keanggotaan::where('id_posisi', 4)->get();
+        $anggota = Keanggotaan::getAnggota($idPosisi);
+        // $anggota = Keanggotaan::where('id_posisi', 4)->get();
 
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
 
-        $riwayat = PermintaanCuti::getHistoryCuti($idUser);
+        $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
 
         $idPosisi = $user->karyawan->posisi->id;
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
@@ -100,7 +105,7 @@ class AsistenDashboardController extends Controller
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 
-        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan, $user) {
+        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan) {
 
             $permintaanCuti = PermintaanCuti::create([
                 'id_karyawan' => $validate['karyawan'],

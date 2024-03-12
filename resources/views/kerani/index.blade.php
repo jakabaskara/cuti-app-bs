@@ -169,9 +169,6 @@
                                 Buat Surat
                             </button>
                         </div>
-                        {{-- <div class="col">
-                            <a href="{{ route('kerani.download.pdf') }}" class="btn btn-primary">PDF</a>
-                        </div> --}}
                     </div>
                     <div>
                         {{-- <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div> --}}
