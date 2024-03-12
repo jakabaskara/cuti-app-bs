@@ -59,4 +59,15 @@ class NotificationController extends Controller
 
         return 'OK';
     }
+
+    public function setWebhook()
+    {
+        $response = Telegram::setWebHook(['url' => env('TELEGRAM_WEBHOOK_URL')]);
+        dd($response);
+    }
+
+    public function commandHandlerWebhook()
+    {
+        $updates = Telegram::commandsHandler(true);
+    }
 }

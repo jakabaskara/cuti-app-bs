@@ -121,4 +121,5 @@ Route::post('/auth', [LoginController::class, 'login'])->name('auth');
 
 Route::get('/send-notification', [NotificationController::class, 'sendNotification'])->name('notification.send');
 
-Route::post('/webhook', [BotController::class, 'webhook']);
+Route::get('/setWebhook', [NotificationController::class, 'setWebhook'])->name('telegram.setwebhook');
+Route::post('/webhook', [NotificationController::class, 'commandHandlerWebhook'])->name('telegram.commandHandlerWebhook');
