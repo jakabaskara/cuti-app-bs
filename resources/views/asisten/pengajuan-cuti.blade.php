@@ -2,26 +2,11 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    @livewireStyles();
-
-    <style>
-        .livewire-loading,
-        .livewire-loading [wire\:loading],
-        .livewire-loading [wire\:loading\.delayed] {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        /* Atur margin atau padding khusus untuk komponen yang memerlukannya */
-        /* Misalnya, jika komponen Anda perlu margin top 20px, Anda bisa menambahkan aturan berikut: */
-        .my-livewire-component {
-            margin-top: 20px;
-        }
-    </style>
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    @livewireStyles()
 @endsection
 
 @section('content')
@@ -44,7 +29,8 @@
                     <div class="row mt-3">
                         <div class="col">
                             {{-- @livewire('asisten-tabel-pengajuan-cuti') --}}
-                            <div>
+                            @livewire('kabag-daftar-sisa-cuti')
+                            {{-- <div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-sm table-hover" id="datatable1">
                                         <thead class="table-dark">
@@ -105,7 +91,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -349,5 +335,5 @@
             });
         }
     </script>
-    @livewireScripts();
+    @livewireScripts()
 @endsection
