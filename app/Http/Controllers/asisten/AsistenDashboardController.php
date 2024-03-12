@@ -16,7 +16,9 @@ class AsistenDashboardController extends Controller
 
     public function index()
     {
-        $idUser = 1;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $karyawan = $user->karyawan;
 
 
         return view('asisten.index');

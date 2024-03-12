@@ -6,6 +6,7 @@ use App\Notifications\SendNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class NotificationController extends Controller
@@ -76,9 +77,33 @@ class NotificationController extends Controller
             $text = $updates->getMessage()->getText();
 
             if (strtolower($text) === 'halo') {
+
+                $reply_markup = Keyboard::make()
+                    ->setResizeKeyboard(true)
+                    ->setOneTimeKeyboard(true)
+                    ->row([
+                        Keyboard::button('1'),
+                        Keyboard::button('2'),
+                        Keyboard::button('3'),
+                    ])
+                    ->row([
+                        Keyboard::button('4'),
+                        Keyboard::button('5'),
+                        Keyboard::button('6'),
+                    ])
+                    ->row([
+                        Keyboard::button('7'),
+                        Keyboard::button('8'),
+                        Keyboard::button('9'),
+                    ])
+                    ->row([
+                        Keyboard::button('0'),
+                    ]);
+
                 Telegram::sendMessage([
                     'chat_id' => $chat_id,
                     'text' => 'Halo ' . $updates->getMessage(),
+                    'reply_markup' => $reply_markup
                 ]);
             }
 

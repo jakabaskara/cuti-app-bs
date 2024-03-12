@@ -49,7 +49,7 @@ Route::group(['prefix' => 'pic'], function () {
     Route::get('/', [PICDashboardController::class, 'index'])->name('pic.index');
 });
 
-Route::group(['prefix' => 'asisten'], function () {
+Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function () {
     Route::get('/', [AsistenDashboardController::class, 'index'])->name('asisten.index');
     Route::get('/pengajuan-cuti', [AsistenDashboardController::class, 'pengajuanCuti'])->name('asisten.pengajuan-cuti');
 
