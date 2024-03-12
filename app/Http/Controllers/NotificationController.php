@@ -77,5 +77,7 @@ class NotificationController extends Controller
             'chat_id' => $chat_id,
             'text' => 'Halo ' + $username,
         ]);
+
+        Telegram::sendMessage('sss');
     }
 }
