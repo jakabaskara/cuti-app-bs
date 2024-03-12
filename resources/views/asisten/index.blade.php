@@ -11,7 +11,7 @@
 @section('content')
     <h3 class="mb-4">Halo, PIC Bagian SDM & Sistem Manajemen 👋</h3>
 
-    @livewire('asisten-status-bar-index')
+    @livewire('kabag-status-bar-index')
 
     <div class="row">
         <div class="col">
@@ -21,7 +21,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    @livewire('asisten-table-persetujuan-cuti')
+                    @livewire('kabag-table-persetujuan-cuti')
                 </div>
             </div>
         </div>
@@ -103,8 +103,10 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Daftar Cuti yang Disetujui</h5>
+                    <h5>Daftar Pengajuan Cuti</h5>
                     <hr>
+                    @livewire('kabag-daftar-riwayat-cuti')
+
                 </div>
                 <div class="card-body">
 

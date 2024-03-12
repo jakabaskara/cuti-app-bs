@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'manajer.auth' => \App\Http\Middleware\ManajerAuth::class,
         'asisten.auth' => \App\Http\Middleware\AsistenAuth::class,
         'sevp.auth' => \App\Http\Middleware\SevpAuth::class,
+        'gm.auth' => \App\Http\Middleware\GmAuth::class,
     ];
 }
