@@ -69,5 +69,13 @@ class NotificationController extends Controller
     public function commandHandlerWebhook()
     {
         $updates = Telegram::commandsHandler(true);
+
+        $chat_id = $updates->getChat()->getId();
+        $username = $updates->getChat()->getUsername();
+
+        if (strtolower($updates->getMessage()->getText() == 'halo')) return Telegram::sendMessage([
+            'chat_id' => $chat_id,
+            'text' => 'Halo ' + $username,
+        ]);
     }
 }
