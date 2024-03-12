@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\SendNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -15,5 +16,7 @@ class NotificationController extends Controller
         $user = Auth::user();
         $message = 'Notification Send Back';
         Notification::send($user, new SendNotification($message));
+
+        return redirect()->back();
     }
 }
