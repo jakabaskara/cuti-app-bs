@@ -15,6 +15,7 @@ use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\kabag\KabagDashboardController;
 use App\Http\Controllers\SisaCutiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\sevp\SevpBeritaCutiController;
 use App\Http\Controllers\sevp\SevpDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -65,9 +66,6 @@ Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function
     Route::get('/sisacuti', [ManajerSisaCutiController::class, 'index'])->name('manajer.sisacuti.index');
     Route::get('/cuti', [ManajerBeritaCutiController::class, 'index'])->name('manajer.cuti.index');
 
-
-
-
     Route::get('/downloadPDF', [ManajerDashboardController::class, 'downloadPermintaanCutiPDF'])->name('manajer.download.pdf');
 
     Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('manajer.tambahCuti');
@@ -98,12 +96,11 @@ Route::group(['prefix' => 'kabag', 'middleware' => ['kabag.auth']], function () 
 Route::group(['prefix' => 'gm'], function () {
     Route::get('/', [GmDashboardController::class, 'index'])->name('gm.index');
     // Route::get('/pengajuan-cuti', [KabagDashboardController::class, 'pengajuanCuti'])->name('kabag.pengajuan-cuti');
-
     // Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
 });
 
 
-Route::group(['prefix' => 'sevp', 'middleware' =>['sevp.auth']], function () {
+Route::group(['prefix' => 'sevp', 'middleware' => ['sevp.auth']], function () {
     Route::get('/', [SevpDashboardController::class, 'index'])->name('sevp.index');
     // Route::get('/karyawan', [SevpKaryawanController::class, 'index'])->name('sevp.karyawan.index');
     // Route::post('/karyawan', [SevpKaryawanController::class, 'tambahKaryawan'])->name('sevp.tambahKaryawan');
@@ -111,9 +108,6 @@ Route::group(['prefix' => 'sevp', 'middleware' =>['sevp.auth']], function () {
     Route::post('/add-cuti', [SevpDashboardController::class, 'submitCuti'])->name('sevp.submit-cuti');
     // Route::get('/sisacuti', [SevpSisaCutiController::class, 'index'])->name('sevp.sisacuti.index');
     Route::get('/cuti', [SevpBeritaCutiController::class, 'index'])->name('sevp.cuti.index');
-
-
-
 
     Route::get('/downloadPDF', [SevpDashboardController::class, 'downloadPermintaanCutiPDF'])->name('sevp.download.pdf');
 
@@ -124,3 +118,5 @@ Route::group(['prefix' => 'sevp', 'middleware' =>['sevp.auth']], function () {
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
+
+Route::get('/send-notification' . NotificationController::class, 'sendNotification')->name('notification.send');
