@@ -119,4 +119,4 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
 
-Route::get('/send-notification' . NotificationController::class, 'sendNotification')->name('notification.send');
+Route::get('/send-notification', [NotificationController::class, 'sendNotification'])->name('notification.send');
