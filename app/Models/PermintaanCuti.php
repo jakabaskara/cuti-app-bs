@@ -46,6 +46,18 @@ class PermintaanCuti extends Model
         return $this->belongsTo(Posisi::class, 'id_posisi_pembuat');
     }
 
+    public static function getRiwayatCuti($idAtasan)
+    {
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $idAtasan)
+            ->orderBy('permintaan_cuti.id', 'DESC')
+            ->get();
+
+        return $permintaanCuti;
+    }
+
     public static function getPendingCuti($idPosisi)
     {
         // $pairings = Pairing::where('id_atasan', $idPosisi)->get();

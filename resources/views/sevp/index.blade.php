@@ -180,6 +180,7 @@
                 icon: 'bx bx-check-circle',
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
+                sound: false,
                 position: 'top right',
                 msg: 'Cuti Ditolak!'
             });

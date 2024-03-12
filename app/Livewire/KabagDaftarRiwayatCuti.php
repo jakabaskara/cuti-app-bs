@@ -19,10 +19,8 @@ class KabagDaftarRiwayatCuti extends Component
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $karyawan = $user->karyawan;
-        $idUnitKerja = $karyawan->posisi->id_unit_kerja;
-        $this->permintaanCutis = PermintaanCuti::whereHas('posisi', function ($query) use ($idUnitKerja) {
-            $query->where('id_unit_kerja', $idUnitKerja);
-        })->orderBy('id', 'DESC')->get();
+        // $idUnitKerja = $karyawan->posisi->id_unit_kerja;
+        $this->permintaanCutis = PermintaanCuti::getRiwayatCuti($karyawan->id_posisi);
     }
 
     public function mount()
@@ -30,10 +28,8 @@ class KabagDaftarRiwayatCuti extends Component
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $karyawan = $user->karyawan;
-        $idUnitKerja = $karyawan->posisi->id_unit_kerja;
-        $this->permintaanCutis = PermintaanCuti::whereHas('posisi', function ($query) use ($idUnitKerja) {
-            $query->where('id_unit_kerja', $idUnitKerja);
-        })->orderBy('id', 'DESC')->get();
+        // $idUnitKerja = $karyawan->posisi->id_unit_kerja;
+        $this->permintaanCutis = PermintaanCuti::getRiwayatCuti($karyawan->id_posisi);
     }
 
     public function render()
