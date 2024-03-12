@@ -103,7 +103,17 @@ class NotificationController extends Controller
                 Telegram::sendMessage([
                     'chat_id' => $chat_id,
                     'text' => 'Halo ' . $updates->getMessage(),
-                    'reply_markup' => $reply_markup
+                    'reply_markup' => json_encode([
+                        'inline_keyboard' => [
+                            [
+                                ['text' => 'Tombol 1', 'callback_data' => 'tombol1'],
+                                ['text' => 'Tombol 2', 'callback_data' => 'tombol2']
+                            ],
+                            [
+                                ['text' => 'Tombol 3', 'callback_data' => 'tombol3']
+                            ]
+                        ]
+                    ])
                 ]);
             }
 
