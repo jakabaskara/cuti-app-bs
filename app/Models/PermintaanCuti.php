@@ -105,6 +105,17 @@ class PermintaanCuti extends Model
         return $permintaanCuti;
     }
 
+    public static function getMenungguPersetujuan($idAtasan)
+    {
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $idAtasan)
+            ->where('permintaan_cuti.is_checked', '=', 0)
+            ->get();
+        return $permintaanCuti;
+    }
+
     public static function getPendingCutiAtAsisten($id)
     {
         $data = self::where('is_approved', '0')->where('is_rejected', '0')->where('is_checked', '1')->where('id_pairing', $id);
