@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Api;
+use Telegram\Bot\Objects\Update;
 
 class NotificationController extends Controller
 {
@@ -70,7 +72,7 @@ class NotificationController extends Controller
     public function commandHandlerWebhook()
     {
         $updates = Telegram::getWebhookUpdates();
-        dd($updates);
+        // dd($updates);
 
         // if ($updates->getMessage() !== null) {
         //     $chat_id = $updates->getMessage()->getChat()->getId();
@@ -133,42 +135,72 @@ class NotificationController extends Controller
 
         // Di dalam commandHandlerWebhook()
 
-        if ($updates->isType('callback_query')) {
-            $callbackQuery = $updates->getCallbackQuery();
-            $data = $callbackQuery->getData();
+        // if ($updates->isType('callback_query')) {
+        //     $callbackQuery = $updates->getCallbackQuery();
+        //     $data = $callbackQuery->getData();
+        //     $chatId = $callbackQuery->getMessage()->getChat()->getId();
+
+        //     // Periksa apakah ID chat pengguna yang melakukan tindakan sama dengan ID yang diizinkan
+        //     if ($chatId == '1176854977') {
+        //         // Lakukan tindakan hanya jika ID chat pengguna yang sesuai dengan yang diizinkan
+        //         $permintaanCutiId = $data;
+        //         $permintaanCuti = PermintaanCuti::findOrFail($permintaanCutiId);
+
+        //         // Periksa apakah tombol "Setujui" atau "Tolak" yang ditekan
+        //         if ($callbackQuery->getData() == 'setujui') {
+        //             $permintaanCuti->is_approved = true;
+        //             $permintaanCuti->save();
+
+        //             // Kirim pesan konfirmasi ke pengguna
+        //             Telegram::sendMessage([
+        //                 'chat_id' => $chatId,
+        //                 'text' => 'Permintaan cuti telah disetujui.'
+        //             ]);
+        //         } elseif ($callbackQuery->getData() == 'tolak') {
+        //             $permintaanCuti->is_rejected = true;
+        //             $permintaanCuti->save();
+
+        //             // Kirim pesan konfirmasi ke pengguna
+        //             Telegram::sendMessage([
+        //                 'chat_id' => $chatId,
+        //                 'text' => 'Permintaan cuti telah ditolak.'
+        //             ]);
+        //         }
+        //     } else {
+        //         // Jika ID chat tidak diizinkan, kirim pesan bahwa pengguna tidak diizinkan
+        //         Telegram::sendMessage([
+        //             'chat_id' => $chatId,
+        //             'text' => 'Maaf, Anda tidak diizinkan untuk melakukan tindakan ini.'
+        //         ]);
+        //     }
+        // }
+
+        // Inisialisasi bot API
+        $telegram = new Api('7168138742:AAFFraiI7hsAXfWmjn-5vO20-JzK-BnXzVA');
+
+
+        $update = $telegram->getWebhookUpdate();
+
+        // Pastikan update yang diterima adalah callback query
+        if ($update->isType('callback_query')) {
+            $callbackQuery = $update->getCallbackQuery();
+
+            // Mendapatkan data dari callback query
+            $callbackData = $callbackQuery->getData();
+
+            // Mendapatkan ID chat
             $chatId = $callbackQuery->getMessage()->getChat()->getId();
 
-            // Periksa apakah ID chat pengguna yang melakukan tindakan sama dengan ID yang diizinkan
-            if ($chatId == '1176854977') {
-                // Lakukan tindakan hanya jika ID chat pengguna yang sesuai dengan yang diizinkan
-                $permintaanCutiId = $data;
-                $permintaanCuti = PermintaanCuti::findOrFail($permintaanCutiId);
-
-                // Periksa apakah tombol "Setujui" atau "Tolak" yang ditekan
-                if ($callbackQuery->getData() == 'setujui') {
-                    $permintaanCuti->is_approved = true;
-                    $permintaanCuti->save();
-
-                    // Kirim pesan konfirmasi ke pengguna
-                    Telegram::sendMessage([
-                        'chat_id' => $chatId,
-                        'text' => 'Permintaan cuti telah disetujui.'
-                    ]);
-                } elseif ($callbackQuery->getData() == 'tolak') {
-                    $permintaanCuti->is_rejected = true;
-                    $permintaanCuti->save();
-
-                    // Kirim pesan konfirmasi ke pengguna
-                    Telegram::sendMessage([
-                        'chat_id' => $chatId,
-                        'text' => 'Permintaan cuti telah ditolak.'
-                    ]);
-                }
-            } else {
-                // Jika ID chat tidak diizinkan, kirim pesan bahwa pengguna tidak diizinkan
-                Telegram::sendMessage([
+            // Balas callback query sesuai dengan data yang diterima
+            if ($callbackData === 'setujui') {
+                $telegram->sendMessage([
                     'chat_id' => $chatId,
-                    'text' => 'Maaf, Anda tidak diizinkan untuk melakukan tindakan ini.'
+                    'text' => 'Anda menyetujui permintaan cuti.',
+                ]);
+            } elseif ($callbackData === 'tolak') {
+                $telegram->sendMessage([
+                    'chat_id' => $chatId,
+                    'text' => 'Anda menolak permintaan cuti.',
                 ]);
             }
         }
