@@ -72,6 +72,11 @@ class NotificationController extends Controller
     public function commandHandlerWebhook()
     {
         $updates = Telegram::getWebhookUpdates();
+        $botToken = env('TELEGRAM_BOT_TOKEN');
+        $telegram = new Api($botToken);
+        $update = $telegram->getWebhookUpdate();
+
+
         // dd($updates);
 
         // if ($updates->getMessage() !== null) {
@@ -176,10 +181,7 @@ class NotificationController extends Controller
         // }
 
         // Inisialisasi bot API
-        $telegram = new Api('7168138742:AAFFraiI7hsAXfWmjn-5vO20-JzK-BnXzVA');
 
-
-        $update = $telegram->getWebhookUpdate();
 
         // Pastikan update yang diterima adalah callback query
         if ($update->isType('callback_query')) {
@@ -187,6 +189,8 @@ class NotificationController extends Controller
 
             // Mendapatkan data dari callback query
             $callbackData = $callbackQuery->getData();
+            $data = $callbackQuery->getData();
+
 
             // Mendapatkan ID chat
             $chatId = $callbackQuery->getMessage()->getChat()->getId();
@@ -195,7 +199,7 @@ class NotificationController extends Controller
             if ($callbackData === 'setujui') {
                 $telegram->sendMessage([
                     'chat_id' => $chatId,
-                    'text' => 'Anda menyetujui permintaan cuti.',
+                    'text' => 'Anda menyetujui permintaan cuti.' . $data,
                 ]);
             } elseif ($callbackData === 'tolak') {
                 $telegram->sendMessage([
