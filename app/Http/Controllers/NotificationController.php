@@ -204,17 +204,18 @@ class NotificationController extends Controller
                 ]);
 
                 // Hapus tombol inline
-                $telegram->editMessageReplyMarkup([
-                    'chat_id' => $chatId,
-                    'message_id' => $messageId,
-                    'reply_markup' => ['inline_keyboard' => []], // Mengosongkan keyboard inline
-                ]);
+
             } elseif ($callbackData === 'tolak') {
                 $telegram->sendMessage([
                     'chat_id' => $chatId,
                     'text' => 'Anda menolak permintaan cuti.',
                 ]);
             }
+
+            $telegram->editMessageReplyMarkup([
+                'chat_id' => $chatId,
+                'message_id' => $messageId,
+            ]);
         }
     }
 
