@@ -211,11 +211,6 @@ class NotificationController extends Controller
                     'text' => 'Anda menolak permintaan cuti.',
                 ]);
             }
-
-            $telegram->editMessageReplyMarkup([
-                'chat_id' => $chatId,
-                'message_id' => $messageId,
-            ]);
         }
     }
 
