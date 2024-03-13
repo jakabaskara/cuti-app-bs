@@ -70,60 +70,68 @@ class NotificationController extends Controller
     public function commandHandlerWebhook()
     {
         $updates = Telegram::getWebhookUpdates();
+        dd($updates);
 
-        if ($updates->getMessage() !== null) {
-            $chat_id = $updates->getMessage()->getChat()->getId();
-            $username = $updates->getMessage()->getChat()->getUsername();
-            $text = $updates->getMessage()->getText();
+        // if ($updates->getMessage() !== null) {
+        //     $chat_id = $updates->getMessage()->getChat()->getId();
+        //     $username = $updates->getMessage()->getChat()->getUsername();
+        //     $text = $updates->getMessage()->getText();
 
-            if (strtolower($text) === 'halo') {
+        //     if (strtolower($text) === 'halo') {
 
-                $reply_markup = Keyboard::make()
-                    ->setResizeKeyboard(true)
-                    ->setOneTimeKeyboard(true)
-                    ->row([
-                        Keyboard::button('1'),
-                        Keyboard::button('2'),
-                        Keyboard::button('3'),
-                    ])
-                    ->row([
-                        Keyboard::button('4'),
-                        Keyboard::button('5'),
-                        Keyboard::button('6'),
-                    ])
-                    ->row([
-                        Keyboard::button('7'),
-                        Keyboard::button('8'),
-                        Keyboard::button('9'),
-                    ])
-                    ->row([
-                        Keyboard::button('0'),
-                    ]);
+        //         $reply_markup = Keyboard::make()
+        //             ->setResizeKeyboard(true)
+        //             ->setOneTimeKeyboard(true)
+        //             ->row([
+        //                 Keyboard::button('1'),
+        //                 Keyboard::button('2'),
+        //                 Keyboard::button('3'),
+        //             ])
+        //             ->row([
+        //                 Keyboard::button('4'),
+        //                 Keyboard::button('5'),
+        //                 Keyboard::button('6'),
+        //             ])
+        //             ->row([
+        //                 Keyboard::button('7'),
+        //                 Keyboard::button('8'),
+        //                 Keyboard::button('9'),
+        //             ])
+        //             ->row([
+        //                 Keyboard::button('0'),
+        //             ]);
 
-                Telegram::sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => 'Halo ' . $updates->getMessage(),
-                    'reply_markup' => json_encode([
-                        'inline_keyboard' => [
-                            [
-                                ['text' => 'Tombol 1', 'callback_data' => 'tombol1'],
-                                ['text' => 'Tombol 2', 'callback_data' => 'tombol2']
-                            ],
-                        ],
-                        'one_time_keyboard' => true,
-                    ])
-                ]);
-            }
+        //         Telegram::sendMessage([
+        //             'chat_id' => $chat_id,
+        //             'text' => 'Halo ' . $updates->getMessage(),
+        //             'reply_markup' => json_encode([
+        //                 'inline_keyboard' => [
+        //                     [
+        //                         ['text' => 'Tombol 1', 'callback_data' => 'tombol1'],
+        //                         ['text' => 'Tombol 2', 'callback_data' => 'tombol2']
+        //                     ],
+        //                 ],
+        //                 'one_time_keyboard' => true,
+        //             ])
+        //         ]);
+        //     }
 
 
 
-            if (strtolower($text) === 'sisa cuti') {
-                Telegram::sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => 'Daftar Sisa Cuti',
-                ]);
-            }
-        }
+        //     if (strtolower($text) === 'sisa cuti') {
+        //         Telegram::sendMessage([
+        //             'chat_id' => $chat_id,
+        //             'text' => 'Daftar Sisa Cuti',
+        //         ]);
+        //     }
+        // }
+
+        Telegram::answerCallbackQuery([
+            'callback_query_id' => $updates->callbackQuery->get('id'),
+            'text'  => 'Halo',
+        ]);
+
+        // Di dalam commandHandlerWebhook()
 
         if ($updates->isType('callback_query')) {
             $callbackQuery = $updates->getCallbackQuery();

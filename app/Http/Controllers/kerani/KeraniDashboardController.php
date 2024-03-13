@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Telegram\Bot\Keyboard\Button;
+use Telegram\Bot\Keyboard\Keyboard;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class KeraniDashboardController extends Controller
@@ -127,14 +129,21 @@ class KeraniDashboardController extends Controller
             Notification::send($user, new SendNotification($message));
 
             // Mendefinisikan keyboard inline
-            $keyboard = [
-                'inline_keyboard' => [
-                    [
-                        ['text' => 'Setujui', 'callback_data' => $permintaanCuti->id],
-                        ['text' => 'Tolak', 'callback_data' => $permintaanCuti->id]
-                    ]
-                ]
-            ];
+            // $keyboard = [
+            //     'inline_keyboard' => [
+            //         [
+            //             ['text' => 'Setujui', 'callback_data' => $permintaanCuti->id],
+            //             ['text' => 'Tolak', 'callback_data' => $permintaanCuti->id]
+            //         ]
+            //     ]
+            // ];
+
+            $keyboard = Keyboard::make()->inline();
+
+            $buttonSetujui = Keyboard::inlineButton(['text' => 'Setujui', 'callback_data' => 'setujui']);
+            $buttonTolak = Keyboard::inlineButton(['text' => 'Tolak', 'callback_data' => 'tolak']);
+
+            $keyboard->row([$buttonSetujui, $buttonTolak]);
 
             $pesan = 'Apakah Cuti Disetujui?';
 
