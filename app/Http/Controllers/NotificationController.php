@@ -194,12 +194,20 @@ class NotificationController extends Controller
 
             // Mendapatkan ID chat
             $chatId = $callbackQuery->getMessage()->getChat()->getId();
+            $messageId = $callbackQuery->getMessage()->getMessageId();
 
             // Balas callback query sesuai dengan data yang diterima
             if ($callbackData === 'setujui') {
                 $telegram->sendMessage([
                     'chat_id' => $chatId,
                     'text' => 'Anda menyetujui permintaan cuti.' . $data,
+                ]);
+
+                // Hapus tombol inline
+                $telegram->editMessageReplyMarkup([
+                    'chat_id' => $chatId,
+                    'message_id' => $messageId,
+                    'reply_markup' => ['inline_keyboard' => []], // Mengosongkan keyboard inline
                 ]);
             } elseif ($callbackData === 'tolak') {
                 $telegram->sendMessage([
