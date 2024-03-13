@@ -183,31 +183,54 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td>Disetujui oleh</td>
-                    <td><br></td>
+                    <td rowspan="6">
+                        <div style="font-size: 10px; font-family: 'Courier New', Courier, monospace;">
+                            <div style="text-align: center;">
+                                <p>PTPN IV REGIONAL V</p>
+                                <p>{{ $bagian }}</p>
+                            </div>
+                            <table style="border: 1px solid green; padding: 0%; margin: auto; width: auto; font-size: 7px;">
+                                <tr>
+                                    <td rowspan="5"><img src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}" alt="" height="50"></td>
+                                    <td colspan="3">Dokumen ini ditandatangani secara elektronik oleh:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><b>{{ $namaAtasan }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>NIK</td>
+                                    <td>:</td>
+                                    <td>13004837</td>
+                                </tr>
+                                <tr>
+                                    <td>Jabatan</td>
+                                    <td>:</td>
+                                    <td><p>{{ $jabatan }}</p></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>info@ptpn4.co.id</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ $bagian }}</td>
-                    <td><br></td>
                     <td>Pemohon</td>
                 </tr>
                 <tr>
-                    <td>
-                        {{-- <img src="{{ asset('assets/images/avatars/approved.png') }}"> --}}
-                        <img src="{{ public_path() . '/assets/images/avatars/approved.png' }}" alt=""
-                            width="50%">
-                    </td>
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td><b><u>{{ $namaAtasan }}</u></b></td>
-                    <td></td>
+                    <td><br></td>
                 </tr>
                 <tr>
-                    <td>{{ $jabatan }}</td>
-                    <td style="color: transparent;">{{ $namaAtasan }}</td>
-                    <td><b><u>{{ $karyawan->nama }}</u></b></td>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td>{{ $karyawan->nama }}</td>
                 </tr>
             </table>
         </div>
