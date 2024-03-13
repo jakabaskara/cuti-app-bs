@@ -183,42 +183,41 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td rowspan="6">
-                        <div style="font-size: 10px; font-family: 'Courier New', Courier, monospace;">
-                            <div style="text-align: center;">
-                                <p>PTPN IV REGIONAL V</p>
-                                <p>{{ $bagian }}</p>
-                            </div>
-                            <table style="border: 1px solid green; padding: 0%; margin: auto; width: auto; font-size: 7px;">
+                    <td style="text-align: center;">PTPN IV REGIONAL V</td>
+                    <td style="color: transparent">aaaaaaaaaaaaaaaa</td>
+                    <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">{{ $bagian }}</td>
+                    <td></td>
+                    <td>Pemohon</td>
+                </tr>
+                <tr>
+                    <td rowspan="5">
+                        <div>
+                            <table style="border: 1px solid black; font-size: 7px; font-family: 'Courier New', Courier, monospace;">
                                 <tr>
-                                    <td rowspan="5"><img src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}" alt="" height="50"></td>
-                                    <td colspan="3">Dokumen ini ditandatangani secara elektronik oleh:</td>
+                                    <td rowspan="5"><img src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}" alt="" height="30"></td>
+                                    <td colspan="3">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3"><b>{{ $namaAtasan }}</b></td>
                                 </tr>
                                 <tr>
                                     <td>NIK</td>
-                                    <td>:</td>
-                                    <td>13004837</td>
+                                    <td>: 13004837</td>
                                 </tr>
                                 <tr>
                                     <td>Jabatan</td>
-                                    <td>:</td>
-                                    <td><p>{{ $jabatan }}</p></td>
+                                    <td>: {{ $jabatan }}</td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td>:</td>
-                                    <td>info@ptpn4.co.id</td>
+                                    <td>: info@ptpn4.co.id</td>
                                 </tr>
                             </table>
                         </div>
                     </td>
-                    <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
-                </tr>
-                <tr>
-                    <td>Pemohon</td>
                 </tr>
                 <tr>
                     <td><br></td>
@@ -230,6 +229,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td>{{ $karyawan->nama }}</td>
                 </tr>
             </table>
