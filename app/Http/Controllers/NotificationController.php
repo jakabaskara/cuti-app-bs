@@ -73,6 +73,11 @@ class NotificationController extends Controller
     {
         $updates = Telegram::getWebhookUpdates();
         $botToken = env('TELEGRAM_BOT_TOKEN');
+
+        Telegram::answerCallbackQuery([
+            'callback_query_id' => $updates->callbackQuery->get('id'),
+            'text'  => 'Permintaan Cuti Diproses',
+        ]);
         $telegram = new Api($botToken);
         $update = $telegram->getWebhookUpdate();
 
@@ -133,10 +138,7 @@ class NotificationController extends Controller
         //     }
         // }
 
-        Telegram::answerCallbackQuery([
-            'callback_query_id' => $updates->callbackQuery->get('id'),
-            'text'  => 'Halo',
-        ]);
+
 
         // Di dalam commandHandlerWebhook()
 
@@ -194,7 +196,6 @@ class NotificationController extends Controller
 
             // Mendapatkan ID chat
             $chatId = $callbackQuery->getMessage()->getChat()->getId();
-            $messageId = $callbackQuery->getMessage()->getMessageId();
 
             // Balas callback query sesuai dengan data yang diterima
             if ($callbackData === 'setujui') {

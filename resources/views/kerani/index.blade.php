@@ -15,7 +15,7 @@
             /* Biarkan tabel di-scroll secara vertikal ketika melebihi ketinggian maksimum */
         }
     </style>
-    @livewireStyles()
+    @livewireStyles
 @endsection
 
 @section('content')
@@ -460,5 +460,5 @@
             });
         }
     </script>
-    @livewireScripts()
+    @livewireScripts
 @endsection
