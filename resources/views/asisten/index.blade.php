@@ -45,24 +45,7 @@
                     <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
                 </div>
                 <div class="card-body" style="min-height: 300px">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No.</th>
-                                    <th>Nama</th>
-                                    <th>Alasan Cuti</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">1.</td>
-                                    <td>Jeno</td>
-                                    <td>Urusan Keluarga</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    @livewire('karyawan-cuti-table')
                 </div>
             </div>
         </div>
