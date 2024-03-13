@@ -41,7 +41,6 @@ class KeraniDashboardController extends Controller
         $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
         $getPending = PermintaanCuti::getPending($idPosisi);
         $getDitolak = PermintaanCuti::getDitolak($idPosisi);
-        $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
@@ -53,7 +52,6 @@ class KeraniDashboardController extends Controller
             'disetujui' => $getDisetujui,
             'pending' => $getPending,
             'ditolak' => $getDitolak,
-            'karyawanCuti' => $getKaryawanCuti,
 
         ]);
     }
