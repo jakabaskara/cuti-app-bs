@@ -124,6 +124,46 @@ class NotificationController extends Controller
                 ]);
             }
         }
+
+        if ($updates->isType('callback_query')) {
+            $callbackQuery = $updates->getCallbackQuery();
+            $data = $callbackQuery->getData();
+            $chatId = $callbackQuery->getMessage()->getChat()->getId();
+
+            // Periksa apakah ID chat pengguna yang melakukan tindakan sama dengan ID yang diizinkan
+            if ($chatId == '1176854977') {
+                // Lakukan tindakan hanya jika ID chat pengguna yang sesuai dengan yang diizinkan
+                $permintaanCutiId = $data;
+                $permintaanCuti = PermintaanCuti::findOrFail($permintaanCutiId);
+
+                // Periksa apakah tombol "Setujui" atau "Tolak" yang ditekan
+                if ($callbackQuery->getData() == 'setujui') {
+                    $permintaanCuti->is_approved = true;
+                    $permintaanCuti->save();
+
+                    // Kirim pesan konfirmasi ke pengguna
+                    Telegram::sendMessage([
+                        'chat_id' => $chatId,
+                        'text' => 'Permintaan cuti telah disetujui.'
+                    ]);
+                } elseif ($callbackQuery->getData() == 'tolak') {
+                    $permintaanCuti->is_rejected = true;
+                    $permintaanCuti->save();
+
+                    // Kirim pesan konfirmasi ke pengguna
+                    Telegram::sendMessage([
+                        'chat_id' => $chatId,
+                        'text' => 'Permintaan cuti telah ditolak.'
+                    ]);
+                }
+            } else {
+                // Jika ID chat tidak diizinkan, kirim pesan bahwa pengguna tidak diizinkan
+                Telegram::sendMessage([
+                    'chat_id' => $chatId,
+                    'text' => 'Maaf, Anda tidak diizinkan untuk melakukan tindakan ini.'
+                ]);
+            }
+        }
     }
 
     public function getSisaCutiBot()

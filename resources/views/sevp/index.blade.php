@@ -100,26 +100,7 @@
                         <h5 class="text-center">Karyawan Cuti</h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-container">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Nama</th>
-                                        <th>Alasan Cuti</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($karyawanCuti as $cuti)
-                                        <tr>
-                                            <td class="text-center">1.</td>
-                                            <td>Jeno</td>
-                                            <td>Urusan Keluarga</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @livewire('karyawan-cuti-table')
                     </div>
                 </div>
             </div>

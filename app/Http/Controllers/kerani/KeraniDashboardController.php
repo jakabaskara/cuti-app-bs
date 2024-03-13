@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class KeraniDashboardController extends Controller
 {
@@ -41,7 +41,6 @@ class KeraniDashboardController extends Controller
         $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
         $getPending = PermintaanCuti::getPending($idPosisi);
         $getDitolak = PermintaanCuti::getDitolak($idPosisi);
-        $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
@@ -53,7 +52,6 @@ class KeraniDashboardController extends Controller
             'disetujui' => $getDisetujui,
             'pending' => $getPending,
             'ditolak' => $getDitolak,
-            'karyawanCuti' => $getKaryawanCuti,
 
         ]);
     }
@@ -126,24 +124,32 @@ class KeraniDashboardController extends Controller
             $message .= "Tanggal Selesai: $endDate\n";
             $message .= "Alasan: " . $validate['alasan'];
 
-            // Notification::send($user, new SendNotification($message));
+            Notification::send($user, new SendNotification($message));
 
-            // // Mendefinisikan keyboard inline
-            // $keyboard = [
-            //     'inline_keyboard' => [
-            //         [
-            //             ['text' => 'Setujui', 'callback_data' => 'tombol1_data'],
-            //             ['text' => 'Tolak', 'callback_data' => 'tombol2_data']
-            //         ]
-            //     ]
-            // ];
+            // Mendefinisikan keyboard inline
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'Setujui', 'callback_data' => $permintaanCuti->id],
+                        ['text' => 'Tolak', 'callback_data' => $permintaanCuti->id]
+                    ]
+                ]
+            ];
 
-            // $pesan = 'Apakah Cuti Disetujui?';
+            $pesan = 'Apakah Cuti Disetujui?';
 
-            // // Mengonversi keyboard menjadi JSON
-            // $keyboard = json_encode($keyboard);
+            // Mengonversi keyboard menjadi JSON
+            $keyboard = json_encode($keyboard);
 
-            // // Kirim pesan dengan keyboard inline
+            // Telegram::sendChatAction($keyboard);
+
+            $response = Telegram::sendMessage([
+                'chat_id' => '1176854977', // ID chat yang dituju
+                'text' => $pesan, // Isi pesan yang ingin Anda kirim
+                'reply_markup' => $keyboard // Markup keyboard jika Anda ingin menyertakannya
+            ]);
+
+            // Kirim pesan dengan keyboard inline
             // $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$pesan&reply_markup=$keyboard");
         });
 

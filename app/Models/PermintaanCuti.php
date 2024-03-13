@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -149,7 +150,13 @@ class PermintaanCuti extends Model
 
     public static function getTodayKaryawanCuti($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 1)->where('tanggal_mulai', date('Y-m-d'))->get();
+        $today = Carbon::now()->toDateString();
+
+        $data = self::where('id_posisi_pembuat', $idPosisi)
+            ->where('is_approved', 1)
+            ->whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->get();
 
         return $data;
     }
