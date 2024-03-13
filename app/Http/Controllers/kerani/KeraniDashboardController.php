@@ -147,7 +147,7 @@ class KeraniDashboardController extends Controller
             // $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$pesan&reply_markup=$keyboard");
         });
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Permintaan Cuti Berhasil Dibuat!');
     }
 
     public function downloadPermintaanCutiPDF($id)
@@ -156,6 +156,7 @@ class KeraniDashboardController extends Controller
         $karyawan = $permintaanCuti->karyawan;
         $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
         $jabatan = $pairing->atasan->jabatan;
+        $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
         $nama = $pairing->atasan->karyawan->first()->nama;
         $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
@@ -171,6 +172,7 @@ class KeraniDashboardController extends Controller
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
         $pdf = Pdf::loadView('form', [
+            'bagian' => $bagian,
             'karyawan' => $karyawan,
             'namaAtasan' => $nama,
             'jabatan' => $jabatan,

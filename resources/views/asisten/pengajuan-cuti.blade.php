@@ -337,6 +337,22 @@
             });
         });
 
+        function round_success_noti() {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Pengajuan Cuti Berhasil Dibuat!'
+            });
+        }
+
+        @if (session('message'))
+            round_success_noti()
+        @endif
 
         $('#select2').select2({
             dropdownParent: $('#exampleModal .modal-content')

@@ -385,25 +385,7 @@
                         content.classList.add('text-dark');
                         $('#ajukan').show().prop('disabled', false);
                     }
-                    // if (kdtipeCuti == 1) {
-                    //     if (sisaCutiPanjang < daysDifference) {
-                    //         content.classList.remove('text-dark');
-                    //         content.classList.add('text-danger');
-                    //         $('#ajukan').prop('disabled', true).hide();
-                    //     } else {
-                    //         $('#ajukan').show().prop('disabled', false);
-                    //     }
-                    // } else if (kdtipeCuti == 2) {
-                    //     if (sisaCutiTahunan < daysDifference) {
-                    //         content.classList.remove('text-dark');
-                    //         content.classList.add('text-danger');
-                    //         $('#ajukan').prop('disabled', true).hide();
-                    //     } else {
-                    //         $('#ajukan').show().prop('disabled', false);
-                    //     }
-                    // } else {
-                    //     $('#ajukan').prop('disabled', false);
-                    // }
+
                     document.getElementById("jumlahHari").value = daysDifference;
 
                     Livewire.dispatch('setJumlahHariCuti', {
@@ -436,19 +418,6 @@
             $('#select2').select2({
                 dropdownParent: $('#exampleModal .modal-content')
             });
-
-
-            // $(function() {
-            //     $('input[name="daterange"]').daterangepicker({
-            //         opens: 'left'
-            //     }, function(start, end, label) {
-            //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-            //             .format('YYYY-MM-DD'));
-            //     });
-
-            //     $('#datatable2').DataTable();
-            // });
-
 
         })
 
@@ -485,6 +454,23 @@
         @endif
 
 
+        function round_success_noti() {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Pengajuan Berhasil Dibuat!'
+            });
+        }
+
+        @if (session('message'))
+            round_success_noti()
+        @endif
+
         function round_error_noti(msg) {
             Lobibox.notify('error', {
                 pauseDelayOnHover: true,
@@ -494,6 +480,7 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
+                sound: false,
                 msg: msg + '!',
             });
         }

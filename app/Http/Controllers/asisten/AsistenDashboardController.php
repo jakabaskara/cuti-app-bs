@@ -157,7 +157,7 @@ class AsistenDashboardController extends Controller
             // $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$pesan&reply_markup=$keyboard");
         });
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Permintaan Cuti Berhasil Dibuat!');
     }
 
     public function deleteCuti($id)

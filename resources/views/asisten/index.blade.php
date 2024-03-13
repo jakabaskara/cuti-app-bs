@@ -68,6 +68,21 @@
         </div>
     </div>
 
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Riwayat Persetujuan Cuti</h5>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    @livewire('kabag-daftar-riwayat-cuti')
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <div class="card">
@@ -199,7 +214,23 @@
         $(document).ready(function() {
             $('#tableData1').DataTable();
             $('#tableData2').DataTable();
+
         });
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('terima', (event) => {
+                round_success_noti();
+            });
+
+            Livewire.on('tolak', (event) => {
+                round_danger_noti('Cuti Ditolak!');
+            });
+
+            Livewire.on('cutiKurang', (event) => {
+                round_danger_noti('Jumlah Sisa Cuti Kurang!');
+            });
+        });
+
+
         $(function() {
             $('input[name="daterange"]').daterangepicker({
                 opens: 'left'
@@ -208,12 +239,7 @@
                     .format('YYYY-MM-DD'));
             });
 
-            // $('#datatable2').DataTable({
-            //     responsive: true,
-            //     rowReorder: {
-            //         selector: 'td:nth-child(2)'
-            //     }
-            // });
+
             $('#dataTable2').DataTable();
         });
 
@@ -225,14 +251,25 @@
                 icon: 'bx bx-check-circle',
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
+                sound: false,
                 position: 'top right',
                 msg: 'Cuti Disetujui!'
             });
         }
 
-        $('.noti').on('click', function() {
-            round_success_noti();
-        })
+        function round_danger_noti(alasan) {
+            Lobibox.notify('error', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                sound: false,
+                msg: alasan
+            });
+        }
     </script>
 
     @livewireScripts()

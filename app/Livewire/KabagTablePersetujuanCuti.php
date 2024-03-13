@@ -38,17 +38,32 @@ class KabagTablePersetujuanCuti extends Component
     {
         $dataCuti = PermintaanCuti::find($id);
         DB::transaction(function () use ($dataCuti) {
-            // $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
-            // $sisaCutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->get()->first();
-            // $sisaCutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->get()->first();
+            $cutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->first();
+            $cutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->first();
 
-            SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->decrement('jumlah', $dataCuti->jumlah_cuti_panjang);
-            SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->decrement('jumlah', $dataCuti->jumlah_cuti_tahunan);
+            $totalPermintaanCuti = $dataCuti->jumlah_cuti_tahunan + $dataCuti->jumlah_cuti_panjang;
+            $totalSisaCuti = ($cutiPanjang ? $cutiPanjang->jumlah : 0) + ($cutiTahunan ? $cutiTahunan->jumlah : 0);
 
-            if ($dataCuti) {
-                $dataCuti->is_approved = 1;
-                $dataCuti->is_checked = 1;
-                $dataCuti->save();
+            if ($totalSisaCuti >= $totalPermintaanCuti) {
+
+                if ($cutiPanjang && $cutiPanjang->jumlah > 0) {
+                    $cutiPanjang->jumlah -= $dataCuti->jumlah_cuti_panjang;
+                    $cutiPanjang->save();
+                }
+
+                if ($cutiTahunan && $cutiTahunan->jumlah > 0) {
+                    $cutiTahunan->jumlah -= $dataCuti->jumlah_cuti_tahunan;
+                    $cutiTahunan->save();
+                }
+
+                if ($dataCuti) {
+                    $dataCuti->is_approved = 1;
+                    $dataCuti->is_checked = 1;
+                    $dataCuti->save();
+                    $this->dispatch('terima');
+                }
+            } else {
+                $this->dispatch('cutiKurang');
             }
         });
         $this->dispatch('refresh');
@@ -63,7 +78,7 @@ class KabagTablePersetujuanCuti extends Component
             $dataCuti->is_rejected = 1;
             $dataCuti->save();
         });
-
         $this->dispatch('refresh');
+        $this->dispatch('tolak');
     }
 }

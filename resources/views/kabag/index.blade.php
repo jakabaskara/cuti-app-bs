@@ -190,13 +190,9 @@
             });
         }
 
-        $('.noti').on('click', function() {
-            round_success_noti();
-        })
 
-
-        function round_danger_notis() {
-            Lobibox.notify('danger', {
+        function round_danger_noti(alasan) {
+            Lobibox.notify('error', {
                 pauseDelayOnHover: true,
                 size: 'mini',
                 rounded: true,
@@ -205,13 +201,23 @@
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
                 sound: false,
-                msg: 'Cuti Ditolak!'
+                msg: alasan
             });
         }
 
-        $('.noti').on('click', function() {
-            round_danger_notis();
-        })
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('refresh', (event) => {
+                round_success_noti();
+            });
+
+            Livewire.on('cutiKurang', (event) => {
+                round_danger_noti('Sisa Cuti Kurang!');
+            });
+
+            Livewire.on('tolak', (event) => {
+                round_danger_noti('Cuti Ditolak!');
+            });
+        });
     </script>
 
     @livewireScripts()
