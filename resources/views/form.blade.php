@@ -194,29 +194,35 @@
                 </tr>
                 <tr>
                     <td rowspan="5">
-                        <div>
+                        <div style="margin-right: -50px">
                             <table
-                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace;">
+                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
                                 <tr>
                                     <td rowspan="5"><img
                                             src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
                                             alt="" height="30"></td>
-                                    <td colspan="3">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
+                                    <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3"><b>{{ $namaAtasan }}</b></td>
+                                    <td colspan="4"><b>{{ $namaAtasan }}</b></td>
                                 </tr>
                                 <tr>
-                                    <td>NIK</td>
-                                    <td>: {{ $nik }}</td>
+                                    <td style="vertical-align:top">NIK</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik }}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Jabatan</td>
-                                    <td>: {{ $jabatan }}</td>
+                                    <td style="vertical-align:top">Jabatan</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $jabatan }}
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Email</td>
-                                    <td>: info@ptpn4.co.id</td>
+                                    <td style="vertical-align:top">Email</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">info@ptpn4.co.id
+                                    </td>
                                 </tr>
                             </table>
                         </div>
