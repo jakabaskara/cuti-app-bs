@@ -1,6 +1,6 @@
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 
@@ -8,19 +8,19 @@
     <div>
         <p>PT PERKEBUNAN NUSANTARA IV</p>
         <p><b>Regional V</b></p>
-        <h2 style="text-align: center"><u>M E M O R A N D U M</u></h2>
+        <h3 style="text-align: center;"><u>M E M O R A N D U M</u></h3>
     </div>
     <div>
-        <table style="margin: auto">
+        <table style="margin: auto;">
             <tr>
                 <td>Kepada</td>
                 <td>:</td>
-                <td>Kepala Bagian SDM & Sistem Management</td>
+                <td>{{ $jabatan }}</td>
             </tr>
             <tr>
                 <td>Dari</td>
                 <td>:</td>
-                <td>Rafizah Lubis</td>
+                <td>{{ $karyawan->nama }}</td>
             </tr>
             <tr>
                 <td>Nomor</td>
@@ -33,7 +33,7 @@
                 <td>-</td>
             </tr>
         </table>
-        <hr />
+        <hr>
     </div>
     <div>
         <table>
@@ -49,20 +49,19 @@
             <table>
                 <tr>
                     <td>1.1.</td>
-                    <td>Tgl. 26 Februari 2024 <span>&nbsp;</span></td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                    <td>Tgl. {{ date('d F Y', strtotime($permintaanCuti->tanggal_mulai)) }} s.d
+                        {{ date('d F Y', strtotime($permintaanCuti->tanggal_selesai)) }}
+                        <span>&nbsp;</span>
                     </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>1</td>
+                    <td>{{ $permintaanCuti->jumlah_cuti_tahunan + $permintaanCuti->jumlah_cuti_panjang }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td>1.2.</td>
                     <td>Sisa cuti yang dapat diambil</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -70,29 +69,23 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan 2022/2023</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>3</td>
+                    <td>{{ $cutiTahunanDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang 2016/2022</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>19</td>
+                    <td>{{ $cutiPanjangDijalani }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td>1.3.</td>
                     <td>Sisa cuti setelah/dijalani</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -100,21 +93,17 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan 2022/2023</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>2</td>
+                    <td>{{ $sisaCutiTahunan }}</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang 2016/2022</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
-                    <td>19</td>
+                    <td>{{ $sisaCutiPanjang }}</td>
                     <td>HK</td>
                 </tr>
             </table>
@@ -123,9 +112,7 @@
                 <tr>
                     <td>2.1.</td>
                     <td>Tanggal.................................</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -133,9 +120,7 @@
                 <tr>
                     <td>2.2.</td>
                     <td>Sisa cuti yang dapat diambil</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -143,9 +128,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -153,9 +136,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -163,9 +144,7 @@
                 <tr>
                     <td>2.3.</td>
                     <td>Sisa cuti setelah/dijalani</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -173,9 +152,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -183,9 +160,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    </td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -195,85 +170,79 @@
                 <tr>
                     <td>Alasan cuti</td>
                     <td>:</td>
-                    <td>Urusan Keluarga</td>
+                    <td>{{ $permintaanCuti->alasan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>Kembayan</td>
+                    <td>{{ $permintaanCuti->alamat }}</td>
                 </tr>
             </table>
         </div>
-        <p>
-            Demikian permohonan kami, atas persetujuan Bapak, di ucapkan terima kasih.
-        </p>
+        <p>Demikian permohonan kami, atas persetujuan Bapak, di ucapkan terima kasih.</p>
         <div>
-            <table align="center" style="text-align: center">
+            <table align="center" style="text-align: center;">
                 <tr>
-                    <td>Diketahui oleh</td>
-                    <td><br /></td>
-                    <td>Pontianak, 22 Februari 2024</td>
+                    <td>Diketahui</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaa</td>
+                    <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
-                    <td>Group Manager</td>
-                    <td><br /></td>
+                    <td></td>
+                    <td></td>
                     <td>Pemohon</td>
                 </tr>
                 <tr>
-                    <td><br /></td>
-                    <td><br /></td>
                 </tr>
                 <tr>
-                    <td><br /></td>
-                    <td><br /></td>
+                    <td><br></td>
                 </tr>
                 <tr>
-                    <td><br /></td>
-                    <td><br /></td>
+                    <td><br></td>
                 </tr>
                 <tr>
-                    <td>
-                        <b><u>Ahmad Rambe</u></b>
-                    </td>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td>Nama</td>
                     <td></td>
+                    <td>{{ $karyawan->nama }}</td>
                 </tr>
-                <tr>
-                    <td>Unit Group Kalimantan Barat</td>
-                    <td style="color: transparent">Rafizah Lubis</td>
-                    <td>
-                        <b><u>Rafizah Lubis</u></b>
+                <tr align="center">
+                    <td colspan="3">
+                        <div style="margin-right: -50px">
+                            <table
+                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
+                                <tr>
+                                    <td rowspan="5"><img
+                                            src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
+                                            alt="" height="30"></td>
+                                    <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><b>{{ $namaAtasan }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">NIK</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">Jabatan</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $jabatan }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">Email</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">info@ptpn4.co.id
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </td>
-                </tr>
-            </table>
-            <br />
-            <td><br /></td>
-            <table align="center" style="text-align: center">
-                <tr>
-                    <td>Disetujui oleh</td>
-                </tr>
-                <tr>
-                    <td>Bagian SDM dan Sistem Manajemen</td>
-                </tr>
-                <tr>
-                    <td><br /></td>
-                    <td><br /></td>
-                </tr>
-                <tr>
-                    <td><br /></td>
-                    <td><br /></td>
-                </tr>
-                <tr>
-                    <td><br /></td>
-                    <td><br /></td>
-                </tr>
-                <tr>
-                    <td>
-                        <b><u>Ahmad Ridwan</u></b>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Kepala Bagian</td>
                 </tr>
             </table>
         </div>
