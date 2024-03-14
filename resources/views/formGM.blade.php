@@ -201,9 +201,6 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
                     <td>Nama</td>
                     <td></td>
                     <td>{{ $karyawan->nama }}</td>
