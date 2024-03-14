@@ -66,7 +66,7 @@
                                                             class="badge badge-success p-2">Disetujui</span>
                                                     </td>
                                                     <td class="">
-                                                        <a href="{{ route('kerani.download.pdf', $riwayat->id) }}"
+                                                        <a href="{{ route('asisten.download.pdf', $riwayat->id) }}"
                                                             class="btn btn-sm btn-success px-1 py-0">
                                                             <span class="material-icons text-sm p-0 align-middle">
                                                                 description

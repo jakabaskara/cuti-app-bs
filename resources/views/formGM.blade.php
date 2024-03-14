@@ -44,7 +44,7 @@
             </tr>
         </table>
         <p>Mohon persetujuan Bapak untuk melaksanakan cuti sebagai berikut:</p>
-        <div style="padding-left: 5%">
+        <div style=" font-size:14px; padding-left: 5%">
             <p style="margin-top: -5px;"><b>1. Tanpa Pembayaran</b></p>
             <table style="margin-top: -15px;">
                 <tr>
@@ -183,43 +183,27 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td></td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaa</td>
+                    <td rowspan="2">Diketahui</td>
+                    <td rowspan="2" style="color: transparent;">aaaa////////////////aaaaaaaaaaaaaa</td>
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
-                    <td>Diketahui</td>
-                    <td></td>
                     <td>Pemohon</td>
                 </tr>
                 <tr>
-<<<<<<< HEAD
-                </tr>
-                <tr>
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td>Nama</td>
-=======
                     <td style="padding-top: 30px;">{{ $nama_checker }}</td>
                     <td></td>
                     <td style="padding-top: 30px;">{{ $karyawan->nama }}</td>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
->>>>>>> 000d953c1f141b26daba09041d462df3f889b329
-                    <td></td>
-                </tr>
                 <tr align="center">
                     <td colspan="3" style="padding-top: 30px;">
-                        <p>PTPN IV REGIONAL V</p>
-                        <div style="margin-right:-100px">
-
-                            <table
+                        <p style="margin-bottom: -1px">PTPN IV REGIONAL V</p>
+                        <p style="margin-top: 0px">Region Office</p>
+                        <div style="margin-bottom: -5px">
+                            <table align="center"
                                 style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
                                 <tr>
                                     <td rowspan="5"><img
