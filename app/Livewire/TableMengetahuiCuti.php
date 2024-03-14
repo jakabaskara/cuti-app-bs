@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\PermintaanCuti;
+use App\Models\RiwayatCuti;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -29,13 +30,20 @@ class TableMengetahuiCuti extends Component
 
     public function setujui($id)
     {
+        $karyawan = Auth::user()->karyawan;
+
         $dataCuti = PermintaanCuti::find($id);
-        DB::transaction(function () use ($dataCuti) {
+        DB::transaction(function () use ($dataCuti, $karyawan) {
 
             if ($dataCuti) {
                 $dataCuti->is_checked = 1;
                 $dataCuti->save();
             }
+
+            $riwayat = RiwayatCuti::where('id_permintaan_cuti', $dataCuti->id)->first();
+            $riwayat->nama_checker = $karyawan->nama;
+            $riwayat->jabatan_checker = $karyawan->jabatan;
+            $riwayat->save();
         });
         $this->dispatch('refresh');
     }

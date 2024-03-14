@@ -4,11 +4,11 @@
     <title>Document</title>
 </head>
 
-<body style="margin: 10vh">
+<body style="margin: -5vh 5vh 0vh 10vh">
     <div>
         <p>PT PERKEBUNAN NUSANTARA IV</p>
-        <p><b>Regional V</b></p>
-        <h3 style="text-align: center;"><u>M E M O R A N D U M</u></h3>
+        <p style="margin-top: -10px"><b>Regional V</b></p>
+        <h2 style="text-align: center;"><u>M E M O R A N D U M</u></h2>
     </div>
     <div>
         <table style="margin: auto;">
@@ -37,7 +37,7 @@
     </div>
     <div>
         <table>
-            <tr align="start">
+            <tr align="start" style="padding-bottom: -10px">
                 <td>Hal</td>
                 <td>:</td>
                 <td><b>Permohonan Cuti</b></td>
@@ -45,8 +45,8 @@
         </table>
         <p>Mohon persetujuan Bapak untuk melaksanakan cuti sebagai berikut:</p>
         <div style="padding-left: 5%">
-            <p><b>1. Tanpa Pembayaran</b></p>
-            <table>
+            <p style="margin-top: -5px;"><b>1. Tanpa Pembayaran</b></p>
+            <table style="margin-top: -15px;">
                 <tr>
                     <td>1.1.</td>
                     <td>Tgl. {{ date('d F Y', strtotime($permintaanCuti->tanggal_mulai)) }} s.d
@@ -107,8 +107,8 @@
                     <td>HK</td>
                 </tr>
             </table>
-            <p><b>2. Dengan Pembayaran</b></p>
-            <table>
+            <p style="margin-top: 0px;"><b>2. Dengan Pembayaran</b></p>
+            <table style="margin-top: -15px;">
                 <tr>
                     <td>2.1.</td>
                     <td>Tanggal.................................</td>
@@ -183,16 +183,17 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td>Diketahui</td>
+                    <td></td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaa</td>
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>Diketahui</td>
                     <td></td>
                     <td>Pemohon</td>
                 </tr>
                 <tr>
+<<<<<<< HEAD
                 </tr>
                 <tr>
                     <td><br></td>
@@ -202,12 +203,22 @@
                 </tr>
                 <tr>
                     <td>Nama</td>
+=======
+                    <td style="padding-top: 30px;">{{ $nama_checker }}</td>
                     <td></td>
-                    <td>{{ $karyawan->nama }}</td>
+                    <td style="padding-top: 30px;">{{ $karyawan->nama }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+>>>>>>> 000d953c1f141b26daba09041d462df3f889b329
+                    <td></td>
                 </tr>
                 <tr align="center">
-                    <td colspan="3">
-                        <div style="margin-right: -50px">
+                    <td colspan="3" style="padding-top: 30px;">
+                        <p>PTPN IV REGIONAL V</p>
+                        <div style="margin-right:-100px">
+
                             <table
                                 style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
                                 <tr>
@@ -217,18 +228,19 @@
                                     <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><b>{{ $namaAtasan }}</b></td>
+                                    <td colspan="4"><b>{{ $nama_approver }}</b></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align:top">NIK</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik }}
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik_approver }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align:top">Jabatan</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $jabatan }}
+                                    <td colspan="2" style="text-align: left; vertical-align:top">
+                                        {{ $jabatan_approver }}
                                     </td>
                                 </tr>
                                 <tr>

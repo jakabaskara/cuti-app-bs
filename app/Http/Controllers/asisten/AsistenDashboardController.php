@@ -187,22 +187,49 @@ class AsistenDashboardController extends Controller
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
+        $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $checkedBy = $riwayatCuti->nama_checker;
+        $jabatanChecker = $riwayatCuti->jabatan_checker;
+        $nama_approver = $riwayatCuti->nama_approver;
+        $jabatan_approver = $riwayatCuti->jabatan_approver;
+        $nik_approver = $riwayatCuti->nik_approver;
+
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
-        $pdf = Pdf::loadView('form', [
-            'nik' => $nik,
-            'bagian' => $bagian,
-            'karyawan' => $karyawan,
-            'namaAtasan' => $nama,
-            'jabatan' => $jabatan,
-            'permintaanCuti' => $permintaanCuti,
-            'sisaCutiPanjang' => $sisaCutiPanjang,
-            'sisaCutiTahunan' => $sisaCutiTahunan,
-            'cutiPanjangDijalani' => $cutiPanjangDijalani,
-            'cutiTahunanDijalani' => $cutiTahunanDijalani,
-
-        ]);
+        // dd($karyawan->posisi->role);
+        if ($karyawan->posisi->role->nama_role == 'manajer') {
+            $pdf = Pdf::loadView('formGM', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'nama_checker' => $checkedBy,
+                'jabatan_checker' => $jabatanChecker,
+                'nama_approver' => $nama_approver,
+                'jabatan_approver' => $jabatan_approver,
+                'nik_approver' => $nik_approver,
+            ]);
+        } else {
+            $pdf = Pdf::loadView('form', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+            ]);
+        }
 
         // return view('form');
 
