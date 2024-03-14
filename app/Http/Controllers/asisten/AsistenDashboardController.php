@@ -179,7 +179,7 @@ class AsistenDashboardController extends Controller
         $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
         $nama = $pairing->atasan->karyawan->first()->nama;
         $atasan = $pairing->atasan->karyawan->first();
-        $nik = $atasan->nik;
+        $nik = $atasan->NIK;
         $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         $cutiPanjangDijalani = 0;

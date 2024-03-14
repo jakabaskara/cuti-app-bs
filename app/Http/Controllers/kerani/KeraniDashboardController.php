@@ -166,7 +166,7 @@ class KeraniDashboardController extends Controller
         $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
         $atasan = $pairing->atasan->karyawan->first();
         $nama = $atasan->nama;
-        $nik = $atasan->nik;
+        $nik = $atasan->NIK;
         $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         $cutiPanjangDijalani = 0;
@@ -181,6 +181,7 @@ class KeraniDashboardController extends Controller
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
         $pdf = Pdf::loadView('form', [
+            'nik' => $nik,
             'bagian' => $bagian,
             'karyawan' => $karyawan,
             'namaAtasan' => $nama,
@@ -195,7 +196,7 @@ class KeraniDashboardController extends Controller
 
         // return view('form');
 
-        return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
+        return $pdf->download('Form Cuti ' . $karyawan->nama . ' tanggal' . $permintaanCuti->tanggal_mulai . ' .pdf');
     }
 
     public function delete($id)

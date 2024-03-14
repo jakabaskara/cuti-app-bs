@@ -196,7 +196,7 @@
                     <td rowspan="5">
                         <div>
                             <table
-                                style="border: 1px solid black; font-size: 7px; font-family: 'Courier New', Courier, monospace;">
+                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace;">
                                 <tr>
                                     <td rowspan="5"><img
                                             src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
