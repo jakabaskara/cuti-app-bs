@@ -187,22 +187,45 @@ class AsistenDashboardController extends Controller
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
+        $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $checkedBy = $riwayatCuti->nama_checker;
+        $jabatanChecker = $riwayatCuti->jabatan_checker;
+
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
-        $pdf = Pdf::loadView('form', [
-            'nik' => $nik,
-            'bagian' => $bagian,
-            'karyawan' => $karyawan,
-            'namaAtasan' => $nama,
-            'jabatan' => $jabatan,
-            'permintaanCuti' => $permintaanCuti,
-            'sisaCutiPanjang' => $sisaCutiPanjang,
-            'sisaCutiTahunan' => $sisaCutiTahunan,
-            'cutiPanjangDijalani' => $cutiPanjangDijalani,
-            'cutiTahunanDijalani' => $cutiTahunanDijalani,
+        // dd($karyawan->posisi->role);
+        if ($karyawan->posisi->role == 'manajer') {
+            $pdf = Pdf::loadView('formGM', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'nama_checker' => $checkedBy,
+                'jabatan_checker' => $jabatanChecker,
+            ]);
+        } else {
+            $pdf = Pdf::loadView('form', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+            ]);
+        }
 
-        ]);
+
 
         // return view('form');
 
