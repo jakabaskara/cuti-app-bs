@@ -190,12 +190,15 @@ class AsistenDashboardController extends Controller
         $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
         $checkedBy = $riwayatCuti->nama_checker;
         $jabatanChecker = $riwayatCuti->jabatan_checker;
+        $nama_approver = $riwayatCuti->nama_approver;
+        $jabatan_approver = $riwayatCuti->jabatan_approver;
+        $nik_approver = $riwayatCuti->nik_approver;
 
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
         // dd($karyawan->posisi->role);
-        if ($karyawan->posisi->role == 'manajer') {
+        if ($karyawan->posisi->role->nama_role == 'manajer') {
             $pdf = Pdf::loadView('formGM', [
                 'nik' => $nik,
                 'bagian' => $bagian,
@@ -209,6 +212,9 @@ class AsistenDashboardController extends Controller
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
                 'nama_checker' => $checkedBy,
                 'jabatan_checker' => $jabatanChecker,
+                'nama_approver' => $nama_approver,
+                'jabatan_approver' => $jabatan_approver,
+                'nik_approver' => $nik_approver,
             ]);
         } else {
             $pdf = Pdf::loadView('form', [
@@ -224,8 +230,6 @@ class AsistenDashboardController extends Controller
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
             ]);
         }
-
-
 
         // return view('form');
 

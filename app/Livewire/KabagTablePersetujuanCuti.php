@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
 use App\Models\Posisi;
+use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -36,8 +37,10 @@ class KabagTablePersetujuanCuti extends Component
 
     public function setujui($id)
     {
+        $karyawan = Auth::user()->karyawan;
+
         $dataCuti = PermintaanCuti::find($id);
-        DB::transaction(function () use ($dataCuti) {
+        DB::transaction(function () use ($dataCuti, $karyawan) {
             $cutiPanjang = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 1)->first();
             $cutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->first();
 
@@ -62,6 +65,12 @@ class KabagTablePersetujuanCuti extends Component
                     $dataCuti->save();
                     $this->dispatch('terima');
                 }
+
+                $riwayat = RiwayatCuti::where('id_permintaan_cuti', $dataCuti->id)->first();
+                $riwayat->nama_approver = $karyawan->nama;
+                $riwayat->jabatan_approver = $karyawan->jabatan;
+                $riwayat->nik_approver = $karyawan->NIK;
+                $riwayat->save();
             } else {
                 $this->dispatch('cutiKurang');
             }
