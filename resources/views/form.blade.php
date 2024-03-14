@@ -195,9 +195,12 @@
                 <tr>
                     <td rowspan="5">
                         <div>
-                            <table style="border: 1px solid black; font-size: 7px; font-family: 'Courier New', Courier, monospace;">
+                            <table
+                                style="border: 1px solid black; font-size: 7px; font-family: 'Courier New', Courier, monospace;">
                                 <tr>
-                                    <td rowspan="5"><img src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}" alt="" height="30"></td>
+                                    <td rowspan="5"><img
+                                            src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
+                                            alt="" height="30"></td>
                                     <td colspan="3">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
                                 <tr>
@@ -205,7 +208,7 @@
                                 </tr>
                                 <tr>
                                     <td>NIK</td>
-                                    <td>: 13004837</td>
+                                    <td>: {{ $nik }}</td>
                                 </tr>
                                 <tr>
                                     <td>Jabatan</td>

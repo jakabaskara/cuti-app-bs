@@ -128,15 +128,7 @@ class KeraniDashboardController extends Controller
 
             Notification::send($user, new SendNotification($message));
 
-            // Mendefinisikan keyboard inline
-            // $keyboard = [
-            //     'inline_keyboard' => [
-            //         [
-            //             ['text' => 'Setujui', 'callback_data' => $permintaanCuti->id],
-            //             ['text' => 'Tolak', 'callback_data' => $permintaanCuti->id]
-            //         ]
-            //     ]
-            // ];
+
 
             $keyboard = Keyboard::make()->inline();
 
@@ -172,7 +164,9 @@ class KeraniDashboardController extends Controller
         $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
         $jabatan = $pairing->atasan->jabatan;
         $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
-        $nama = $pairing->atasan->karyawan->first()->nama;
+        $atasan = $pairing->atasan->karyawan->first();
+        $nama = $atasan->nama;
+        $nik = $atasan->nik;
         $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         $cutiPanjangDijalani = 0;

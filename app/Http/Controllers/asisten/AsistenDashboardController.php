@@ -178,6 +178,8 @@ class AsistenDashboardController extends Controller
         $jabatan = $pairing->atasan->jabatan;
         $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
         $nama = $pairing->atasan->karyawan->first()->nama;
+        $atasan = $pairing->atasan->karyawan->first();
+        $nik = $atasan->nik;
         $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
         $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         $cutiPanjangDijalani = 0;
@@ -189,6 +191,7 @@ class AsistenDashboardController extends Controller
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
         $pdf = Pdf::loadView('form', [
+            'nik' => $nik,
             'bagian' => $bagian,
             'karyawan' => $karyawan,
             'namaAtasan' => $nama,
