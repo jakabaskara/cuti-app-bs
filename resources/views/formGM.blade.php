@@ -180,11 +180,12 @@
             </table>
         </div>
         <p>Demikian permohonan kami, atas persetujuan Bapak, di ucapkan terima kasih.</p>
+        <br>
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
                     <td rowspan="2">Diketahui</td>
-                    <td rowspan="2" style="color: transparent;">aaaa////////////////aaaaaaaaaaaaaa</td>
+                    <td rowspan="2" style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
                 <tr>
@@ -194,12 +195,17 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td style="padding-top: 30px;">{{ $nama_checker }}</td>
+                    <td style="padding-top: 30px;"><b><u>{{ $nama_checker }}</u></b></td>
                     <td></td>
-                    <td style="padding-top: 30px;">{{ $karyawan->nama }}</td>
+                    <td style="padding-top: 30px;"><b><u>{{ $karyawan->nama }}</u></b></td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 0%">Jabatan</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr align="center">
-                    <td colspan="3" style="padding-top: 30px;">
+                    <td colspan="3">
                         <p style="margin-bottom: -1px">PTPN IV REGIONAL V</p>
                         <p style="margin-top: 0px">Region Office</p>
                         <div style="margin-bottom: -5px">
