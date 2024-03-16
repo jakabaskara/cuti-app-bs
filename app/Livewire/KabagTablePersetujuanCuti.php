@@ -78,16 +78,16 @@ class KabagTablePersetujuanCuti extends Component
         $this->dispatch('refresh');
     }
 
-    public function tolak($id)
-    {
-        $dataCuti = PermintaanCuti::find($id);
-        DB::transaction(function () use ($dataCuti) {
-            $dataCuti->is_approved = 0;
-            $dataCuti->is_checked = 1;
-            $dataCuti->is_rejected = 1;
-            $dataCuti->save();
-        });
-        $this->dispatch('refresh');
-        $this->dispatch('tolak');
-    }
+    // public function tolak($id)
+    // {
+    //     $dataCuti = PermintaanCuti::find($id);
+    //     DB::transaction(function () use ($dataCuti) {
+    //         $dataCuti->is_approved = 0;
+    //         $dataCuti->is_checked = 1;
+    //         $dataCuti->is_rejected = 1;
+    //         $dataCuti->save();
+    //     });
+    //     $this->dispatch('refresh');
+    //     $this->dispatch('tolak');
+    // }
 }

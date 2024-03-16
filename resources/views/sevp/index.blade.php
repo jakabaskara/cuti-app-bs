@@ -81,22 +81,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @livewire('reject-cuti-form')
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="col">
         <div class="row">
             <div class="col-xl-8">
@@ -135,6 +119,21 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @livewire('reject-cuti-form')
+                    <button class="btn btn-danger mt-3" id="btnTolak">Tolak Cuti</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -150,21 +149,20 @@
         });
     </script> --}}
     <script>
-        // Fungsi untuk menampilkan modal saat tombol "Tolak" ditekan
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
 
-            // Ketika tombol "Tolak Cuti" di modal ditekan
-            $('#tolakButton').click(function() {
-                // Ambil alasan penolakan dari textarea
-                var alasan = $('#alasan_ditolak').val();
+            $('#btnTolak').click(function() {
+                teks = $('#textTolak').val();
 
-                // Lakukan proses penolakan cuti disini (gunakan Ajax jika diperlukan)
-                Livewire.emit('tolakCuti', id, alasan);
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    teks: teks,
+                });
 
-                // Sembunyikan modal
                 $('#rejectModal').modal('hide');
             });
+
         }
     </script>
 
@@ -214,6 +212,10 @@
             Livewire.on('cutiKurang', (event) => {
                 round_danger_noti('Sisa Cuti Kurang!');
             });
+        });
+
+        $(document).ready(function() {
+
         });
     </script>
 
