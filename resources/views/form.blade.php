@@ -198,8 +198,7 @@
                             <table
                                 style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
                                 <tr>
-                                    <td rowspan="5"><img
-                                            src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
+                                    <td rowspan="5"><img src="{{ asset('assets/images/avatars/avatarlogo.png') }}"
                                             alt="" height="30"></td>
                                     <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
