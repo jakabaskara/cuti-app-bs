@@ -460,5 +460,7 @@
             });
         }
     </script>
-    @livewireScripts
+    {{-- @livewireScripts --}}
+    <script src="public/livewire/livewire.js?id=6b5eb707" data-csrf="PIWXqc0k7adUkYWCBFG3d56ms9UA9U4jDRMe0qPB"
+        data-update-uri="/livewire/update" data-navigate-once="true"></script>
 @endsection
