@@ -81,6 +81,21 @@
         </div>
     </div>
 
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @livewire('reject-cuti-form')
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col">
         <div class="row">
@@ -128,6 +143,30 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+
+    {{-- <script>
+        Livewire.on('closeRejectModal', () => {
+            $('#rejectModal').modal('hide');
+        });
+    </script> --}}
+    <script>
+        // Fungsi untuk menampilkan modal saat tombol "Tolak" ditekan
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+
+            // Ketika tombol "Tolak Cuti" di modal ditekan
+            $('#tolakButton').click(function() {
+                // Ambil alasan penolakan dari textarea
+                var alasan = $('#alasan_ditolak').val();
+
+                // Lakukan proses penolakan cuti disini (gunakan Ajax jika diperlukan)
+                Livewire.emit('tolakCuti', id, alasan);
+
+                // Sembunyikan modal
+                $('#rejectModal').modal('hide');
+            });
+        }
+    </script>
 
     <script>
         $('#tableData1').DataTable();
