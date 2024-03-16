@@ -10,7 +10,7 @@
         <p style="margin-top: -10px"><b>Regional V</b></p>
         <h2 style="text-align: center;"><u>M E M O R A N D U M</u></h2>
     </div>
-    <div>
+    <div style="font-size:14px;">
         <table style="margin: auto;">
             <tr>
                 <td>Kepada</td>
@@ -35,7 +35,7 @@
         </table>
         <hr>
     </div>
-    <div>
+    <div style="font-size:14px;">
         <table>
             <tr align="start" style="padding-bottom: -10px">
                 <td>Hal</td>
@@ -44,7 +44,7 @@
             </tr>
         </table>
         <p>Mohon persetujuan Bapak untuk melaksanakan cuti sebagai berikut:</p>
-        <div style=" font-size:14px; padding-left: 5%">
+        <div style="padding-left: 5%">
             <p style="margin-top: -5px;"><b>1. Tanpa Pembayaran</b></p>
             <table style="margin-top: -15px;">
                 <tr>
