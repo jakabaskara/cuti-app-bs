@@ -111,8 +111,8 @@
             <table>
                 <tr>
                     <td>2.1.</td>
-                    <td>Tanggal.................................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>Tanggal...................................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -120,23 +120,23 @@
                 <tr>
                     <td>2.2.</td>
                     <td>Sisa cuti yang dapat diambil</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Tahunan........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Panjang.........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -144,23 +144,23 @@
                 <tr>
                     <td>2.3.</td>
                     <td>Sisa cuti setelah/dijalani</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Tahunan........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Panjang.........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -198,8 +198,7 @@
                             <table
                                 style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
                                 <tr>
-                                    <td rowspan="5"><img
-                                            src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
+                                    <td rowspan="5"><img src="{{ asset('assets/images/avatars/avatarlogo.png') }}"
                                             alt="" height="30"></td>
                                     <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
