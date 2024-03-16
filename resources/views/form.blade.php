@@ -111,8 +111,8 @@
             <table>
                 <tr>
                     <td>2.1.</td>
-                    <td>Tanggal.................................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>Tanggal...................................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -120,23 +120,23 @@
                 <tr>
                     <td>2.2.</td>
                     <td>Sisa cuti yang dapat diambil</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Tahunan........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Panjang.........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
@@ -144,23 +144,23 @@
                 <tr>
                     <td>2.3.</td>
                     <td>Sisa cuti setelah/dijalani</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Tahunan........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.......................</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td>- Cuti Panjang.........................................................................................................</td>
+                    {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
                     <td>HK</td>
