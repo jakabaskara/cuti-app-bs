@@ -184,7 +184,7 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td rowspan="2">Diketahui</td>
+                    <td rowspan="2">Diketahui,</td>
                     <td rowspan="2" style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
                 </tr>
@@ -200,7 +200,7 @@
                     <td style="padding-top: 30px;"><b><u>{{ $karyawan->nama }}</u></b></td>
                 </tr>
                 <tr>
-                    <td style="padding-top: 0%">Jabatan</td>
+                    <td style="padding-top: 0%">{{ $jabatan_checker }}</td>
                     <td></td>
                     <td></td>
                 </tr>
