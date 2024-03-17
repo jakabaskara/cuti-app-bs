@@ -5,7 +5,7 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">{{ $nama }}<br><span class="user-state-info">
+                <span class="user-info-text">{{ Str::limit($nama, 15) }}<br><span class="user-state-info">
                         {{ Str::limit($jabatan, 15) }}</span>
             </a>
         </div>

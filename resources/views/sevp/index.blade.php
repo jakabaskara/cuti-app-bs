@@ -182,7 +182,6 @@
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
                 sound: false,
-
                 msg: 'Cuti Disetujui!'
             });
         }
