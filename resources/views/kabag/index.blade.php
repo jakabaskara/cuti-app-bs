@@ -131,10 +131,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
+                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan Cuti</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <hr>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body px-5 py-2">
                     @livewire('reject-cuti-form')
                     <button class="btn btn-danger mt-3" id="btnTolak">Tolak Cuti</button>
                 </div>
@@ -154,17 +155,19 @@
     <script>
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
-
-            $('#btnTolak').click(function() {
-                teks = $('#textTolak').val();
-
-                Livewire.dispatch('tolak_cuti', {
-                    id: id,
-                    teks: teks,
-                });
-
-                $('#rejectModal').modal('hide');
+            Livewire.dispatch('getCuti', {
+                id: id,
             });
+            // $('#btnTolak').click(function() {
+            //     teks = $('#textTolak').val();
+
+            //     Livewire.dispatch('tolak_cuti', {
+            //         id: id,
+            //         teks: teks,
+            //     });
+
+            //     $('#rejectModal').modal('hide');
+            // });
 
         }
     </script>

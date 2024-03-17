@@ -17,6 +17,7 @@ class RejectCutiForm extends Component
 
     public $alasan_ditolak;
     public $id;
+    public $dataCuti;
 
     protected $rules = [
         'alasan_ditolak' => 'required',
@@ -27,6 +28,14 @@ class RejectCutiForm extends Component
         $this->validate();
         // Tutup modal setelah cuti ditolak
         $this->emit('closeRejectModal');
+    }
+
+    #[On('getCuti')]
+    public function getCuti($id)
+    {
+        $dataCuti = PermintaanCuti::find($id);
+        $this->id  = $id;
+        $this->dataCuti = $dataCuti;
     }
 
     #[On('tolak_cuti')]

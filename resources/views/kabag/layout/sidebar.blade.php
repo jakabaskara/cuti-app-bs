@@ -6,7 +6,7 @@
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
                 <span class="user-info-text">{{ $nama }}<br><span class="user-state-info">
-                        {{ $jabatan }}</span></span>
+                        {{ Str::limit($jabatan, 15) }}</span>
             </a>
         </div>
     </div>
