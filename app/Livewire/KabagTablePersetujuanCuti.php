@@ -89,6 +89,8 @@ class KabagTablePersetujuanCuti extends Component
                 $riwayat->nama_approver = $karyawan->nama;
                 $riwayat->jabatan_approver = $karyawan->jabatan;
                 $riwayat->nik_approver = $karyawan->NIK;
+                $riwayat->sisa_cuti_panjang = $cutiPanjang ? $cutiPanjang->jumlah : 0;
+                $riwayat->sisa_cuti_tahunan = $cutiTahunan ? $cutiTahunan->jumlah : 0;
                 $riwayat->save();
             } else {
                 $this->dispatch('cutiKurang');
