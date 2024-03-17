@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keanggotaan;
 use App\Models\Pairing;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,6 +30,23 @@ class AdminPairingController extends Controller
             'jabatan' => $this->jabatan,
             'nama' => $this->nama,
             'pairings' => $pairing,
+        ]);
+    }
+
+    public function keanggotaan()
+    {
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $karyawan = $user->karyawan;
+        $this->nama = $karyawan->nama;
+        $this->jabatan = $karyawan->jabatan;
+
+        $keanggotaan = Keanggotaan::get();
+
+        return view('admin.keanggotaan', [
+            'jabatan' => $this->jabatan,
+            'nama' => $this->nama,
+            'keanggotaans' => $keanggotaan,
         ]);
     }
 }

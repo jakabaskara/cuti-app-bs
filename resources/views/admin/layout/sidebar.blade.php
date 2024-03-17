@@ -34,6 +34,13 @@
                             account_tree
                         </span></i>Pairing<span class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
+            <li class="{{ request()->route()->uri == 'admin/keanggotaan' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.pairing.keanggotaan') }}"
+                    class="{{ request()->route()->uri == 'admin/keanggotaan' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone"><span class="material-icons">
+                            account_tree
+                        </span></i>Keanggotaan<span class="badge rounded-pill badge-danger float-end"></span></a>
+            </li>
             <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i

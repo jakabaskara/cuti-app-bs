@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
 
     Route::get('/pairing', [AdminPairingController::class, 'index'])->name('admin.pairing.index');
+    Route::get('/keanggotaan', [AdminPairingController::class, 'keanggotaan'])->name('admin.pairing.keanggotaan');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
 
