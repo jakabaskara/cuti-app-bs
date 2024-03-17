@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminKaryawanController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
+use App\Http\Controllers\AdminPairingController;
 use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
@@ -40,6 +41,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
     Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
+
+    Route::get('/pairing', [AdminPairingController::class, 'index'])->name('admin.pairing.index');
 
     Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
 

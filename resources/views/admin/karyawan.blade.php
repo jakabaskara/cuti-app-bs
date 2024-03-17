@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -21,36 +22,31 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover ">
+                        <table class="table table-sm table-bordered table-hover " id="tableData1">
                             <thead class="table-dark">
                                 <tr class="text-center align-middle">
                                     <th class="text-dark">No.</th>
                                     <th class="text-dark">NIK</th>
                                     <th class="text-dark">Nama</th>
                                     <th class="text-dark">Jabatan</th>
-                                    <th class="text-dark">Tanggal Mulai Bekerja</th>
-                                    <th class="text-dark">Tanggal Diangkat Staf</th>
+                                    <th class="text-dark">Unit Kerja</th>
+                                    <th class="text-dark">Posisi</th>
                                     <th class="text-dark">ID Posisi</th>
+                                    <th class="text-dark">ID Karyawan</th>
                                     <th class="text-dark">aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr class="text-center">
-                                    <td>1.</td>
-                                    <td>13002775</td>
-                                    <td>Prabowo Widodo</td>
-                                    <td>10</td>
-                                    <td>21</td>
-                                </tr> --}}
                                 @forelse ($karyawan as $karyawan)
-                                    <tr class="text-center">
+                                    <tr class="text-center align-middle">
                                         <th>{{ $loop->iteration }}</th>
                                         <td>{{ $karyawan->NIK }}</td>
                                         <td>{{ $karyawan->nama }}</td>
                                         <td>{{ $karyawan->jabatan }}</td>
-                                        <td>{{ $karyawan->TMT_bekerja }}</td>
-                                        <td>{{ $karyawan->tgl_diangkat_staf }}</td>
+                                        <td>{{ $karyawan->posisi->unitKerja->nama_unit_kerja }}</td>
+                                        <td>{{ $karyawan->posisi->jabatan }}</td>
                                         <td>{{ $karyawan->id_posisi }}</td>
+                                        <td>{{ $karyawan->id }}</td>
                                         <td class=" ">
 
                                             <div class="row">
@@ -141,11 +137,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            {{-- <div class="col">
-                                <label for="id posisi" class="form-label">ID Posisi</label>
-                                <input type="text" class="form-control" name="id_posisi"
-                                    value="{{ old('id_posisi') }}" />
-                            </div> --}}
+
                             <div class="col">
                                 <label for="id posisi" class="form-label">ID Posisi</label>
                                 <select class="form-select" aria-label="id posisi" name="id_posisi" required>
@@ -168,53 +160,25 @@
             </div>
         </form>
     </div>
-    {{-- <div class="row mt-1">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">+ Ajukan Cuti</button>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-sm table-hover">
-                                    <thead class="table-dark">
-                                        <tr class="text-center">
-                                            <th>No.</th>
-                                            <th>NIK</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Cuti</th>
-                                            <th>Periode Tanggal</th>
-                                            <th>Sisa Cuti</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 @section('script')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
-        });
+        $('#tableData1').DataTable();
+
+        // $(function() {
+        //     $('input[name="daterange"]').daterangepicker({
+        //         opens: 'left'
+        //     }, function(start, end, label) {
+        //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+        //             .format('YYYY-MM-DD'));
+        //     });
+        // });
 
         $(document).ready(function() {
 
@@ -228,25 +192,25 @@
 
 
 
-            flatpickr('.flatpickr1', {
-                mode: 'range',
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length >= 2) {
-                        var startDate = selectedDates[0];
-                        var endDate = selectedDates[selectedDates.length - 1];
+            // flatpickr('.flatpickr1', {
+            //     mode: 'range',
+            //     onChange: function(selectedDates, dateStr, instance) {
+            //         if (selectedDates.length >= 2) {
+            //             var startDate = selectedDates[0];
+            //             var endDate = selectedDates[selectedDates.length - 1];
 
-                        // Hitung selisih dalam milidetik
-                        var difference = endDate.getTime() - startDate.getTime();
+            //             // Hitung selisih dalam milidetik
+            //             var difference = endDate.getTime() - startDate.getTime();
 
-                        // Konversi selisih ke jumlah hari
-                        var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+            //             // Konversi selisih ke jumlah hari
+            //             var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
 
-                        document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
-                            daysDifference;
-                        document.getElementById("jumlahHari").value = daysDifference;
-                    }
-                }
-            })
+            //             document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " +
+            //                 daysDifference;
+            //             document.getElementById("jumlahHari").value = daysDifference;
+            //         }
+            //     }
+            // })
         })
     </script>
     @livewireScripts();

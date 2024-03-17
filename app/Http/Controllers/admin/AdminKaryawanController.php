@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminKaryawanController extends Controller
-{   
-       public function index()
+{
+    public function index()
     {
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
@@ -20,7 +20,7 @@ class AdminKaryawanController extends Controller
 
         $idPosisi = $user->karyawan->posisi->id;
         $karyawan = Karyawan::all();
-        return view('admin.karyawan',[
+        return view('admin.karyawan', [
             'karyawan' => $karyawan,
             'jabatan' => $jabatan,
             'nama' => $namaUser
@@ -31,25 +31,25 @@ class AdminKaryawanController extends Controller
     {
         $validateData = $request->validate(
             [
-                'nik'=> 'required',
-                'nama_karyawan'=> 'required',
-                'jabatan'=> 'required',
-                'tmt_bekerja'=> 'required',
-                'tgl_diangkat_staf'=> 'required',
-                'id_posisi'=> 'required',
+                'nik' => 'required',
+                'nama_karyawan' => 'required',
+                'jabatan' => 'required',
+                'tmt_bekerja' => 'required',
+                'tgl_diangkat_staf' => 'required',
+                'id_posisi' => 'required',
             ]
-            );
+        );
 
 
-            Karyawan::create([
-                'nik'=> $validateData['nik'],
-                'nama'=> $validateData['nama_karyawan'],
-                'jabatan'=> $validateData['jabatan'],
-                'tmt_bekerja'=> $validateData['tmt_bekerja'],
-                'tgl_diangkat_staf'=> $validateData['tgl_diangkat_staf'],
-                'id_posisi'=> $validateData['id_posisi'],
-            ]);
-            session()->flash('pesan', "Penambahan data {$validateData['nama_karyawan']} berhasil");
-            return redirect()->route('admin.karyawan.index');
+        Karyawan::create([
+            'nik' => $validateData['nik'],
+            'nama' => $validateData['nama_karyawan'],
+            'jabatan' => $validateData['jabatan'],
+            'tmt_bekerja' => $validateData['tmt_bekerja'],
+            'tgl_diangkat_staf' => $validateData['tgl_diangkat_staf'],
+            'id_posisi' => $validateData['id_posisi'],
+        ]);
+        session()->flash('pesan', "Penambahan data {$validateData['nama_karyawan']} berhasil");
+        return redirect()->route('admin.karyawan.index');
     }
 }
