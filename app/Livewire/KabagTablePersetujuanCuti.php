@@ -9,12 +9,31 @@ use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class KabagTablePersetujuanCuti extends Component
 {
 
     public $permintaanCuti;
+
+    #[On('refresh')]
+    public function refresh()
+    {
+        $karyawan = Auth::user()->karyawan;
+
+        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
+            ->where('pairing.id_atasan', $karyawan->id_posisi)
+            ->where('permintaan_cuti.is_approved', '=', 0)
+            ->where('permintaan_cuti.is_checked', '=', 1)
+            ->where('permintaan_cuti.is_rejected', '=', 0)
+            ->get();
+
+
+        $this->permintaanCuti = $permintaanCuti;
+    }
 
     public function render()
     {

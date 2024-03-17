@@ -46,7 +46,7 @@ class LoginController extends Controller
                 return redirect()->route('asisten.index');
             } elseif ($role == 'gm') {
                 return redirect()->route('gm.index');
-            } elseif ($role == 'sevp') {
+            } elseif ($role == 'brm') {
                 return redirect()->route('sevp.index');
             } else {
                 return back()->with('failed', 'Akun Belum Terdaftar');

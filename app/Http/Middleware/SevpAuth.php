@@ -21,7 +21,7 @@ class SevpAuth
         if ($username) {
             $user = User::where('username', $username->username)->get()->first();
             $role = $user->karyawan->posisi->role->nama_role;
-            if ($user && $role == 'sevp') {
+            if ($user && $role == 'brm') {
                 return $next($request);
             }
             return redirect()->route('login');

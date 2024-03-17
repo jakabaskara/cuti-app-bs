@@ -137,7 +137,7 @@
                 </div>
                 <div class="modal-body px-5 py-2">
                     @livewire('reject-cuti-form')
-                    <button class="btn btn-danger mt-3" id="btnTolak">Tolak Cuti</button>
+                    <button class="btn btn-danger mt-3 mb-3" id="btnTolak">Tolak Cuti</button>
                 </div>
             </div>
         </div>
@@ -158,21 +158,23 @@
             Livewire.dispatch('getCuti', {
                 id: id,
             });
-            // $('#btnTolak').click(function() {
-            //     teks = $('#textTolak').val();
-
-            //     Livewire.dispatch('tolak_cuti', {
-            //         id: id,
-            //         teks: teks,
-            //     });
-
-            //     $('#rejectModal').modal('hide');
-            // });
-
         }
     </script>
 
     <script>
+        $(document).ready(function() {
+            $('#btnTolak').click(function() {
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
+
+            });
+        });
+
         $('#tableData1').DataTable();
         $('#tableData2').DataTable();
 
@@ -217,7 +219,7 @@
         }
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('refresh', (event) => {
+            Livewire.on('terima', (event) => {
                 round_success_noti();
             });
 

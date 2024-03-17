@@ -1,5 +1,5 @@
 <div>
-    <input type="hidden" name="idCuti" value="{{ $id }}">
+    <input type="hidden" name="idCuti" id="idCuti" value="{{ $id }}">
     @if ($dataCuti)
         <p class="mb-0">Nama: {{ $dataCuti->karyawan->nama }}</p>
         <p class="mt-1">Tanggal:

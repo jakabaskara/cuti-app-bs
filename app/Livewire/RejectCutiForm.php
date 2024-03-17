@@ -39,15 +39,14 @@ class RejectCutiForm extends Component
     }
 
     #[On('tolak_cuti')]
-    public function tolak($id, $teks)
+    public function tolak($id, $pesan)
     {
-        $teks = '' ?? '';
         $dataCuti = PermintaanCuti::find($id);
-        DB::transaction(function () use ($dataCuti, $teks) {
+        DB::transaction(function () use ($dataCuti, $pesan) {
             $dataCuti->is_approved = 0;
             $dataCuti->is_checked = 1;
             $dataCuti->is_rejected = 1;
-            $dataCuti->alasan_ditolak = $teks;
+            $dataCuti->alasan_ditolak = $pesan;
             $dataCuti->save();
         });
         $this->dispatch('refresh');

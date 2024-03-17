@@ -5,8 +5,8 @@
             <a href="#">
                 <img src="{{ asset('assets/images/avatars/avatar4.png') }}">
                 <span class="activity-indicator"></span>
-                <span class="user-info-text">{{ $nama }}<br><span class="user-state-info">
-                        {{ $jabatan }}</span></span>
+                <span class="user-info-text">{{ Str::limit($nama, 15) }}<br><span class="user-state-info">
+                        {{ Str::limit($jabatan, 15) }}</span>
             </a>
         </div>
     </div>
@@ -21,23 +21,14 @@
                     class="{{ request()->route()->uri == 'manajer' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'manajer/pengajuan-cuti' ? 'active-page' : '' }}">
-                <a href="{{ route('manajer.pengajuan-cuti') }}"
-                    class="{{ request()->route()->uri == 'manajer/pengajuan-cuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">create</i>Pengajuan Cuti<span
-                        class="badge rounded-pill badge-danger float-end"></span></a>
-            </li>
+
             <li class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('manajer.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">groups_2</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li class="{{ request()->route()->uri == 'manajer/sisacuti' ? 'active-page' : '' }}">
-                <a href="{{ route('manajer.sisacuti.index') }}"
-                    class="{{ request()->route()->uri == 'manajer/sisacuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
-            </li>
+
             <li class="{{ request()->route()->uri == 'manajer/cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('manajer.cuti.index') }}"
                     class="{{ request()->route()->uri == 'manajer/cuti' ? 'active' : '' }}"><i

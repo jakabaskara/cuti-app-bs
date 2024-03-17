@@ -127,9 +127,9 @@
                     <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body px-5 py-2">
                     @livewire('reject-cuti-form')
-                    <button class="btn btn-danger mt-3" id="btnTolak">Tolak Cuti</button>
+                    <button class="btn btn-danger mt-3 mb-3" id="btnTolak">Tolak Cuti</button>
                 </div>
             </div>
         </div>
@@ -149,20 +149,24 @@
         });
     </script> --}}
     <script>
-        function showRejectModal(id) {
-            $('#rejectModal').modal('show');
-
+        $(document).ready(function() {
             $('#btnTolak').click(function() {
-                teks = $('#textTolak').val();
-
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
-                    teks: teks,
-                });
-
+                    pesan: pesan,
+                })
                 $('#rejectModal').modal('hide');
-            });
 
+            });
+        });
+
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+            Livewire.dispatch('getCuti', {
+                id: id,
+            });
         }
     </script>
 
