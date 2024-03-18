@@ -111,7 +111,8 @@
             <table style="margin-top: -15px;">
                 <tr>
                     <td>2.1.</td>
-                    <td>Tanggal...................................................................................................................</td>
+                    <td>Tanggal...................................................................................................................
+                    </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
@@ -127,7 +128,9 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan........................................................................................................</td>
+                    <td>- Cuti
+                        Tahunan........................................................................................................
+                    </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
@@ -135,7 +138,9 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.........................................................................................................</td>
+                    <td>- Cuti
+                        Panjang.........................................................................................................
+                    </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
@@ -151,7 +156,9 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan........................................................................................................</td>
+                    <td>- Cuti
+                        Tahunan........................................................................................................
+                    </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
@@ -159,7 +166,9 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang.........................................................................................................</td>
+                    <td>- Cuti
+                        Panjang.........................................................................................................
+                    </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
                     <td>-</td>
@@ -236,7 +245,8 @@
                                 <tr>
                                     <td style="vertical-align:top">Email</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">info@ptpn4.co.id
+                                    <td colspan="2" style="text-align: left; vertical-align:top">
+                                        bagian.sdm.ptpn13@gmail.com
                                     </td>
                                 </tr>
                             </table>
