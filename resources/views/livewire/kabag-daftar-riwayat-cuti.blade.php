@@ -38,6 +38,7 @@
                         </td>
                         <td class="text-dark">{{ $permintaanCuti->alasan }}</td>
                         <td class="text-dark">{{ $permintaanCuti->alamat }}</td>
+
                         {{-- <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan }}</td>
                                             <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_panjang }}</td>
                                             <td>{{ $permintaanCuti->karyawan->sisacuti->sisa_cuti_tahunan + $permintaanCuti->sisa_cuti_panjang }} --}}
