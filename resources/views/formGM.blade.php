@@ -206,10 +206,10 @@
                 <tr>
                     <td style="padding-top: 30px;"><b><u>{{ $nama_checker }}</u></b></td>
                     <td></td>
-                    <td style="padding-top: 30px;"><b><u>{{ $karyawan->nama }}</u></b></td>
+                    <td style="padding-top: 30px;"><b>{{ $karyawan->nama }}</b></td>
                 </tr>
                 <tr>
-                    <td style="padding-top: 0%">Jabatan</td>
+                    <td style="padding-top: 0%">{{ $jabatan_checker }}</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -219,7 +219,7 @@
                         <p style="margin-top: 0px">Region Office</p>
                         <div style="margin-bottom: -5px">
                             <table align="center"
-                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 250px">
+                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 280px">
                                 <tr>
                                     <td rowspan="5"><img
                                             src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
@@ -245,7 +245,7 @@
                                 <tr>
                                     <td style="vertical-align:top">Email</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">
+                                    <td colspan="2" style="text-align: left; vertical-align:top; font-size:8px;">
                                         bagian.sdm.ptpn13@gmail.com
                                     </td>
                                 </tr>
