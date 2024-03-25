@@ -34,7 +34,7 @@ class PermintaanCuti extends Model
 
     public function jenisPermintaanCuti()
     {
-        return $this->hasMany(JenisPermintaanCuti::class, 'id_jenis_permintaan_cuti');
+        return $this->hasMany(JenisCuti::class, 'id_jenis_permintaan_cuti');
     }
 
     public function riwayatCuti()
