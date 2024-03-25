@@ -109,6 +109,8 @@
                                                 </td>
                                                 <td class="text-dark">{{ $riwayat->alasan }}</td>
                                                 <td class="text-dark">{{ $riwayat->alamat }}</td>
+
+
                                                 @if ($riwayat->is_approved == 1)
                                                     <td class="text-dark"> <span
                                                             class="badge badge-success p-2">Disetujui</span>
@@ -126,7 +128,8 @@
                                                             class="badge badge-danger p-2">Ditolak</span>
                                                     </td>
                                                     <td class="">
-                                                        <button class="btn btn-sm btn-info px-1 py-0">
+                                                        <button id="" data-id='{{ $riwayat->id }}'
+                                                            class="btn btn-sm btn-info px-1 py-0 tolak">
                                                             <span class="material-icons text-sm p-0 align-middle">
                                                                 info
                                                             </span>
@@ -183,6 +186,25 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tolakmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alasan Tolak Cuti</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @livewire('informasi-tolak')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -223,7 +245,7 @@
             });
 
 
-            $('#dataTable2').DataTable();
+            // $('#dataTable2').DataTable();
         });
 
         function round_success_noti() {
@@ -253,6 +275,17 @@
                 msg: alasan
             });
         }
+
+
+
+        //script modal alasan tolak
+        $('.tolak').on('click', function() {
+            var id = $(this).data('id');
+            $('#tolakmodal').modal('show');
+            Livewire.dispatch('setKeterangan', {
+                id: id,
+            });
+        })
     </script>
 
     @livewireScripts()
