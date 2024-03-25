@@ -167,8 +167,10 @@ class KeraniDashboardController extends Controller
         $atasan = $pairing->atasan->karyawan->first();
         $nama = $atasan->nama;
         $nik = $atasan->NIK;
-        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
-        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        $riwayatPermintaanCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $sisaCutiPanjang = $riwayatPermintaanCuti->sisa_cuti_panjang;
+        $sisaCutiTahunan = $riwayatPermintaanCuti->sisa_cuti_tahunan;
+
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
@@ -190,8 +192,8 @@ class KeraniDashboardController extends Controller
         ]);
 
         // return view('form');
-
-        return $pdf->download('Form Cuti ' . $karyawan->nama . ' tanggal' . $permintaanCuti->tanggal_mulai . ' .pdf');
+        // return $pdf->stream();
+        return $pdf->download('Form Cuti ' . $karyawan->nama . ' tanggal ' . $permintaanCuti->tanggal_mulai . ' .pdf');
     }
 
     public function delete($id)
