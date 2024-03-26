@@ -95,15 +95,27 @@
                               aria-labelledby="notificationsDropDown">
                               <h6 class="dropdown-header">Notifications</h6>
                               <div class="notifications-dropdown-list">
-                                  <a href="#">
+                                  {{-- <a href="#">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
                                                   <i class="material-icons-outlined">account_circle</i>
                                               </span>
-                                              <div class="notifications-dropdown-item-text">
+                                              <div class="notifications-dropdown-item-text profile">
                                                   <p class="bold-notifications-text">Profile</p>
-                                                  {{-- <small>19:00</small> --}}
+                                                  
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </a> --}}
+                                  <a href="#" wire:click="$emitTo('profile-modal', 'mount', {{ $id }})">
+                                      <div class="notifications-dropdown-item">
+                                          <div class="notifications-dropdown-item-image">
+                                              <span class="notifications-badge bg-info text-white">
+                                                  <i class="material-icons-outlined">account_circle</i>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text profile">
+                                                  <p class="bold-notifications-text">Profile</p>
                                               </div>
                                           </div>
                                       </div>
@@ -168,4 +180,41 @@
               </div>
           </div>
       </nav>
+
+      <!-- Modal profile -->
+      <div class="modal fade" id="profilemodal" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle"
+          aria-hidden="true" style="display: none;">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Modal title</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      @livewire('profile')
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
   </div>
+
+  {{-- <script>
+      $('.profile').on('click', function() {
+          var id = $(this).data('id');
+          $('#profilemodal').modal('show');
+          Livewire.dispatch('setKeterangan', {
+              id: id,
+          });
+      })
+  </script> --}}
+  <script>
+      Livewire.on('openProfileModal', () => {
+          $('#profileModal').modal('show');
+      });
+  </script>
+  @livewireScripts()

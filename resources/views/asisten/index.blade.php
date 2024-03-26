@@ -187,7 +187,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal alasan tolak -->
     <div class="modal fade" id="tolakmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
