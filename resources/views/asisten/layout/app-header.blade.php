@@ -95,7 +95,7 @@
                               aria-labelledby="notificationsDropDown">
                               <h6 class="dropdown-header">Notifications</h6>
                               <div class="notifications-dropdown-list">
-                                  {{-- <a href="#">
+                                  <a href="#">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
@@ -103,23 +103,23 @@
                                               </span>
                                               <div class="notifications-dropdown-item-text profile">
                                                   <p class="bold-notifications-text">Profile</p>
-                                                  
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </a> --}}
-                                  <a href="#" wire:click="$emitTo('profile-modal', 'mount', {{ $id }})">
-                                      <div class="notifications-dropdown-item">
-                                          <div class="notifications-dropdown-item-image">
-                                              <span class="notifications-badge bg-info text-white">
-                                                  <i class="material-icons-outlined">account_circle</i>
-                                              </span>
-                                              <div class="notifications-dropdown-item-text profile">
-                                                  <p class="bold-notifications-text">Profile</p>
+
                                               </div>
                                           </div>
                                       </div>
                                   </a>
+                                  {{-- <a href="#" wire:click="$emitTo('profile-modal', 'mount', {{ $id }})">
+                                      <div class="notifications-dropdown-item">
+                                          <div class="notifications-dropdown-item-image">
+                                              <span class="notifications-badge bg-info text-white">
+                                                  <i class="material-icons-outlined">account_circle</i>
+                                              </span>
+                                              <div class="notifications-dropdown-item-text profile">
+                                                  <p class="bold-notifications-text">Profile</p>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </a> --}}
                                   <a href="#">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
@@ -191,7 +191,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                      @livewire('profile')
+                      {{-- @livewire('profile') --}}
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
