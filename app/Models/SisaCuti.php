@@ -16,7 +16,7 @@ class SisaCuti extends Model
         'id_jenis_cuti',
         'periode_mulai',
         'periode_akhir',
-        'jumlah_sisa_cuti',
+        'jumlah',
     ];
 
     public function karyawan()
