@@ -76,7 +76,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3>Persetujuan Cuti</h3>
+                    <h3>Mengetahui Cuti</h3>
                     <hr>
                 </div>
                 <div class="card-body">
@@ -86,14 +86,28 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Persetujuan Cuti</h3>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    {{-- @livewire('g-m-table-persetujuan-cuti') --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-lg-7">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body px-2">
                         <div class="table-responsive">
                             <table class="table table-hover" id="tableData1">
                                 <thead class="table-dark">
