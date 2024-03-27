@@ -86,6 +86,7 @@
                                           alt="">Chinese</a></li>
                           </ul>
                       </li> --}}
+
                       <li class="nav-item hidden-on-mobile">
                           <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#"
                               data-bs-toggle="dropdown"><span class="material-icons pt-2 pb-1">

@@ -33,41 +33,23 @@
             </li>
             <li>
                 <a href="todo.html"><i class="material-icons-two-tone">done</i>Todo</a>
-            </li>
+            </li> --}}
             <li>
-                <a href=""><i class="material-icons-two-tone">star</i>Pages<i
+                <a href=""><i class="material-icons-two-tone">person</i>Akun<i
                         class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="pricing.html">Pricing</a>
+                        <a href="#">Profile</a>
                     </li>
                     <li>
-                        <a href="invoice.html">Invoice</a>
+                        <a href="#">Ganti Password</a>
                     </li>
                     <li>
-                        <a href="settings.html">Settings</a>
-                    </li>
-                    <li>
-                        <a href="#">Authentication<i
-                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="sign-in.html">Sign In</a>
-                            </li>
-                            <li>
-                                <a href="sign-up.html">Sign Up</a>
-                            </li>
-                            <li>
-                                <a href="lock-screen.html">Lock Screen</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="error.html">Error</a>
+                        <a href="{{ route('logout') }}">Log Out</a>
                     </li>
                 </ul>
             </li>
-            <li class="sidebar-title">
+            {{-- <li class="sidebar-title">
                 UI Elements
             </li>
             <li>

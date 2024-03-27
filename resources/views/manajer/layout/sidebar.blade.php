@@ -34,6 +34,21 @@
                     class="{{ request()->route()->uri == 'manajer/cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">event</i>Berita Karyawan Cuti</a>
             </li>
+            <li>
+                <a href=""><i class="material-icons-two-tone">person</i>Akun<i
+                        class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#">Ganti Password</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}">Log Out</a>
+                    </li>
+                </ul>
+            </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>

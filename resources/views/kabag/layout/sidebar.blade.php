@@ -27,6 +27,21 @@
                         class="badge rounded-pill badge-danger float-end"></span>
                 </a>
             </li>
+            <li>
+                <a href=""><i class="material-icons-two-tone">person</i>Akun<i
+                        class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#">Ganti Password</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}">Log Out</a>
+                    </li>
+                </ul>
+            </li>
             {{-- <li class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('kabag.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'kabag/sisacuti' ? 'active' : '' }}"><i

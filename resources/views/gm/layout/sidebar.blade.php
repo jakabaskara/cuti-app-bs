@@ -20,6 +20,21 @@
                 <a href="{{ route('gm.index') }}" class="{{ request()->route()->uri == 'gm' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
+            <li>
+                <a href=""><i class="material-icons-two-tone">person</i>Akun<i
+                        class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a href="#">Profile</a>
+                    </li>
+                    <li>
+                        <a href="#">Ganti Password</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}">Log Out</a>
+                    </li>
+                </ul>
+            </li>
             {{-- <li class="{{ request()->route()->uri == 'gm/pengajuan-cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('gm.pengajuan-cuti') }}"
                     class="{{ request()->route()->uri == 'gm/pengajuan-cuti' ? 'active' : '' }}"><i
