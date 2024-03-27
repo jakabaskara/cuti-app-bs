@@ -74,7 +74,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    @livewire('manajer-table-persetujuan-cuti')
+                    @livewire('kabag-table-persetujuan-cuti')
                 </div>
             </div>
         </div>
@@ -181,7 +181,8 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
-                msg: 'Cuti Disetujui!'
+                msg: 'Cuti Disetujui!',
+                sound: false,
             });
         }
 
@@ -196,6 +197,7 @@
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
                 msg: alasan,
+                sound: false,
             });
         }
 
