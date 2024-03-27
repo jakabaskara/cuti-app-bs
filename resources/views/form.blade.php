@@ -229,8 +229,8 @@
                                 <tr>
                                     <td style="vertical-align:top">Email</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top; font-size: 8px;">
-                                        bagian.sdm.ptpn13@gmail.com
+                                    <td colspan="2" style="text-align: left; vertical-align:top; font-size: 10px;">
+                                        info@reg5palmco.com
                                     </td>
                                 </tr>
                             </table>
