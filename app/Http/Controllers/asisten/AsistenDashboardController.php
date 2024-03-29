@@ -122,11 +122,28 @@ class AsistenDashboardController extends Controller
                 'is_checked' => $isChecked,
             ]);
 
+            $karyawan_req = Karyawan::find($validate['karyawan']);
+            $periodeCuti = SisaCuti::where('id_karyawan', $karyawan_req->id)->get();
+
+            $periode = $periodeCuti->flatMap(function ($data) {
+                if ($data->id_jenis_cuti == 1) {
+                    $tanggal['periode_cuti_panjang'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                } elseif ($data->id_jenis_cuti == 2) {
+                    $tanggal['periode_cuti_tahunan'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                } else {
+                    $tanggal['periode_cuti_panjang'] = '';
+                    $tanggal['periode_cuti_panjang'] = '';
+                }
+                return $tanggal;
+            });
+
 
             RiwayatCuti::create([
                 'id_permintaan_cuti' => $permintaanCuti->id,
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
+                'periode_cuti_tahunan' => $periode['periode_cuti_tahunan'],
+                'periode_cuti_panjang' => $periode['periode_cuti_panjang'],
             ]);
 
             $nama = Karyawan::find($validate['karyawan'])->nama;
@@ -215,6 +232,8 @@ class AsistenDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
+                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
+                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
             ]);
         } else {
             $pdf = Pdf::loadView('form', [
@@ -228,6 +247,8 @@ class AsistenDashboardController extends Controller
                 'sisaCutiTahunan' => $sisaCutiTahunan,
                 'cutiPanjangDijalani' => $cutiPanjangDijalani,
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
+                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
             ]);
         }
 
