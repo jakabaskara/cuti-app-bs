@@ -15,6 +15,7 @@ class UnitKerja extends Model
         'nama_unit_kerja',
         'bagian',
         'kode_unit_kerja',
+        'is_kebun',
     ];
 
     public function posisi()

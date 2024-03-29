@@ -28,6 +28,20 @@
     </div>
 
     <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Mengetahui Cuti</h3>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    @livewire('table-mengetahui-cuti')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xl-8">
             <div class="card">
                 <div class="card-header">

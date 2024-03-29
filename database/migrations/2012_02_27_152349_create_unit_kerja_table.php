@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_unit_kerja');
             $table->string('bagian');
             $table->string('kode_unit_kerja')->nullable();
+            $table->boolean('is_kebun');
             $table->timestamps();
         });
     }
