@@ -202,7 +202,9 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
-                msg: 'Cuti Diketahui!'
+                msg: 'Cuti Diketahui!',
+                sound: false,
+
             });
         }
 
@@ -217,6 +219,8 @@
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
                 msg: alasan,
+                sound: false,
+
             });
         }
 

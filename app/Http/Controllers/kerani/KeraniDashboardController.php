@@ -75,7 +75,6 @@ class KeraniDashboardController extends Controller
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->id_posisi;
         $karyawan = $user->karyawan;
-
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
             // Konversi string tanggal menjadi format timestamp
@@ -112,16 +111,37 @@ class KeraniDashboardController extends Controller
             // SisaCuti::where('id_karyawan', $validate['karyawan'])->where('id_jenis_cuti', 1)->decrement('jumlah', $validate['jumlah_cuti_panjang']);
             // SisaCuti::where('id_karyawan', $validate['karyawan'])->where('id_jenis_cuti', 2)->decrement('jumlah', $validate['jumlah_cuti_tahunan']);
 
+            $karyawan_req = Karyawan::find($validate['karyawan']);
+            $periodeCuti = SisaCuti::where('id_karyawan', $karyawan_req->id)->get();
+
+            $periode = $periodeCuti->flatMap(function ($data) {
+                if ($data->id_jenis_cuti == 1) {
+                    $tanggal['periode_cuti_panjang'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                } elseif ($data->id_jenis_cuti == 2) {
+                    $tanggal['periode_cuti_tahunan'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                } else {
+                    $tanggal['periode_cuti_panjang'] = '';
+                    $tanggal['periode_cuti_panjang'] = '';
+                }
+                return $tanggal;
+            });
+
+            // if (!array_key_exists('periode_cuti_panjang', $periode)) {
+            //     $periode['periode_cuti_panjang'] = '';
+            // }
+            // if (!array_key_exists('periode_cuti_tahunan', $periode)) {
+            //     $periode['periode_cuti_tahunan'] = '';
+            // }
 
             RiwayatCuti::create([
                 'id_permintaan_cuti' => $permintaanCuti->id,
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
+                'periode_cuti_tahunan' => $periode['periode_cuti_tahunan'],
+                'periode_cuti_panjang' => $periode['periode_cuti_panjang'],
             ]);
-
-            $nama = Karyawan::find($validate['karyawan'])->nama;
             $message = "Terdapat Permintaan Cuti Baru\n";
-            $message .= "Nama: $nama\n";
+            $message .= "Nama: $karyawan_req->nama\n";
             $message .= "Tanggal Mulai: $startDate\n";
             $message .= "Tanggal Selesai: $endDate\n";
             $message .= "Alasan: " . $validate['alasan'];
@@ -188,6 +208,8 @@ class KeraniDashboardController extends Controller
             'sisaCutiTahunan' => $sisaCutiTahunan,
             'cutiPanjangDijalani' => $cutiPanjangDijalani,
             'cutiTahunanDijalani' => $cutiTahunanDijalani,
+            'periode_cuti_panjang' => $riwayatPermintaanCuti->periode_cuti_panjang,
+            'periode_cuti_tahunan' => $riwayatPermintaanCuti->periode_cuti_tahunan,
 
         ]);
 

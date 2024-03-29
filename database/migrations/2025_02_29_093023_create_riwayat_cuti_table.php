@@ -23,6 +23,8 @@ return new class extends Migration
             $table->date('approval_date')->nullable();
             $table->date('chekced_date')->nullable();
             $table->integer('sisa_cuti_panjang')->nullable();
+            $table->string('periode_cuti_panjang')->nullable();
+            $table->string('periode_cuti_tahunan')->nullable();
             $table->integer('sisa_cuti_tahunan')->nullable();
             $table->string('nik_approver')->nullable();
             $table->string('nik_checker')->nullable();

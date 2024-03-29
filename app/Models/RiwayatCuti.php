@@ -25,6 +25,8 @@ class RiwayatCuti extends Model
         'sisa_cuti_panjang',
         'nik_checker',
         'nik_approver',
+        'periode_cuti_panjang',
+        'periode_cuti_tahunan',
     ];
 
     public function PermintaanCuti()
