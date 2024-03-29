@@ -27,13 +27,14 @@ class AsistenDashboardController extends Controller
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
         $riwayat = PermintaanCuti::getHistoryCuti($karyawan->id_posisi)->get();
-
+        $isKebun = $karyawan->posisi->unitKerja->is_kebun;
 
 
         return view('asisten.index', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
             'riwayats' => $riwayat,
+            'is_kebun' => $isKebun,
         ]);
     }
 

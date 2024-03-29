@@ -13,33 +13,35 @@
 
     @livewire('kabag-status-bar-index')
 
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Persetujuan Cuti</h3>
-                    <hr>
-                </div>
-                <div class="card-body">
-                    @livewire('kabag-table-persetujuan-cuti')
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Mengetahui Cuti</h3>
-                    <hr>
-                </div>
-                <div class="card-body">
-                    @livewire('table-mengetahui-cuti')
+    @if ($is_kebun == 1)
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Persetujuan Cuti</h3>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        @livewire('kabag-table-persetujuan-cuti')
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Mengetahui Cuti</h3>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        @livewire('table-mengetahui-cuti')
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-xl-8">
