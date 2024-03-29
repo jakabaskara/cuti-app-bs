@@ -50,6 +50,7 @@ class Karyawan extends Model
         return $this->belongsTo(Pairing::class, 'id_posisi', 'id_bawahan');
     }
 
+
     // public function getKeanggotaan(){
     //     self::
     // }

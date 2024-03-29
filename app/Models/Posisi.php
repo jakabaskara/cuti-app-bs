@@ -52,4 +52,11 @@ class Posisi extends Model
     {
         return $this->hasMany(PermintaanCuti::class, 'id_posisi_pembuat');
     }
+
+    public static function isKebun($id)
+    {
+        $data = self::find($id);
+        $isKebun = $data->unitKerja->is_kebun;
+        return $isKebun;
+    }
 }

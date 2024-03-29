@@ -9,6 +9,7 @@ use App\Models\PermintaanCuti;
 use App\Models\Karyawan;
 use App\Models\Keanggotaan;
 use App\Models\Pairing;
+use App\Models\Posisi;
 use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
@@ -90,9 +91,20 @@ class KeraniDashboardController extends Controller
         };
 
         $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
+        $isKebun = Posisi::isKebun($idPosisi);
+        if ($isManager == true) {
+            $isManager = 1;
+        } elseif ($isKebun == 0) {
+            $isManager = 0;
+        } else {
+            $isManager = 1;
+        }
         $isChecked = $isManager ? 0 : 1;
 
+
         DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan, $user) {
+
+
 
             $permintaanCuti = PermintaanCuti::create([
                 'id_karyawan' => $validate['karyawan'],
