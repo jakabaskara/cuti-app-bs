@@ -1,11 +1,14 @@
  <div class="table-container">
      <table class="table table-hover">
          <thead>
-             <tr>
-                 <th class="text-center">No.</th>
-                 <th>Nama</th>
-                 <th>Mulai</th>
-                 <th>Selesai</th>
+             <tr class="text-dark">
+                 <th class="text-center text-dark">No.</th>
+                 <th class="text-dark">Nama</th>
+                 <th class="text-dark">Tanggal Mulai</th>
+                 <th class="text-dark">Tanggal Selesai</th>
+                 <th class="text-dark">Alasan</th>
+                 <th class="text-dark">Alamat</th>
+                 <th class="text-dark">Jumlah <br> Hari Cuti</th>
              </tr>
          </thead>
          <tbody>

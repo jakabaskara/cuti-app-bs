@@ -86,8 +86,10 @@
                                         <th>No.</th>
                                         <th>NIK SAP</th>
                                         <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
+                                        <th>Sisa<br>Cuti Tahunan</th>
+                                        <th>Tanggal Jatuh Tempo<br>Cuti Tahunan</th>
+                                        <th>Sisa<br>Cuti Panjang</th>
+                                        <th>Tanggal Jatuh Tempo<br>Cuti Panjang</th>
                                         <th>Jumlah</th>
                                         {{-- <th>Periode Cuti</th> --}}
                                     </tr>
@@ -102,7 +104,10 @@
                                             <td>{{ $sisaCuti->NIK }}</td>
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
+                                            <td></td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                                            <td></td>
+
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
                                         @php
@@ -115,7 +120,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5">
+            <div class="col">
                 <div class="card" style="min-height: 700px">
                     <div class="card-header">
                         <h5 class="text-center">Karyawan Cuti</h5>
@@ -333,7 +338,7 @@
 
                     // Hitung selisih dalam milidetik
                     var difference = endDate.getTime() - startDate.getTime();
-                    var tipeCuti = $('#jenisCuti option:selected').text();
+                    // var tipeCuti = $('#jenisCuti option:selected').text();
                     // var kdtipeCuti = $('#jenisCuti option:selected').val();
                     // Konversi selisih ke jumlah hari
                     var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
@@ -345,8 +350,7 @@
                     var content = document.getElementById("jumlah-hari");
                     content.classList.add('text-dark');
 
-                    content.textContent = "Jumlah " +
-                        tipeCuti + ": " +
+                    content.textContent = "Jumlah :" +
                         daysDifference + " hari";
                     console.log(totalCuti)
                     console.log(daysDifference)
@@ -368,7 +372,13 @@
                         totalCuti
                     });
                 }
-            }
+            },
+            disable: [
+                function(date) {
+                    // return true to disable
+                    return (date.getDay() === 0);
+                }
+            ],
         })
 
         $(document).ready(function() {
