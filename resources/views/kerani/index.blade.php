@@ -271,7 +271,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
-                                <input type="hidden" id="jumlahHari" name="jumlah_cuti" required>
+                                <input type="hidden" id="jumlahHari" name="jumlahHariCuti" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -329,58 +329,68 @@
 
 
     <script>
-        var fp = flatpickr('.flatpickr1', {
-            mode: 'range',
-            onChange: function(selectedDates, dateStr, instance) {
-                if (selectedDates.length >= 2) {
-                    var startDate = selectedDates[0];
-                    var endDate = selectedDates[selectedDates.length - 1];
+        fetch("{{ asset('assets/libur.json') }}")
+            .then(response => response.json())
+            .then(data => {
+                var holidays = data;
+                var fp = flatpickr('.flatpickr1', {
+                    mode: 'range',
+                    onChange: function(selectedDates, dateStr, instance) {
+                        if (selectedDates.length >= 2) {
+                            var startDate = selectedDates[0];
+                            var endDate = selectedDates[selectedDates.length - 1];
 
-                    // Hitung selisih dalam milidetik
-                    var difference = endDate.getTime() - startDate.getTime();
-                    // var tipeCuti = $('#jenisCuti option:selected').text();
-                    // var kdtipeCuti = $('#jenisCuti option:selected').val();
-                    // Konversi selisih ke jumlah hari
-                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+                            var difference = endDate.getTime() - startDate.getTime();
 
-                    var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
-                    var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
-                    var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
+                            var daysDifference = 0;
 
-                    var content = document.getElementById("jumlah-hari");
-                    content.classList.add('text-dark');
+                            // Loop through each day in the range
+                            var currentDate = new Date(startDate);
 
-                    content.textContent = "Jumlah :" +
-                        daysDifference + " hari";
-                    console.log(totalCuti)
-                    console.log(daysDifference)
-                    if (daysDifference > totalCuti) {
-                        content.classList.remove('text-dark');
-                        content.classList.add('text-danger');
-                        $('#ajukan').prop('disabled', true).hide();
+                            while (currentDate <= endDate) {
+                                // Check if the current day is not Sunday (0)
+                                if (currentDate.getDay() !== 0) {
+                                    var formattedDate = currentDate.toLocaleDateString('en-CA');
+                                    if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
+                                        daysDifference++;
+                                    }
+                                }
+                                // Move to the next day
+                                currentDate.setDate(currentDate.getDate() + 1);
+                            }
 
-                    } else {
-                        content.classList.remove('text-danger');
-                        content.classList.add('text-dark');
-                        $('#ajukan').show().prop('disabled', false);
-                    }
+                            var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
+                            var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
+                            var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
 
-                    document.getElementById("jumlahHari").value = daysDifference;
+                            var content = document.getElementById("jumlah-hari");
+                            content.classList.add('text-dark');
 
-                    Livewire.dispatch('setJumlahHariCuti', {
-                        daysDifference,
-                        totalCuti
-                    });
-                }
-            },
-            disable: [
-                function(date) {
-                    // return true to disable
-                    return (date.getDay() === 0);
-                }
-            ],
-        })
+                            content.textContent = "Jumlah :" +
+                                daysDifference + " hari";
+                            console.log(totalCuti)
+                            console.log(daysDifference)
+                            if (daysDifference > totalCuti) {
+                                content.classList.remove('text-dark');
+                                content.classList.add('text-danger');
+                                $('#ajukan').prop('disabled', true).hide();
 
+                            } else {
+                                content.classList.remove('text-danger');
+                                content.classList.add('text-dark');
+                                $('#ajukan').show().prop('disabled', false);
+                            }
+
+                            document.getElementById("jumlahHari").value = daysDifference;
+
+                            Livewire.dispatch('setJumlahHariCuti', {
+                                daysDifference,
+                                totalCuti
+                            });
+                        }
+                    },
+                })
+            })
         $(document).ready(function() {
             $('#ajukan').click(function() {
 

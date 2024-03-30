@@ -69,6 +69,7 @@ class KeraniDashboardController extends Controller
             'jumlah_cuti_tahunan' => 'required',
             'alasan' => 'required',
             'alamat' => 'required',
+            'jumlahHariCuti' => 'required|min:1|numeric'
         ]);
 
 
