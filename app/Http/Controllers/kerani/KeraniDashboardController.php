@@ -160,8 +160,6 @@ class KeraniDashboardController extends Controller
 
             Notification::send($user, new SendNotification($message));
 
-
-
             $keyboard = Keyboard::make()->inline();
 
             $buttonSetujui = Keyboard::inlineButton(['text' => 'Setujui', 'callback_data' => 'setujui']);
@@ -173,8 +171,6 @@ class KeraniDashboardController extends Controller
 
             // Mengonversi keyboard menjadi JSON
             $keyboard = json_encode($keyboard);
-
-            // Telegram::sendChatAction($keyboard);
 
             $response = Telegram::sendMessage([
                 'chat_id' => '1176854977', // ID chat yang dituju

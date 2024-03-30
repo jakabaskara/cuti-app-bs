@@ -212,9 +212,9 @@
           });
       })
   </script> --}}
-  <script>
+  {{-- <script>
       Livewire.on('openProfileModal', () => {
           $('#profileModal').modal('show');
       });
-  </script>
+  </script> --}}
   @livewireScripts()

@@ -53,7 +53,7 @@
                         {{ date('d F Y', strtotime($permintaanCuti->tanggal_selesai)) }}
                         <span>&nbsp;</span>
                     </td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $permintaanCuti->jumlah_cuti_tahunan + $permintaanCuti->jumlah_cuti_panjang }}</td>
                     <td>HK</td>
@@ -61,7 +61,7 @@
                 <tr>
                     <td>1.2.</td>
                     <td>Sisa cuti yang dapat diambil</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -69,7 +69,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan {{ $periode_cuti_tahunan }}</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $cutiTahunanDijalani }}</td>
                     <td>HK</td>
@@ -77,7 +77,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang {{ $periode_cuti_panjang }}</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $cutiPanjangDijalani }}</td>
                     <td>HK</td>
@@ -85,7 +85,7 @@
                 <tr>
                     <td>1.3.</td>
                     <td>Sisa cuti setelah/dijalani</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -93,7 +93,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Tahunan {{ $periode_cuti_tahunan }}</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $sisaCutiTahunan }}</td>
                     <td>HK</td>
@@ -101,7 +101,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti Panjang {{ $periode_cuti_panjang }}</td>
-                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
+                    <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $sisaCutiPanjang }}</td>
                     <td>HK</td>
@@ -111,7 +111,7 @@
             <table style="margin-top: -15px;">
                 <tr>
                     <td>2.1.</td>
-                    <td>Tanggal...................................................................................................................
+                    <td>Tanggal...............................................................................................................................................
                     </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
@@ -129,7 +129,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti
-                        Tahunan........................................................................................................
+                        Tahunan....................................................................................................................................
                     </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
@@ -139,7 +139,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti
-                        Panjang.........................................................................................................
+                        Panjang.....................................................................................................................................
                     </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
@@ -157,7 +157,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti
-                        Tahunan........................................................................................................
+                        Tahunan....................................................................................................................................
                     </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
@@ -167,7 +167,7 @@
                 <tr>
                     <td></td>
                     <td>- Cuti
-                        Panjang.........................................................................................................
+                        Panjang.....................................................................................................................................
                     </td>
                     {{-- <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td> --}}
                     <td>=</td>
