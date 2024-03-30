@@ -1,0 +1,85 @@
+{
+    "2024-02-09": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Tahun Baru Imlek"
+        ]
+    },
+    "2024-03-12": {
+        "description": [
+            "Hari libur nasional",
+            "Perayaan"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Hari Suci Nyepi (Tahun Baru Saka)",
+            "Ramadan Start"
+        ]
+    },
+    "2024-04-08": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Idul Fitri"
+        ]
+    },
+    "2024-04-09": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Idul Fitri"
+        ]
+    },
+    "2024-04-12": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Idul Fitri"
+        ]
+    },
+    "2024-04-15": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Idul Fitri"
+        ]
+    },
+    "2024-05-10": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Kenaikan Isa Al Masih"
+        ]
+    },
+    "2024-05-24": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Waisak"
+        ]
+    },
+    "2024-12-26": {
+        "description": [
+            "Hari libur nasional"
+        ],
+        "holiday": true,
+        "summary": [
+            "Cuti Bersama Natal (Hari Tinju)"
+        ]
+    }
+}
