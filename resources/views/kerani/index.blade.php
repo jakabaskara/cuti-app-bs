@@ -104,10 +104,11 @@
                                             <td>{{ $sisaCuti->NIK }}</td>
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td></td>
+                                            <td>{{ date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai ?? '')) }}
+                                            </td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                            <td></td>
-
+                                            <td>{{ date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai ?? '')) }}
+                                            </td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
                                         @php
@@ -401,7 +402,12 @@
                 $('#formSubmit').submit();
             });
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-            $('#tableData1').DataTable();
+            $('#tableData1').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
 
             $('#dataTable2').DataTable({
                 responsive: true,
@@ -458,6 +464,7 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
+                sound: false,
                 msg: 'Pengajuan Berhasil Dibuat!'
             });
         }

@@ -343,6 +343,7 @@
                 delayIndicator: false,
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
+                sound: false,
                 msg: 'Pengajuan Cuti Berhasil Dibuat!'
             });
         }

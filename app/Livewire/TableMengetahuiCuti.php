@@ -46,5 +46,6 @@ class TableMengetahuiCuti extends Component
             $riwayat->save();
         });
         $this->dispatch('refresh');
+        $this->dispatch('ketahui');
     }
 }

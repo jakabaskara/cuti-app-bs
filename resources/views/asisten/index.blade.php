@@ -221,6 +221,21 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Alasan Penolakan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-5 py-2">
+                    @livewire('reject-cuti-form')
+                    <button class="btn btn-danger mt-3 mb-3" id="btnTolak">Tolak Cuti</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -235,8 +250,24 @@
         $(document).ready(function() {
             $('#tableData1').DataTable();
             $('#tableData2').DataTable();
+            $('#btnTolak').click(function() {
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
 
+            });
         });
+
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+            Livewire.dispatch('getCuti', {
+                id: id,
+            });
+        }
         document.addEventListener('livewire:init', () => {
             Livewire.on('terima', (event) => {
                 round_success_noti();

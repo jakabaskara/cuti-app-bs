@@ -94,7 +94,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    {{-- @livewire('g-m-table-persetujuan-cuti') --}}
+                    @livewire('g-m-table-persetujuan-cuti')
                 </div>
             </div>
         </div>
@@ -208,6 +208,21 @@
             });
         }
 
+        function round_success1_noti() {
+            Lobibox.notify('info', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Cuti Diketahui!',
+                sound: false,
+
+            });
+        }
+
 
         function round_danger_noti(alasan) {
             Lobibox.notify('error', {
@@ -224,13 +239,17 @@
             });
         }
 
-        $('.noti').on('click', function() {
-            round_danger_notis();
-        })
+        // $('.noti').on('click', function() {
+        //     round_danger_noti();
+        // })
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('refresh', (event) => {
+            Livewire.on('ketahui', (event) => {
                 round_success_noti();
+            });
+
+            Livewire.on('terima', (event) => {
+                round_success1_noti();
             });
 
             Livewire.on('cutiKurang', (event) => {
