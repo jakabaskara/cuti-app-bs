@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
+    <h3 class="mb-4">Hai, {{ $nama }} 👋</h3>
     <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
