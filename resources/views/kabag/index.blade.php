@@ -175,8 +175,18 @@
             });
         });
 
-        $('#tableData1').DataTable();
-        $('#tableData2').DataTable();
+        $('#tableData1').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
+        $('#tableData2').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
 
         $(function() {
             $('input[name="daterange"]').daterangepicker({

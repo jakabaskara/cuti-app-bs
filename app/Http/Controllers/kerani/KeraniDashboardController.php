@@ -30,7 +30,8 @@ class KeraniDashboardController extends Controller
         // $idUser = 1;
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPosisi = $user->karyawan->posisi->id;
+        $karyawan = $user->karyawan;
+        $idPosisi = $karyawan->posisi->id;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
         $namaUser = $user->karyawan->nama;
@@ -42,6 +43,7 @@ class KeraniDashboardController extends Controller
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
             $data->jatuh_tempo_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->get()->first();
         });
+        $isKandir = $karyawan->posisi->unitKerja->nama_unit_kerja == 'Region Office' ? true : false;
 
 
         $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
@@ -58,7 +60,7 @@ class KeraniDashboardController extends Controller
             'disetujui' => $getDisetujui,
             'pending' => $getPending,
             'ditolak' => $getDitolak,
-
+            'isKandir' => $isKandir,
         ]);
     }
 

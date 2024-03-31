@@ -338,8 +338,24 @@
         })
 
         $(document).ready(function() {
-            $('#tableData1').DataTable();
-            $('#dataTable2').DataTable();
+            $('#tableData1').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
+            $('#dataTable2').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
+            $('#tableData2').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
             $('#btnTolak').click(function() {
                 id = $('#idCuti').val();
                 pesan = $('#textTolak').val();

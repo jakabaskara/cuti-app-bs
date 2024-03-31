@@ -180,7 +180,12 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
-        $('#tableData1').DataTable();
+        $('#tableData1').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
 
         $(function() {
             $('input[name="daterange"]').daterangepicker({
@@ -190,7 +195,18 @@
                     .format('YYYY-MM-DD'));
             });
 
-            $('#datatable2').DataTable();
+        });
+        $('#datatable2').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
+        $('#tableData2').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
         });
 
         function round_success_noti() {

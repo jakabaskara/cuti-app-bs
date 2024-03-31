@@ -6,32 +6,34 @@
                     <th>No.</th>
                     <th>NIK SAP</th>
                     <th>Nama</th>
-                    <th>Sisa<br>Cuti<br>Tahunan</th>
-                    <th>Sisa<br>Cuti<br>Panjang</th>
+                    <th>Sisa<br>Cuti Tahunan</th>
+                    <th>Tanggal Jatuh Tempo<br>Cuti Tahunan</th>
+                    <th>Sisa<br>Cuti Panjang</th>
+                    <th>Tanggal Jatuh Tempo<br>Cuti Panjang</th>
                     <th>Jumlah</th>
                     {{-- <th>Periode Cuti</th> --}}
                 </tr>
             </thead>
             <tbody>
                 @php $i = 1; @endphp
-                @foreach ($sisaCutis as $index => $sisaCuti)
-                    <tr class="text-center align-middle" wire:key="{{ $index }}">
+                @foreach ($sisaCutis as $sisaCuti)
+                    <tr class="text-center align-middle">
                         <td>{{ $i }}</td>
                         <td>{{ $sisaCuti->NIK }}</td>
                         <td class="text-start">{{ $sisaCuti->nama }}</td>
+                        <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
                         <td>
-                            <span>
-                                {{ $sisaCuti->sisa_cuti_tahunan }}
-                            </span>
+                            {{ $sisaCuti->jatuh_tempo_tahunan ? date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_akhir)) : '' }}
                         </td>
-                        <td>
-                            <span>
-                                {{ $sisaCuti->sisa_cuti_panjang }}
-                            </span>
+                        </td>
+                        <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
+                        <td> {{ $sisaCuti->jatuh_tempo_panjang ? date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_akhir)) : '' }}
                         </td>
                         <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                     </tr>
-                    @php $i++; @endphp
+                    @php
+                        $i++;
+                    @endphp
                 @endforeach
 
             </tbody>

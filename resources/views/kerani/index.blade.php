@@ -338,12 +338,21 @@
 
                             while (currentDate <= endDate) {
                                 // Check if the current day is not Sunday (0)
-                                if (currentDate.getDay() !== 0) {
-                                    var formattedDate = currentDate.toLocaleDateString('en-CA');
-                                    if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
-                                        daysDifference++;
+                                @if ($isKandir)
+                                    if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+                                        var formattedDate = currentDate.toLocaleDateString('en-CA');
+                                        if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
+                                            daysDifference++;
+                                        }
                                     }
-                                }
+                                @else
+                                    if (currentDate.getDay() !== 0) {
+                                        var formattedDate = currentDate.toLocaleDateString('en-CA');
+                                        if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
+                                            daysDifference++;
+                                        }
+                                    }
+                                @endif
                                 // Move to the next day
                                 currentDate.setDate(currentDate.getDate() + 1);
                             }
@@ -357,8 +366,7 @@
 
                             content.textContent = "Jumlah :" +
                                 daysDifference + " hari";
-                            console.log(totalCuti)
-                            console.log(daysDifference)
+
                             if (daysDifference > totalCuti) {
                                 content.classList.remove('text-dark');
                                 content.classList.add('text-danger');
