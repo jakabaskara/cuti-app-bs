@@ -16,8 +16,8 @@ class KaryawanCutiTable extends Component
     {
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPosisi = $user->karyawan->posisi->id;
-        $this->karyawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
+        $idPosisi = $user->karyawan->posisi->id_unit_kerja;
+        $this->karyawanCuti = PermintaanCuti::getBagianKaryawanCuti($idPosisi);
 
 
         return view('livewire.karyawan-cuti-table');
@@ -28,7 +28,7 @@ class KaryawanCutiTable extends Component
     {
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
-        $idPosisi = $user->karyawan->posisi->id;
-        $this->karyawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
+        $idPosisi = $user->karyawan->posisi->id_unit_kerja;
+        $this->karyawanCuti = PermintaanCuti::getBagianKaryawanCuti($idPosisi);
     }
 }

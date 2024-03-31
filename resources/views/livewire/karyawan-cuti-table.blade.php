@@ -1,5 +1,5 @@
  <div class="table-container">
-     <table class="table table-hover">
+     <table class="table table-hover table-striped">
          <thead>
              <tr class="text-dark">
                  <th class="text-center text-dark">No.</th>
@@ -21,6 +21,9 @@
                      <td>{{ $cuti->karyawan->nama }}</td>
                      <td>{{ date('d M Y', strtotime($cuti->tanggal_mulai)) }}</td>
                      <td>{{ date('d M Y', strtotime($cuti->tanggal_selesai)) }}</td>
+                     <td>{{ $cuti->alasan }}</td>
+                     <td>{{ $cuti->alamat }}</td>
+                     <td>{{ $cuti->jumlah_cuti_panjang + $cuti->jumlah_cuti_tahunan }}</td>
                  </tr>
                  @php
                      $i++;

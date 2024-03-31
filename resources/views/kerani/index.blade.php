@@ -104,10 +104,12 @@
                                             <td>{{ $sisaCuti->NIK }}</td>
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td>{{ date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai ?? '')) }}
+                                            <td>
+                                                {{ $sisaCuti->jatuh_tempo_tahunan ? date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_akhir)) : '' }}
+                                            </td>
                                             </td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                            <td>{{ date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai ?? '')) }}
+                                            <td> {{ $sisaCuti->jatuh_tempo_panjang ? date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_akhir)) : '' }}
                                             </td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
@@ -299,20 +301,6 @@
                 </div>
             </div>
         </form>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Riwayat Cuti Karyawan</h5>
-                    <hr>
-                </div>
-                <div class="card-body">
-                    <a href="{{ route('send.noti') }}" class="btn btn-warning">Send Notify</a>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 

@@ -31,9 +31,18 @@ class KabagTablePersetujuanCuti extends Component
             ->where('permintaan_cuti.is_rejected', '=', 0)
             ->get();
 
-
         $this->permintaanCuti = $permintaanCuti;
     }
+
+    public function klik()
+    {
+        $this->dispatch('refresh');
+    }
+
+    // public function hydrate()
+    // {
+    //     $this->dispatch('refresh-datatable');
+    // }
 
     public function render()
     {
@@ -47,7 +56,6 @@ class KabagTablePersetujuanCuti extends Component
             ->where('permintaan_cuti.is_checked', '=', 1)
             ->where('permintaan_cuti.is_rejected', '=', 0)
             ->get();
-
 
         $this->permintaanCuti = $permintaanCuti;
 

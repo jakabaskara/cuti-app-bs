@@ -44,7 +44,7 @@
     @endif
 
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
                     <h5 class="">Daftar Sisa Cuti Karyawan</h5>
@@ -247,21 +247,6 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#tableData1').DataTable();
-            $('#tableData2').DataTable();
-            $('#btnTolak').click(function() {
-                id = $('#idCuti').val();
-                pesan = $('#textTolak').val();
-                Livewire.dispatch('tolak_cuti', {
-                    id: id,
-                    pesan: pesan,
-                })
-                $('#rejectModal').modal('hide');
-
-            });
-        });
-
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
             Livewire.dispatch('getCuti', {
@@ -269,9 +254,6 @@
             });
         }
         document.addEventListener('livewire:init', () => {
-            Livewire.on('terima', (event) => {
-                round_success_noti();
-            });
 
             Livewire.on('tolak', (event) => {
                 round_danger_noti('Cuti Ditolak!');
@@ -281,19 +263,40 @@
                 round_danger_noti('Jumlah Sisa Cuti Kurang!');
             });
         });
-
-
-        $(function() {
-            $('input[name="daterange"]').daterangepicker({
-                opens: 'left'
-            }, function(start, end, label) {
-                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-                    .format('YYYY-MM-DD'));
-            });
-
-
-            // $('#dataTable2').DataTable();
+        Livewire.on('terima', (event) => {
+            round_success_noti();
         });
+        // window.on('refresh', (e) => {
+
+        //     console.log('tes');
+        //     round_danger_noti('Cuti Ditolak!');
+
+        //     $('#dataTable2').DataTable();
+        //     $('#tableData1').DataTable();
+        // })
+        Livewire.on('refresh-datatable', (event) => {
+            console.log('ssss');
+            var dataTable = $('#tableData1').DataTable();
+            dataTable.destroy();
+            console.log(dataTable.destroy());
+            console.log('Instance DataTable sebelumnya dihancurkan');
+            $('#tableData1').DataTable(); // Membuat instance DataTable bar
+        })
+        // window.addEventListener('refresh-datatable', event => {
+        //     console.log('tes');
+
+        // })
+
+
+        // $(function() {
+        //     $('input[name="daterange"]').daterangepicker({
+        //         opens: 'left'
+        //     }, function(start, end, label) {
+        //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
+        //             .format('YYYY-MM-DD'));
+        //     });
+        //     // $('#dataTable2').DataTable();
+        // });
 
         function round_success_noti() {
             Lobibox.notify('success', {
@@ -333,6 +336,21 @@
                 id: id,
             });
         })
+
+        $(document).ready(function() {
+            $('#tableData1').DataTable();
+            $('#dataTable2').DataTable();
+            $('#btnTolak').click(function() {
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
+
+            });
+        });
     </script>
 
     @livewireScripts()

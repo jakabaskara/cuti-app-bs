@@ -20,13 +20,7 @@
                 <a href="{{ route('kabag.index') }}" class="{{ request()->route()->uri == 'kabag' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
-            <li class="{{ request()->route()->uri == 'kabag/pengajuan-cuti' ? 'active-page' : '' }}">
-                <a href="{{ route('kabag.pengajuan-cuti') }}"
-                    class="{{ request()->route()->uri == 'kabag/pengajuan-cuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">event</i>Pengajuan Cuti<span
-                        class="badge rounded-pill badge-danger float-end"></span>
-                </a>
-            </li>
+
             <li>
                 <a href=""><i class="material-icons-two-tone">person</i>Akun<i
                         class="material-icons has-sub-menu">keyboard_arrow_right</i></a>

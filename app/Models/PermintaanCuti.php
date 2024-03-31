@@ -160,4 +160,21 @@ class PermintaanCuti extends Model
 
         return $data;
     }
+
+    public static function getBagianKaryawanCuti($idBagian)
+    {
+        $today = Carbon::now()->toDateString();
+
+        $data = self::select('permintaan_cuti.*')
+            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+            ->join('posisi', 'karyawan.id_posisi', '=', 'posisi.id')
+            ->join('unit_kerja', 'posisi.id_unit_kerja', '=', 'unit_kerja.id')
+            ->where('unit_kerja.id', $idBagian)
+            ->where('is_approved', 1)
+            ->whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->get();
+
+        return $data;
+    }
 }
