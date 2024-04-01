@@ -4,16 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
-use App\Models\Posisi;
 use App\Models\RiwayatCuti;
 use App\Models\SisaCuti;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class GmPersetujuanCuti extends Component
+class TablePersetujuanCutiGm extends Component
 {
-
     public $permintaanCuti;
 
     public function render()
@@ -27,9 +25,7 @@ class GmPersetujuanCuti extends Component
         });
 
         $this->permintaanCuti = $permintaanCuti;
-        // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;
-        // $this->cutiPendings  = PermintaanCuti::getPending(1)->get();
-        return view('livewire.g-m-persetujuan-cuti');
+        return view('livewire.table-persetujuan-cuti-gm');
     }
 
     public function setujui($id)

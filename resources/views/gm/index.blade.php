@@ -94,7 +94,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                    @livewire('g-m-table-persetujuan-cuti')
+                    @livewire('table-persetujuan-cuti-gm')
                 </div>
             </div>
         </div>
