@@ -29,7 +29,7 @@ class GmTablePersetujuanCuti extends Component
         $this->permintaanCuti = $permintaanCuti;
         // $idBawahan = Posisi::find($idAtasan)->atasan->first()->id_bawahan;
         // $this->cutiPendings  = PermintaanCuti::getPending(1)->get();
-        return view('livewire.g-m-persetujuan-cuti');
+        return view('livewire.g-m-table-persetujuan-cuti');
     }
 
     public function setujui($id)
