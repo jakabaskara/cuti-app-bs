@@ -224,7 +224,6 @@ class KeraniDashboardController extends Controller
             'cutiTahunanDijalani' => $cutiTahunanDijalani,
             'periode_cuti_panjang' => $riwayatPermintaanCuti->periode_cuti_panjang,
             'periode_cuti_tahunan' => $riwayatPermintaanCuti->periode_cuti_tahunan,
-
         ]);
 
         // return view('form');

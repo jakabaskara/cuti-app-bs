@@ -83,7 +83,7 @@
 
     <div class="col">
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>

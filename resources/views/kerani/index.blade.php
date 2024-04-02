@@ -261,7 +261,7 @@
                                 <option selected value=""> </option>
                                 @foreach ($dataPairing as $pairing)
                                     <option value="{{ $pairing->id }}">
-                                        {{ $pairing->nama }}
+                                        {{ $pairing->NIK . ' - ' . $pairing->nama }}
                                     </option>
                                 @endforeach
                             </select>

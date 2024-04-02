@@ -19,6 +19,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\sevp\SevpBeritaCutiController;
 use App\Http\Controllers\sevp\SevpDashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
@@ -124,7 +125,45 @@ Route::group(['prefix' => 'sevp', 'middleware' => ['sevp.auth']], function () {
 });
 
 
-Route::get('/', [LoginController::class, 'index'])->name('login');
+// Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', function () {
+    if (Auth::check()) {
+        $karyawan = Auth::user()->karyawan;
+        $role = $karyawan->posisi->role->nama_role;
+
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('admin.index');
+                break;
+            case 'kerani':
+                return redirect()->route('kerani.index');
+                break;
+            case 'user':
+                return redirect()->route('user.dashboard');
+                break;
+            case 'asisten':
+                return redirect()->route('asisten.index');
+                break;
+            case 'manajer':
+                return redirect()->route('manajer.index');
+                break;
+            case 'kabag':
+                return redirect()->route('kabag.index');
+                break;
+            case 'gm':
+                return redirect()->route('gm.index');
+                break;
+            case 'brm':
+                return redirect()->route('sevp.index');
+                break;
+            default:
+                // Jika tidak ada peran yang cocok, alihkan ke halaman default
+                return redirect()->route('login');
+        }
+    } else {
+        return view('login.index');
+    }
+});
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
 
