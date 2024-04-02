@@ -168,10 +168,9 @@ class KeraniDashboardController extends Controller
 
             $keyboard = Keyboard::make()->inline();
 
-            $buttonSetujui = Keyboard::inlineButton(['text' => 'Setujui', 'callback_data' => 'setujui']);
-            $buttonTolak = Keyboard::inlineButton(['text' => 'Tolak', 'callback_data' => 'tolak']);
+            $buttonSetujui = Keyboard::inlineButton(['text' => 'Klik untuk konfirmasi',  'web_app' => ['url' => 'https://cuti.reg5palmco.com']]);
 
-            $keyboard->row([$buttonSetujui, $buttonTolak]);
+            $keyboard->row([$buttonSetujui]);
 
             $pesan = 'Apakah Cuti Disetujui?';
 
