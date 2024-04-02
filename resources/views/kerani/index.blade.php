@@ -104,13 +104,16 @@
                                             <td>{{ $sisaCuti->NIK }}</td>
                                             <td class="text-start">{{ $sisaCuti->nama }}</td>
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td>
+                                            {{-- <td>
                                                 {{ $sisaCuti->jatuh_tempo_tahunan ? date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_akhir)) : '' }}
+                                            </td> --}}
+                                            <td>{{ $sisaCuti->jatuh_tempo_tahunan ? date('d M Y', strtotime($sisaCuti->jatuh_tempo_tahunan->periode_mulai)) : '' }}
                                             </td>
                                             </td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                            <td> {{ $sisaCuti->jatuh_tempo_panjang ? date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_akhir)) : '' }}
-                                            </td>
+                                            {{-- <td> {{ $sisaCuti->jatuh_tempo_panjang ? date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) . '/' . date('Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_akhir)) : '' }}
+                                            </td> --}}
+                                            <td>{{ $sisaCuti->jatuh_tempo_panjang ? date('d M Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) : '' }}
                                             <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
                                         </tr>
                                         @php
