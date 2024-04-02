@@ -39,9 +39,9 @@ class KeraniDashboardController extends Controller
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
         $sisaCuti = $dataPairing->each(function ($data) {
             $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
-            $data->jatuh_tempo_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->get()->first();
+            $data->jatuh_tempo_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->get()->first();
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
-            $data->jatuh_tempo_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->get()->first();
+            $data->jatuh_tempo_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->get()->first();
         });
         $isKandir = $karyawan->posisi->unitKerja->nama_unit_kerja == 'Region Office' ? true : false;
 
