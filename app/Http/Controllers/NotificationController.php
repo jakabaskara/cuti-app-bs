@@ -71,7 +71,7 @@ class NotificationController extends Controller
 
     public function commandHandlerWebhook()
     {
-        $updates = Telegram::getWebhookUpdates();
+        // $updates = Telegram::getWebhookUpdates();
         $botToken = env('TELEGRAM_BOT_TOKEN');
 
         // Telegram::answerCallbackQuery([
@@ -82,14 +82,14 @@ class NotificationController extends Controller
         $update = $telegram->getWebhookUpdate();
 
         // Periksa apakah pesan adalah perintah (command)
-        if ($updates->getMessage() !== null) {
-            $chat_id = $updates->getMessage()->getChat()->getId();
-            $username = $updates->getMessage()->getChat()->getUsername();
-            $text = $updates->getMessage()->getText();
+        if ($update->getMessage() !== null) {
+            $chat_id = $update->getMessage()->getChat()->getId();
+            $username = $update->getMessage()->getChat()->getUsername();
+            $text = $update->getMessage()->getText();
 
             // Periksa apakah pesan adalah perintah (command)
-            if ($updates->getMessage()->isCommand()) {
-                $command = $updates->getMessage()->getCommand();
+            if ($update->getMessage()->isCommand()) {
+                $command = $update->getMessage()->getCommand();
                 switch ($command) {
                     case '/start':
                         // Tanggapi jika perintah adalah /start
