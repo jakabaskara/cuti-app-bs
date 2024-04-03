@@ -166,22 +166,21 @@ class KeraniDashboardController extends Controller
 
             Notification::send($user, new SendNotification($message));
 
-            $keyboard = Keyboard::make()->inline();
+            // $keyboard = Keyboard::make()->inline();
 
-            $buttonSetujui = Keyboard::inlineButton(['text' => 'Klik untuk konfirmasi',  'web_app' => ['url' => 'https://relico.reg5palmco.com']]);
+            // $buttonSetujui = Keyboard::inlineButton(['text' => 'Klik untuk konfirmasi',  'web_app' => ['url' => 'https://relico.reg5palmco.com']]);
 
-            $keyboard->row([$buttonSetujui]);
+            // $keyboard->row([$buttonSetujui]);
 
-            $pesan = 'Apakah Cuti Disetujui?';
+            // $pesan = 'Apakah Cuti Disetujui?';
 
-            // Mengonversi keyboard menjadi JSON
-            $keyboard = json_encode($keyboard);
+            // $keyboard = json_encode($keyboard);
 
-            $response = Telegram::sendMessage([
-                'chat_id' => '1176854977', // ID chat yang dituju
-                'text' => $pesan, // Isi pesan yang ingin Anda kirim
-                'reply_markup' => $keyboard // Markup keyboard jika Anda ingin menyertakannya
-            ]);
+            // $response = Telegram::sendMessage([
+            //     'chat_id' => '1176854977', 
+            //     'text' => $pesan, 
+            //     'reply_markup' => $keyboard, 
+            // ]);
 
             // Kirim pesan dengan keyboard inline
             // $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$pesan&reply_markup=$keyboard");
