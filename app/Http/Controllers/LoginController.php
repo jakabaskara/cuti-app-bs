@@ -14,7 +14,7 @@ class LoginController extends Controller
         // if(session_status()){
         //     session_destroy();
         // }
-        session_reset();
+        // session_reset();
         // if(session_status)
         return view('login.index');
     }
@@ -61,6 +61,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return view('login.index');
+        return redirect()->route('login');
     }
 }
