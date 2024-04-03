@@ -89,8 +89,10 @@ class NotificationController extends Controller
 
             $entities = $update->getMessage()->getEntities();
             $isCommand = false;
+            $command = '';
             if (!empty($entities)) {
                 foreach ($entities as $entity) {
+                    $command = substr($text, $entity['offset'], $entity['length']);
                     if ($entity['type'] === 'bot_command') {
                         $isCommand = true;
                         break;
@@ -100,7 +102,6 @@ class NotificationController extends Controller
 
             // Kirim pesan berdasarkan apakah itu perintah atau tidak
             if ($isCommand) {
-                $command = $update->getMessage();
                 $telegram->sendMessage([
                     'chat_id' => $chat_id,
                     'text' => 'Pesan ini adalah perintah.' . $command,
