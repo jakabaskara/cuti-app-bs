@@ -216,7 +216,7 @@
                 <tr align="center">
                     <td colspan="3">
                         <p style="margin-bottom: -1px">PTPN IV REGIONAL V</p>
-                        <p style="margin-top: 0px">Region Office</p>
+                        <p style="margin-top: 0px">{{ $bagian }}</p>
                         <div style="margin-bottom: -5px">
                             <table align="center"
                                 style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 280px">
