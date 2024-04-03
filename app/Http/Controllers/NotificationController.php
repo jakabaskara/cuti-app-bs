@@ -87,10 +87,29 @@ class NotificationController extends Controller
             $username = $update->getMessage()->getChat()->getUsername();
             $text = $update->getMessage()->getText();
 
-            $telegram->sendMessage([
-                'chat_id' => $chat_id,
-                'text' => $update->getMessage()->isCommand(),
-            ]);
+            $entities = $update->getMessage()->getEntities();
+            $isCommand = false;
+            if (!empty($entities)) {
+                foreach ($entities as $entity) {
+                    if ($entity['type'] === 'bot_command') {
+                        $isCommand = true;
+                        break;
+                    }
+                }
+            }
+
+            // Kirim pesan berdasarkan apakah itu perintah atau tidak
+            if ($isCommand) {
+                $telegram->sendMessage([
+                    'chat_id' => $chat_id,
+                    'text' => 'Pesan ini adalah perintah.'
+                ]);
+            } else {
+                $telegram->sendMessage([
+                    'chat_id' => $chat_id,
+                    'text' => 'Pesan ini bukan perintah.'
+                ]);
+            }
 
             // Periksa apakah pesan adalah perintah (command)
             if ($update->getMessage()->isCommand()) {
