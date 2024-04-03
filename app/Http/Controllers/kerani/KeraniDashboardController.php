@@ -196,33 +196,61 @@ class KeraniDashboardController extends Controller
         $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
         $jabatan = $pairing->atasan->jabatan;
         $bagian = $pairing->atasan->karyawan->first()->posisi->unitKerja->nama_unit_kerja;
+        $nama = $pairing->atasan->karyawan->first()->nama;
         $atasan = $pairing->atasan->karyawan->first();
-        $nama = $atasan->nama;
         $nik = $atasan->NIK;
-        $riwayatPermintaanCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
-        $sisaCutiPanjang = $riwayatPermintaanCuti->sisa_cuti_panjang;
-        $sisaCutiTahunan = $riwayatPermintaanCuti->sisa_cuti_tahunan;
-
+        $sisaCutiPanjang = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
+        $sisaCutiTahunan = SisaCuti::where('id_karyawan', $karyawan->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
+        $cutiPanjangDijalani = 0;
+        $cutiTahunanDijalani = 0;
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
+        $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $checkedBy = $riwayatCuti->nama_checker;
+        $jabatanChecker = $riwayatCuti->jabatan_checker;
+        $nama_approver = $riwayatCuti->nama_approver;
+        $jabatan_approver = $riwayatCuti->jabatan_approver;
+        $nik_approver = $riwayatCuti->nik_approver;
+
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
-
-        $pdf = Pdf::loadView('form', [
-            'nik' => $nik,
-            'bagian' => $bagian,
-            'karyawan' => $karyawan,
-            'namaAtasan' => $nama,
-            'jabatan' => $jabatan,
-            'permintaanCuti' => $permintaanCuti,
-            'sisaCutiPanjang' => $sisaCutiPanjang,
-            'sisaCutiTahunan' => $sisaCutiTahunan,
-            'cutiPanjangDijalani' => $cutiPanjangDijalani,
-            'cutiTahunanDijalani' => $cutiTahunanDijalani,
-            'periode_cuti_panjang' => $riwayatPermintaanCuti->periode_cuti_panjang,
-            'periode_cuti_tahunan' => $riwayatPermintaanCuti->periode_cuti_tahunan,
-        ]);
+        if ($karyawan->posisi->unitKerja->is_kebun == 0) {
+            $pdf = Pdf::loadView('formGM', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'nama_checker' => $checkedBy,
+                'jabatan_checker' => $jabatanChecker,
+                'nama_approver' => $nama_approver,
+                'jabatan_approver' => $jabatan_approver,
+                'nik_approver' => $nik_approver,
+                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
+                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
+            ]);
+        } else {
+            $pdf = Pdf::loadView('form', [
+                'nik' => $nik,
+                'bagian' => $bagian,
+                'karyawan' => $karyawan,
+                'namaAtasan' => $nama,
+                'jabatan' => $jabatan,
+                'permintaanCuti' => $permintaanCuti,
+                'sisaCutiPanjang' => $sisaCutiPanjang,
+                'sisaCutiTahunan' => $sisaCutiTahunan,
+                'cutiPanjangDijalani' => $cutiPanjangDijalani,
+                'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
+                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
+            ]);
+        }
 
         // return view('form');
         // return $pdf->stream();
