@@ -82,21 +82,21 @@ class NotificationController extends Controller
         $update = $telegram->getWebhookUpdate();
 
         // Periksa apakah pesan adalah perintah (command)
-        if ($update->getMessage()->isCommand()) {
+        if ($updates->getMessage()->isCommand()) {
             // Tanggapi pesan sebagai perintah
-            $command = $update->getMessage()->getCommand();
+            $command = $updates->getMessage()->getCommand();
             switch ($command) {
                 case '/start':
                     // Tanggapi jika perintah adalah /start
                     $telegram->sendMessage([
-                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'chat_id' => $updates->getMessage()->getChat()->getId(),
                         'text' => 'Halo! Bot telah dimulai.'
                     ]);
                     break;
                 case '/test':
                     // Tanggapi jika perintah adalah /test
                     $telegram->sendMessage([
-                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'chat_id' => $updates->getMessage()->getChat()->getId(),
                         'text' => 'Ini adalah pesan uji dari bot.'
                     ]);
                     break;
@@ -104,7 +104,7 @@ class NotificationController extends Controller
                 default:
                     // Tanggapi jika perintah tidak dikenali
                     $telegram->sendMessage([
-                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'chat_id' => $updates->getMessage()->getChat()->getId(),
                         'text' => 'Perintah tidak dikenali.'
                     ]);
                     break;
