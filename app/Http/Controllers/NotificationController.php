@@ -81,6 +81,35 @@ class NotificationController extends Controller
         $telegram = new Api($botToken);
         $update = $telegram->getWebhookUpdate();
 
+        // Periksa apakah pesan adalah perintah (command)
+        if ($update->getMessage()->isCommand()) {
+            // Tanggapi pesan sebagai perintah
+            $command = $update->getMessage()->getCommand();
+            switch ($command) {
+                case '/start':
+                    // Tanggapi jika perintah adalah /start
+                    $telegram->sendMessage([
+                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'text' => 'Halo! Bot telah dimulai.'
+                    ]);
+                    break;
+                case '/test':
+                    // Tanggapi jika perintah adalah /test
+                    $telegram->sendMessage([
+                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'text' => 'Ini adalah pesan uji dari bot.'
+                    ]);
+                    break;
+                    // Tambahkan case untuk perintah lain jika diperlukan
+                default:
+                    // Tanggapi jika perintah tidak dikenali
+                    $telegram->sendMessage([
+                        'chat_id' => $update->getMessage()->getChat()->getId(),
+                        'text' => 'Perintah tidak dikenali.'
+                    ]);
+                    break;
+            }
+        }
 
         // dd($updates);
 

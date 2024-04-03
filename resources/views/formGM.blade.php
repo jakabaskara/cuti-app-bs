@@ -204,7 +204,7 @@
                     <td><br></td>
                 </tr>
                 <tr>
-                    <td style="padding-top: 30px;"><b><u>{{ $nama_checker }}</u></b></td>
+                    <td style="padding-top: 30px;"><b>{{ $nama_checker }}</b></td>
                     <td></td>
                     <td style="padding-top: 30px;"><b>{{ $karyawan->nama }}</b></td>
                 </tr>
