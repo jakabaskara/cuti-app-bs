@@ -163,7 +163,7 @@ Route::get('/', function () {
     } else {
         return view('login.index');
     }
-});
+})->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('/auth', [LoginController::class, 'login'])->name('auth');
 
