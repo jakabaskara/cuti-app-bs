@@ -87,6 +87,11 @@ class NotificationController extends Controller
             $username = $update->getMessage()->getChat()->getUsername();
             $text = $update->getMessage()->getText();
 
+            $telegram->sendMessage([
+                'chat_id' => $chat_id,
+                'text' => $update->getMessage()->isCommand(),
+            ]);
+
             // Periksa apakah pesan adalah perintah (command)
             if ($update->getMessage()->isCommand()) {
                 $command = $update->getMessage()->getCommand();
