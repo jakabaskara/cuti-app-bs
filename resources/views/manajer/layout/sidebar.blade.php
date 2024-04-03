@@ -22,7 +22,7 @@
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
 
-            <li class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active-page' : '' }}">
+            {{-- <li class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('manajer.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'manajer/karyawan' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">groups_2</i>Karyawan<span
@@ -33,7 +33,7 @@
                 <a href="{{ route('manajer.cuti.index') }}"
                     class="{{ request()->route()->uri == 'manajer/cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">event</i>Berita Karyawan Cuti</a>
-            </li>
+            </li> --}}
             <li>
                 <a href=""><i class="material-icons-two-tone">person</i>Akun<i
                         class="material-icons has-sub-menu">keyboard_arrow_right</i></a>

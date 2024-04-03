@@ -27,11 +27,11 @@
                         class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
-            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
+            {{-- <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">cloud_queue</i>Daftar Sisa Cuti</a>
-            </li>
+            </li> --}}
             <li>
                 <a href=""><i class="material-icons-two-tone">person</i>Akun<i
                         class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
