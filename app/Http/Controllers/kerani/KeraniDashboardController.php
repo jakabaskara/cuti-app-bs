@@ -164,7 +164,7 @@ class KeraniDashboardController extends Controller
             $message .= "Tanggal Selesai: $endDate\n";
             $message .= "Alasan: " . $validate['alasan'];
 
-            Notification::send($user, new SendNotification($message));
+            // Notification::send($user, new SendNotification($message));
 
             // $keyboard = Keyboard::make()->inline();
 
