@@ -100,9 +100,10 @@ class NotificationController extends Controller
 
             // Kirim pesan berdasarkan apakah itu perintah atau tidak
             if ($isCommand) {
+                $command = $update->getMessage()->getCommand();
                 $telegram->sendMessage([
                     'chat_id' => $chat_id,
-                    'text' => 'Pesan ini adalah perintah.'
+                    'text' => 'Pesan ini adalah perintah.' . $command,
                 ]);
             } else {
                 $telegram->sendMessage([
