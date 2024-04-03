@@ -105,10 +105,6 @@ class NotificationController extends Controller
 
             // Kirim pesan berdasarkan apakah itu perintah atau tidak
             if ($isCommand) {
-                $telegram->sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => 'Pesan ini adalah perintah: ' . $command,
-                ]);
 
                 // Handle different commands
                 switch ($command) {
@@ -124,6 +120,10 @@ class NotificationController extends Controller
                             'text' => 'Ini adalah pesan uji dari bot.'
                         ]);
                         break;
+                        $telegram->sendMessage([
+                            'chat_id' => $chat_id,
+                            'text' => "Chat ID anda: $chat_id\nSilahkan hubungi SDM untuk mendaftarkan Chat ID tersebut."
+                        ]);
                     default:
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
