@@ -74,40 +74,55 @@ class NotificationController extends Controller
         $updates = Telegram::getWebhookUpdates();
         $botToken = env('TELEGRAM_BOT_TOKEN');
 
-        Telegram::answerCallbackQuery([
-            'callback_query_id' => $updates->callbackQuery->get('id'),
-            'text'  => 'Permintaan Cuti Diproses',
-        ]);
+        // Telegram::answerCallbackQuery([
+        //     'callback_query_id' => $updates->callbackQuery->get('id'),
+        //     'text'  => 'Permintaan Cuti Diproses',
+        // ]);
         $telegram = new Api($botToken);
         $update = $telegram->getWebhookUpdate();
 
         // Periksa apakah pesan adalah perintah (command)
-        if ($updates->getMessage()->isCommand()) {
-            // Tanggapi pesan sebagai perintah
-            $command = $updates->getMessage()->getCommand();
-            switch ($command) {
-                case '/start':
-                    // Tanggapi jika perintah adalah /start
+        if ($updates->getMessage() !== null) {
+            $chat_id = $updates->getMessage()->getChat()->getId();
+            $username = $updates->getMessage()->getChat()->getUsername();
+            $text = $updates->getMessage()->getText();
+
+            // Periksa apakah pesan adalah perintah (command)
+            if ($updates->getMessage()->isCommand()) {
+                $command = $updates->getMessage()->getCommand();
+                switch ($command) {
+                    case '/start':
+                        // Tanggapi jika perintah adalah /start
+                        $telegram->sendMessage([
+                            'chat_id' => $chat_id,
+                            'text' => 'Halo! Bot telah dimulai.'
+                        ]);
+                        break;
+                    case '/test':
+                        // Tanggapi jika perintah adalah /test
+                        $telegram->sendMessage([
+                            'chat_id' => $chat_id,
+                            'text' => 'Ini adalah pesan uji dari bot.'
+                        ]);
+                        break;
+                        // Tambahkan case untuk perintah lain jika diperlukan
+                    default:
+                        // Tanggapi jika perintah tidak dikenali
+                        $telegram->sendMessage([
+                            'chat_id' => $chat_id,
+                            'text' => 'Perintah tidak dikenali.'
+                        ]);
+                        break;
+                }
+            } else {
+                // Jika bukan perintah, tetapi pesan teks biasa
+                // Periksa jika teks adalah 'halo'
+                if (strtolower($text) === 'halo') {
                     $telegram->sendMessage([
-                        'chat_id' => $updates->getMessage()->getChat()->getId(),
-                        'text' => 'Halo! Bot telah dimulai.'
+                        'chat_id' => $chat_id,
+                        'text' => 'Halo, ' . $username . '! Apa kabar?'
                     ]);
-                    break;
-                case '/test':
-                    // Tanggapi jika perintah adalah /test
-                    $telegram->sendMessage([
-                        'chat_id' => $updates->getMessage()->getChat()->getId(),
-                        'text' => 'Ini adalah pesan uji dari bot.'
-                    ]);
-                    break;
-                    // Tambahkan case untuk perintah lain jika diperlukan
-                default:
-                    // Tanggapi jika perintah tidak dikenali
-                    $telegram->sendMessage([
-                        'chat_id' => $updates->getMessage()->getChat()->getId(),
-                        'text' => 'Perintah tidak dikenali.'
-                    ]);
-                    break;
+                }
             }
         }
 
@@ -215,33 +230,33 @@ class NotificationController extends Controller
 
 
         // Pastikan update yang diterima adalah callback query
-        if ($update->isType('callback_query')) {
-            $callbackQuery = $update->getCallbackQuery();
+        // if ($update->isType('callback_query')) {
+        //     $callbackQuery = $update->getCallbackQuery();
 
-            // Mendapatkan data dari callback query
-            $callbackData = $callbackQuery->getData();
-            $data = $callbackQuery->getData();
+        //     // Mendapatkan data dari callback query
+        //     $callbackData = $callbackQuery->getData();
+        //     $data = $callbackQuery->getData();
 
 
-            // Mendapatkan ID chat
-            $chatId = $callbackQuery->getMessage()->getChat()->getId();
+        //     // Mendapatkan ID chat
+        //     $chatId = $callbackQuery->getMessage()->getChat()->getId();
 
-            // Balas callback query sesuai dengan data yang diterima
-            if ($callbackData === 'setujui') {
-                $telegram->sendMessage([
-                    'chat_id' => $chatId,
-                    'text' => 'Anda menyetujui permintaan cuti.' . $data,
-                ]);
+        //     // Balas callback query sesuai dengan data yang diterima
+        //     if ($callbackData === 'setujui') {
+        //         $telegram->sendMessage([
+        //             'chat_id' => $chatId,
+        //             'text' => 'Anda menyetujui permintaan cuti.' . $data,
+        //         ]);
 
-                // Hapus tombol inline
+        //         // Hapus tombol inline
 
-            } elseif ($callbackData === 'tolak') {
-                $telegram->sendMessage([
-                    'chat_id' => $chatId,
-                    'text' => 'Anda menolak permintaan cuti.',
-                ]);
-            }
-        }
+        //     } elseif ($callbackData === 'tolak') {
+        //         $telegram->sendMessage([
+        //             'chat_id' => $chatId,
+        //             'text' => 'Anda menolak permintaan cuti.',
+        //         ]);
+        //     }
+        // }
     }
 
     public function getSisaCutiBot()
