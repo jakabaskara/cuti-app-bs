@@ -87,15 +87,18 @@ class NotificationController extends Controller
             $username = $update->getMessage()->getChat()->getUsername();
             $text = $update->getMessage()->getText();
 
+            // Check if the message contains entities
             $entities = $update->getMessage()->getEntities();
             $isCommand = false;
             $command = '';
             if (!empty($entities)) {
                 foreach ($entities as $entity) {
-                    $command = substr($text, $entity['offset'], $entity['length']);
+                    // Check if the entity is a bot command
                     if ($entity['type'] === 'bot_command') {
+                        // Extract the command from the text using entity offsets
+                        $command = substr($text, $entity['offset'], $entity['length']);
                         $isCommand = true;
-                        break;
+                        break; // Stop processing entities once a command is found
                     }
                 }
             }
@@ -104,36 +107,24 @@ class NotificationController extends Controller
             if ($isCommand) {
                 $telegram->sendMessage([
                     'chat_id' => $chat_id,
-                    'text' => 'Pesan ini adalah perintah.' . $command,
+                    'text' => 'Pesan ini adalah perintah: ' . $command,
                 ]);
-            } else {
-                $telegram->sendMessage([
-                    'chat_id' => $chat_id,
-                    'text' => 'Pesan ini bukan perintah.'
-                ]);
-            }
 
-            // Periksa apakah pesan adalah perintah (command)
-            if ($update->getMessage()->isCommand()) {
-                $command = $update->getMessage()->getCommand();
+                // Handle different commands
                 switch ($command) {
                     case '/start':
-                        // Tanggapi jika perintah adalah /start
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
                             'text' => 'Halo! Bot telah dimulai.'
                         ]);
                         break;
                     case '/test':
-                        // Tanggapi jika perintah adalah /test
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
                             'text' => 'Ini adalah pesan uji dari bot.'
                         ]);
                         break;
-                        // Tambahkan case untuk perintah lain jika diperlukan
                     default:
-                        // Tanggapi jika perintah tidak dikenali
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
                             'text' => 'Perintah tidak dikenali.'
@@ -141,12 +132,16 @@ class NotificationController extends Controller
                         break;
                 }
             } else {
-                // Jika bukan perintah, tetapi pesan teks biasa
-                // Periksa jika teks adalah 'halo'
+                // Handle non-command messages
                 if (strtolower($text) === 'halo') {
                     $telegram->sendMessage([
                         'chat_id' => $chat_id,
-                        'text' => $update->getMessage()->isCommand(),
+                        'text' => 'Halo, ' . $username . '! Apa kabar?'
+                    ]);
+                } else {
+                    $telegram->sendMessage([
+                        'chat_id' => $chat_id,
+                        'text' => 'Pesan ini bukan perintah.'
                     ]);
                 }
             }
