@@ -23,6 +23,7 @@ class TablePersetujuanCutiGm extends Component
         $permintaanCuti = $pairings->flatMap(function ($pairing) {
             return $pairing->bawahan->permintaanCuti->where('is_approved', 0)->where('is_rejected', 0);
         });
+        dd($pairings);
 
         $this->permintaanCuti = $permintaanCuti;
         return view('livewire.table-persetujuan-cuti-gm');

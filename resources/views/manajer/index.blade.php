@@ -175,6 +175,18 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#btnTolak').click(function() {
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
+
+            });
+        });
         $('#tableData1').DataTable({
             responsive: true,
             rowReorder: {
@@ -228,7 +240,7 @@
         }
 
         document.addEventListener('livewire:init', () => {
-            Livewire.on('refresh', (event) => {
+            Livewire.on('terima', (event) => {
                 round_success_noti();
             });
 
