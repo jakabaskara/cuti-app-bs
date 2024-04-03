@@ -120,10 +120,12 @@ class NotificationController extends Controller
                             'text' => 'Ini adalah pesan uji dari bot.'
                         ]);
                         break;
+                    case '/test':
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
                             'text' => "Chat ID anda: $chat_id\nSilahkan hubungi SDM untuk mendaftarkan Chat ID tersebut."
                         ]);
+                        break;
                     default:
                         $telegram->sendMessage([
                             'chat_id' => $chat_id,
