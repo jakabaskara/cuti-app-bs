@@ -302,6 +302,7 @@
             Livewire.on('tolak', (event) => {
                 round_danger_noti('Cuti Ditolak!');
             });
+
         });
 
         function showRejectModal(id) {
