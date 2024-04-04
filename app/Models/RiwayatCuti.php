@@ -29,7 +29,7 @@ class RiwayatCuti extends Model
         'periode_cuti_tahunan',
     ];
 
-    public function PermintaanCuti()
+    public function permintaanCuti()
     {
         return $this->belongsTo(PermintaanCuti::class, 'id_permintaan_cuti');
     }
