@@ -216,8 +216,8 @@ class KeraniDashboardController extends Controller
         $periode_tahunan = explode('/', $riwayatCuti->periode_cuti_tahunan);
         $periode_panjang[0] -= 6;
         $periode_panjang[1] -= 6;
-        $periode_tahunan[0] -= 6;
-        $periode_tahunan[1] -= 6;
+        $periode_tahunan[0] -= 1;
+        $periode_tahunan[1] -= 1;
 
         $tahun_panjang = implode('/', $periode_panjang);
         $tahun_tahunan = implode('/', $periode_tahunan);
