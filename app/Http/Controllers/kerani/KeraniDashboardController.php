@@ -257,6 +257,11 @@ class KeraniDashboardController extends Controller
                 'sisaCutiTahunan' => $sisaCutiTahunan,
                 'cutiPanjangDijalani' => $cutiPanjangDijalani,
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
+                'nama_checker' => $checkedBy,
+                'jabatan_checker' => $jabatanChecker,
+                'nama_approver' => $nama_approver,
+                'jabatan_approver' => $jabatan_approver,
+                'nik_approver' => $nik_approver,
                 'periode_cuti_panjang' => $tahun_panjang,
                 'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
