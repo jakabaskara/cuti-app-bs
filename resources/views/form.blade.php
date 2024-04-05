@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan {{ $periode_cuti_tahunan - 1 }}</td>
+                    <td>- Cuti Tahunan {{ $periode_cuti_tahunan }}</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $cutiTahunanDijalani }}</td>
@@ -76,7 +76,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang {{ $periode_cuti_panjang - 6 }}</td>
+                    <td>- Cuti Panjang {{ $periode_cuti_panjang }}</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $cutiPanjangDijalani }}</td>
@@ -92,7 +92,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Tahunan {{ $periode_cuti_tahunan - 1 }}</td>
+                    <td>- Cuti Tahunan {{ $periode_cuti_tahunan }}</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $sisaCutiTahunan }}</td>
@@ -100,7 +100,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td>- Cuti Panjang {{ $periode_cuti_panjang - 6 }}</td>
+                    <td>- Cuti Panjang {{ $periode_cuti_panjang }}</td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
                     <td>=</td>
                     <td>{{ $sisaCutiPanjang }}</td>
