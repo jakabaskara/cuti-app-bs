@@ -244,8 +244,8 @@ class AsistenDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
-                'periode_cuti_panjang' => $periode_panjang,
-                'periode_cuti_tahunan' => $periode_tahunan,
+                'periode_cuti_panjang' => $tahun_panjang,
+                'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
         } else {
             $pdf = Pdf::loadView('form', [
@@ -259,8 +259,8 @@ class AsistenDashboardController extends Controller
                 'sisaCutiTahunan' => $sisaCutiTahunan,
                 'cutiPanjangDijalani' => $cutiPanjangDijalani,
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
-                'periode_cuti_panjang' => $periode_panjang,
-                'periode_cuti_tahunan' => $periode_tahunan,
+                'periode_cuti_panjang' => $tahun_panjang,
+                'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
         }
 
