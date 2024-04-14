@@ -5,6 +5,7 @@ use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\AdminPairingController;
+use App\Http\Controllers\CutiBersamaController;
 use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
@@ -171,3 +172,5 @@ Route::get('/send-notification', [NotificationController::class, 'sendNotificati
 
 Route::get('/setWebhook', [NotificationController::class, 'setWebhook'])->name('telegram.setwebhook');
 Route::post('/webhook', [NotificationController::class, 'commandHandlerWebhook'])->name('telegram.commandHandlerWebhook');
+
+Route::get('/cuti-bersama', [CutiBersamaController::class, 'getCutibersama'])->name('cuti-bersama.get');
