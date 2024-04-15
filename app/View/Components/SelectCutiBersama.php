@@ -19,12 +19,23 @@ class SelectCutiBersama extends Component
     {
         $file = File::get(public_path('assets/cuti_bersama.json'));
         $cutiBersama = json_decode($file, true);
-        $dates = array_keys($cutiBersama);
-        // Ubah format tanggal menggunakan Carbon
+
         $formattedDates = [];
-        foreach ($dates as $date) {
+        foreach ($cutiBersama as $date => $data) {
+            // Mengakses data dari array asosiatif berdasarkan kunci (key) tanggal
+            $description = $data['summary'] ?? ''; // Misalnya, mengambil deskripsi
+            $holiday = $data['holiday'] ?? ''; // Misalnya, mengambil status libur
+
+            // Ubah format tanggal menggunakan Carbon
             $formattedDate = Carbon::createFromFormat('Y-m-d', $date)->translatedFormat('l, d F Y');
-            $formattedDates[$date] = $formattedDate;
+
+            // Simpan data yang diinginkan ke dalam array hasil
+            $formattedDates[$date] = [
+                'value' => $date,
+                'formatted_date' => $formattedDate,
+                'description' => $description,
+                'holiday' => $holiday,
+            ];
         }
 
         $this->dates = $formattedDates;
