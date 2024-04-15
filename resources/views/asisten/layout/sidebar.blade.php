@@ -27,6 +27,12 @@
                         class="material-icons-two-tone">event</i>Pengajuan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
+            <li class="{{ request()->route()->uri == 'asisten/cuti-bersama' ? 'active-page' : '' }}">
+                <a href="{{ route('asisten.cuti-bersama.index') }}"
+                    class="{{ request()->route()->uri == 'asisten/cuti-bersama' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">event_busy</i>Cuti Bersama<span
+                        class="badge rounded-pill badge-danger float-end"></span></a>
+            </li>
             {{-- <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
