@@ -115,7 +115,7 @@
                                                   <i class="material-icons-outlined">lock</i>
                                               </span>
                                               <div class="notifications-dropdown-item-text">
-                                                  <p class="bold-notifications-text">Ubah Password</p>
+                                                  <p class="bold-notifications-text">Ganti Password</p>
                                                   {{-- <small>18:00</small> --}}
                                               </div>
                                           </div>
