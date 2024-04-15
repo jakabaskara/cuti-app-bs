@@ -268,18 +268,4 @@ class AsistenDashboardController extends Controller
 
         return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
     }
-
-    public function changePassword()
-    {
-        $idUser = Auth::user()->id;
-        $user = User::find($idUser);
-        $karyawan = $user->karyawan;
-
-        $namaUser = $user->karyawan->nama;
-        $jabatan = $user->karyawan->posisi->jabatan;
-        return view('asisten.change-password', [
-            'nama' => $namaUser,
-            'jabatan' => $jabatan,
-        ]);
-    }
 }

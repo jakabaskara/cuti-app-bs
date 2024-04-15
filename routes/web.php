@@ -5,6 +5,7 @@ use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\AdminPairingController;
+use App\Http\Controllers\asisten\ChangePasswordController;
 use App\Http\Controllers\CutiBersamaController;
 use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
@@ -67,7 +68,7 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
 
     Route::get('/downloadPDF/{id}', [AsistenDashboardController::class, 'downloadPermintaanCutiPDF'])->name('asisten.download.pdf');
 
-    Route::get('/change-password', [AsistenDashboardController::class, 'changePassword'])->name('asisten.change-password');
+    Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('asisten.change-password.index');
 });
 
 Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {
