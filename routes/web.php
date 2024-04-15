@@ -66,6 +66,8 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
     Route::get('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
 
     Route::get('/downloadPDF/{id}', [AsistenDashboardController::class, 'downloadPermintaanCutiPDF'])->name('asisten.download.pdf');
+
+    Route::get('/change-password', [AsistenDashboardController::class, 'changePassword'])->name('asisten.change-password');
 });
 
 Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {
