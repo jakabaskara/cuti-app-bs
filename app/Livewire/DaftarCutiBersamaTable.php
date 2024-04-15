@@ -12,6 +12,7 @@ use Livewire\Component;
 class DaftarCutiBersamaTable extends Component
 {
     public $daftarCuti;
+    public $checkKaryawan = [];
 
     public function render()
     {
@@ -36,5 +37,10 @@ class DaftarCutiBersamaTable extends Component
             ->get();
 
         $this->daftarCuti = $karyawanCuti;
+    }
+
+    public function setHadir()
+    {
+        dd($this->checkKaryawan);
     }
 }

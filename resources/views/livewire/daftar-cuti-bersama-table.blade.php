@@ -1,5 +1,8 @@
 <div>
     <div wire:loading class="f-14 text-dark"> <span class="spinner-grow text-danger align-middle"></span> Loading...</div>
+    <div class="d-flex flex-row-reverse">
+        <button class="btn btn-primary mb-3" wire:click='setHadir()'>+ Karyawan Hadir</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-sm table-bordered table-hover table-striped">
             <thead>
@@ -21,7 +24,8 @@
                             <td class="text-center">{{ $cuti->karyawan->NIK }}</td>
                             <td>{{ $cuti->karyawan->nama }}</td>
                             <td>{{ $cuti->karyawan->jabatan }}</td>
-                            <td></td>
+                            <td class="text-center"> <input type="checkbox" name="checkKaryawan" id="checkKaryawan"
+                                    wire:model='checkKaryawan' value="{{ $cuti->karyawan->nama }}"> </td>
                         </tr>
                     @endforeach
                 @endif
