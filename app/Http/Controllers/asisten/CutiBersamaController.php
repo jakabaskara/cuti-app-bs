@@ -19,9 +19,6 @@ class CutiBersamaController extends Controller
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
 
-        $cutiBersama = File::get(public_path('assets/cuti_bersama.json'));
-        dd($cutiBersama);
-
         return view('asisten.cuti-bersama', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
