@@ -41,6 +41,6 @@ class DaftarCutiBersamaTable extends Component
 
     public function setHadir()
     {
-        dd($this->checkKaryawan);
+        $this->dispatch('setHadir');
     }
 }
