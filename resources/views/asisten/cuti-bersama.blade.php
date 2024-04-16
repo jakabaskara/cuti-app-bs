@@ -49,8 +49,8 @@
                         </h5>
                         {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                     </div>
-                    <div class="modal-body px-3 py-3">
-                        <p class="keterangan"></p>
+                    <div class="modal-body px-5 py-3">
+                        <p class="keterangan mb-3"></p>
                         @livewire('selected-karyawan-cuti')
                     </div>
                     <div class="modal-footer">
@@ -70,9 +70,8 @@
         var tgl = '';
         $(document).ready(function() {
             $('#selectTanggal').on('change', function() {
-                console.log($(this).val())
                 var tanggal = $(this).val();
-                tgl = $(this).text();
+                tgl = $('#selectTanggal option:selected').text();
                 Livewire.dispatch('changeDate', {
                     tanggal: tanggal
                 });
@@ -91,9 +90,8 @@
         });
 
         Livewire.on('getHadirKaryawan', (e) => {
-            // console.log(e.data);
             $('#hadirModal').modal('show');
-            $('.keterangan').html('Tanggal: ' + tgl)
+            $('.keterangan').text(tgl)
             Livewire.dispatch('setSelectedKaryawan', {
                 data: e.data,
             });
