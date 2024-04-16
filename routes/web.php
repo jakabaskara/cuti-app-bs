@@ -73,6 +73,7 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
 
     // Cuti Bersama
     Route::get('/cuti-bersama', [AsistenCutiBersamaController::class, 'index'])->name('asisten.cuti-bersama.index');
+    Route::post('/store-karyawan-tidak-cuti', [AsistenCutiBersamaController::class, 'storeHadir'])->name('asisten.store-karyawan-tidak-cuti');
 });
 
 Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {

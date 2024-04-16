@@ -17,9 +17,10 @@
                             </tr>
                         @else
                             @foreach ($karyawanSelected as $data)
+                                <input type="hidden" name="idKaryawanTidakCuti[]" value="{{ $data->id }}">
                                 <tr>
-                                    <td class="text-center">{{ $data->NIK }}</td>
-                                    <td>{{ $data->nama }}</td>
+                                    <td class="text-center"> {{ $data->karyawan->NIK }}</td>
+                                    <td>{{ $data->karyawan->nama }}</td>
                                     <td class="text-center">Hadir</td>
                                 </tr>
                             @endforeach

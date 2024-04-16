@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Karyawan;
+use App\Models\KaryawanCutiBersama;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -18,8 +19,7 @@ class SelectedKaryawanCuti extends Component
     #[On('setSelectedKaryawan')]
     public function getKaryawanSelected($data)
     {
-        $dataKaryawan = [];
-        $karyawan = Karyawan::whereIn('id', $data)->get();
+        $karyawan = KaryawanCutiBersama::whereIn('id', $data)->get();
 
         $this->karyawanSelected = $karyawan;
     }
