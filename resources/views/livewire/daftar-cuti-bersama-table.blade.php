@@ -25,7 +25,7 @@
                             <td>{{ $cuti->karyawan->nama }}</td>
                             <td>{{ $cuti->karyawan->jabatan }}</td>
                             <td class="text-center"> <input type="checkbox" name="checkKaryawan" id="checkKaryawan"
-                                    wire:model='checkKaryawan' value="{{ $cuti->karyawan->nama }}"> </td>
+                                    wire:model='checkKaryawan' value="{{ $cuti->karyawan->id }}"> </td>
                         </tr>
                     @endforeach
                 @endif
