@@ -19,6 +19,12 @@ class DaftarCutiBersamaTable extends Component
         return view('livewire.daftar-cuti-bersama-table');
     }
 
+    #[On('refresh')]
+    public function refresh()
+    {
+        $this->checkKaryawan = [];
+    }
+
     #[On('changeDate')]
     public function setDaftarCuti($tanggal)
     {

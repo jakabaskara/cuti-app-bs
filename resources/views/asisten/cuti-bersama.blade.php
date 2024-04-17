@@ -45,7 +45,7 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title text-center" id="hadirModalLabel">Konfirmasi Karyawan yang Tidak Melakukan
-                            Cuti
+                            Cuti Bersama
                         </h5>
                         {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                     </div>
