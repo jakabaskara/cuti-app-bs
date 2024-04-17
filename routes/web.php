@@ -106,6 +106,7 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
 
     // Cuti Bersama
     Route::get('/cuti-bersama', [KeraniCutiBersamaController::class, 'index'])->name('kerani.cuti-bersama');
+    Route::post('/cuti-bersama', [KeraniCutiBersamaController::class, 'storeHadir'])->name('kerani.cuti-bersama.store');
 });
 
 

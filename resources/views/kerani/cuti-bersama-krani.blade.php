@@ -41,7 +41,7 @@
     <div class="modal fade" id="hadirModal" tabindex="-1" aria-labelledby="hadirModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form action="{{ route('asisten.store-karyawan-tidak-cuti') }}" method="post">
+                <form action="{{ route('kerani.cuti-bersama.store') }}" method="post">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title text-center" id="hadirModalLabel">Konfirmasi Karyawan yang Tidak Melakukan
@@ -90,11 +90,13 @@
             @endif
         });
 
-        Livewire.on('getHadirKaryawan', (e) => {
-            $('#hadirModal').modal('show');
-            $('.keterangan').text(tgl)
-            Livewire.dispatch('setSelectedKaryawan', {
-                data: e.data,
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('getHadirKaryawan', (e) => {
+                $('#hadirModal').modal('show');
+                $('.keterangan').text(tgl)
+                Livewire.dispatch('setSelectedKaryawan', {
+                    data: e.data,
+                });
             });
         });
 
