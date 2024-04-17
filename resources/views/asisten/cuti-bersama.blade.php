@@ -75,6 +75,7 @@
                 Livewire.dispatch('changeDate', {
                     tanggal: tanggal
                 });
+                Livewire.dispatch('refresh');
             })
 
             $('#btnSimpan').click(function() {

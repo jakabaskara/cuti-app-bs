@@ -16,6 +16,12 @@ class SelectedKaryawanCuti extends Component
         return view('livewire.selected-karyawan-cuti');
     }
 
+    #[On('refresh')]
+    public function refresh()
+    {
+        $this->karyawanSelected = null;
+    }
+
     #[On('setSelectedKaryawan')]
     public function getKaryawanSelected($data)
     {
