@@ -18,7 +18,8 @@
                 @foreach ($permintaanCuti as $cutiPending)
                     <tr class="text-center">
                         <td class="text-dark noti"> <button class="btn btn-success"
-                                wire:click='setujui({{ $cutiPending->id }})'>Setujui</button>
+                                wire:click='setujui({{ $cutiPending->id }})'
+                                id="setujui_{{ $cutiPending->id }}">Setujui</button>
                             {{-- <button class="btn btn-danger" wire:click='tolak({{ $cutiPending->id }})'>Tolak</button> --}}
                             <button class="btn btn-danger"
                                 onclick="showRejectModal({{ $cutiPending->id }})">Tolak</button>

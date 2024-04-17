@@ -17,6 +17,7 @@ use App\Http\Controllers\manajer\ManajerBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerKaryawanController;
 use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\kabag\KabagDashboardController;
+use App\Http\Controllers\KeraniCutiBersamaController;
 use App\Http\Controllers\SisaCutiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -102,6 +103,9 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 
     Route::get('/send-nontify', [KeraniDashboardController::class, 'sendNoti'])->name('send.noti');
+
+    // Cuti Bersama
+    Route::get('/cuti-bersama', [KeraniCutiBersamaController::class, 'index'])->name('kerani.cuti-bersama');
 });
 
 
