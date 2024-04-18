@@ -152,9 +152,6 @@ Route::get('/', function () {
             case 'kerani':
                 return redirect()->route('kerani.index');
                 break;
-            case 'user':
-                return redirect()->route('user.dashboard');
-                break;
             case 'asisten':
                 return redirect()->route('asisten.index');
                 break;
