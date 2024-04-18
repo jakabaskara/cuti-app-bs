@@ -26,6 +26,7 @@ use App\Http\Controllers\sevp\SevpDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use App\Http\Controllers\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,7 @@ Route::group(['prefix' => 'kabag', 'middleware' => ['kabag.auth']], function () 
     Route::post('/add-cuti', [KabagDashboardController::class, 'submitCuti'])->name('kabag.submit-cuti');
 });
 
+
 Route::group(['prefix' => 'gm', 'middleware' => ['gm.auth']], function () {
     Route::get('/', [GmDashboardController::class, 'index'])->name('gm.index');
     // Route::get('/pengajuan-cuti', [KabagDashboardController::class, 'pengajuanCuti'])->name('kabag.pengajuan-cuti');
@@ -183,4 +185,7 @@ Route::get('/send-notification', [NotificationController::class, 'sendNotificati
 Route::get('/setWebhook', [NotificationController::class, 'setWebhook'])->name('telegram.setwebhook');
 Route::post('/webhook', [NotificationController::class, 'commandHandlerWebhook'])->name('telegram.commandHandlerWebhook');
 
+
+Route::get('/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('password.change');
+Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update');
 Route::get('/cuti-bersama', [CutiBersamaController::class, 'getCutibersama'])->name('cuti-bersama.get');
