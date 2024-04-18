@@ -169,6 +169,8 @@ Route::get('/', function () {
             case 'brm':
                 return redirect()->route('sevp.index');
                 break;
+            case 'user':
+                return view('login.index');
             default:
                 // Jika tidak ada peran yang cocok, alihkan ke halaman default
                 return redirect()->route('login');
