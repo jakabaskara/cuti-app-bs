@@ -212,18 +212,19 @@
                                     <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"><b>{{ $namaAtasan }}</b></td>
+                                    <td colspan="4"><b>{{ $nama_approver }}</b></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align:top">NIK</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik }}
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik_approver }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align:top">Jabatan</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
-                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $jabatan }}
+                                    <td colspan="2" style="text-align: left; vertical-align:top">
+                                        {{ $jabatan_approver }}
                                     </td>
                                 </tr>
                                 <tr>

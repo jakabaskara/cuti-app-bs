@@ -216,6 +216,16 @@ class AsistenDashboardController extends Controller
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
 
+        $periode_panjang = explode('/', $riwayatCuti->periode_cuti_panjang);
+        $periode_tahunan = explode('/', $riwayatCuti->periode_cuti_tahunan);
+        $periode_panjang[0] -= 6;
+        $periode_panjang[1] -= 6;
+        $periode_tahunan[0] -= 1;
+        $periode_tahunan[1] -= 1;
+
+        $tahun_panjang = implode('/', $periode_panjang);
+        $tahun_tahunan = implode('/', $periode_tahunan);
+
         // dd($karyawan->posisi->role);
         if ($karyawan->posisi->role->nama_role == 'manajer') {
             $pdf = Pdf::loadView('formGM', [
@@ -234,8 +244,8 @@ class AsistenDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
-                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
-                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
+                'periode_cuti_panjang' => $tahun_panjang,
+                'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
         } else {
             $pdf = Pdf::loadView('form', [
@@ -249,8 +259,13 @@ class AsistenDashboardController extends Controller
                 'sisaCutiTahunan' => $sisaCutiTahunan,
                 'cutiPanjangDijalani' => $cutiPanjangDijalani,
                 'cutiTahunanDijalani' => $cutiTahunanDijalani,
-                'periode_cuti_panjang' => $riwayatCuti->periode_cuti_panjang,
-                'periode_cuti_tahunan' => $riwayatCuti->periode_cuti_tahunan,
+                'nama_checker' => $checkedBy,
+                'jabatan_checker' => $jabatanChecker,
+                'nama_approver' => $nama_approver,
+                'jabatan_approver' => $jabatan_approver,
+                'nik_approver' => $nik_approver,
+                'periode_cuti_panjang' => $tahun_panjang,
+                'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
         }
 

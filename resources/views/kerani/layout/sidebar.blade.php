@@ -27,6 +27,12 @@
                         class="material-icons-two-tone">inbox</i>Berita Karyawan Cuti<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
+            <li class="{{ request()->route()->uri == 'kerani/cuti-bersama' ? 'active-page' : '' }}">
+                <a href="{{ route('kerani.cuti-bersama') }}"
+                    class="{{ request()->route()->uri == 'kerani/cuti-bersama' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">event_busy</i>Cuti Bersama<span
+                        class="badge rounded-pill badge-danger float-end"></span></a>
+            </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>

@@ -5,6 +5,9 @@ use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\AdminPairingController;
+use App\Http\Controllers\asisten\ChangePasswordController;
+use App\Http\Controllers\asisten\CutiBersamaController as AsistenCutiBersamaController;
+use App\Http\Controllers\CutiBersamaController;
 use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
 use App\Http\Controllers\pic\PICDashboardController;
@@ -14,6 +17,7 @@ use App\Http\Controllers\manajer\ManajerBeritaCutiController;
 use App\Http\Controllers\manajer\ManajerKaryawanController;
 use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\kabag\KabagDashboardController;
+use App\Http\Controllers\KeraniCutiBersamaController;
 use App\Http\Controllers\SisaCutiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
@@ -66,6 +70,12 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
     Route::get('/delete-cuti/{id}', [AsistenDashboardController::class, 'deleteCuti'])->name('asisten.delete-cuti');
 
     Route::get('/downloadPDF/{id}', [AsistenDashboardController::class, 'downloadPermintaanCutiPDF'])->name('asisten.download.pdf');
+
+    Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('asisten.change-password.index');
+
+    // Cuti Bersama
+    Route::get('/cuti-bersama', [AsistenCutiBersamaController::class, 'index'])->name('asisten.cuti-bersama.index');
+    Route::post('/store-karyawan-tidak-cuti', [AsistenCutiBersamaController::class, 'storeHadir'])->name('asisten.store-karyawan-tidak-cuti');
 });
 
 Route::group(['prefix' => 'manajer', 'middleware' => ['manajer.auth']], function () {
@@ -94,6 +104,10 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 
     Route::get('/send-nontify', [KeraniDashboardController::class, 'sendNoti'])->name('send.noti');
+
+    // Cuti Bersama
+    Route::get('/cuti-bersama', [KeraniCutiBersamaController::class, 'index'])->name('kerani.cuti-bersama');
+    Route::post('/cuti-bersama', [KeraniCutiBersamaController::class, 'storeHadir'])->name('kerani.cuti-bersama.store');
 });
 
 
@@ -174,5 +188,7 @@ Route::get('/send-notification', [NotificationController::class, 'sendNotificati
 Route::get('/setWebhook', [NotificationController::class, 'setWebhook'])->name('telegram.setwebhook');
 Route::post('/webhook', [NotificationController::class, 'commandHandlerWebhook'])->name('telegram.commandHandlerWebhook');
 
+
 Route::get('/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('password.change');
 Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update');
+Route::get('/cuti-bersama', [CutiBersamaController::class, 'getCutibersama'])->name('cuti-bersama.get');

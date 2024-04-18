@@ -239,18 +239,16 @@
             });
         }
 
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('terima', (event) => {
-                round_success_noti();
-            });
+        Livewire.on('terima', (event) => {
+            round_success_noti();
+        });
 
-            Livewire.on('cutiKurang', (event) => {
-                round_danger_noti('Sisa Cuti Kurang!');
-            });
+        Livewire.on('cutiKurang', (event) => {
+            round_danger_noti('Sisa Cuti Kurang!');
+        });
 
-            Livewire.on('tolak', (event) => {
-                round_danger_noti('Cuti Ditolak!');
-            });
+        Livewire.on('tolak', (event) => {
+            round_danger_noti('Cuti Ditolak!');
         });
 
         function showRejectModal(id) {

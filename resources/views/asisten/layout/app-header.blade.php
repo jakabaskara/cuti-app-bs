@@ -120,14 +120,14 @@
                                           </div>
                                       </div>
                                   </a> --}}
-                                  <a href="#">
+                                  <a href="{{ route('asisten.change-password.index') }}">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-danger text-white">
                                                   <i class="material-icons-outlined">lock</i>
                                               </span>
                                               <div class="notifications-dropdown-item-text">
-                                                  <p class="bold-notifications-text">Ubah Password</p>
+                                                  <p class="bold-notifications-text">Ganti Password</p>
                                                   {{-- <small>18:00</small> --}}
                                               </div>
                                           </div>
