@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\KaryawanCutiBersama;
 use App\Models\Pairing;
 use App\Models\PermintaanCuti;
 use App\Models\Posisi;
@@ -72,7 +73,31 @@ class KabagTablePersetujuanCuti extends Component
             $cutiTahunan = SisaCuti::where('id_karyawan', $dataCuti->id_karyawan)->where('id_jenis_cuti', 2)->first();
 
             $totalPermintaanCuti = $dataCuti->jumlah_cuti_tahunan + $dataCuti->jumlah_cuti_panjang;
+            $cutiPanjangJumlah = $dataCuti->jumlah_cuti_panjang > 0 ? $dataCuti->jumlah_cuti_panjang : 0;
+            $cutiTahunanJumlah = $dataCuti->jumlah_cuti_tahunan > 0 ? $dataCuti->jumlah_cuti_tahunan : 0;
             $totalSisaCuti = ($cutiPanjang ? $cutiPanjang->jumlah : 0) + ($cutiTahunan ? $cutiTahunan->jumlah : 0);
+
+            $cutiBersama = KaryawanCutiBersama::whereBetween('tanggal', [$dataCuti->tanggal_mulai, $dataCuti->tanggal_selesai])->where('id_karyawan', $dataCuti->id_karyawan)->get();
+            $jumlahCutiBersama = $cutiBersama->count();
+
+            if ($jumlahCutiBersama > 0) {
+                if ($jumlahCutiBersama > $cutiTahunanJumlah) {
+                    $jumlahCutiBersama -= $cutiTahunanJumlah;
+                    $cutiTahunanJumlah = 0;
+
+                    $cutiPanjangJumlah -= $jumlahCutiBersama;
+                } else {
+                    $cutiTahunanJumlah -= $jumlahCutiBersama;
+                };
+
+                if ($jumlahCutiBersama > 0) {
+                    foreach ($cutiBersama as $cutiBersamaData) {
+                        $cutiBersamaData->delete();
+                    }
+                };
+
+                $totalPermintaanCuti -= $jumlahCutiBersama;
+            }
 
             if ($totalSisaCuti >= $totalPermintaanCuti) {
 
