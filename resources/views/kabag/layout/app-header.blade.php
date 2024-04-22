@@ -108,7 +108,7 @@
                                           </div>
                                       </div>
                                   </a>
-                                  <a href="#">
+                                  <a href="{{ route('password.change') }}">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-danger text-white">
