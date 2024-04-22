@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password;
 
 class PasswordController extends Controller
 {
@@ -38,12 +38,10 @@ class PasswordController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|confirmed|min:8',
             'password' => [
                 'required',
-                Password::min(8) // Minimum length 8 characters
-                    ->mixedCase() // Requires at least one uppercase and one lowercase letter
-                    ->numbers() // Requires at least one number
+                'confirmed',
+                Password::min(8)->mixedCase()->numbers(), // Requires at least one number
             ],
         ]);
 
@@ -56,6 +54,6 @@ class PasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('index')->with('success', 'Password Berhasil Diubah!');
+        return redirect()->back()->with('success', 'Password Berhasil Diubah!');
     }
 }

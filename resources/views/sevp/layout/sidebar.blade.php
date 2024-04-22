@@ -45,7 +45,7 @@
                         <a href="#">Profile</a>
                     </li>
                     <li>
-                        <a href="#">Ganti Password</a>
+                        <a href="{{ route('password.change') }}">Ganti Password</a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}">Log Out</a>

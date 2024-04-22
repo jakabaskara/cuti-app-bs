@@ -11,13 +11,14 @@
                 <div class="col-md-6">
                     <label for="settingsCurrentPassword" class="form-label">Password Sekarang</label>
                     <input type="password" class="form-control" aria-describedby="settingsCurrentPassword"
-                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
+                        name="current_password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                        required />
                 </div>
                 <div class="row m-t-xxl">
                     <div class="col-md-6">
                         <label for="settingsNewPassword" class="form-label">Password Baru</label>
                         <input type="password" class="form-control" aria-describedby="settingsNewPassword"
-                            name="password1" id="password1"
+                            name="password" id="password1"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
                         <div class="row mt-3">
                             <div class="col-sm-6">
@@ -39,7 +40,7 @@
                     <div class="col-md-6">
                         <label for="settingsConfirmPassword" class="form-label">Konfirmasi Password</label>
                         <input type="password" class="form-control" aria-describedby="settingsConfirmPassword"
-                            name="password2" id="password2"
+                            name="password_confirmation" id="password2"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" required />
                         <div class="row mt-3">
                             <div class="col-sm-12">
@@ -80,8 +81,8 @@
                 $("#ucase").text('done');
                 $("#ucase").css("color", "#00A41E");
             } else {
-                $("#8char").text('close')
-                $("#8char").css("color", "#FF0004");
+                $("#ucase").text('close')
+                $("#ucase").css("color", "#FF0004");
             }
 
             if (lcase.test($("#password1").val())) {
