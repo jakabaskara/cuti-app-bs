@@ -51,6 +51,11 @@
                     class="{{ request()->route()->uri == 'admin/cuti' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">event</i>Berita Karyawan Cuti</a>
             </li>
+            <li class="{{ request()->route()->uri == 'admin/riwayat-cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('riwayat-cuti.index') }}"
+                    class="{{ request()->route()->uri == 'admin/riwayat-cuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">history</i>Riwayat Karyawan Cuti</a>
+            </li>
             {{-- <li>
                 <a href="calendar.html"><i class="material-icons-two-tone">calendar_today</i>Calendar<span
                         class="badge rounded-pill badge-success float-end">14</span></a>

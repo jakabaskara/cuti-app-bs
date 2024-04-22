@@ -1,7 +1,7 @@
 @extends('admin.layout.main')
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
                                     <th class="text-dark">Jumlah</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody>
+                            <tbody>
                                 @foreach ($sisaCutis as $sisaCuti)
                                     <tr class="text-center">
                                         <td>{{ $loop->iteration }}</td>
@@ -48,10 +48,9 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                 @endforeach
-                            </tbody> --}}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -61,42 +60,44 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    {{-- <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script> --}}
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('data-sisa-cuti') }}",
-                columns: [{
-                        data: "ID",
-                        name: "ID",
-                        orderable: true,
-                    },
-                    {
-                        data: "NIK"
-                    },
-                    {
-                        data: "Nama"
-                    },
-                    {
-                        data: "UnitKerja"
-                    },
-                    {
-                        data: "Posisi"
-                    },
-                    {
-                        data: "JenisCuti"
-                    },
-                    {
-                        data: "PeriodeCuti"
-                    },
-                    {
-                        data: "SisaCuti"
-                    }
-                ]
-            });
+            // $('#dataTable').DataTable({
+            //     processing: true,
+            //     serverSide: true,
+            //     ajax: "{{ route('data-sisa-cuti') }}",
+            //     columns: [{
+            //             data: "ID",
+            //             name: "ID",
+            //             orderable: true,
+            //         },
+            //         {
+            //             data: "NIK"
+            //         },
+            //         {
+            //             data: "Nama"
+            //         },
+            //         {
+            //             data: "UnitKerja"
+            //         },
+            //         {
+            //             data: "Posisi"
+            //         },
+            //         {
+            //             data: "JenisCuti"
+            //         },
+            //         {
+            //             data: "PeriodeCuti"
+            //         },
+            //         {
+            //             data: "SisaCuti"
+            //         }
+            //     ]
+            // });
+            $('#dataTable').DataTable();
         });
     </script>
 @endsection

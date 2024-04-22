@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminKaryawanController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
+use App\Http\Controllers\admin\AdminRiwayatCutiController;
 use App\Http\Controllers\AdminPairingController;
 use App\Http\Controllers\asisten\ChangePasswordController;
 use App\Http\Controllers\asisten\CutiBersamaController as AsistenCutiBersamaController;
@@ -56,6 +57,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::post('/ajukanCuti', [AdminDashboardController::class, 'tambahCuti'])->name('admin.tambahCuti');
 
     Route::get('/data-sisa-cuti', [SisaCutiController::class, 'sisaCutiData'])->name('data-sisa-cuti');
+
+    // Riwayat Cuti
+    Route::get('/riwayat-cuti', [AdminRiwayatCutiController::class, 'index'])->name('riwayat-cuti.index');
 });
 
 Route::group(['prefix' => 'pic'], function () {

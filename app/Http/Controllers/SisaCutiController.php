@@ -20,7 +20,9 @@ class SisaCutiController extends Controller
         $namaUser = $karyawan->nama;
         $jabatan = $karyawan->posisi->jabatan;
 
-        $sisaCuti = SisaCuti::get();
+        $sisaCuti = SisaCuti::with('karyawan.posisi.unitKerja');
+
+        // $dataCuti = SisaCuti::with('karyawan.posisi.unitKerja');
 
         return view('admin.sisacuti', [
             'nama' => $namaUser,

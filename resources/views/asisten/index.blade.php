@@ -51,7 +51,6 @@
                 </div>
                 <div class="card-body">
                     @livewire('kabag-daftar-sisa-cuti')
-
                 </div>
             </div>
         </div>
