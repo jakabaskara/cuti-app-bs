@@ -10,6 +10,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Riwayat Cuti</h3>
+                    <hr>
                 </div>
                 <div class="card-body">
                     @livewire('table-riwayat-cuti')
