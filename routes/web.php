@@ -187,7 +187,8 @@ Route::get('/send-notification', [NotificationController::class, 'sendNotificati
 Route::get('/setWebhook', [NotificationController::class, 'setWebhook'])->name('telegram.setwebhook');
 Route::post('/webhook', [NotificationController::class, 'commandHandlerWebhook'])->name('telegram.commandHandlerWebhook');
 
-
-Route::get('/change-password', [PasswordController::class, 'showChangePasswordForm'])->name('password.change');
-Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update');
+Route::group(['prefix' => 'auth', 'middleware' => 'account.auth'], function () {
+    Route::get('/change-password', [PasswordController::class, 'index'])->name('password.change');
+    Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('password.update');
+});
 Route::get('/cuti-bersama', [CutiBersamaController::class, 'getCutibersama'])->name('cuti-bersama.get');
