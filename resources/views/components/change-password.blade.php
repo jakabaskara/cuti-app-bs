@@ -41,3 +41,7 @@
     </div>
 
 </form>
+
+@if (isset($js))
+    {{ $js }}
+@endisset
