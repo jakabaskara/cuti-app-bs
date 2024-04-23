@@ -23,7 +23,8 @@
                             <td class="text-center">{{ $dataCuti->karyawan->NIK }}</td>
                             <td>{{ $dataCuti->karyawan->nama }}</td>
                             <td>{{ $dataCuti->karyawan->jabatan }}</td>
-                            <td class="text-center">{{ $dataCuti->jumlah_cuti_panjang + $dataCuti->jumlah_cuti_tahunan }}
+                            <td class="text-center">
+                                {{ $dataCuti->jumlah_cuti_panjang + $dataCuti->jumlah_cuti_tahunan . ' Hari' }}
                             </td>
                             <td class="text-center">
                                 {{ date('d-m', strtotime($dataCuti->tanggal_mulai)) . ' s.d ' . date('d-m Y', strtotime($dataCuti->tanggal_selesai)) }}

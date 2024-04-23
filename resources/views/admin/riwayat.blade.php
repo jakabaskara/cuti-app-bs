@@ -1,6 +1,7 @@
 @extends('admin.layout.main')
 
 @section('css')
+    <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     @livewireStyles()
 @endsection
 
@@ -21,5 +22,11 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     @livewireScripts()
+
+
+    <script>
+        $('#tableData1').DataTable();
+    </script>
 @endsection
