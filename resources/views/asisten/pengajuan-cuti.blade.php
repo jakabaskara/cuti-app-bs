@@ -212,6 +212,8 @@
 
 
     <script>
+        var fp;
+
         function confirmation(id) {
             Swal.fire({
                 title: "Apakah anda yakin untuk membatalkan?",
@@ -239,7 +241,7 @@
             .then(response => response.json())
             .then(data => {
                 var holidays = data;
-                var fp = flatpickr('.flatpickr1', {
+                fp = flatpickr('.flatpickr1', {
                     mode: 'range',
                     onChange: function(selectedDates, dateStr, instance) {
                         if (selectedDates.length >= 2) {

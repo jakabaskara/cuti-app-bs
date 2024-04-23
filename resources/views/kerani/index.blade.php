@@ -321,11 +321,12 @@
 
 
     <script>
+        var fp;
         fetch("{{ asset('assets/libur.json') }}")
             .then(response => response.json())
             .then(data => {
                 var holidays = data;
-                var fp = flatpickr('.flatpickr1', {
+                fp = flatpickr('.flatpickr1', {
                     mode: 'range',
                     onChange: function(selectedDates, dateStr, instance) {
                         if (selectedDates.length >= 2) {
@@ -445,6 +446,7 @@
             Livewire.dispatch('setname', {
                 id: selectedValue
             });
+            fp.clear();
         });
 
         @if ($errors->any())
