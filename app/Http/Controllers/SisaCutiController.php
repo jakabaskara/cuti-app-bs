@@ -20,7 +20,17 @@ class SisaCutiController extends Controller
         $namaUser = $karyawan->nama;
         $jabatan = $karyawan->posisi->jabatan;
 
-        $sisaCuti = SisaCuti::with('karyawan.posisi.unitKerja');
+        // $sisaCuti = SisaCuti::with('karyawan.posisi.unitKerja');
+
+        $sisaCuti = SisaCuti::select(
+            'id_karyawan',
+            \DB::raw('SUM(CASE WHEN id_jenis_cuti = 1 THEN jumlah ELSE 0 END) AS total_cuti_tahunan'),
+            \DB::raw('SUM(CASE WHEN id_jenis_cuti = 2 THEN jumlah ELSE 0 END) AS total_cuti_panjang')
+        )
+            ->groupBy('id_karyawan')
+            ->get();
+
+        // dd($sisaCuti->first());
 
         // $dataCuti = SisaCuti::with('karyawan.posisi.unitKerja');
 

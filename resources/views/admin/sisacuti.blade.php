@@ -28,12 +28,11 @@
                                     <th rowspan="2" class="text-dark">NIK</th>
                                     <th rowspan="2" class="text-dark">Nama</th>
                                     <th rowspan="2" class="text-dark">Unit Kerja</th>
-                                    <th rowspan="2" class="text-dark">Posisi</th>
                                     <th colspan="3" class="text-dark">Sisa Cuti</th>
                                 </tr>
                                 <tr class="text-center align-middle">
-                                    <th class="text-dark">Jenis</th>
-                                    <th class="text-dark">Periode</th>
+                                    <th class="text-dark">Cuti Tahunan</th>
+                                    <th class="text-dark">Cuti Panjang</th>
                                     <th class="text-dark">Jumlah</th>
                                 </tr>
                             </thead>
@@ -44,10 +43,9 @@
                                         <td>{{ $sisaCuti->karyawan->NIK }}</td>
                                         <td>{{ $sisaCuti->karyawan->nama }}</td>
                                         <td>{{ $sisaCuti->karyawan->posisi->unitKerja->nama_unit_kerja }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $sisaCuti->total_cuti_tahunan }}</td>
+                                        <td>{{ $sisaCuti->total_cuti_panjang }}</td>
+                                        <td>{{ $sisaCuti->total_cuti_panjang + $sisaCuti->total_cuti_tahunan }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
