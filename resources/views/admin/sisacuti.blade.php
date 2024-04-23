@@ -43,8 +43,8 @@
                                         <td>{{ $sisaCuti->karyawan->NIK }}</td>
                                         <td>{{ $sisaCuti->karyawan->nama }}</td>
                                         <td>{{ $sisaCuti->karyawan->posisi->unitKerja->nama_unit_kerja }}</td>
-                                        <td>{{ $sisaCuti->total_cuti_tahunan }}</td>
                                         <td>{{ $sisaCuti->total_cuti_panjang }}</td>
+                                        <td>{{ $sisaCuti->total_cuti_tahunan }}</td>
                                         <td>{{ $sisaCuti->total_cuti_panjang + $sisaCuti->total_cuti_tahunan }}</td>
                                     </tr>
                                 @endforeach
