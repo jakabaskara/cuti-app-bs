@@ -16,7 +16,11 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, Admin 👋</h3>
+    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
+
+    {{-- @livewire('kabag-status-bar-index') --}}
+    {{-- @livewire('status-bar-index') --}}
+
 
     <div class="row">
         <div class="col-xl-4">
@@ -28,7 +32,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Karyawan</span>
-                            <span class="widget-stats-amount">100</span>
+                            <span class="widget-stats-amount">{{ $disetujui }}</span>
                             <span class="widget-stats-info">Form Cuti Disetujui</span>
                         </div>
                     </div>
@@ -44,7 +48,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Pending</span>
-                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-amount">{{ $pending }}</span>
                             <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
                     </div>
@@ -60,7 +64,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Dibatalkan</span>
-                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-amount">{{ $ditolak }}</span>
                             <span class="widget-stats-info">Form Cuti Ditolak</span>
                         </div>
                     </div>
