@@ -40,7 +40,7 @@ class AdminDashboardController extends Controller
         
 
         $getDisetujui = PermintaanCuti::where('is_approved', 1)->count();
-        $getPending = PermintaanCuti::where('is_checked', 1)->count();
+        $getPending = PermintaanCuti::where('is_checked', 1)->where('is_approved', 0)->where('is_rejected', 0)->count();
         $getDitolak = PermintaanCuti::where('is_rejected', 1)->count();
 
         return view('admin.index', [
