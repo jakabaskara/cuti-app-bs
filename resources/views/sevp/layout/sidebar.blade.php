@@ -41,9 +41,9 @@
                 <a href=""><i class="material-icons-two-tone">person</i>Akun<i
                         class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                 <ul class="sub-menu">
-                    <li>
+                    {{-- <li>
                         <a href="#">Profile</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('password.change') }}">Ganti Password</a>
                     </li>
