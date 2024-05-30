@@ -52,7 +52,7 @@ class Karyawan extends Model
 
     public function karyawanCutiBersama()
     {
-        return $this->hasMany(KaryawanCutiBersama::clas, 'id_karyawan');
+        return $this->hasMany(KaryawanCutiBersama::class, 'id_karyawan');
     }
 
 
