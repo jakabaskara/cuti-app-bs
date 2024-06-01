@@ -69,49 +69,8 @@
         </div>
     </div>
 
-    <div class="col">
+    {{-- <div class="col">
         <div class="row">
-            {{-- <div class="col-xl-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="tableData1">
-                                <thead class="table-dark">
-                                    <tr class="text-center align-middle">
-                                        <th>No.</th>
-                                        <th>NIK SAP</th>
-                                        <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
-                                        <th>Jumlah</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $i = 1;
-                                    @endphp
-                                    @foreach ($sisaCutis as $sisaCuti)
-                                        <tr class="text-center align-middle">
-                                            <td>{{ $i }}</td>
-                                            <td>{{ $sisaCuti->NIK }}</td>
-                                            <td class="text-start">{{ $sisaCuti->nama }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
-                                        </tr>
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="col">
                 <div class="card" style="min-height: 700px">
                     <div class="card-header">
@@ -123,7 +82,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="row mt-1">
         <div class="col">
             <div class="card">
