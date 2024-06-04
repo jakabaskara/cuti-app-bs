@@ -35,7 +35,7 @@ class NotificationController extends Controller
         $keyboard = json_encode($keyboard);
 
         // Kirim pesan dengan keyboard inline
-        $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$message&reply_markup=$keyboard");
+        $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1372257967&text=$message&reply_markup=$keyboard");
 
         return redirect()->back();
     }
@@ -44,7 +44,7 @@ class NotificationController extends Controller
     {
         $message = 'Notification Send Back';
 
-        $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$message");
+        $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1372257967&text=$message");
     }
 
     public function webhook(Request $request)
@@ -215,7 +215,7 @@ class NotificationController extends Controller
         //     $chatId = $callbackQuery->getMessage()->getChat()->getId();
 
         //     // Periksa apakah ID chat pengguna yang melakukan tindakan sama dengan ID yang diizinkan
-        //     if ($chatId == '1176854977') {
+        //     if ($chatId == '1372257967') {
         //         // Lakukan tindakan hanya jika ID chat pengguna yang sesuai dengan yang diizinkan
         //         $permintaanCutiId = $data;
         //         $permintaanCuti = PermintaanCuti::findOrFail($permintaanCutiId);
