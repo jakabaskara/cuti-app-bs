@@ -56,7 +56,7 @@ class TableMengetahuiCuti extends Component
             $message .= "Nama: " . $riwayat->permintaanCuti->karyawan->nama . "\n";
             $message .= "Tanggal Mulai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_mulai)) . "\n";
             $message .= "Tanggal Selesai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_selesai)) . "\n";
-            $message .= "Jumlah: " . $riwayat->permintaanCuti->jumlah_cuti_panjang + $riwayat->permintaanCuti->jumlah_cuti_tahunan . " HK";
+            $message .= "Jumlah: " . $riwayat->permintaanCuti->jumlah_cuti_panjang + $riwayat->permintaanCuti->jumlah_cuti_tahunan . " HK\n";
             $message .= "Alasan: " . $riwayat->permintaanCuti->alasan;
 
             Notification::send($user, new SendNotification($message));
