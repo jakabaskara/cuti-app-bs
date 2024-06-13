@@ -40,9 +40,21 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+        #vanta-bg {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="vanta-bg"></div>
     <div class="container">
         <div class="row justify-content-center align-items-center" style="height: 100vh;">
             <div class="app-auth-container">
@@ -98,6 +110,24 @@
     <script src="{{ asset('assets/plugins/pace/pace.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+
+    <script>
+        VANTA.FOG({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            highlightColor: 0x8686c2,
+            midtoneColor: 0x8d8dd9,
+            lowlightColor: 0x2f00ff,
+            baseColor: 0xffffff
+        })
+    </script>
 </body>
 
 </html>
