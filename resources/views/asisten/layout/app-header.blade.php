@@ -95,7 +95,7 @@
                               aria-labelledby="notificationsDropDown">
                               <h6 class="dropdown-header">Notifications</h6>
                               <div class="notifications-dropdown-list">
-                                  <a href="#">
+                                  {{-- <a href="#">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">
                                               <span class="notifications-badge bg-info text-white">
@@ -107,7 +107,7 @@
                                               </div>
                                           </div>
                                       </div>
-                                  </a>
+                                  </a> --}}
                                   {{-- <a href="#" wire:click="$emitTo('profile-modal', 'mount', {{ $id }})">
                                       <div class="notifications-dropdown-item">
                                           <div class="notifications-dropdown-item-image">

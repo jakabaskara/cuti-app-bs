@@ -16,19 +16,19 @@
 @endsection
 
 @section('content')
-    <h3 class="mb-4">Halo, Admin 👋</h3>
+    <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     <div class="row">
         <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-info">
-                            <i class="material-icons-outlined">person</i>
+                        <div class="widget-stats-icon widget-stats-icon-success">
+                            <i class="material-icons-outlined">check_circle</i>
                         </div>
                         <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Karyawan</span>
-                            <span class="widget-stats-amount">100</span>
+                            <span class="widget-stats-title text-dark">Disetujui</span>
+                            <span class="widget-stats-amount">{{ $disetujui }}</span>
                             <span class="widget-stats-info">Form Cuti Disetujui</span>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Pending</span>
-                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-amount">{{ $pending }}</span>
                             <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="widget-stats-content flex-fill">
                             <span class="widget-stats-title text-dark">Dibatalkan</span>
-                            <span class="widget-stats-amount"></span>
+                            <span class="widget-stats-amount">{{ $ditolak }}</span>
                             <span class="widget-stats-info">Form Cuti Ditolak</span>
                         </div>
                     </div>
@@ -69,87 +69,20 @@
         </div>
     </div>
 
-    <div class="col">
+    {{-- <div class="col">
         <div class="row">
-            <div class="col-xl-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="text-center">Daftar Sisa Cuti Karyawan</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="tableData1">
-                                <thead class="table-dark">
-                                    <tr class="text-center align-middle">
-                                        <th>No.</th>
-                                        <th>NIK SAP</th>
-                                        <th>Nama</th>
-                                        <th>Sisa<br>Cuti<br>Tahunan</th>
-                                        <th>Sisa<br>Cuti<br>Panjang</th>
-                                        <th>Jumlah</th>
-                                        {{-- <th>Periode Cuti</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $i = 1;
-                                    @endphp
-                                    @foreach ($sisaCutis as $sisaCuti)
-                                        <tr class="text-center align-middle">
-                                            <td>{{ $i }}</td>
-                                            <td>{{ $sisaCuti->NIK }}</td>
-                                            <td class="text-start">{{ $sisaCuti->nama }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
-                                        </tr>
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col">
                 <div class="card" style="min-height: 700px">
                     <div class="card-header">
-                        <h5 class="text-center">Karyawan Cuti</h5>
+                        <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
                     </div>
                     <div class="card-body">
-                        <div class="table-container">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Nama</th>
-                                        <th>Alasan Cuti</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $i = 1;
-                                    @endphp
-                                    @foreach ($karyawanCuti as $cuti)
-                                        <tr>
-                                            <td class="text-center">{{ $i }}</td>
-                                            <td>{{ $cuti->karyawan->nama }}</td>
-                                            <td>{{ $cuti->alasan }}</td>
-                                        </tr>
-                                        @php
-                                            $i++;
-                                        @endphp
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @livewire('karyawan-cuti-table')
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- <div class="row mt-1">
         <div class="col">
             <div class="card">
