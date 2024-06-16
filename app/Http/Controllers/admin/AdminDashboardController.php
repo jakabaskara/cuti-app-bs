@@ -37,10 +37,19 @@ class AdminDashboardController extends Controller
         // $getPending = PermintaanCuti::getPending($idPosisi);
         // $getDitolak = PermintaanCuti::getDitolak($idPosisi);
         $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
-        
+
 
         $getDisetujui = PermintaanCuti::where('is_approved', 1)->count();
-        $getPending = PermintaanCuti::where('is_checked', 1)->where('is_approved', 0)->where('is_rejected', 0)->count();
+        // $getPending = PermintaanCuti::where('is_checked', 1)->where('is_approved', 0)->where('is_rejected', 0)->count();
+        $getPending = PermintaanCuti::where(function ($query) {
+            $query->where('is_checked', 1)
+                  ->where('is_approved', 0)
+                  ->where('is_rejected', 0);
+        })->orWhere(function ($query) {
+            $query->where('is_checked', 0)
+                  ->where('is_approved', 0)
+                  ->where('is_rejected', 0);
+        })->count();
         $getDitolak = PermintaanCuti::where('is_rejected', 1)->count();
 
         return view('admin.index', [
