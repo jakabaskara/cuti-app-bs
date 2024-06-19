@@ -1,30 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\sevp;
+namespace App\Http\Controllers\asisten;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\JenisCuti;
 use App\Models\Keanggotaan;
 use App\Models\PermintaanCuti;
 use App\Models\SisaCuti;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\UnitKerja;
+use App\Models\Posisi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class SevpBeritaCutiController extends Controller
+class AsistenBeritaCutiController extends Controller
 {
+
+
     public function index()
     {
         $idUser = Auth::user()->id;
-        $user = User::find($idUser);
+        $user = User::with(['karyawan.posisi'])->find($idUser); // Eager load untuk menghindari N+1 problem
+
+        if (!$user || !$user->karyawan || !$user->karyawan->posisi) {
+            abort(404, 'Data karyawan atau posisi tidak ditemukan.');
+        }
+
         $idPosisi = $user->karyawan->posisi->id;
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
+        $unitKerjaId = $user->karyawan->posisi->id_unit_kerja; // Pastikan nama kolom sesuai dengan yang ada di database
 
-        // Mengambil semua permintaan cuti yang disetujui
-        $cutiDisetujui = PermintaanCuti::where('is_approved', 1)->get();
+        // Mengambil semua permintaan cuti yang disetujui dari unit kerja yang sama
+        $cutiDisetujui = PermintaanCuti::where('is_approved', 1)
+            ->whereHas('karyawan.posisi', function($query) use ($unitKerjaId) {
+                $query->where('id_unit_kerja', $unitKerjaId);
+            })
+            ->get();
 
         // Koleksi untuk menyimpan tanggal dan jumlah karyawan cuti
         $tanggalCutiMap = [];
@@ -56,7 +70,7 @@ class SevpBeritaCutiController extends Controller
             ];
         })->values()->toJson();
 
-        return view('sevp.cuti', [
+        return view('asisten.cuti', [
             'idPosisi' => $idPosisi,
             'nama' => $namaUser,
             'jabatan' => $jabatan,

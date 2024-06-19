@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AdminKaryawanController;
 use App\Http\Controllers\asisten\AsistenDashboardController;
+use App\Http\Controllers\asisten\AsistenBeritaCutiController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\admin\AdminRiwayatCutiController;
@@ -68,6 +69,8 @@ Route::group(['prefix' => 'pic'], function () {
 
 Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function () {
     Route::get('/', [AsistenDashboardController::class, 'index'])->name('asisten.index');
+    Route::get('/cuti', [AsistenBeritaCutiController::class, 'index'])->name('asisten.cuti.index');
+    
     Route::get('/pengajuan-cuti', [AsistenDashboardController::class, 'pengajuanCuti'])->name('asisten.pengajuan-cuti');
 
     Route::post('/add-cuti', [AsistenDashboardController::class, 'submitCuti'])->name('asisten.submit-cuti');

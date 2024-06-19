@@ -24,19 +24,29 @@ class AsistenDashboardController extends Controller
         $user = User::find($idUser);
         $karyawan = $user->karyawan;
 
+        $idPosisi = $karyawan->posisi->id;
+
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
         $riwayat = PermintaanCuti::getHistoryCuti($karyawan->id_posisi)->get();
         $isKebun = $karyawan->posisi->unitKerja->is_kebun;
 
+        $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
+        $getPending = PermintaanCuti::getPending($idPosisi);
+        $getDitolak = PermintaanCuti::getDitolak($idPosisi);
 
         return view('asisten.index', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
             'riwayats' => $riwayat,
             'is_kebun' => $isKebun,
+            'disetujui' => $getDisetujui,
+            'pending' => $getPending,
+            'ditolak' => $getDitolak,
         ]);
     }
+
+
 
     public function pengajuanCuti()
     {

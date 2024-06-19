@@ -1,4 +1,5 @@
-@extends('kerani.layout.main')
+@extends('asisten.layout.main')
+
 
 @section('css')
     <link href="{{ asset('assets/plugins/fullcalendar/lib/main.min.css') }}" rel="stylesheet">

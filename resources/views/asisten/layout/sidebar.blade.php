@@ -21,6 +21,12 @@
                     class="{{ request()->route()->uri == 'asisten' ? 'active' : '' }}"><i
                         class="material-icons-two-tone">dashboard</i>Dashboard</a>
             </li>
+            <li class="{{ request()->route()->uri == 'asisten/cuti' ? 'active-page' : '' }}">
+                <a href="{{ route('asisten.cuti.index') }}"
+                    class="{{ request()->route()->uri == 'asisten/cuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">inbox</i>Berita Karyawan Cuti<span
+                        class="badge rounded-pill badge-danger float-end"></span></a>
+            </li>
             <li class="{{ request()->route()->uri == 'asisten/pengajuan-cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('asisten.pengajuan-cuti') }}"
                     class="{{ request()->route()->uri == 'asisten/pengajuan-cuti' ? 'active' : '' }}"><i

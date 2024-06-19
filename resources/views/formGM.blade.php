@@ -49,8 +49,11 @@
             <table style="margin-top: -15px;">
                 <tr>
                     <td>1.1.</td>
-                    <td>Tgl. {{ date('d F Y', strtotime($permintaanCuti->tanggal_mulai)) }} s.d
-                        {{ date('d F Y', strtotime($permintaanCuti->tanggal_selesai)) }}
+                    <td>
+                        Tgl.
+                        {{ \Carbon\Carbon::parse($permintaanCuti->tanggal_mulai)->locale('id')->isoFormat('D MMMM YYYY') }}
+                        s.d
+                        {{ \Carbon\Carbon::parse($permintaanCuti->tanggal_selesai)->locale('id')->isoFormat('D MMMM YYYY') }}
                         <span>&nbsp;</span>
                     </td>
                     <td style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</td>
@@ -195,7 +198,9 @@
                 <tr>
                     <td rowspan="2">Diketahui,</td>
                     <td rowspan="2" style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaa</td>
-                    <td>Pontianak, {{ date('d F Y', strtotime($permintaanCuti->updated_at)) }}</td>
+                    <td>Pontianak,
+                        {{ \Carbon\Carbon::parse($permintaanCuti->updated_at)->locale('id')->isoFormat('D MMMM YYYY') }}
+                    </td>
                 </tr>
                 <tr>
                     <td>Pemohon</td>

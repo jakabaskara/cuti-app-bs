@@ -52,30 +52,30 @@ class TableMengetahuiCuti extends Component
             $riwayat->jabatan_checker = $karyawan->jabatan;
             $riwayat->save();
 
-            $message = "Terdapat Permintaan Cuti Baru\n";
-            $message .= "Nama: " . $riwayat->permintaanCuti->karyawan->nama . "\n";
-            $message .= "Tanggal Mulai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_mulai)) . "\n";
-            $message .= "Tanggal Selesai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_selesai)) . "\n";
-            $message .= "Jumlah: " . $riwayat->permintaanCuti->jumlah_cuti_panjang + $riwayat->permintaanCuti->jumlah_cuti_tahunan . " HK\n";
-            $message .= "Alasan: " . $riwayat->permintaanCuti->alasan;
+            // $message = "Terdapat Permintaan Cuti Baru\n";
+            // $message .= "Nama: " . $riwayat->permintaanCuti->karyawan->nama . "\n";
+            // $message .= "Tanggal Mulai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_mulai)) . "\n";
+            // $message .= "Tanggal Selesai: " . date('d M Y', strtotime($riwayat->permintaanCuti->tanggal_selesai)) . "\n";
+            // $message .= "Jumlah: " . $riwayat->permintaanCuti->jumlah_cuti_panjang + $riwayat->permintaanCuti->jumlah_cuti_tahunan . " HK\n";
+            // $message .= "Alasan: " . $riwayat->permintaanCuti->alasan;
 
-            Notification::send($user, new SendNotification($message));
+            // Notification::send($user, new SendNotification($message));
 
-            $keyboard = Keyboard::make()->inline();
+            // $keyboard = Keyboard::make()->inline();
 
-            $buttonSetujui = Keyboard::inlineButton(['text' => 'Klik untuk konfirmasi',  'web_app' => ['url' => 'https://cuti.reg5palmco.com']]);
+            // $buttonSetujui = Keyboard::inlineButton(['text' => 'Klik untuk konfirmasi',  'web_app' => ['url' => 'https://cuti.reg5palmco.com']]);
 
-            $keyboard->row([$buttonSetujui]);
+            // $keyboard->row([$buttonSetujui]);
 
-            $pesan = 'Apakah Cuti Disetujui?';
+            // $pesan = 'Apakah Cuti Disetujui?';
 
-            $keyboard = json_encode($keyboard);
+            // $keyboard = json_encode($keyboard);
 
-            $response = Telegram::sendMessage([
-                'chat_id' => '1176854977',
-                'text' => $pesan,
-                'reply_markup' => $keyboard,
-            ]);
+            // $response = Telegram::sendMessage([
+            //     'chat_id' => '1176854977',
+            //     'text' => $pesan,
+            //     'reply_markup' => $keyboard,
+            // ]);
         });
         $this->dispatch('refresh');
         $this->dispatch('ketahui');
