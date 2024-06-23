@@ -149,7 +149,6 @@
                                             <th class="text-dark">No.</th>
                                             <th class="text-dark">NIK</th>
                                             <th class="text-dark">Nama</th>
-                                            {{-- <th class="text-dark">Jenis Cuti</th> --}}
                                             <th class="text-dark">Jumlah<br>Hari</th>
                                             <th class="text-dark">Periode<br>Tanggal</th>
                                             <th class="text-dark">Alasan</th>
@@ -267,7 +266,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                 </div>
             </div>
         </div>
@@ -317,14 +315,7 @@
         Livewire.on('terima', (event) => {
             round_success_noti();
         });
-        // window.on('refresh', (e) => {
 
-        //     console.log('tes');
-        //     round_danger_noti('Cuti Ditolak!');
-
-        //     $('#dataTable2').DataTable();
-        //     $('#tableData1').DataTable();
-        // })
         Livewire.on('refresh-datatable', (event) => {
             console.log('ssss');
             var dataTable = $('#tableData1').DataTable();
@@ -333,21 +324,10 @@
             console.log('Instance DataTable sebelumnya dihancurkan');
             $('#tableData1').DataTable(); // Membuat instance DataTable bar
         })
-        // window.addEventListener('refresh-datatable', event => {
-        //     console.log('tes');
-
-        // })
 
 
-        // $(function() {
-        //     $('input[name="daterange"]').daterangepicker({
-        //         opens: 'left'
-        //     }, function(start, end, label) {
-        //         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end
-        //             .format('YYYY-MM-DD'));
-        //     });
-        //     // $('#dataTable2').DataTable();
-        // });
+        
+
 
         function round_success_noti() {
             Lobibox.notify('success', {

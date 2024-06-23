@@ -18,7 +18,7 @@
                         <div class="col">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                                + Ajukan Cuti
+                                Buat Surat
                             </button>
                             {{-- <button @click="showModal = true">Open Modal</button> --}}
                         </div>
@@ -35,7 +35,6 @@
                                             <th class="text-dark">No.</th>
                                             <th class="text-dark">NIK</th>
                                             <th class="text-dark">Nama</th>
-                                            {{-- <th class="text-dark">Jenis Cuti</th> --}}
                                             <th class="text-dark">Jumlah<br>Hari</th>
                                             <th class="text-dark">Periode<br>Tanggal</th>
                                             <th class="text-dark">Alasan</th>
@@ -53,7 +52,6 @@
                                                 <td class="text-dark">{{ $i }}</td>
                                                 <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
                                                 <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
-                                                {{-- <td class="text-dark">{{ $riwayat->sisa_cuti_panjang }}</td> --}}
                                                 <td class="text-dark">
                                                     {{ $riwayat->jumlah_cuti_panjang + $riwayat->jumlah_cuti_tahunan }}</td>
                                                 <td class="text-dark">
@@ -78,7 +76,8 @@
                                                             class="badge badge-danger p-2">Ditolak</span>
                                                     </td>
                                                     <td class="">
-                                                        <button class="btn btn-sm btn-info px-1 py-0">
+                                                        <button id="" data-id='{{ $riwayat->id }}'
+                                                            class="btn btn-sm btn-info px-1 py-0 tolak">
                                                             <span class="material-icons text-sm p-0 align-middle">
                                                                 info
                                                             </span>
@@ -90,7 +89,7 @@
                                                     </td>
                                                     <td class="">
                                                         <form id="deleteForm{{ $riwayat->id }}"
-                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            action="{{ route('asisten.delete-cuti', $riwayat->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -108,7 +107,7 @@
                                                     </td>
                                                     <td class="">
                                                         <form id="deleteForm{{ $riwayat->id }}"
-                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            action="{{ route('asisten.delete-cuti', $riwayat->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -199,7 +198,23 @@
         </form>
     </div>
 
-    {{-- @livewire('asisten-modal-add-cuti') --}}
+    <!-- Modal alasan tolak -->
+    <div class="modal fade" id="tolakmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alasan Tolak Cuti</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @livewire('informasi-tolak')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -336,23 +351,6 @@
             });
         });
 
-        function round_success_noti() {
-            Lobibox.notify('success', {
-                pauseDelayOnHover: true,
-                size: 'mini',
-                rounded: true,
-                icon: 'bx bx-check-circle',
-                delayIndicator: false,
-                continueDelayOnInactiveTab: false,
-                position: 'top right',
-                sound: false,
-                msg: 'Pengajuan Cuti Berhasil Dibuat!'
-            });
-        }
-
-        @if (session('message'))
-            round_success_noti()
-        @endif
 
         $('#select2').select2({
             dropdownParent: $('#exampleModal .modal-content')
@@ -370,7 +368,21 @@
         @endif
 
 
-        function round_error_noti(msg) {
+        function round_success_noti(message) {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                sound: false,
+                msg: message
+            });
+        }
+
+        function round_error_noti(message) {
             Lobibox.notify('error', {
                 pauseDelayOnHover: true,
                 size: 'mini',
@@ -380,9 +392,30 @@
                 continueDelayOnInactiveTab: false,
                 position: 'top right',
                 sound: false,
-                msg: msg + '!',
+                msg: message
             });
         }
+
+        @if (session('message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_success_noti("{{ session('message') }}");
+            });
+        @endif
+
+        @if (session('error_message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_error_noti("{{ session('error_message') }}");
+            });
+        @endif
+
+        //script modal alasan tolak
+        $('.tolak').on('click', function() {
+            var id = $(this).data('id');
+            $('#tolakmodal').modal('show');
+            Livewire.dispatch('setKeterangan', {
+                id: id,
+            });
+        })
     </script>
     @livewireScripts()
 @endsection

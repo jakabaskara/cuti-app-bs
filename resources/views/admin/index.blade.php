@@ -202,22 +202,22 @@
         //     $('#datatable2').DataTable();
         // });
 
-        flatpickr('.flatpickr1', {
-            mode: 'range',
-            onChange: function(selectedDates, dateStr, instance) {
-                if (selectedDates.length >= 2) {
-                    var startDate = selectedDates[0];
-                    var endDate = selectedDates[selectedDates.length - 1];
+        // flatpickr('.flatpickr1', {
+        //     mode: 'range',
+        //     onChange: function(selectedDates, dateStr, instance) {
+        //         if (selectedDates.length >= 2) {
+        //             var startDate = selectedDates[0];
+        //             var endDate = selectedDates[selectedDates.length - 1];
 
-                    // Hitung selisih dalam milidetik
-                    var difference = endDate.getTime() - startDate.getTime();
+        //             Hitung selisih dalam milidetik
+        //             var difference = endDate.getTime() - startDate.getTime();
 
-                    // Konversi selisih ke jumlah hari
-                    var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+        //             Konversi selisih ke jumlah hari
+        //             var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
-                    document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
-                }
-            }
-        });
+        //             document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;
+        //         }
+        //     }
+        // });
     </script>
 @endsection

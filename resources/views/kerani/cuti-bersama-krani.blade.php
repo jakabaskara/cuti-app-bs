@@ -47,7 +47,6 @@
                         <h5 class="modal-title text-center" id="hadirModalLabel">Konfirmasi Karyawan yang Tidak Melakukan
                             Cuti Bersama
                         </h5>
-                        {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
                     </div>
                     <div class="modal-body px-5 py-3">
                         <p class="keterangan mb-3"></p>

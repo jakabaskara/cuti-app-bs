@@ -177,9 +177,9 @@ class KeraniDashboardController extends Controller
             // $keyboard = json_encode($keyboard);
 
             // $response = Telegram::sendMessage([
-            //     'chat_id' => '1176854977', 
-            //     'text' => $pesan, 
-            //     'reply_markup' => $keyboard, 
+            //     'chat_id' => '1176854977',
+            //     'text' => $pesan,
+            //     'reply_markup' => $keyboard,
             // ]);
 
             // Kirim pesan dengan keyboard inline
@@ -282,7 +282,7 @@ class KeraniDashboardController extends Controller
             $permintaanCuti->delete();
         });
 
-        return redirect()->back()->with('message', 'Data Berhasil Dihapus');
+        return redirect()->back()->with('error_message', 'Data Berhasil Dihapus');
     }
 
     public function sendNoti()

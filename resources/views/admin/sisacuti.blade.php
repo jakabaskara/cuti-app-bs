@@ -14,14 +14,6 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered table-hover" id="dataTable">
-                            {{-- <thead class="table-dark">
-                                <tr class="text-center align-middle">
-                                    <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Unit Kerja</th>
-                                </tr>
-                            </thead> --}}
                             <thead class="table-dark">
                                 <tr class="text-center align-middle">
                                     <th rowspan="2" class="text-dark">ID</th>

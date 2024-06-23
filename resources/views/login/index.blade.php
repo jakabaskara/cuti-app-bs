@@ -93,7 +93,6 @@
 
                     <div class="auth-submit">
                         <button type="submit" class="btn btn-primary">Masuk</button>
-                        <a href="#" class="auth-forgot-password float-end">Forgot password?</a>
                     </div>
                 </form>
                 <div class="divider"></div>

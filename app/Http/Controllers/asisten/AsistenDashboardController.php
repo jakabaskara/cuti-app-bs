@@ -189,14 +189,17 @@ class AsistenDashboardController extends Controller
         return redirect()->back()->with('message', 'Permintaan Cuti Berhasil Dibuat!');
     }
 
-    public function deleteCuti($id)
+    public function delete($id)
     {
-        $permintaanCuti = PermintaanCuti::find($id);
-        $nama = $permintaanCuti->karyawan->nama;
-        $permintaanCuti->delete();
+        DB::transaction(function () use ($id) {
+            $riwayatPermintaanCuti = RiwayatCuti::where('id_permintaan_cuti', $id);
+            $riwayatPermintaanCuti->delete();
 
+            $permintaanCuti = PermintaanCuti::find($id);
+            $permintaanCuti->delete();
+        });
 
-        return redirect()->back()->with('message', 'Data Cuti ' . $nama . "Berhasil Dihapus");
+        return redirect()->back()->with('error_message', 'Data Berhasil Dihapus');
     }
 
     public function downloadPermintaanCutiPDF($id)
