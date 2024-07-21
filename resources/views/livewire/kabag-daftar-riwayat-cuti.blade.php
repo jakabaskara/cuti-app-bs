@@ -52,6 +52,9 @@
                         @elseif ($permintaanCuti->is_rejected == 1)
                             <td class="text-dark"> <span class="badge badge-danger p-2">Ditolak</span>
                             </td>
+                        @elseif ($permintaanCuti->is_checked == 0)
+                            <td class="text-dark"> <span class="badge badge-dark p-2">Belum Diperiksa</span>
+                            </td>
                         @else
                             <td class="text-dark"> <span class="badge badge-warning p-2">Pending</span>
                             </td>

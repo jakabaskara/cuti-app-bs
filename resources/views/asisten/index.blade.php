@@ -10,11 +10,8 @@
 
 @section('content')
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
-
-    {{-- @livewire('kabag-status-bar-index') --}}
-
-    <div class="row">
-        <div class="col-xl-4">
+    {{-- <div class="row">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -30,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -46,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -62,7 +59,25 @@
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-xl-3">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-primary">
+                            <i class="material-icons-outlined">info</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Menunggu Dicek</span>
+                            <span class="widget-stats-amount">{{ $menunggudiketahui }}</span>
+                            <span class="widget-stats-info">Form Cuti Belum di Cek</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    @livewire('asisten-status-bar-index')
 
     @if ($is_kebun == 1)
         <div class="row">
@@ -207,7 +222,7 @@
                                                     </td>
                                                     <td class="">
                                                         <form id="deleteForm{{ $riwayat->id }}"
-                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            action="{{ route('asisten.delete-cuti', $riwayat->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -225,7 +240,7 @@
                                                     </td>
                                                     <td class="">
                                                         <form id="deleteForm{{ $riwayat->id }}"
-                                                            action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                            action="{{ route('asisten.delete-cuti', $riwayat->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
@@ -271,6 +286,8 @@
         </div>
     </div>
 
+
+    {{-- modal untuk menolak cuti --}}
     <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -296,38 +313,71 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
+        // function showRejectModal(id) {
+        //     $('#rejectModal').modal('show');
+        //     Livewire.dispatch('getCuti', {
+        //         id: id,
+        //     });
+        // }
+
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
+            $('#textTolak').val(''); // Kosongkan input alasan penolakan
             Livewire.dispatch('getCuti', {
                 id: id,
             });
         }
-        document.addEventListener('livewire:init', () => {
 
-            Livewire.on('tolak', (event) => {
-                round_danger_noti('Cuti Ditolak!');
-            });
+        // document.addEventListener('livewire:init', () => {
 
-            Livewire.on('cutiKurang', (event) => {
-                round_danger_noti('Jumlah Sisa Cuti Kurang!');
-            });
+        //     Livewire.on('tolak', (event) => {
+        //         round_danger_noti('Cuti Ditolak!');
+        //     });
+
+        //     Livewire.on('cutiKurang', (event) => {
+        //         round_danger_noti('Jumlah Sisa Cuti Kurang!');
+        //     });
+        // });
+        // Livewire.on('terima', (event) => {
+        //     round_success_noti();
+        // });
+
+        // Livewire.on('refresh-datatable', (event) => {
+        //     console.log('ssss');
+        //     var dataTable = $('#tableData1').DataTable();
+        //     dataTable.destroy();
+        //     console.log(dataTable.destroy());
+        //     console.log('Instance DataTable sebelumnya dihancurkan');
+        //     $('#tableData1').DataTable(); // Membuat instance DataTable bar
+        // })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attach event listeners only once
+            if (!window.livewireListenersAttached) {
+                Livewire.on('tolak', (event) => {
+                    round_danger_noti('Cuti Ditolak!');
+                });
+
+                Livewire.on('cutiKurang', (event) => {
+                    round_danger_noti('Jumlah Sisa Cuti Kurang!');
+                });
+
+                Livewire.on('terima', (event) => {
+                    round_success_noti();
+                });
+
+                Livewire.on('refresh-datatable', (event) => {
+                    console.log('ssss');
+                    var dataTable = $('#tableData1').DataTable();
+                    dataTable.destroy();
+                    console.log(dataTable.destroy());
+                    console.log('Instance DataTable sebelumnya dihancurkan');
+                    $('#tableData1').DataTable(); // Membuat instance DataTable baru
+                });
+
+                window.livewireListenersAttached = true;
+            }
         });
-        Livewire.on('terima', (event) => {
-            round_success_noti();
-        });
-
-        Livewire.on('refresh-datatable', (event) => {
-            console.log('ssss');
-            var dataTable = $('#tableData1').DataTable();
-            dataTable.destroy();
-            console.log(dataTable.destroy());
-            console.log('Instance DataTable sebelumnya dihancurkan');
-            $('#tableData1').DataTable(); // Membuat instance DataTable bar
-        })
-
-
-        
-
 
         function round_success_noti() {
             Lobibox.notify('success', {
@@ -357,16 +407,56 @@
             });
         }
 
-
-
-        //script modal alasan tolak
-        $('.tolak').on('click', function() {
-            var id = $(this).data('id');
-            $('#tolakmodal').modal('show');
-            Livewire.dispatch('setKeterangan', {
-                id: id,
+        function round_error_noti(message) {
+            Lobibox.notify('error', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bi bi-exclamation-triangle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                sound: false,
+                msg: message
             });
-        })
+        }
+
+        function round_success1_noti() {
+            Lobibox.notify('info', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                msg: 'Cuti Diketahui!',
+                sound: false,
+
+            });
+        }
+
+        @if (session('message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_success_noti("{{ session('message') }}");
+            });
+        @endif
+
+        @if (session('error_message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_error_noti("{{ session('error_message') }}");
+            });
+        @endif
+
+        document.addEventListener('livewire:init', () => {
+            if (!window.livewireNotified) {
+                window.livewireNotified = true;
+                Livewire.on('ketahui', (event) => {
+                    round_success1_noti();
+                });
+            }
+        });
+
 
         $(document).ready(function() {
             $('#tableData1').DataTable({
@@ -387,17 +477,84 @@
                     selector: 'td:nth-child(2)'
                 }
             });
+            // $('#btnTolak').click(function() {
+            //     id = $('#idCuti').val();
+            //     pesan = $('#textTolak').val();
+            //     Livewire.dispatch('tolak_cuti', {
+            //         id: id,
+            //         pesan: pesan,
+            //     })
+            //     $('#rejectModal').modal('hide');
+
+            // });
             $('#btnTolak').click(function() {
-                id = $('#idCuti').val();
-                pesan = $('#textTolak').val();
+                let id = $('#idCuti').val();
+                let pesan = $('#textTolak').val();
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
                     pesan: pesan,
                 })
                 $('#rejectModal').modal('hide');
-
             });
         });
+
+
+
+        //SCRIPT Modal Alasan Tolak
+        // $('.tolak').on('click', function() {
+        //     var id = $(this).data('id');
+        //     $('#tolakmodal').modal('show');
+        //     Livewire.dispatch('setKeterangan', {
+        //         id: id,
+        //     });
+        // })
+
+        let offset = 0;
+        const limit = 10;
+        const actionContainer = document.getElementById('action-container');
+        const loader = document.getElementById('loader');
+
+        function fetchActions() {
+            loader.style.display = 'block';
+            fetch(`get_actions.php?limit=${limit}&offset=${offset}`)
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = 'none';
+                    data.forEach(action => {
+                        const actionDiv = document.createElement('div');
+                        actionDiv.className = 'action';
+                        actionDiv.innerHTML = `
+                            <span class="badge badge-danger p-2">Ditolak</span>
+                            <button data-id='${action.id}' class="btn btn-sm btn-info px-1 py-0 tolak">
+                                <span class="material-icons text-sm p-0 align-middle">info</span>
+                            </button>
+                        `;
+                        actionContainer.appendChild(actionDiv);
+                    });
+                    offset += limit;
+                });
+        }
+
+        function onScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                fetchActions();
+            }
+        }
+
+        window.addEventListener('scroll', onScroll);
+
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.tolak')) {
+                var id = event.target.closest('.tolak').dataset.id;
+                $('#tolakmodal').modal('show');
+                Livewire.dispatch('setKeterangan', {
+                    id: id
+                });
+            }
+        });
+
+        // Fetch the initial set of actions
+        fetchActions();
     </script>
 
     @livewireScripts()

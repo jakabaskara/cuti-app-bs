@@ -142,9 +142,21 @@ class PermintaanCuti extends Model
         return $data;
     }
 
+    // public static function getPending($idPosisi)
+    // {
+    //     $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->count();
+    //     return $data;
+    // }
+
     public static function getPending($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->count();
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->where('is_checked', 1)->count();
+        return $data;
+    }
+
+    public static function getMenunggudiketahui($idPosisi)
+    {
+        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_checked', 0)->count();
         return $data;
     }
 

@@ -39,24 +39,46 @@ class KeraniJenisCuti extends Component
         $this->cutiPanjangDiambil = 0;
     }
 
+    // #[On('setJumlahHariCuti')]
+    // public function validasiCuti($daysDifference, $totalCuti)
+    // {
+    //     // daydif = cuti di ambil
+    //     // totalCuti = sisa cuti keseluruhan
+
+
+    //     if ($daysDifference > $totalCuti) {
+    //         $this->cutiPanjangDiambil = 0;
+    //         $this->cutiTahunanDiambil = 0;
+    //         $this->dispatch('errorCuti');
+    //     } else {
+    //         if ($daysDifference > $this->sisaCutiTahunan) {
+    //             $this->cutiTahunanDiambil = $this->sisaCutiTahunan;
+    //             $this->cutiPanjangDiambil = $daysDifference - $this->sisaCutiTahunan;
+    //         } else {
+    //             $this->cutiTahunanDiambil = $daysDifference;
+    //             $this->cutiPanjangDiambil = 0;
+    //         }
+    //     }
+    // }
+
+
     #[On('setJumlahHariCuti')]
     public function validasiCuti($daysDifference, $totalCuti)
     {
-        // daydif = cuti di ambil
-        // totalCuti = sisa cuti keseluruhan
-
-
         if ($daysDifference > $totalCuti) {
             $this->cutiPanjangDiambil = 0;
             $this->cutiTahunanDiambil = 0;
             $this->dispatch('errorCuti');
         } else {
-            if ($daysDifference > $this->sisaCutiTahunan) {
-                $this->cutiTahunanDiambil = $this->sisaCutiTahunan;
-                $this->cutiPanjangDiambil = $daysDifference - $this->sisaCutiTahunan;
-            } else {
-                $this->cutiTahunanDiambil = $daysDifference;
+            $this->cutiTahunanDiambil = max(0, min($daysDifference, $this->sisaCutiTahunan));
+            $this->cutiPanjangDiambil = max(0, $daysDifference - $this->cutiTahunanDiambil);
+
+            // Adjust if any negative values exist
+            if ($this->cutiPanjangDiambil < 0) {
                 $this->cutiPanjangDiambil = 0;
+            }
+            if ($this->cutiTahunanDiambil < 0) {
+                $this->cutiTahunanDiambil = 0;
             }
         }
     }

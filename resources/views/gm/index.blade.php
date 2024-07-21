@@ -87,19 +87,48 @@
 
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
+
     <script>
+        // $(document).ready(function() {
+        //     $('#btnTolak').click(function() {
+        //         id = $('#idCuti').val();
+        //         pesan = $('#textTolak').val();
+        //         Livewire.dispatch('tolak_cuti', {
+        //             id: id,
+        //             pesan: pesan,
+        //         })
+        //         $('#rejectModal').modal('hide');
+
+        //     });
+        // });
+
+        // function showRejectModal(id) {
+        //     $('#rejectModal').modal('show');
+        //     Livewire.dispatch('getCuti', {
+        //         id: id,
+        //     });
+        // }
+
         $(document).ready(function() {
             $('#btnTolak').click(function() {
-                id = $('#idCuti').val();
-                pesan = $('#textTolak').val();
+                let id = $('#idCuti').val();
+                let pesan = $('#textTolak').val();
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
                     pesan: pesan,
                 })
                 $('#rejectModal').modal('hide');
-
             });
         });
+
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+            $('#textTolak').val(''); // Kosongkan input alasan penolakan
+            Livewire.dispatch('getCuti', {
+                id: id,
+            });
+        }
+
         $('#tableData1').DataTable({
             responsive: true,
             rowReorder: {
@@ -159,6 +188,25 @@
             });
         }
 
+        function round_success2_noti(message) {
+            Lobibox.notify('success', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bx bx-check-circle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                sound: false,
+                msg: message,
+            });
+        }
+
+        @if (session('message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_success_noti("{{ session('message') }}");
+            });
+        @endif
 
         function round_danger_noti(alasan) {
             Lobibox.notify('error', {
@@ -174,10 +222,6 @@
 
             });
         }
-
-        // $('.noti').on('click', function() {
-        //     round_danger_noti();
-        // })
 
         document.addEventListener('livewire:init', () => {
             Livewire.on('ketahui', (event) => {
@@ -197,13 +241,6 @@
             });
 
         });
-
-        function showRejectModal(id) {
-            $('#rejectModal').modal('show');
-            Livewire.dispatch('getCuti', {
-                id: id,
-            });
-        }
     </script>
 
     @livewireScripts()

@@ -11,7 +11,11 @@
 @section('content')
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
-    @livewire('manajer-status-bar-index')
+    @if ($is_kebun == 1)
+        @livewire('manajer-status-bar-index')
+    @else
+        @livewire('status-bar-index')
+    @endif
 
     <div class="row">
         <div class="col">
@@ -65,19 +69,37 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
+        // $(document).ready(function() {
+        //     $('#btnTolak').click(function() {
+        //         id = $('#idCuti').val();
+        //         pesan = $('#textTolak').val();
+        //         Livewire.dispatch('tolak_cuti', {
+        //             id: id,
+        //             pesan: pesan,
+        //         })
+        //         $('#rejectModal').modal('hide');
+
+        //     });
+        // });
         $(document).ready(function() {
             $('#btnTolak').click(function() {
-                id = $('#idCuti').val();
-                pesan = $('#textTolak').val();
+                let id = $('#idCuti').val();
+                let pesan = $('#textTolak').val();
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
                     pesan: pesan,
                 })
                 $('#rejectModal').modal('hide');
-
             });
         });
+
         $('#tableData1').DataTable({
+            responsive: true,
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            }
+        });
+        $('#tableData2').DataTable({
             responsive: true,
             rowReorder: {
                 selector: 'td:nth-child(2)'
@@ -129,20 +151,29 @@
             });
         }
 
-        Livewire.on('terima', (event) => {
-            round_success_noti();
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('terima', (event) => {
+                round_success_noti();
+            });
+
+            Livewire.on('cutiKurang', (event) => {
+                round_danger_noti('Sisa Cuti Kurang!');
+            });
+
+            Livewire.on('tolak', (event) => {
+                round_danger_noti('Cuti Ditolak!');
+            });
         });
 
-        Livewire.on('cutiKurang', (event) => {
-            round_danger_noti('Sisa Cuti Kurang!');
-        });
-
-        Livewire.on('tolak', (event) => {
-            round_danger_noti('Cuti Ditolak!');
-        });
-
+        // function showRejectModal(id) {
+        //     $('#rejectModal').modal('show');
+        //     Livewire.dispatch('getCuti', {
+        //         id: id,
+        //     });
+        // }
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
+            $('#textTolak').val(''); // Kosongkan input alasan penolakan
             Livewire.dispatch('getCuti', {
                 id: id,
             });

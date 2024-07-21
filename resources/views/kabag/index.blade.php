@@ -43,7 +43,7 @@
                     <hr>
                 </div>
                 <div class="card-body">
-                        @livewire('kabag-daftar-riwayat-cuti')
+                    @livewire('kabag-daftar-riwayat-cuti')
                 </div>
             </div>
         </div>
@@ -75,27 +75,45 @@
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
-        function showRejectModal(id) {
-            $('#rejectModal').modal('show');
-            Livewire.dispatch('getCuti', {
-                id: id,
-            });
-        }
-    </script>
+        // $(document).ready(function() {
+        //     $('#btnTolak').click(function() {
+        //         id = $('#idCuti').val();
+        //         pesan = $('#textTolak').val();
+        //         Livewire.dispatch('tolak_cuti', {
+        //             id: id,
+        //             pesan: pesan,
+        //         })
+        //         $('#rejectModal').modal('hide');
 
-    <script>
+        //     });
+        // });
+
+        // function showRejectModal(id) {
+        //     $('#rejectModal').modal('show');
+        //     Livewire.dispatch('getCuti', {
+        //         id: id,
+        //     });
+        // }
+
         $(document).ready(function() {
             $('#btnTolak').click(function() {
-                id = $('#idCuti').val();
-                pesan = $('#textTolak').val();
+                let id = $('#idCuti').val();
+                let pesan = $('#textTolak').val();
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
                     pesan: pesan,
                 })
                 $('#rejectModal').modal('hide');
-
             });
         });
+
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+            $('#textTolak').val(''); // Kosongkan input alasan penolakan
+            Livewire.dispatch('getCuti', {
+                id: id,
+            });
+        }
 
         $('#tableData1').DataTable({
             responsive: true,

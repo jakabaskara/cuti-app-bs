@@ -31,42 +31,101 @@
     {{-- <script src="{{ asset('assets/js/pages/calendar.js') }}"></script> --}}
     @livewireScripts()
     <script>
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialDate: "{{ date('Y-m-d') }}",
-            editable: true,
-            selectable: true,
-            businessHours: true,
-            dayMaxEvents: true,
-            events: {!! $dataKalender !!}
-        });
-        calendar.render();
+        // var calendarEl = document.getElementById('calendar');
+        // var calendar = new FullCalendar.Calendar(calendarEl, {
+        //     initialDate: "{{ date('Y-m-d') }}",
+        //     editable: true,
+        //     selectable: true,
+        //     businessHours: true,
+        //     dayMaxEvents: true,
+        //     events: {!! $dataKalender !!}
+        // });
+        // calendar.render();
 
 
 
-        calendar.on('dateClick', function(info) {
-            console.log('Tanggal yang diklik: ' + info.dateStr);
-        });
+        // calendar.on('dateClick', function(info) {
+        //     console.log('Tanggal yang diklik: ' + info.dateStr);
+        // });
 
-        calendar.on('eventClick', function(info) {
-            console.log('Event yang diklik: ' + info.event.title);
-            console.log('Tanggal mulai: ' + info.event.start);
+        // calendar.on('eventClick', function(info) {
+        //     console.log('Event yang diklik: ' + info.event.title);
+        //     console.log('Tanggal mulai: ' + info.event.start);
 
-            var date = new Date(info.event.start);
+        //     var date = new Date(info.event.start);
 
-            var year = date.getFullYear();
-            var month = String(date.getMonth() + 1).padStart(2,
-                '0'); // Tambahkan leading zero jika perlu
-            var day = String(date.getDate()).padStart(2, '0'); // Tambahkan leading zero jika perlu
+        //     var year = date.getFullYear();
+        //     var month = String(date.getMonth() + 1).padStart(2,
+        //         '0'); // Tambahkan leading zero jika perlu
+        //     var day = String(date.getDate()).padStart(2, '0'); // Tambahkan leading zero jika perlu
 
-            var formattedDate = year + '-' + month + '-' + day;
-            console.log(formattedDate); // Output: '2024-04-22'
-            $('#ketModal').modal('show');
+        //     var formattedDate = year + '-' + month + '-' + day;
+        //     console.log(formattedDate); // Output: '2024-04-22'
+        //     $('#ketModal').modal('show');
 
-            Livewire.dispatch('wait-tanggal', {
-                tanggal: formattedDate,
-            })
-        });
+        //     Livewire.dispatch('wait-tanggal', {
+        //         tanggal: formattedDate,
+        //     })
+        // });
         // Kode event handler Anda
+
+
+        fetch("{{ asset('assets/libur.json') }}")
+            .then(response => response.json())
+            .then(data => {
+                var holidays = data;
+
+                // Filter events to exclude Sundays and holidays
+                var filteredEvents = {!! $dataKalender !!}.filter(event => {
+                    var eventDate = new Date(event.start);
+                    var formattedDate = eventDate.toLocaleDateString('en-CA');
+
+                    @if ($isKandir)
+                        // Exclude Sundays (0) and Saturdays (6) and holidays
+                        return eventDate.getDay() !== 0 && eventDate.getDay() !== 6 && !(holidays[
+                            formattedDate] && holidays[formattedDate].holiday);
+                    @else
+                        // Exclude Sundays (0) and holidays
+                        return eventDate.getDay() !== 0 && !(holidays[formattedDate] && holidays[formattedDate]
+                            .holiday);
+                    @endif
+                });
+
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialDate: "{{ date('Y-m-d') }}",
+                    editable: true,
+                    selectable: true,
+                    businessHours: true,
+                    dayMaxEvents: true,
+                    events: filteredEvents
+                });
+
+                calendar.render();
+
+                calendar.on('dateClick', function(info) {
+                    console.log('Tanggal yang diklik: ' + info.dateStr);
+                });
+
+                calendar.on('eventClick', function(info) {
+                    console.log('Event yang diklik: ' + info.event.title);
+                    console.log('Tanggal mulai: ' + info.event.start);
+
+                    var date = new Date(info.event.start);
+
+                    var year = date.getFullYear();
+                    var month = String(date.getMonth() + 1).padStart(2,
+                    '0'); // Tambahkan leading zero jika perlu
+                    var day = String(date.getDate()).padStart(2, '0'); // Tambahkan leading zero jika perlu
+
+                    var formattedDate = year + '-' + month + '-' + day;
+                    console.log(formattedDate); // Output: '2024-04-22'
+                    $('#ketModal').modal('show');
+
+                    Livewire.dispatch('wait-tanggal', {
+                        tanggal: formattedDate,
+                    });
+                });
+            });
     </script>
 @endsection

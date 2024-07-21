@@ -11,7 +11,7 @@
 @section('content')
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
-    @livewire('kabag-status-bar-index')
+    @livewire('status-bar-index')
 
     <div class="row">
         <div class="col">
@@ -31,7 +31,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Riwayat Permintaan Cuti</h5>
+                    <h5>Daftar Riwayat Cuti</h5>
                     <hr>
                 </div>
                 <div class="card-body">
@@ -64,7 +64,7 @@
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#btnTolak').click(function() {
                 id = $('#idCuti').val();
@@ -80,6 +80,28 @@
 
         function showRejectModal(id) {
             $('#rejectModal').modal('show');
+            Livewire.dispatch('getCuti', {
+                id: id,
+            });
+        }
+    </script> --}}
+
+    <script>
+        $(document).ready(function() {
+            $('#btnTolak').click(function() {
+                let id = $('#idCuti').val();
+                let pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
+            });
+        });
+
+        function showRejectModal(id) {
+            $('#rejectModal').modal('show');
+            $('#textTolak').val(''); // Kosongkan input alasan penolakan
             Livewire.dispatch('getCuti', {
                 id: id,
             });

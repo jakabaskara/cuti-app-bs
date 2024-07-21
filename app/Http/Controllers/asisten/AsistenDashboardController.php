@@ -31,21 +31,35 @@ class AsistenDashboardController extends Controller
         $riwayat = PermintaanCuti::getHistoryCuti($karyawan->id_posisi)->get();
         $isKebun = $karyawan->posisi->unitKerja->is_kebun;
 
-        $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
-        $getPending = PermintaanCuti::getPending($idPosisi);
-        $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        // Mengambil data untuk status bar pertama (Daftar Pengajuan Cuti) cuti dibuat
+        // $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
+        // $getPending = PermintaanCuti::getPending($idPosisi);
+        // $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        // $getMenunggudiketahui = PermintaanCuti::getMenunggudiketahui($idPosisi);
+
+        // Mengambil data untuk status bar kedua (Riwayat Persetujuan Cuti) cuti dibuat orang lain
+        // $getSetuju = PermintaanCuti::getDisetujuiCuti($idPosisi)->count();
+        // $getTunggu = PermintaanCuti::getPendingCuti($idPosisi)->count();
+        // $getTolak = PermintaanCuti::getDibatalkanCuti($idPosisi)->count();
+        // $getBelumdiketahui = PermintaanCuti::getMenungguPersetujuan($idPosisi)->count();
+
+        // Menghitung total dari kedua set status bar
+        // $totalDisetujui = $getDisetujui + $getSetuju;
+        // $totalPending = $getPending + $getTunggu;
+        // $totalDitolak = $getDitolak + $getTolak;
+        // $totalMenunggudiketahui = $getMenunggudiketahui + $getBelumdiketahui;
 
         return view('asisten.index', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
             'riwayats' => $riwayat,
             'is_kebun' => $isKebun,
-            'disetujui' => $getDisetujui,
-            'pending' => $getPending,
-            'ditolak' => $getDitolak,
+            // 'disetujui' => $totalDisetujui,
+            // 'pending' => $totalPending,
+            // 'ditolak' => $totalDitolak,
+            // 'menunggudiketahui' => $totalMenunggudiketahui,
         ]);
     }
-
 
 
     public function pengajuanCuti()
@@ -82,11 +96,11 @@ class AsistenDashboardController extends Controller
         ]);
     }
 
+
     public function submitCuti(Request $request)
     {
         $validate = $request->validate([
             'karyawan' => 'required',
-            // 'jenis_cuti' => 'required',
             'tanggal_cuti' => 'required',
             'jumlah_cuti_panjang' => 'required',
             'jumlah_cuti_tahunan' => 'required',
@@ -101,6 +115,34 @@ class AsistenDashboardController extends Controller
         $idPosisi = $user->karyawan->id_posisi;
         $karyawan = $user->karyawan;
 
+        // Memeriksa apakah karyawan sudah mengajukan cuti untuk tanggal yang sama
+        $startDate = $endDate = $validate['tanggal_cuti'];
+
+        if (strpos($validate['tanggal_cuti'], ' to ') !== false) {
+            list($startDate, $endDate) = explode(" to ", $validate['tanggal_cuti']);
+        }
+
+        $existingCuti = PermintaanCuti::where('id_karyawan', $validate['karyawan'])
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->where(function ($query) use ($startDate, $endDate) {
+                    $query->where('tanggal_mulai', '<=', $startDate)
+                          ->where('tanggal_selesai', '>=', $startDate);
+                })->orWhere(function ($query) use ($startDate, $endDate) {
+                    $query->where('tanggal_mulai', '<=', $endDate)
+                          ->where('tanggal_selesai', '>=', $endDate);
+                })->orWhere(function ($query) use ($startDate, $endDate) {
+                    $query->where('tanggal_mulai', '>=', $startDate)
+                          ->where('tanggal_selesai', '<=', $endDate);
+                });
+            })
+            ->where('is_rejected', 0) //kondisi tambahan untuk  cuti yang belum ditolak
+            ->exists();
+
+        if ($existingCuti) {
+            return redirect()->back()->with('error_message', 'Cuti sudah ada!');
+        }
+
+        // Lanjutkan dengan proses pembuatan permintaan cuti
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
             // Konversi string tanggal menjadi format timestamp
@@ -225,6 +267,7 @@ class AsistenDashboardController extends Controller
         $nama_approver = $riwayatCuti->nama_approver;
         $jabatan_approver = $riwayatCuti->jabatan_approver;
         $nik_approver = $riwayatCuti->nik_approver;
+        $nik_checker = $riwayatCuti->nik_checker;
 
         $cutiPanjangDijalani += $sisaCutiPanjang;
         $cutiTahunanDijalani += $sisaCutiTahunan;
@@ -257,6 +300,7 @@ class AsistenDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
+                'nik_checker' => $nik_checker,
                 'periode_cuti_panjang' => $tahun_panjang,
                 'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
@@ -277,6 +321,7 @@ class AsistenDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
+                'nik_checker' => $nik_checker,
                 'periode_cuti_panjang' => $tahun_panjang,
                 'periode_cuti_tahunan' => $tahun_tahunan,
             ]);

@@ -2,6 +2,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            transform: translateY(-25px);
+        }
+    </style>
 </head>
 
 <body style="margin: -5vh 5vh 0vh 10vh">
@@ -25,7 +30,7 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>lst</td>
+                <td>{{ $permintaanCuti->id }}</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
@@ -43,7 +48,7 @@
                 <td><b>Permohonan Cuti</b></td>
             </tr>
         </table>
-        <p>Mohon persetujuan Bapak untuk melaksanakan cuti sebagai berikut:</p>
+        <p>Mohon persetujuan Bapak/Ibu untuk melaksanakan cuti sebagai berikut:</p>
         <div style="padding-left: 5%">
             <p style="margin-top: -5px;"><b>1. Tanpa Pembayaran</b></p>
             <table style="margin-top: -15px;">
@@ -196,16 +201,18 @@
         <div>
             <table align="center" style="text-align: center;">
                 <tr>
-                    <td rowspan="2">Diketahui,</td>
+                    <td rowspan="2" style="transform: translateX(-13px); transform: translateY(-20px);">
+                        Diketahui,
+                    </td>
                     <td rowspan="2" style="color: transparent;">aaaaaaaaaaaaaaaaaaaaaaaa</td>
-                    <td>Pontianak,
+                    <td style="transform: translateY(-20px);">Pontianak,
                         {{ \Carbon\Carbon::parse($permintaanCuti->updated_at)->locale('id')->isoFormat('D MMMM YYYY') }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Pemohon</td>
+                    <td style="transform: translateY(-20px);">Pemohon</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td><br></td>
                 </tr>
                 <tr>
@@ -217,14 +224,69 @@
                     <td style="padding-top: 0%">{{ $jabatan_checker }}</td>
                     <td></td>
                     <td></td>
+                </tr> --}}
+                <tr>
+                    <td rowspan="5">
+                        <div style="">
+                            <table
+                                style="transform: translateY(-110px); border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 280px">
+                                <tr>
+                                    <td rowspan="5"><img src="{{ asset('assets/images/avatars/avatarlogo.png') }}"
+                                            alt="" height="30"></td>
+                                    <td colspan="4">Dokumen ini ditandatangani secara <br>elektronik oleh:</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><b>{{ $nama_checker }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">NIK</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">{{ $nik_checker }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">Jabatan</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top">
+                                        {{ $jabatan_checker }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align:top">Email</td>
+                                    <td style="text-align: center; vertical-align:top">:</td>
+                                    <td colspan="2" style="text-align: left; vertical-align:top; font-size: 10px;">
+                                        info@reg5palmco.com {{-- email domain --}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
                 </tr>
-                <tr align="center">
-                    <td colspan="3">
+                <tr>
+                    <td><br></td>
+                </tr>
+                <tr>
+                    <td><br><br></td>
+                </tr>
+                {{-- <tr>
+                    <td><br></td>
+                </tr> --}}
+                <tr>
+                    <td></td>
+                    <td style="transform: translateY(-20px);">{{ $karyawan->nama }}</td>
+                </tr>
+
+
+
+
+
+                <tr align="center" style="transform: translateX(-150px); ">
+                    <td colspan="3" style="margin-bottom: -5px">
                         <p style="margin-bottom: -1px">PTPN IV REGIONAL V</p>
                         <p style="margin-top: 0px">{{ $bagian }}</p>
                         <div style="margin-bottom: -5px">
                             <table align="center"
-                                style="border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 280px">
+                                style="transform: translateY(-10px); border: 1px solid black; font-size: 10px; font-family: 'Courier New', Courier, monospace; width: 280px">
                                 <tr>
                                     <td rowspan="5"><img
                                             src="{{ public_path() . '/assets/images/avatars/avatarlogo.png' }}"
@@ -251,13 +313,14 @@
                                     <td style="vertical-align:top">Email</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
                                     <td colspan="2" style="text-align: left; vertical-align:top; font-size:10px;">
-                                        info@reg5palmco.com
+                                        info@reg5palmco.com {{-- email domain --}}
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </td>
                 </tr>
+
             </table>
         </div>
     </div>

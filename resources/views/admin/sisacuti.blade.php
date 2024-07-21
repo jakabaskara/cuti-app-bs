@@ -25,7 +25,7 @@
                                 <tr class="text-center align-middle">
                                     <th class="text-dark">Cuti Tahunan</th>
                                     <th class="text-dark">Cuti Panjang</th>
-                                    <th class="text-dark">Jumlah</th>
+                                    <th class="text-dark">Jumlah Dapat Dipakai</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,7 +37,28 @@
                                         <td>{{ $sisaCuti->karyawan->posisi->unitKerja->nama_unit_kerja }}</td>
                                         <td>{{ $sisaCuti->total_cuti_panjang }}</td>
                                         <td>{{ $sisaCuti->total_cuti_tahunan }}</td>
-                                        <td>{{ $sisaCuti->total_cuti_panjang + $sisaCuti->total_cuti_tahunan }}</td>
+                                        {{-- <td>{{ $sisaCuti->total_cuti_panjang + $sisaCuti->total_cuti_tahunan }}</td> --}}
+                                        <td>
+                                            @php
+                                                $cutiTahunan = $sisaCuti->total_cuti_tahunan;
+                                                $cutiPanjang = $sisaCuti->total_cuti_panjang;
+
+                                                if ($cutiTahunan < 0 && $cutiPanjang < 0) {
+                                                    $totalCuti = $cutiTahunan + $cutiPanjang;
+                                                } elseif ($cutiTahunan > 0 && $cutiPanjang <= 0) {
+                                                    $totalCuti = $cutiTahunan;
+                                                } elseif ($cutiTahunan <= 0 && $cutiPanjang > 0) {
+                                                    $totalCuti = $cutiPanjang;
+                                                } elseif ($cutiTahunan >= 0 && $cutiPanjang < 0) {
+                                                    $totalCuti = $cutiPanjang;
+                                                } elseif ($cutiTahunan < 0 && $cutiPanjang >= 0) {
+                                                    $totalCuti = $cutiTahunan;
+                                                } elseif ($cutiTahunan >= 0 && $cutiPanjang >= 0) {
+                                                    $totalCuti = $cutiTahunan + $cutiPanjang;
+                                                }
+                                            @endphp
+                                            {{ $totalCuti }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

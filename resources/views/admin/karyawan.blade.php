@@ -138,7 +138,7 @@
                         </div>
                         <div class="row mb-3">
 
-                            <div class="col">
+                            {{-- <div class="col">
                                 <label for="id posisi" class="form-label">ID Posisi</label>
                                 <select class="form-select" aria-label="id posisi" name="id_posisi" required>
                                     <option selected value="{{ old('id_posisi') }}">Pilih Jabatan</option>
@@ -148,6 +148,19 @@
                                     <option value="4">Kerani Administrasi</option>
                                     <option value="5">user</option>
                                     <option value="6">admin</option>
+                                </select>
+                            </div> --}}
+                            <div class="col">
+                                <label for="id_posisi" class="form-label">ID Posisi</label>
+                                <select class="form-select" aria-label="id posisi" name="id_posisi" required>
+                                    <option selected value="">Pilih Jabatan</option>
+                                    @foreach ($positions as $posisi)
+                                        <option value="{{ $posisi->id }}"
+                                            {{ old('id_posisi') == $posisi->id ? 'selected' : '' }}>
+                                            {{ $posisi->id }} - {{ $posisi->jabatan }}
+                                            ({{ $posisi->unitKerja->nama_unit_kerja }})
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

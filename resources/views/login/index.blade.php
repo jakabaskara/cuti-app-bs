@@ -89,6 +89,10 @@
                             aria-describedby="signInPassword"
                             placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" name="password"
                             required>
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="showPassword">
+                            <label class="form-check-label" for="showPassword">Show Password</label>
+                        </div>
                     </div>
 
                     <div class="auth-submit">
@@ -126,6 +130,15 @@
             lowlightColor: 0x2f00ff,
             baseColor: 0xffffff
         })
+
+        document.getElementById('showPassword').addEventListener('click', function() {
+            var passwordInput = document.getElementById('signInPassword');
+            if (this.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
     </script>
 </body>
 

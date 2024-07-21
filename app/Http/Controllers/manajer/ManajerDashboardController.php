@@ -24,6 +24,7 @@ class ManajerDashboardController extends Controller
         // $idUser = 1;
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
+        $karyawan = $user->karyawan;
         $idPosisi = $user->karyawan->posisi->id;
         // $dataPairing = Pairing::getDaftarKaryawanCuti($idUser)->get();
         $riwayat = PermintaanCuti::getHistoryCuti($idPosisi)->get();
@@ -31,6 +32,7 @@ class ManajerDashboardController extends Controller
         $jabatan = $user->karyawan->posisi->jabatan;
         $jenisCuti = JenisCuti::get();
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
+        $isKebun = $karyawan->posisi->unitKerja->is_kebun;
         $sisaCuti = $dataPairing->each(function ($data) {
             $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
@@ -53,6 +55,7 @@ class ManajerDashboardController extends Controller
             'pending' => $getPending,
             'ditolak' => $getDitolak,
             'karyawanCuti' => $getKaryawanCuti,
+            'is_kebun' => $isKebun,
         ]);
     }
 }

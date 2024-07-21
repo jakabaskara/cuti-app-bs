@@ -40,17 +40,16 @@ class AdminDashboardController extends Controller
 
 
         $getDisetujui = PermintaanCuti::where('is_approved', 1)->count();
-        // $getPending = PermintaanCuti::where('is_checked', 1)->where('is_approved', 0)->where('is_rejected', 0)->count();
-        $getPending = PermintaanCuti::where(function ($query) {
-            $query->where('is_checked', 1)
-                  ->where('is_approved', 0)
-                  ->where('is_rejected', 0);
-        })->orWhere(function ($query) {
-            $query->where('is_checked', 0)
-                  ->where('is_approved', 0)
-                  ->where('is_rejected', 0);
-        })->count();
+        $getPending = PermintaanCuti::where('is_checked', 1)
+        ->where('is_approved', 0)
+        ->where('is_rejected', 0)
+        ->count();
         $getDitolak = PermintaanCuti::where('is_rejected', 1)->count();
+        $getMenunggudiketahui = PermintaanCuti::where('is_checked', 0)
+        ->where('is_approved', 0)
+        ->where('is_rejected', 0)
+        ->count();
+
 
         return view('admin.index', [
             'dataPairing' => $dataPairing,
@@ -63,31 +62,8 @@ class AdminDashboardController extends Controller
             'disetujui' => $getDisetujui,
             'pending' => $getPending,
             'ditolak' => $getDitolak,
+            'menunggudiketahui' => $getMenunggudiketahui,
             'karyawanCuti' => $getKaryawanCuti,
-
         ]);
-    }
-
-    public function downloadPermintaanCutiPDF()
-    {
-        $pdf = Pdf::loadView('form');
-
-        // return view('form');
-
-        return $pdf->download('pdf.pdf');
-    }
-
-    public function tambahCuti(Request $request)
-    {
-
-        // $karyawan = Karyawan::where('id', 55)->first();
-        // $sisaCuti = SisaCutiPanjang::where('id_karyawan', $karyawan->id)->first();
-        // $sisa = $sisaCuti->sisa_cuti;
-
-        // $sisaCuti->sisa_cuti = $sisa - 1;
-        // $sisaCuti->save();
-        // return redirect()->route('admin.index');
-
-        return view('admin.index');
     }
 }

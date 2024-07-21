@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Karyawan;
+use App\Models\Posisi;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ class AdminKaryawanController extends Controller
 {
     public function index()
     {
+        $positions = Posisi::with('unitKerja')->get();
+
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $jabatan = $user->karyawan->posisi->jabatan;
@@ -23,7 +26,8 @@ class AdminKaryawanController extends Controller
         return view('admin.karyawan', [
             'karyawan' => $karyawan,
             'jabatan' => $jabatan,
-            'nama' => $namaUser
+            'nama' => $namaUser,
+            'positions' => $positions,
         ]);
     }
 
@@ -35,8 +39,8 @@ class AdminKaryawanController extends Controller
                 'nama_karyawan' => 'required',
                 'jabatan' => 'required',
                 'tmt_bekerja' => 'required',
-                'tgl_diangkat_staf' => 'required',
-                'id_posisi' => 'required',
+                'tgl_diangkat_staf' => 'nullable',
+                'id_posisi' => 'required|exists:posisi,id',
             ]
         );
 

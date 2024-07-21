@@ -27,7 +27,7 @@
                             {{ $cutiPending->jumlah_cuti_tahunan + $cutiPending->jumlah_cuti_panjang }}</td>
                         <td class="text-dark">{{ $cutiPending->alasan }}</td>
                         <td class="text-dark">{{ $cutiPending->alamat }}</td>
-                        <td class="text-dark"> <span class="badge badge-warning">Pending</span> </td>
+                        <td class="text-dark"> <span class="badge badge-dark">Belum Diperiksa</span> </td>
                     </tr>
                 @endforeach
             </tbody>

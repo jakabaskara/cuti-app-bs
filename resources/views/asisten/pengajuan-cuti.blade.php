@@ -13,6 +13,9 @@
     <div class="row">
         <div class="col">
             <div class="card">
+                <div class="card-header">
+                    <h5 class="">Surat Cuti Karyawan</h5>
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -20,11 +23,7 @@
                                 data-bs-target="#exampleModal">
                                 Buat Surat
                             </button>
-                            {{-- <button @click="showModal = true">Open Modal</button> --}}
                         </div>
-                        {{-- <div class="col">
-                            <a href="{{ route('admin.download.pdf') }}" class="btn btn-primary">PDF</a>
-                        </div> --}}
                     </div>
                     <div class="row mt-3">
                         <div class="col">
@@ -53,7 +52,8 @@
                                                 <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
                                                 <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>
                                                 <td class="text-dark">
-                                                    {{ $riwayat->jumlah_cuti_panjang + $riwayat->jumlah_cuti_tahunan }}</td>
+                                                    {{ $riwayat->jumlah_cuti_panjang + $riwayat->jumlah_cuti_tahunan }}
+                                                </td>
                                                 <td class="text-dark">
                                                     {{ date('d-M', strtotime($riwayat->tanggal_mulai)) . ' s.d ' . date('d-M', strtotime($riwayat->tanggal_selesai)) }}
                                                 </td>
@@ -284,7 +284,8 @@
 
                             var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
                             var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
-                            var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
+                            // var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
+                            var totalCuti = Math.max(0, sisaCutiPanjang) + Math.max(0, sisaCutiTahunan);
 
                             var content = document.getElementById("jumlah-hari");
                             content.classList.add('text-dark');
@@ -327,13 +328,45 @@
             // $.fn.modal.Constructor.prototype.enforceFocus = function() {};
             // $('#tableData1').DataTable();
 
-            $('#dataTable2').DataTable();
+            // $('#dataTable2').DataTable();
 
             $('#select2').select2({
                 dropdownParent: $('#exampleModal .modal-content')
             });
 
         })
+
+        $(document).ready(function() {
+            $('#tableData1').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
+            $('#dataTable2').DataTable({ //datanya kebanyakan dia kebawah (plugin datatable)
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
+            $('#tableData2').DataTable({
+                responsive: true,
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                }
+            });
+            $('#btnTolak').click(function() {
+                id = $('#idCuti').val();
+                pesan = $('#textTolak').val();
+                Livewire.dispatch('tolak_cuti', {
+                    id: id,
+                    pesan: pesan,
+                })
+                $('#rejectModal').modal('hide');
+
+            });
+        });
+
 
         document.addEventListener('livewire:init', () => {
             Livewire.on('setNama', (event) => {
@@ -409,13 +442,60 @@
         @endif
 
         //script modal alasan tolak
-        $('.tolak').on('click', function() {
-            var id = $(this).data('id');
-            $('#tolakmodal').modal('show');
-            Livewire.dispatch('setKeterangan', {
-                id: id,
-            });
-        })
+        // $('.tolak').on('click', function() {
+        //     var id = $(this).data('id');
+        //     $('#tolakmodal').modal('show');
+        //     Livewire.dispatch('setKeterangan', {
+        //         id: id,
+        //     });
+        // })
+
+        let offset = 0;
+        const limit = 10;
+        const actionContainer = document.getElementById('action-container');
+        const loader = document.getElementById('loader');
+
+        function fetchActions() {
+            loader.style.display = 'block';
+            fetch(`get_actions.php?limit=${limit}&offset=${offset}`)
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = 'none';
+                    data.forEach(action => {
+                        const actionDiv = document.createElement('div');
+                        actionDiv.className = 'action';
+                        actionDiv.innerHTML = `
+                            <span class="badge badge-danger p-2">Ditolak</span>
+                            <button data-id='${action.id}' class="btn btn-sm btn-info px-1 py-0 tolak">
+                                <span class="material-icons text-sm p-0 align-middle">info</span>
+                            </button>
+                        `;
+                        actionContainer.appendChild(actionDiv);
+                    });
+                    offset += limit;
+                });
+        }
+
+        function onScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                fetchActions();
+            }
+        }
+
+        window.addEventListener('scroll', onScroll);
+
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.tolak')) {
+                var id = event.target.closest('.tolak').dataset.id;
+                $('#tolakmodal').modal('show');
+                Livewire.dispatch('setKeterangan', {
+                    id: id
+                });
+            }
+        });
+
+        // Fetch the initial set of actions
+        fetchActions();
     </script>
     @livewireScripts()
 @endsection

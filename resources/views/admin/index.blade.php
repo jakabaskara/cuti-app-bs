@@ -19,7 +19,7 @@
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     <div class="row">
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
+        <div class="col-xl-3">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -62,6 +62,22 @@
                             <span class="widget-stats-title text-dark">Dibatalkan</span>
                             <span class="widget-stats-amount">{{ $ditolak }}</span>
                             <span class="widget-stats-info">Form Cuti Ditolak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-primary">
+                            <i class="material-icons-outlined">info</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Menunggu Dicek</span>
+                            <span class="widget-stats-amount">{{ $menunggudiketahui }}</span>
+                            <span class="widget-stats-info">Form Cuti Belum di Cek</span>
                         </div>
                     </div>
                 </div>
@@ -209,10 +225,8 @@
         //             var startDate = selectedDates[0];
         //             var endDate = selectedDates[selectedDates.length - 1];
 
-        //             Hitung selisih dalam milidetik
         //             var difference = endDate.getTime() - startDate.getTime();
 
-        //             Konversi selisih ke jumlah hari
         //             var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
         //             document.getElementById("jumlah-hari").textContent = "Jumlah Hari: " + daysDifference;

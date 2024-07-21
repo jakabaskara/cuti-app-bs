@@ -37,6 +37,7 @@ class KeraniDashboardController extends Controller
         $namaUser = $user->karyawan->nama;
         $jabatan = $user->karyawan->posisi->jabatan;
         $dataPairing = Keanggotaan::getAnggota($idPosisi);
+        $isKebun = $karyawan->posisi->unitKerja->is_kebun;
         $sisaCuti = $dataPairing->each(function ($data) {
             $data->sisa_cuti_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->first()->jumlah ?? '0';
             $data->jatuh_tempo_panjang = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 1)->get()->first();
@@ -49,6 +50,7 @@ class KeraniDashboardController extends Controller
         $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
         $getPending = PermintaanCuti::getPending($idPosisi);
         $getDitolak = PermintaanCuti::getDitolak($idPosisi);
+        $getMenunggudiketahui = PermintaanCuti::getMenunggudiketahui($idPosisi);
 
         return view('kerani.index', [
             'dataPairing' => $dataPairing,
@@ -61,6 +63,8 @@ class KeraniDashboardController extends Controller
             'pending' => $getPending,
             'ditolak' => $getDitolak,
             'isKandir' => $isKandir,
+            'is_kebun' => $isKebun,
+            'menunggudiketahui' => $getMenunggudiketahui,
         ]);
     }
 
@@ -68,7 +72,6 @@ class KeraniDashboardController extends Controller
     {
         $validate = $request->validate([
             'karyawan' => 'required',
-            // 'jenis_cuti' => 'required',
             'tanggal_cuti' => 'required',
             'jumlah_cuti_panjang' => 'required',
             'jumlah_cuti_tahunan' => 'required',
@@ -82,6 +85,35 @@ class KeraniDashboardController extends Controller
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->id_posisi;
         $karyawan = $user->karyawan;
+
+       // Memeriksa apakah karyawan sudah mengajukan cuti untuk tanggal yang sama
+       $startDate = $endDate = $validate['tanggal_cuti'];
+
+       if (strpos($validate['tanggal_cuti'], ' to ') !== false) {
+           list($startDate, $endDate) = explode(" to ", $validate['tanggal_cuti']);
+       }
+
+       $existingCuti = PermintaanCuti::where('id_karyawan', $validate['karyawan'])
+           ->where(function ($query) use ($startDate, $endDate) {
+               $query->where(function ($query) use ($startDate, $endDate) {
+                   $query->where('tanggal_mulai', '<=', $startDate)
+                         ->where('tanggal_selesai', '>=', $startDate);
+               })->orWhere(function ($query) use ($startDate, $endDate) {
+                   $query->where('tanggal_mulai', '<=', $endDate)
+                         ->where('tanggal_selesai', '>=', $endDate);
+               })->orWhere(function ($query) use ($startDate, $endDate) {
+                   $query->where('tanggal_mulai', '>=', $startDate)
+                         ->where('tanggal_selesai', '<=', $endDate);
+               });
+           })
+           ->where('is_rejected', 0) //kondisi tambahan untuk  cuti yang belum ditolak
+           ->exists();
+
+       if ($existingCuti) {
+           return redirect()->back()->with('error_message', 'Cuti sudah ada!');
+       }
+
+
         if (strlen($request->tanggal_cuti) != 10) {
             list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
             // Konversi string tanggal menjadi format timestamp
@@ -212,6 +244,7 @@ class KeraniDashboardController extends Controller
         $nama_approver = $riwayatCuti->nama_approver;
         $jabatan_approver = $riwayatCuti->jabatan_approver;
         $nik_approver = $riwayatCuti->nik_approver;
+        $nik_checker = $riwayatCuti->nik_checker;
         $periode_panjang = explode('/', $riwayatCuti->periode_cuti_panjang);
         $periode_tahunan = explode('/', $riwayatCuti->periode_cuti_tahunan);
         $periode_panjang[0] -= 6;
@@ -242,6 +275,7 @@ class KeraniDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
+                'nik_checker' => $nik_checker,
                 'periode_cuti_panjang' => $tahun_panjang,
                 'periode_cuti_tahunan' => $tahun_tahunan,
             ]);
@@ -262,6 +296,7 @@ class KeraniDashboardController extends Controller
                 'nama_approver' => $nama_approver,
                 'jabatan_approver' => $jabatan_approver,
                 'nik_approver' => $nik_approver,
+                'nik_checker' => $nik_checker,
                 'periode_cuti_panjang' => $tahun_panjang,
                 'periode_cuti_tahunan' => $tahun_tahunan,
             ]);

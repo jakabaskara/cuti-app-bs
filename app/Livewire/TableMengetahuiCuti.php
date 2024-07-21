@@ -50,6 +50,7 @@ class TableMengetahuiCuti extends Component
             $riwayat = RiwayatCuti::where('id_permintaan_cuti', $dataCuti->id)->first();
             $riwayat->nama_checker = $karyawan->nama;
             $riwayat->jabatan_checker = $karyawan->jabatan;
+            $riwayat->nik_checker = $karyawan->NIK;
             $riwayat->save();
 
             $message = "Terdapat Permintaan Cuti Baru\n";
@@ -59,6 +60,7 @@ class TableMengetahuiCuti extends Component
             $message .= "Jumlah: " . $riwayat->permintaanCuti->jumlah_cuti_panjang + $riwayat->permintaanCuti->jumlah_cuti_tahunan . " HK\n";
             $message .= "Alasan: " . $riwayat->permintaanCuti->alasan;
 
+// komen
             // Notification::send($user, new SendNotification($message));
 
             // $keyboard = Keyboard::make()->inline();
@@ -72,10 +74,11 @@ class TableMengetahuiCuti extends Component
             // $keyboard = json_encode($keyboard);
 
             // $response = Telegram::sendMessage([
-            //     'chat_id' => '1176854977',
+            //     'chat_id' => '1372257967',
             //     'text' => $pesan,
             //     'reply_markup' => $keyboard,
             // ]);
+// komen
         });
         $this->dispatch('refresh');
         $this->dispatch('ketahui');

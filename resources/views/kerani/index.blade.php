@@ -20,56 +20,128 @@
 
 @section('content')
     <h3 class="mb-4">Hai, {{ $nama }} 👋</h3>
-    <div class="row">
-        <div class="col-xl-4">
-            <div class="card widget widget-stats">
-                <div class="card-body">
-                    <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-success">
-                            <i class="material-icons-outlined">check_circle</i>
+
+    @if ($is_kebun == 1)
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-success">
+                                <i class="material-icons-outlined">check_circle</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Disetujui</span>
+                                <span class="widget-stats-amount">{{ $disetujui }}</span>
+                                <span class="widget-stats-info">Form Cuti Disetujui</span>
+                            </div>
                         </div>
-                        <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Disetujui</span>
-                            <span class="widget-stats-amount">{{ $disetujui }}</span>
-                            <span class="widget-stats-info">Form Cuti Disetujui</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-warning">
+                                <i class="material-icons-outlined">info</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Pending</span>
+                                <span class="widget-stats-amount">{{ $pending }}</span>
+                                <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-danger">
+                                <i class="material-icons-outlined">highlight_off</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Dibatalkan</span>
+                                <span class="widget-stats-amount">{{ $ditolak }}</span>
+                                <span class="widget-stats-info">Form Cuti Ditolak</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
-            <div class="card widget widget-stats">
-                <div class="card-body">
-                    <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-warning">
-                            <i class="material-icons-outlined">info</i>
+    @else
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-success">
+                                <i class="material-icons-outlined">check_circle</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Disetujui</span>
+                                <span class="widget-stats-amount">{{ $disetujui }}</span>
+                                <span class="widget-stats-info">Form Cuti Disetujui</span>
+                            </div>
                         </div>
-                        <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Pending</span>
-                            <span class="widget-stats-amount">{{ $pending }}</span>
-                            <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-warning">
+                                <i class="material-icons-outlined">info</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Pending</span>
+                                <span class="widget-stats-amount">{{ $pending }}</span>
+                                <span class="widget-stats-info">Form Cuti Menunggu Respon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-danger">
+                                <i class="material-icons-outlined">highlight_off</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Dibatalkan</span>
+                                <span class="widget-stats-amount">{{ $ditolak }}</span>
+                                <span class="widget-stats-info">Form Cuti Ditolak</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card widget widget-stats">
+                    <div class="card-body">
+                        <div class="widget-stats-container d-flex">
+                            <div class="widget-stats-icon widget-stats-icon-primary">
+                                <i class="material-icons-outlined">info</i>
+                            </div>
+                            <div class="widget-stats-content flex-fill">
+                                <span class="widget-stats-title text-dark">Menunggu Dicek</span>
+                                <span class="widget-stats-amount">{{ $menunggudiketahui }}</span>
+                                <span class="widget-stats-info">Form Cuti Belum di Cek</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-4">
-            <div class="card widget widget-stats">
-                <div class="card-body">
-                    <div class="widget-stats-container d-flex">
-                        <div class="widget-stats-icon widget-stats-icon-danger">
-                            <i class="material-icons-outlined">highlight_off</i>
-                        </div>
-                        <div class="widget-stats-content flex-fill">
-                            <span class="widget-stats-title text-dark">Dibatalkan</span>
-                            <span class="widget-stats-amount">{{ $ditolak }}</span>
-                            <span class="widget-stats-info">Form Cuti Ditolak</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endif
+
+
 
     <div class="col">
         <div class="row">
@@ -90,7 +162,7 @@
                                         <th>Tanggal Jatuh Tempo<br>Cuti Tahunan</th>
                                         <th>Sisa<br>Cuti Panjang</th>
                                         <th>Tanggal Jatuh Tempo<br>Cuti Panjang</th>
-                                        <th>Jumlah</th>
+                                        <th>Jumlah Dapat Dipakai</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -108,7 +180,29 @@
                                             </td>
                                             <td>{{ $sisaCuti->sisa_cuti_panjang }}</td>
                                             <td>{{ $sisaCuti->jatuh_tempo_panjang ? date('d M Y', strtotime($sisaCuti->jatuh_tempo_panjang->periode_mulai)) : '' }}
-                                            <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td>
+                                                {{-- <td>{{ $sisaCuti->sisa_cuti_tahunan + $sisaCuti->sisa_cuti_panjang }}</td> --}}
+                                            <td>
+                                                @php
+                                                    $sisaCutiTahunan = $sisaCuti->sisa_cuti_tahunan;
+                                                    $sisaCutiPanjang = $sisaCuti->sisa_cuti_panjang;
+                                                    $jumlahCuti = 0;
+
+                                                    if ($sisaCutiTahunan < 0 && $sisaCutiPanjang < 0) {
+                                                        $jumlahCuti = $sisaCutiTahunan + $sisaCutiPanjang;
+                                                    } elseif ($sisaCutiTahunan > 0 && $sisaCutiPanjang <= 0) {
+                                                        $jumlahCuti = $sisaCutiTahunan;
+                                                    } elseif ($sisaCutiTahunan <= 0 && $sisaCutiPanjang > 0) {
+                                                        $jumlahCuti = $sisaCutiPanjang;
+                                                    } elseif ($sisaCutiTahunan >= 0 && $sisaCutiPanjang < 0) {
+                                                        $jumlahCuti = $sisaCutiPanjang;
+                                                    } elseif ($sisaCutiTahunan < 0 && $sisaCutiPanjang >= 0) {
+                                                        $jumlahCuti = $sisaCutiTahunan;
+                                                    } elseif ($sisaCutiTahunan >= 0 && $sisaCutiPanjang >= 0) {
+                                                        $jumlahCuti = $sisaCutiTahunan + $sisaCutiPanjang;
+                                                    }
+                                                @endphp
+                                                {{ $jumlahCuti }}
+                                            </td>
                                         </tr>
                                         @php
                                             $i++;
@@ -202,6 +296,23 @@
                                                             info
                                                         </span>
                                                     </button>
+                                                </td>
+                                            @elseif ($riwayat->is_checked == 0)
+                                                <td class="text-dark"> <span class="badge badge-dark p-2">Belum
+                                                        Diperiksa</span>
+                                                </td>
+                                                <td class="">
+                                                    <form id="deleteForm{{ $riwayat->id }}"
+                                                        action="{{ route('kerani.delete-cuti', $riwayat->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('deleteForm{{ $riwayat->id }}').submit();"
+                                                        class="btn btn-sm btn-danger px-1 py-0">
+                                                        <span class="material-icons text-sm p-0 align-middle">delete</span>
+                                                    </a>
                                                 </td>
                                             @else
                                                 <td class="text-dark"> <span
@@ -373,7 +484,8 @@
 
                             var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
                             var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
-                            var totalCuti = sisaCutiPanjang + sisaCutiTahunan;
+                            // var totalCuti = sisaCutiPanjang + sisaCutiTahunan; "sebenarnya menggunakan ini juga bisa karena sudah diperbaiki di controller kerani jenis cuti"
+                            var totalCuti = Math.max(0, sisaCutiPanjang) + Math.max(0, sisaCutiTahunan);
 
                             var content = document.getElementById("jumlah-hari");
                             content.classList.add('text-dark');
@@ -505,14 +617,62 @@
             });
         @endif
 
-        //script modal alasan tolak
-        $('.tolak').on('click', function() {
-            var id = $(this).data('id');
-            $('#tolakmodal').modal('show');
-            Livewire.dispatch('setKeterangan', {
-                id: id,
-            });
-        })
+
+        //SCRIPT Modal Alasan Tolak
+        // $('.tolak').on('click', function() {
+        //     var id = $(this).data('id');
+        //     $('#tolakmodal').modal('show');
+        //     Livewire.dispatch('setKeterangan', {
+        //         id: id,
+        //     });
+        // })
+
+        let offset = 0;
+        const limit = 10;
+        const actionContainer = document.getElementById('action-container');
+        const loader = document.getElementById('loader');
+
+        function fetchActions() {
+            loader.style.display = 'block';
+            fetch(`get_actions.php?limit=${limit}&offset=${offset}`)
+                .then(response => response.json())
+                .then(data => {
+                    loader.style.display = 'none';
+                    data.forEach(action => {
+                        const actionDiv = document.createElement('div');
+                        actionDiv.className = 'action';
+                        actionDiv.innerHTML = `
+                            <span class="badge badge-danger p-2">Ditolak</span>
+                            <button data-id='${action.id}' class="btn btn-sm btn-info px-1 py-0 tolak">
+                                <span class="material-icons text-sm p-0 align-middle">info</span>
+                            </button>
+                        `;
+                        actionContainer.appendChild(actionDiv);
+                    });
+                    offset += limit;
+                });
+        }
+
+        function onScroll() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                fetchActions();
+            }
+        }
+
+        window.addEventListener('scroll', onScroll);
+
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.tolak')) {
+                var id = event.target.closest('.tolak').dataset.id;
+                $('#tolakmodal').modal('show');
+                Livewire.dispatch('setKeterangan', {
+                    id: id
+                });
+            }
+        });
+
+        // Fetch the initial set of actions
+        fetchActions();
     </script>
     @livewireScripts
 @endsection

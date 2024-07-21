@@ -25,7 +25,8 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                <td>lst</td>
+                {{-- <td>lst</td> --}}
+                <td>{{ $permintaanCuti->id }}</td>
             </tr>
             <tr>
                 <td>Lampiran</td>
@@ -43,7 +44,7 @@
                 <td><b>Permohonan Cuti</b></td>
             </tr>
         </table>
-        <p>Mohon persetujuan Bapak untuk melaksanakan cuti sebagai berikut:</p>
+        <p>Mohon persetujuan Bapak/Ibu untuk melaksanakan cuti sebagai berikut:</p>
         <div style="padding-left: 5%">
             <p><b>1. Tanpa Pembayaran</b></p>
             <table>
@@ -201,7 +202,7 @@
                     <td>Pontianak,
                         {{ \Carbon\Carbon::parse($permintaanCuti->updated_at)->locale('id')->isoFormat('D MMMM YYYY') }}
                     </td>
-                    
+
                 </tr>
                 <tr>
                     <td style="text-align: center;">{{ $bagian }}</td>
@@ -238,7 +239,7 @@
                                     <td style="vertical-align:top">Email</td>
                                     <td style="text-align: center; vertical-align:top">:</td>
                                     <td colspan="2" style="text-align: left; vertical-align:top; font-size: 10px;">
-                                        info@reg5palmco.com
+                                        info@reg5palmco.com {{-- email domain --}}
                                     </td>
                                 </tr>
                             </table>

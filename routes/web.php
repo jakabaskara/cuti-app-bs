@@ -7,17 +7,17 @@ use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\admin\AdminRiwayatCutiController;
 use App\Http\Controllers\AdminPairingController;
-use App\Http\Controllers\asisten\ChangePasswordController;
+// use App\Http\Controllers\asisten\ChangePasswordController;
 use App\Http\Controllers\asisten\CutiBersamaController as AsistenCutiBersamaController;
 use App\Http\Controllers\CutiBersamaController;
 use App\Http\Controllers\gm\GmDashboardController;
 use App\Http\Controllers\manajer\ManajerDashboardController;
-use App\Http\Controllers\pic\PICDashboardController;
+// use App\Http\Controllers\pic\PICDashboardController;
 use App\Http\Controllers\kerani\KeraniDashboardController;
 use App\Http\Controllers\kerani\KeraniBeritaCutiController;
-use App\Http\Controllers\manajer\ManajerBeritaCutiController;
-use App\Http\Controllers\manajer\ManajerKaryawanController;
-use App\Http\Controllers\manajer\ManajerSisaCutiController;
+// use App\Http\Controllers\manajer\ManajerBeritaCutiController;
+// use App\Http\Controllers\manajer\ManajerKaryawanController;
+// use App\Http\Controllers\manajer\ManajerSisaCutiController;
 use App\Http\Controllers\kabag\KabagDashboardController;
 use App\Http\Controllers\KeraniCutiBersamaController;
 use App\Http\Controllers\SisaCutiController;
@@ -53,10 +53,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::get('/pairing', [AdminPairingController::class, 'index'])->name('admin.pairing.index');
     Route::get('/keanggotaan', [AdminPairingController::class, 'keanggotaan'])->name('admin.pairing.keanggotaan');
 
-    Route::get('/downloadPDF', [AdminDashboardController::class, 'downloadPermintaanCutiPDF'])->name('admin.download.pdf');
-
-    Route::post('/ajukanCuti', [AdminDashboardController::class, 'tambahCuti'])->name('admin.tambahCuti');
-
     Route::get('/data-sisa-cuti', [SisaCutiController::class, 'sisaCutiData'])->name('data-sisa-cuti');
 
     // Riwayat Cuti
@@ -75,7 +71,6 @@ Route::group(['prefix' => 'asisten', 'middleware' => ['asisten.auth']], function
 
     Route::get('/downloadPDF/{id}', [AsistenDashboardController::class, 'downloadPermintaanCutiPDF'])->name('asisten.download.pdf');
 
-    Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('asisten.change-password.index');
 
     // Cuti Bersama
     Route::get('/cuti-bersama', [AsistenCutiBersamaController::class, 'index'])->name('asisten.cuti-bersama.index');
@@ -91,11 +86,9 @@ Route::group(['prefix' => 'kerani', 'middleware' => ['kerani.auth']], function (
     Route::get('/cuti', [KeraniBeritaCutiController::class, 'index'])->name('kerani.cuti.index');
 
     Route::post('/add-cuti', [KeraniDashboardController::class, 'submitCuti'])->name('kerani.submit-cuti');
-    // Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('kerani.sisacuti.index');
 
     Route::get('/downloadPDF/{id}', [KeraniDashboardController::class, 'downloadPermintaanCutiPDF'])->name('kerani.download.pdf');
     Route::delete('/delete-cuti/{id}', [KeraniDashboardController::class, 'delete'])->name('kerani.delete-cuti');
-    // Route::post('/ajukanCuti', [ManajerDashboardController::class, 'tambahCuti'])->name('kerani.tambahCuti');
 
     Route::get('/send-nontify', [KeraniDashboardController::class, 'sendNoti'])->name('send.noti');
 
