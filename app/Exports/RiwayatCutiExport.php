@@ -12,8 +12,6 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
-use Maatwebsite\Excel\Facades\Excel;
-
 
 class RiwayatCutiExport implements FromCollection, WithHeadings, WithStyles, WithEvents
 {
