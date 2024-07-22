@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Models\PermintaanCuti;
 use App\Models\User;
@@ -10,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Exports\RiwayatCutiExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AdminRiwayatCutiController extends Controller
 {
