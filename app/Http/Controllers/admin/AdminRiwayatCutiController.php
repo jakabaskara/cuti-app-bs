@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Exports\RiwayatCutiExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class AdminRiwayatCutiController extends Controller
 {
     public function index()
@@ -24,5 +27,10 @@ class AdminRiwayatCutiController extends Controller
             'nama' => $namaUser,
             'jabatan' => $jabatan,
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new RiwayatCutiExport, 'riwayat_cuti.xlsx');
     }
 }

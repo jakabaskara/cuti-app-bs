@@ -10,7 +10,7 @@ class TableRiwayatCuti extends Component
     public $dataCutis;
     public function mount()
     {
-        $dataCuti = PermintaanCuti::orderBy('id', 'DESC')->get();
+        $dataCuti = PermintaanCuti::where('is_approved', 1)->orderBy('id', 'DESC')->get();
         $this->dataCutis = $dataCuti;
     }
 

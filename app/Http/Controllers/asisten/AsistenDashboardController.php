@@ -115,6 +115,18 @@ class AsistenDashboardController extends Controller
         $idPosisi = $user->karyawan->id_posisi;
         $karyawan = $user->karyawan;
 
+
+        // Cek apakah ada permintaan cuti yang belum diproses (is_approved atau is_rejected bukan 1)
+        $pendingCuti = PermintaanCuti::where('id_karyawan', $validate['karyawan'])
+            ->where('is_approved', 0)
+            ->where('is_rejected', 0)
+            ->exists();
+
+        if ($pendingCuti) {
+            return redirect()->back()->with('error_message', 'Terdapat Permintaan Cuti Yang Belum Diproses!');
+        }
+
+
         // Memeriksa apakah karyawan sudah mengajukan cuti untuk tanggal yang sama
         $startDate = $endDate = $validate['tanggal_cuti'];
 
