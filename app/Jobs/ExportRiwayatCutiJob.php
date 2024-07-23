@@ -11,10 +11,19 @@ use Illuminate\Queue\SerializesModels;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class ExportRiwayatCutiJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public $fileName;
+
+    public function __construct($fileName)
+    {
+        $this->fileName = $fileName;
+    }
 
     public function handle()
     {
@@ -71,6 +80,8 @@ class ExportRiwayatCutiJob implements ShouldQueue
             ],
         ]);
 
+        $sheet->getRowDimension(1)->setRowHeight(35);
+
         // Set column widths
         $columnWidths = [
             'A' => 25,
@@ -88,14 +99,45 @@ class ExportRiwayatCutiJob implements ShouldQueue
             $sheet->getColumnDimension($column)->setWidth($width);
         }
 
-        // Set row heights
-        for ($i = 1; $i <= $rowIndex; $i++) {
+        $rowCount = $sheet->getHighestRow();
+
+        // Style untuk data
+        $sheet->getStyle('A2:I' . $rowCount)->applyFromArray([
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+                'vertical' => Alignment::VERTICAL_CENTER,
+                'wrapText' => true,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+        ]);
+
+        // Mengatur tinggi baris data
+        for ($i = 2; $i <= $rowCount; $i++) {
             $sheet->getRowDimension($i)->setRowHeight(30);
         }
 
+        // Mengatur alignment kiri untuk kolom tertentu
+        $leftAlignColumns = ['A', 'B', 'D', 'E', 'H', 'I'];
+        foreach ($leftAlignColumns as $column) {
+            $sheet->getStyle($column . '2:' . $column . $rowCount)->applyFromArray([
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                    'wrapText' => true,
+                ],
+            ]);
+        }
+
+
+
         // Save file to storage
         $writer = new Xlsx($spreadsheet);
-        $filePath = 'exports/riwayat_cuti.xlsx';
+        // $filePath = 'exports/riwayat_cuti.xlsx';
+        $filePath = 'exports/' . $this->fileName;
         Storage::disk('public')->put($filePath, '');
         $writer->save(storage_path('app/public/' . $filePath));
     }

@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     // Riwayat Cuti
     Route::get('/riwayat-cuti', [AdminRiwayatCutiController::class, 'index'])->name('riwayat-cuti.index');
     Route::get('/riwayat/export', [AdminRiwayatCutiController::class, 'export'])->name('admin.riwayat.export');
+    Route::get('/riwayat/download/{fileName}', [AdminRiwayatCutiController::class, 'download'])->name('admin.riwayat.download');
 });
 
 

@@ -33,10 +33,20 @@ class AdminRiwayatCutiController extends Controller
 
     public function export()
     {
-        ExportRiwayatCutiJob::dispatch();
-        // RiwayatCutiExport::dispatch();
-        // return Excel::download(new RiwayatCutiExport, 'riwayat_cuti.xlsx');
-        return redirect()->back()->with('success', 'Export is being processed and will be available shortly.');
+        $fileName = 'riwayat_cuti_.xlsx';
+        ExportRiwayatCutiJob::dispatch($fileName);
+        return redirect()->back()->with('success', 'Export is being processed and will be available shortly.')->with('fileName', $fileName);
+    }
+
+
+    public function download($fileName)
+    {
+        $filePath = storage_path('app/public/exports/' . $fileName);
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            return redirect()->back()->with('error', 'File not found.');
+        }
     }
 
 }

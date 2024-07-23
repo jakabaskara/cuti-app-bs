@@ -12,6 +12,15 @@
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
+                    @if (session('fileName'))
+                        <a href="{{ route('admin.riwayat.download', ['fileName' => session('fileName')]) }}"
+                            class="btn btn-info">Download Excel File</a>
+                    @endif
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
                 </div>
             @endif
             <div class="card">
