@@ -29,8 +29,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Http\Controllers\PasswordController;
-// use Maatwebsite\Excel\Facades\Excel;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +58,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     // Riwayat Cuti
     Route::get('/riwayat-cuti', [AdminRiwayatCutiController::class, 'index'])->name('riwayat-cuti.index');
     Route::get('/riwayat/export', [AdminRiwayatCutiController::class, 'export'])->name('admin.riwayat.export');
-    Route::get('/riwayat/download/{fileName}', [AdminRiwayatCutiController::class, 'download'])->name('admin.riwayat.download');
 });
 
 
