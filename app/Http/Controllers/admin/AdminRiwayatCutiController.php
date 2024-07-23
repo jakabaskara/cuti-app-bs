@@ -29,19 +29,11 @@ class AdminRiwayatCutiController extends Controller
         ]);
     }
 
-    // public function export()
-    // {
-    //     return Excel::download(new RiwayatCutiExport, 'riwayat_cuti.xlsx');
-    // }
-
-
     public function export()
     {
-    try {
-        return Excel::download(new RiwayatCutiExport, 'riwayat_cuti.xlsx');
-    } catch (\Exception $e) {
-        \Log::error('Export failed: ' . $e->getMessage());
-        return response()->json(['error' => 'Export failed.'], 500);
+        RiwayatCutiExport::dispatch();
+        // return Excel::download(new RiwayatCutiExport, 'riwayat_cuti.xlsx');
+        return redirect()->back()->with('success', 'Export is being processed and will be available shortly.');
     }
-    }
+
 }
