@@ -9,8 +9,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Jobs\ExportRiwayatCutiJob;
 
-use App\Exports\RiwayatCutiExport;
+
+// use App\Exports\RiwayatCutiExport;
 
 class AdminRiwayatCutiController extends Controller
 {
