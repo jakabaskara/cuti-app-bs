@@ -45,8 +45,15 @@ use App\Http\Controllers\PasswordController;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.index');
+
+    // Karyawan
     Route::get('/karyawan', [AdminKaryawanController::class, 'index'])->name('admin.karyawan.index');
-    Route::post('/karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('admin.tambahKaryawan');
+    Route::get('/karyawan/{id}/edit', [AdminKaryawanController::class, 'edit'])->name('admin.karyawan.edit');
+    Route::post('karyawan', [AdminKaryawanController::class, 'tambahKaryawan'])->name('tambahKaryawan');
+    Route::put('/karyawan/update', [AdminKaryawanController::class, 'updateKaryawan'])->name('updateKaryawan');
+    Route::delete('/delete-karyawan/{id}', [AdminKaryawanController::class, 'delete'])->name('admin.delete-karyawan');
+
+
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
     Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
 
@@ -57,7 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
 
     // Riwayat Cuti
     Route::get('/riwayat-cuti', [AdminRiwayatCutiController::class, 'index'])->name('riwayat-cuti.index');
-    Route::get('/riwayat/export', [AdminRiwayatCutiController::class, 'export'])->name('admin.riwayat.export');
+    Route::get('admin/riwayat/export', [AdminRiwayatCutiController::class, 'export'])->name('admin.riwayat.export');
 });
 
 
