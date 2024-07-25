@@ -17,15 +17,13 @@ class AdminKaryawanController extends Controller
     public function index()
     {
         $positions = Posisi::with('unitKerja')->get();
-
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $jabatan = $user->karyawan->posisi->jabatan;
-
         $namaUser = $user->karyawan->nama;
-
         $idPosisi = $user->karyawan->posisi->id;
         $karyawan = Karyawan::all();
+
         return view('admin.karyawan', [
             'karyawan' => $karyawan,
             'jabatan' => $jabatan,
@@ -37,7 +35,8 @@ class AdminKaryawanController extends Controller
     public function tambahKaryawan(Request $request)
     {
         $validate = $request->validate([
-            'nik' => 'required|unique:karyawan,nik',
+            // 'nik' => 'required|unique:karyawan,nik',
+            'nik' => 'required|numeric|unique:karyawan,nik',
             'nama' => 'required',
             'jabatan' => 'required',
             'tmt_bekerja' => 'required',
@@ -73,7 +72,8 @@ public function updateKaryawan(Request $request)
 {
     $request->validate([
         'id' => 'required|exists:karyawan,id',
-        'nik' => 'required|unique:karyawan,nik,' . $request->id,
+        // 'nik' => 'required|unique:karyawan,nik,' . $request->id,
+        'nik' => 'required|numeric|unique:karyawan,nik,' . $request->id,
         'nama_karyawan' => 'required',
         'jabatan' => 'required',
         'tmt_bekerja' => 'required',

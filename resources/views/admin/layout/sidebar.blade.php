@@ -27,6 +27,11 @@
                         class="material-icons-two-tone">groups_2</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
+            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.sisacuti.index') }}"
+                    class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">cloud_queue</i>Kelola Sisa Cuti</a>
+            </li>
             <li class="{{ request()->route()->uri == 'admin/pairing' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.pairing.index') }}"
                     class="{{ request()->route()->uri == 'admin/pairing' ? 'active' : '' }}"><i
@@ -40,11 +45,6 @@
                         class="material-icons-two-tone"><span class="material-icons">
                             account_tree
                         </span></i>Keanggotaan<span class="badge rounded-pill badge-danger float-end"></span></a>
-            </li>
-            <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
-                <a href="{{ route('admin.sisacuti.index') }}"
-                    class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">cloud_queue</i>Kelola Sisa Cuti</a>
             </li>
             <li class="{{ request()->route()->uri == 'admin/cuti' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.cuti.index') }}"

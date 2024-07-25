@@ -3,6 +3,7 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -93,7 +94,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="nik" class="form-label">NIK</label>
-                                <input type="text" class="form-control" name="nik" required />
+                                <input type="number" class="form-control" name="nik" required />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -166,7 +167,7 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="editnik" class="form-label">NIK</label>
-                                <input type="text" class="form-control" id="editnik" name="nik" required />
+                                <input type="number" class="form-control" id="editnik" name="nik" required />
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -264,8 +265,6 @@
             $('.flatpickr1').flatpickr({
                 dateFormat: "Y-m-d",
             });
-
-
         });
 
         function editEmployee(id) {
@@ -281,12 +280,6 @@
                     $('#edittmt_bekerja').val(data.TMT_bekerja);
                     $('#edittgl_diangkat_staf').val(data.tgl_diangkat_staf);
                     $('#editid_posisi').val(data.id_posisi);
-
-                    // Initialize flatpickr with existing values
-                    $('.flatpickr1').flatpickr({
-                        dateFormat: "Y-m-d",
-                    });
-
                     // Show modal
                     $('#editEmployeeModal').modal('show');
                 }
