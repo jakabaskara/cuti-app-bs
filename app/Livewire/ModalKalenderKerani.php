@@ -72,15 +72,27 @@ class ModalKalenderKerani extends Component
 
         $idPosisi = $user->karyawan->posisi->id;
 
-        $data = PermintaanCuti::select('permintaan_cuti.*')
-            ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
-            ->join('posisi', 'karyawan.id_posisi', '=', 'posisi.id')
-            ->join('unit_kerja', 'posisi.id_unit_kerja', '=', 'unit_kerja.id')
-            ->where('is_approved', 1)
-            ->where('id_posisi_pembuat', $idPosisi)
-            ->whereDate('tanggal_mulai', '<=', $tanggal)
-            ->whereDate('tanggal_selesai', '>=', $tanggal)
-            ->get();
+        // $data = PermintaanCuti::select('permintaan_cuti.*')
+        //     ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+        //     ->join('posisi', 'karyawan.id_posisi', '=', 'posisi.id')
+        //     ->join('unit_kerja', 'posisi.id_unit_kerja', '=', 'unit_kerja.id')
+        //     ->where('is_approved', 1)
+        //     ->where('id_posisi_pembuat', $idPosisi)
+        //     ->whereDate('tanggal_mulai', '<=', $tanggal)
+        //     ->whereDate('tanggal_selesai', '>=', $tanggal)
+        //     ->get();
+
+        $data = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
+        ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
+        ->join('posisi', 'karyawan.id_posisi', '=', 'posisi.id')
+        ->join('unit_kerja', 'posisi.id_unit_kerja', '=', 'unit_kerja.id')
+        ->where('is_approved', 1)
+        ->where('id_posisi_pembuat', $idPosisi)
+        ->whereDate('tanggal_mulai', '<=', $tanggal)
+        ->whereDate('tanggal_selesai', '>=', $tanggal)
+        ->get();
 
         $this->dataCutis = $data;
     }

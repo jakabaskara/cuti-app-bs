@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Karyawan extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'karyawan';
 
@@ -55,6 +58,11 @@ class Karyawan extends Model
         return $this->hasMany(KaryawanCutiBersama::class, 'id_karyawan');
     }
 
+
+    public function riwayatCuti()
+    {
+        return $this->hasMany(RiwayatCuti::class);
+    }
 
     // public function getKeanggotaan(){
     //     self::

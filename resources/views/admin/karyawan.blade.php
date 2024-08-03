@@ -3,6 +3,7 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
@@ -61,7 +62,6 @@
                                                         onclick="confirmDelete({{ $karyawan->id }}, '{{ $karyawan->nama }}')">
                                                         <span class="material-icons">delete</span>
                                                     </button>
-
                                                 </div>
                                             </div>
                                         </td>
@@ -124,8 +124,9 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="id_posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" aria-label="ID Posisi" name="id_posisi" required>
-                                    <option selected value="">Pilih Jabatan</option>
+                                <select class="form-select" id="select2" style="display: none; width: 100%"
+                                    aria-label="ID Posisi" name="id_posisi" required>
+                                    <option value="" disabled selected>Pilih Jabatan</option>
                                     @foreach ($positions as $posisi)
                                         <option value="{{ $posisi->id }}"
                                             {{ old('id_posisi') == $posisi->id ? 'selected' : '' }}>
@@ -201,7 +202,8 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="editid_posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" id="editid_posisi" name="id_posisi" required>
+                                <select class="form-select" id="editid_posisi" style="display: none; width: 100%"
+                                    name="id_posisi" required>
                                     <option selected value="">Pilih Jabatan</option>
                                     @foreach ($positions as $posisi)
                                         <option value="{{ $posisi->id }}">
@@ -238,9 +240,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                    <form id="deleteEmployeeForm{{ $karyawan->id }}"
-                        action="{{ route('admin.delete-karyawan', $karyawan->id) }}" method="post"
-                        style="display: inline;">
+                    <form id="deleteEmployeeForm" action="" method="post" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Hapus</button>
@@ -254,8 +254,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 
     <script>
@@ -264,6 +266,12 @@
 
             $('.flatpickr1').flatpickr({
                 dateFormat: "Y-m-d",
+            });
+            $('#select2').select2({
+                dropdownParent: $('#exampleModal .modal-content')
+            });
+            $('#editid_posisi').select2({
+                dropdownParent: $('#editEmployeeModal .modal-content')
             });
         });
 
@@ -279,23 +287,26 @@
                     $('#editjabatan').val(data.jabatan);
                     $('#edittmt_bekerja').val(data.TMT_bekerja);
                     $('#edittgl_diangkat_staf').val(data.tgl_diangkat_staf);
-                    $('#editid_posisi').val(data.id_posisi);
+                    // $('#editid_posisi').val(data.id_posisi);
+                    $('#editid_posisi').val(data.id_posisi).trigger('change');
                     // Show modal
                     $('#editEmployeeModal').modal('show');
                 }
             });
         }
 
-
-
         function confirmDelete(id, name) {
             $('#employeeName').text(name); // Set the employee name in the modal
-            $('#deleteEmployeeForm').attr('action', `/admin/karyawan/${id}/delete`); // Set the form action URL
+            $('#deleteEmployeeForm').attr('action', `/admin/delete-karyawan/${id}`); // Set the form action URL
             $('#deleteConfirmationModal').modal('show'); // Show the confirmation modal
         }
 
 
-
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                round_warning_noti("{{ $error }}");
+            @endforeach
+        @endif
 
 
         function round_success_noti(message) {
@@ -326,6 +337,21 @@
             });
         }
 
+        function round_warning_noti(message) {
+            Lobibox.notify('warning', {
+                pauseDelayOnHover: true,
+                size: 'mini',
+                rounded: true,
+                icon: 'bi bi-exclamation-triangle',
+                delayIndicator: false,
+                continueDelayOnInactiveTab: false,
+                position: 'top right',
+                sound: false,
+                msg: message
+            });
+        }
+
+
 
         @if (session('message'))
             document.addEventListener('DOMContentLoaded', function() {
@@ -336,6 +362,12 @@
         @if (session('error_message'))
             document.addEventListener('DOMContentLoaded', function() {
                 round_error_noti("{{ session('error_message') }}");
+            });
+        @endif
+
+        @if (session('warning_message'))
+            document.addEventListener('DOMContentLoaded', function() {
+                round_warning_noti("{{ session('warning_message') }}");
             });
         @endif
     </script>

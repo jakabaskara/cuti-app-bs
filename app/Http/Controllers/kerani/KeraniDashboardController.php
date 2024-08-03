@@ -236,7 +236,13 @@ class KeraniDashboardController extends Controller
 
     public function downloadPermintaanCutiPDF($id)
     {
-        $permintaanCuti = PermintaanCuti::find($id);
+        // $permintaanCuti = PermintaanCuti::find($id);
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->find($id);
+        // if ($permintaanCuti->karyawan->trashed()) {
+        //     return redirect()->back()->with('error_message', 'Data Karyawan tersebut sudah dihapus');
+        // }
         $karyawan = $permintaanCuti->karyawan;
         $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
         $jabatan = $pairing->atasan->jabatan;
@@ -251,7 +257,10 @@ class KeraniDashboardController extends Controller
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
-        $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        // $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $riwayatCuti = RiwayatCuti::withTrashed()->with(['permintaanCuti' => function ($query) {
+            $query->withTrashed();
+        }])->where('id_permintaan_cuti', $permintaanCuti->id)->first();
         $checkedBy = $riwayatCuti->nama_checker;
         $jabatanChecker = $riwayatCuti->jabatan_checker;
         $nama_approver = $riwayatCuti->nama_approver;
@@ -269,8 +278,17 @@ class KeraniDashboardController extends Controller
         $tahun_tahunan = implode('/', $periode_tahunan);
 
 
-        $cutiPanjangDijalani += $sisaCutiPanjang;
-        $cutiTahunanDijalani += $sisaCutiTahunan;
+         // Mengambil sisa cuti dari RiwayatCuti
+        $sisaCutiPanjang = $riwayatCuti->sisa_cuti_panjang ?? '0';
+        $sisaCutiTahunan = $riwayatCuti->sisa_cuti_tahunan ?? '0';
+
+        // Hitung jumlah cuti yang dijalani
+        $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
+        $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
+
+
+        // $cutiPanjangDijalani += $sisaCutiPanjang;
+        // $cutiTahunanDijalani += $sisaCutiTahunan;
         if ($karyawan->posisi->unitKerja->is_kebun == 0) {
             $pdf = Pdf::loadView('formGM', [
                 'nik' => $nik,

@@ -18,8 +18,26 @@ class RiwayatCutiExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function collection()
     {
         // Mengambil hanya data cuti yang disetujui dan mengurutkannya dari terbaru ke terlama berdasarkan tanggal mulai
-        return PermintaanCuti::with('karyawan.posisi.unitKerja')
-            ->where('is_approved', 1)
+        // return PermintaanCuti::with('karyawan.posisi.unitKerja')
+        //     ->where('is_approved', 1)
+        //     ->orderBy('tanggal_mulai', 'DESC') // Mengurutkan data berdasarkan tanggal mulai
+        //     ->get()
+        //     ->map(function ($dataCuti) {
+        //         return [
+        //             'unit_kerja' => $dataCuti->karyawan->posisi->unitKerja->nama_unit_kerja,
+        //             'bagian' => $dataCuti->karyawan->posisi->unitKerja->bagian,
+        //             'nik' => $dataCuti->karyawan->NIK,
+        //             'nama' => $dataCuti->karyawan->nama,
+        //             'jabatan' => $dataCuti->karyawan->jabatan,
+        //             'jumlah_hari' => $dataCuti->jumlah_cuti_panjang + $dataCuti->jumlah_cuti_tahunan,
+        //             'tanggal' => date('d-m', strtotime($dataCuti->tanggal_mulai)) . ' s.d ' . date('d-m Y', strtotime($dataCuti->tanggal_selesai)),
+        //             'alasan' => $dataCuti->alasan,
+        //             'alamat' => $dataCuti->alamat,
+        //         ];
+        //     });
+        return PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_approved', 1)
             ->orderBy('tanggal_mulai', 'DESC') // Mengurutkan data berdasarkan tanggal mulai
             ->get()
             ->map(function ($dataCuti) {

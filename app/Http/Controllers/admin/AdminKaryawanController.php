@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+use App\Models\SisaCuti;
+use App\Models\KaryawanCutiBersama;
+use App\Models\RiwayatCuti;
+use App\Models\PermintaanCuti;
+// use App\Models\User;
+
 
 class AdminKaryawanController extends Controller
 {
@@ -44,19 +50,18 @@ class AdminKaryawanController extends Controller
             'id_posisi' => 'required|exists:posisi,id',
         ]);
 
-
-            DB::transaction(function () use ($validate) {
-                $karyawan = Karyawan::create([
+        DB::transaction(function () use ($validate) {
+            $karyawan = Karyawan::create([
                     'nik' => $validate['nik'],
                     'nama' => $validate['nama'],
                     'jabatan' => $validate['jabatan'],
                     'tmt_bekerja' => $validate['tmt_bekerja'],
                     'tgl_diangkat_staf' => $validate['tgl_diangkat_staf'],
                     'id_posisi' => $validate['id_posisi'],
-                ]);
-            });
+            ]);
+        });
 
-            return redirect()->back()->with('message', 'Karyawan berhasil ditambahkan!');
+        return redirect()->back()->with('message', 'Karyawan berhasil ditambahkan!');
     }
 
 
@@ -68,45 +73,97 @@ class AdminKaryawanController extends Controller
 
 
 
-public function updateKaryawan(Request $request)
-{
-    $request->validate([
-        'id' => 'required|exists:karyawan,id',
-        // 'nik' => 'required|unique:karyawan,nik,' . $request->id,
-        'nik' => 'required|numeric|unique:karyawan,nik,' . $request->id,
-        'nama_karyawan' => 'required',
-        'jabatan' => 'required',
-        'tmt_bekerja' => 'required',
-        'tgl_diangkat_staf' => 'nullable',
-        'id_posisi' => 'required|exists:posisi,id',
-    ]);
+    public function updateKaryawan(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|exists:karyawan,id',
+            // 'nik' => 'required|unique:karyawan,nik,' . $request->id,
+            'nik' => 'required|numeric|unique:karyawan,nik,' . $request->id,
+            'nama_karyawan' => 'required',
+            'jabatan' => 'required',
+            'tmt_bekerja' => 'required',
+            'tgl_diangkat_staf' => 'nullable',
+            'id_posisi' => 'required|exists:posisi,id',
+        ]);
 
-    $karyawan = Karyawan::findOrFail($request->id);
-    $karyawan->nik = $request->nik;
-    $karyawan->nama = $request->nama_karyawan;
-    $karyawan->jabatan = $request->jabatan;
-    $karyawan->tmt_bekerja = $request->tmt_bekerja;
-    $karyawan->tgl_diangkat_staf = $request->tgl_diangkat_staf;
-    $karyawan->id_posisi = $request->id_posisi;
-    $karyawan->save();
+        $karyawan = Karyawan::findOrFail($request->id);
+        $karyawan->nik = $request->nik;
+        $karyawan->nama = $request->nama_karyawan;
+        $karyawan->jabatan = $request->jabatan;
+        $karyawan->tmt_bekerja = $request->tmt_bekerja;
+        $karyawan->tgl_diangkat_staf = $request->tgl_diangkat_staf;
+        $karyawan->id_posisi = $request->id_posisi;
+        $karyawan->save();
 
-    return redirect()->route('admin.karyawan.index')->with('message', 'Data karyawan berhasil diperbarui.');
-
-}
-
+        return redirect()->route('admin.karyawan.index')->with('message', 'Data karyawan berhasil diperbarui.');
+    }
 
 
 
+//soft delete
     public function delete($id)
     {
-        DB::transaction(function () use ($id) {
-            $karyawan = Karyawan::find($id);
-            $karyawan->delete();
-        });
+        // Check if the employee is associated with a user
+        $user = DB::table('users')->where('id_karyawan', $id)->first();
+        if ($user) {
+            return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
+        }
+
+        // Find the employee
+        $karyawan = Karyawan::find($id);
+
+        // Check if the employee exists
+        if (!$karyawan) {
+            return redirect()->back()->with('warning_message', 'Data karyawan tidak ditemukan');
+        }
+
+        // Delete related records
+        SisaCuti::where('id_karyawan', $id)->delete();
+        KaryawanCutiBersama::where('id_karyawan', $id)->delete();
+        $permintaanCutiIds = PermintaanCuti::where('id_karyawan', $id)->pluck('id');
+        RiwayatCuti::whereIn('id_permintaan_cuti', $permintaanCutiIds)->delete();
+        PermintaanCuti::where('id_karyawan', $id)->delete();
+        DB::table('log_pengurangan_cuti')->where('id_karyawan', $id)->update(['deleted_at' => now()]);
+
+        // Finally, delete the employee
+        $karyawan->delete();
 
         return redirect()->back()->with('error_message', 'Data karyawan berhasil dihapus');
     }
 
+
+//delete semua data karyawan sampai database
+//     public function delete($id)
+// {
+//     // Check if the employee is associated with a user
+//     $user = DB::table('users')->where('id_karyawan', $id)->first();
+//     if ($user) {
+//         return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
+//     }
+
+//     DB::transaction(function () use ($id) {
+//         // Find the employee
+//         $karyawan = Karyawan::find($id);
+
+//         // Check if the employee exists
+//         if (!$karyawan) {
+//             return redirect()->back()->with('warning_message', 'Data karyawan tidak ditemukan');
+//         }
+
+//         // Delete related records
+//         SisaCuti::where('id_karyawan', $id)->delete();
+//         KaryawanCutiBersama::where('id_karyawan', $id)->delete();
+//         $permintaanCutiIds = PermintaanCuti::where('id_karyawan', $id)->pluck('id');
+//         RiwayatCuti::whereIn('id_permintaan_cuti', $permintaanCutiIds)->delete();
+//         PermintaanCuti::where('id_karyawan', $id)->delete();
+//         DB::table('log_pengurangan_cuti')->where('id_karyawan', $id)->delete();
+
+//         // Finally, delete the employee
+//         $karyawan->delete();
+//     });
+
+//     return redirect()->back()->with('error_message', 'Data karyawan berhasil dihapus');
+// }
 
 
 

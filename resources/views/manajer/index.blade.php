@@ -85,6 +85,10 @@
             $('#btnTolak').click(function() {
                 let id = $('#idCuti').val();
                 let pesan = $('#textTolak').val();
+                if (pesan === '') {
+                    alert('Alasan tidak boleh kosong!');
+                    return;
+                }
                 Livewire.dispatch('tolak_cuti', {
                     id: id,
                     pesan: pesan,

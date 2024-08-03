@@ -89,7 +89,12 @@ class KeraniBeritaCutiController extends Controller
         $jabatan = $user->karyawan->posisi->jabatan;
 
         // Mengambil semua permintaan cuti yang disetujui dan dibuat oleh pengguna yang sama
-        $cutiDisetujui = PermintaanCuti::where('is_approved', 1)
+        // $cutiDisetujui = PermintaanCuti::where('is_approved', 1)
+        //     ->where('id_posisi_pembuat', $idPosisi)
+        //     ->get();
+        $cutiDisetujui = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_approved', 1)
             ->where('id_posisi_pembuat', $idPosisi)
             ->get();
 

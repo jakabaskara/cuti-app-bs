@@ -5,10 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PermintaanCuti extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'permintaan_cuti';
 
@@ -49,7 +51,9 @@ class PermintaanCuti extends Model
 
     public static function getRiwayatCuti($idAtasan)
     {
-        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $idAtasan)
@@ -63,7 +67,9 @@ class PermintaanCuti extends Model
     {
         // $pairings = Pairing::where('id_atasan', $idPosisi)->get();
 
-        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $idPosisi)
@@ -83,7 +89,9 @@ class PermintaanCuti extends Model
     {
         // $pairings = Pairing::where('id_atasan', $idAtasan)->get();
 
-        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $idAtasan)
@@ -98,7 +106,9 @@ class PermintaanCuti extends Model
 
     public static function getDibatalkanCuti($idAtasan)
     {
-        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $idAtasan)
@@ -109,7 +119,9 @@ class PermintaanCuti extends Model
 
     public static function getMenungguPersetujuan($idAtasan)
     {
-        $permintaanCuti = PermintaanCuti::select('permintaan_cuti.*')
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->select('permintaan_cuti.*')
             ->join('karyawan', 'permintaan_cuti.id_karyawan', '=', 'karyawan.id')
             ->join('pairing', 'karyawan.id_posisi', '=', 'pairing.id_bawahan')
             ->where('pairing.id_atasan', $idAtasan)
@@ -126,38 +138,69 @@ class PermintaanCuti extends Model
 
     public static function getHistoryCuti($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->orderBy('id', 'DESC');
-        return $data;
+        // $data = self::where('id_posisi_pembuat', $idPosisi)->orderBy('id', 'DESC');
+        // return $data;
+        return self::withTrashed()
+               ->with(['karyawan' => function ($query) {
+                   $query->withTrashed();
+               }])
+               ->where('id_posisi_pembuat', $idPosisi)
+               ->orderBy('id', 'DESC');
     }
 
     public static function getDisetujui($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 1)->count();
-        return $data;
+        // $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 1)->count();
+        // return $data;
+        return self::withTrashed()
+               ->with(['karyawan' => function ($query) {
+                   $query->withTrashed();
+               }])
+               ->where('id_posisi_pembuat', $idPosisi)
+               ->where('is_approved', 1)
+               ->count();
     }
 
     public static function getDitolak($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_rejected', 1)->count();
-        return $data;
+        // $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_rejected', 1)->count();
+        // return $data;
+        return self::withTrashed()
+               ->with(['karyawan' => function ($query) {
+                   $query->withTrashed();
+               }])
+               ->where('id_posisi_pembuat', $idPosisi)
+               ->where('is_rejected', 1)
+               ->count();
     }
 
-    // public static function getPending($idPosisi)
-    // {
-    //     $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->count();
-    //     return $data;
-    // }
 
     public static function getPending($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->where('is_checked', 1)->count();
-        return $data;
+        // $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_approved', 0)->where('is_rejected', 0)->where('is_checked', 1)->count();
+        // return $data;
+        return self::withTrashed()
+               ->with(['karyawan' => function ($query) {
+                   $query->withTrashed();
+               }])
+               ->where('id_posisi_pembuat', $idPosisi)
+               ->where('is_approved', 0)
+               ->where('is_rejected', 0)
+               ->where('is_checked', 1)
+               ->count();
     }
 
     public static function getMenunggudiketahui($idPosisi)
     {
-        $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_checked', 0)->count();
-        return $data;
+        // $data = self::where('id_posisi_pembuat', $idPosisi)->where('is_checked', 0)->count();
+        // return $data;
+        return self::withTrashed()
+        ->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])
+        ->where('id_posisi_pembuat', $idPosisi)
+        ->where('is_checked', 0)
+        ->count();
     }
 
     public static function getTodayKaryawanCuti($idPosisi)

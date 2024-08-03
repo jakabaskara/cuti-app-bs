@@ -47,7 +47,7 @@
                                             $i = 1;
                                         @endphp
                                         @foreach ($riwayats as $riwayat)
-                                            <tr class="text-center">
+                                            <tr class="text-center align-middle">
                                                 <td class="text-dark">{{ $i }}</td>
                                                 <td class="text-dark">{{ $riwayat->karyawan->NIK }}</td>
                                                 <td class="text-dark">{{ $riwayat->karyawan->nama }}</td>

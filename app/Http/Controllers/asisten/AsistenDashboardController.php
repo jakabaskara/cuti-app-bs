@@ -258,7 +258,13 @@ class AsistenDashboardController extends Controller
 
     public function downloadPermintaanCutiPDF($id)
     {
-        $permintaanCuti = PermintaanCuti::find($id);
+        // $permintaanCuti = PermintaanCuti::find($id);
+        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->find($id);
+        // if ($permintaanCuti->karyawan->trashed()) {
+        //     return redirect()->back()->with('error_message', 'Data Karyawan tersebut sudah dihapus');
+        // }
         $karyawan = $permintaanCuti->karyawan;
         $pairing = Pairing::where('id_bawahan', $karyawan->id_posisi)->get()->first();
         $jabatan = $pairing->atasan->jabatan;
@@ -273,17 +279,16 @@ class AsistenDashboardController extends Controller
         $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
-        $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        // $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $riwayatCuti = RiwayatCuti::withTrashed()->with(['permintaanCuti' => function ($query) {
+            $query->withTrashed();
+        }])->where('id_permintaan_cuti', $permintaanCuti->id)->first();
         $checkedBy = $riwayatCuti->nama_checker;
         $jabatanChecker = $riwayatCuti->jabatan_checker;
         $nama_approver = $riwayatCuti->nama_approver;
         $jabatan_approver = $riwayatCuti->jabatan_approver;
         $nik_approver = $riwayatCuti->nik_approver;
         $nik_checker = $riwayatCuti->nik_checker;
-
-        $cutiPanjangDijalani += $sisaCutiPanjang;
-        $cutiTahunanDijalani += $sisaCutiTahunan;
-
         $periode_panjang = explode('/', $riwayatCuti->periode_cuti_panjang);
         $periode_tahunan = explode('/', $riwayatCuti->periode_cuti_tahunan);
         $periode_panjang[0] -= 6;
@@ -294,6 +299,18 @@ class AsistenDashboardController extends Controller
         $tahun_panjang = implode('/', $periode_panjang);
         $tahun_tahunan = implode('/', $periode_tahunan);
 
+
+        // Mengambil sisa cuti dari RiwayatCuti
+        $sisaCutiPanjang = $riwayatCuti->sisa_cuti_panjang ?? '0';
+        $sisaCutiTahunan = $riwayatCuti->sisa_cuti_tahunan ?? '0';
+
+        // Hitung jumlah cuti yang dijalani
+        $cutiPanjangDijalani = $permintaanCuti->jumlah_cuti_panjang;
+        $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
+
+
+        // $cutiPanjangDijalani += $sisaCutiPanjang;
+        // $cutiTahunanDijalani += $sisaCutiTahunan;
         // dd($karyawan->posisi->role);
         if ($karyawan->posisi->role->nama_role == 'manajer') {
             $pdf = Pdf::loadView('formGM', [

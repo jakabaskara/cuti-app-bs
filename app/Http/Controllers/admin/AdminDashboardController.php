@@ -33,19 +33,35 @@ class AdminDashboardController extends Controller
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         });
 
-        // $getDisetujui = PermintaanCuti::getDisetujui($idPosisi);
-        // $getPending = PermintaanCuti::getPending($idPosisi);
-        // $getDitolak = PermintaanCuti::getDitolak($idPosisi);
         $getKaryawanCuti = PermintaanCuti::getTodayKaryawanCuti($idPosisi);
 
 
-        $getDisetujui = PermintaanCuti::where('is_approved', 1)->count();
-        $getPending = PermintaanCuti::where('is_checked', 1)
+        // $getDisetujui = PermintaanCuti::where('is_approved', 1)->count();
+        // $getPending = PermintaanCuti::where('is_checked', 1)
+        // ->where('is_approved', 0)
+        // ->where('is_rejected', 0)
+        // ->count();
+        // $getDitolak = PermintaanCuti::where('is_rejected', 1)->count();
+        // $getMenunggudiketahui = PermintaanCuti::where('is_checked', 0)
+        // ->where('is_approved', 0)
+        // ->where('is_rejected', 0)
+        // ->count();
+
+        $getDisetujui = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_approved', 1)->count();
+        $getPending = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_checked', 1)
         ->where('is_approved', 0)
         ->where('is_rejected', 0)
         ->count();
-        $getDitolak = PermintaanCuti::where('is_rejected', 1)->count();
-        $getMenunggudiketahui = PermintaanCuti::where('is_checked', 0)
+        $getDitolak = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_rejected', 1)->count();
+        $getMenunggudiketahui = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
+            $query->withTrashed();
+        }])->where('is_checked', 0)
         ->where('is_approved', 0)
         ->where('is_rejected', 0)
         ->count();

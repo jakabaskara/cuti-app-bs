@@ -53,8 +53,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::put('/karyawan/update', [AdminKaryawanController::class, 'updateKaryawan'])->name('updateKaryawan');
     Route::delete('/delete-karyawan/{id}', [AdminKaryawanController::class, 'delete'])->name('admin.delete-karyawan');
 
-
+//  Sisa Cuti
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
+    // Route::get('/sisacuti/{id}/edit', [SisaCutiController::class, 'edit'])->name('admin.sisacuti.edit');
+    Route::get('/sisacuti/{id_karyawan}/edit', [SisaCutiController::class, 'edit'])->name('admin.sisacuti.edit');
+    Route::post('sisacuti', [SisaCutiController::class, 'tambahCuti'])->name('tambahCuti');
+    Route::put('/sisacuti/update', [SisaCutiController::class, 'updateCuti'])->name('updateCuti');
+    Route::delete('/delete-sisacuti/{id_karyawan}', [SisaCutiController::class, 'delete'])->name('admin.delete-sisacuti');
+
+
+
+
     Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
 
     Route::get('/pairing', [AdminPairingController::class, 'index'])->name('admin.pairing.index');
