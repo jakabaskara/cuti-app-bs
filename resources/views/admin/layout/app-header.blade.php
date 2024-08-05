@@ -69,7 +69,7 @@
                             @if (request()->route()->uri == 'admin')
                                 Dashboard
                             @elseif(request()->route()->uri == 'admin/karyawan')
-                                Karyawan
+                                Kelola Karyawan
                             @elseif(request()->route()->uri == 'admin/pairing')
                                 Pairing
                             @elseif(request()->route()->uri == 'admin/keanggotaan')

@@ -65,6 +65,7 @@ class AdminDashboardController extends Controller
         ->where('is_approved', 0)
         ->where('is_rejected', 0)
         ->count();
+        $totalKaryawan = Karyawan::count();
 
 
         return view('admin.index', [
@@ -80,6 +81,7 @@ class AdminDashboardController extends Controller
             'ditolak' => $getDitolak,
             'menunggudiketahui' => $getMenunggudiketahui,
             'karyawanCuti' => $getKaryawanCuti,
+            'totalKaryawan' => $totalKaryawan,
         ]);
     }
 }

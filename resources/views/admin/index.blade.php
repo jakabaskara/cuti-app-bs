@@ -19,7 +19,7 @@
     <h3 class="mb-4">Halo, {{ $nama }} 👋</h3>
 
     <div class="row">
-        <div class="col-xl-3">
+        <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-4">
             <div class="card widget widget-stats">
                 <div class="card-body">
                     <div class="widget-stats-container d-flex">
@@ -78,6 +78,39 @@
                             <span class="widget-stats-title text-dark">Menunggu Dicek</span>
                             <span class="widget-stats-amount">{{ $menunggudiketahui }}</span>
                             <span class="widget-stats-info">Form Cuti Belum di Cek</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-dark">
+                            <i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Karyawan</span>
+                            <span class="widget-stats-amount">{{ $totalKaryawan }}</span>
+                            <span class="widget-stats-info">Total Jumlah Karyawan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4">
+            <div class="card widget widget-stats">
+                <div class="card-body">
+                    <div class="widget-stats-container d-flex">
+                        <div class="widget-stats-icon widget-stats-icon-primary">
+                            <i class="material-icons-outlined">summarize</i>
+                        </div>
+                        <div class="widget-stats-content flex-fill">
+                            <span class="widget-stats-title text-dark">Total</span>
+                            <span
+                                class="widget-stats-amount">{{ $menunggudiketahui + $ditolak + $pending + $disetujui }}</span>
+                            <span class="widget-stats-info">Keseluruhan Cuti Yang Dibuat</span>
                         </div>
                     </div>
                 </div>

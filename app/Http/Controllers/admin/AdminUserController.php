@@ -39,10 +39,21 @@ class AdminUserController extends Controller
     public function tambahUser(Request $request)
     {
         $validate = $request->validate([
-            'username' => 'required|unique:users,username',
+            'username' => 'required',
             'password' => 'required|min:3',
-            'id_karyawan' => 'required|unique:users,id_karyawan|exists:karyawan,id',
+            'id_karyawan' => 'required|exists:karyawan,id',
         ]);
+
+        $existingUsername = User::where('username', $validate['username'])->first();
+        if ($existingUsername) {
+            return redirect()->back()->with('warning_message', 'Username sudah ada');
+        }
+
+        // Cek apakah id_karyawan sudah digunakan
+        $existingIdKaryawan = User::where('id_karyawan', $validate['id_karyawan'])->first();
+        if ($existingIdKaryawan) {
+            return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
+        }
 
         DB::transaction(function () use ($validate) {
             $user = User::create([
@@ -67,12 +78,18 @@ class AdminUserController extends Controller
     public function updateUser(Request $request)
     {
         $request->validate([
-            // 'username' => 'required|unique:users,username',
-            'id_karyawan' => 'required|unique:users,id_karyawan|exists:karyawan,id',
+            'id_karyawan' => 'required|exists:karyawan,id',
         ]);
 
+        // Pastikan id_karyawan tidak sudah digunakan oleh user lain
+        $existingIdKaryawan = User::where('id_karyawan', $request->id_karyawan)
+                                  ->where('id', '!=', $request->id) // Pastikan pengecekan bukan untuk user yang sedang diupdate
+                                  ->first();
+        if ($existingIdKaryawan) {
+            return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
+        }
+
         $user = User::findOrFail($request->id);
-        // $user->username = $request->username;
         $user->id_karyawan = $request->id_karyawan;
         $user->save();
 

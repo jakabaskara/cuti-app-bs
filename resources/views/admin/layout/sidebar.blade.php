@@ -24,7 +24,7 @@
             <li class="{{ request()->route()->uri == 'admin/karyawan' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.karyawan.index') }}"
                     class="{{ request()->route()->uri == 'admin/karyawan' ? 'active' : '' }}"><i
-                        class="material-icons-two-tone">groups_2</i>Karyawan<span
+                        class="material-icons-two-tone">groups_2</i>Kelola Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
             <li class="{{ request()->route()->uri == 'admin/user' ? 'active-page' : '' }}">
