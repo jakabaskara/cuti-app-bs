@@ -27,6 +27,11 @@
                         class="material-icons-two-tone">groups_2</i>Karyawan<span
                         class="badge rounded-pill badge-danger float-end"></span></a>
             </li>
+            <li class="{{ request()->route()->uri == 'admin/user' ? 'active-page' : '' }}">
+                <a href="{{ route('admin.user.index') }}"
+                    class="{{ request()->route()->uri == 'admin/user' ? 'active' : '' }}"><i
+                        class="material-icons-two-tone">person</i>Kelola User</a>
+            </li>
             <li class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active-page' : '' }}">
                 <a href="{{ route('admin.sisacuti.index') }}"
                     class="{{ request()->route()->uri == 'admin/sisacuti' ? 'active' : '' }}"><i

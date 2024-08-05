@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 @endsection
 
 @section('content')
@@ -14,53 +15,45 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h5>Data Karyawan</h5>
+                    <h5>Data User</h5>
                     <div class="row">
                         <div class="col">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
-                                + Tambah Karyawan
+                                + Tambah User
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover " id="tableData1">
+                        <table class="table table-sm table-bordered table-hover" id="tableData1">
                             <thead class="table-dark">
                                 <tr class="text-center align-middle">
                                     <th class="text-dark">No.</th>
-                                    <th class="text-dark">NIK</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Jabatan</th>
-                                    <th class="text-dark">Unit Kerja</th>
-                                    <th class="text-dark">Posisi</th>
-                                    <th class="text-dark">ID Posisi</th>
+                                    <th class="text-dark">Username</th>
                                     <th class="text-dark">ID Karyawan</th>
-                                    <th class="text-dark">aksi</th>
+                                    <th class="text-dark">Nama Karyawan</th>
+                                    <th class="text-dark">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($karyawan as $karyawan)
+                                @forelse ($users as $user)
                                     <tr class="text-center align-middle">
                                         <th>{{ $loop->iteration }}</th>
-                                        <td>{{ $karyawan->NIK }}</td>
-                                        <td>{{ $karyawan->nama }}</td>
-                                        <td>{{ $karyawan->jabatan }}</td>
-                                        <td>{{ $karyawan->posisi->unitKerja->nama_unit_kerja }}</td>
-                                        <td>{{ $karyawan->posisi->jabatan }}</td>
-                                        <td>{{ $karyawan->id_posisi }}</td>
-                                        <td>{{ $karyawan->id }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->id_karyawan }}</td>
+                                        <td>{{ $user->karyawan->nama }}</td>
                                         <td class=" ">
-
                                             <div class="row">
                                                 <div class="col">
                                                     <button class="btn btn-sm px-2 py-0 m-0 btn-warning"
-                                                        onclick="editEmployee({{ $karyawan->id }})" data-bs-toggle="modal"
-                                                        data-bs-target="#editEmployeeModal"><span
-                                                            class="material-icons">edit_note</span></button>
+                                                        onclick="editUser({{ $user->id }})" data-bs-toggle="modal"
+                                                        data-bs-target="#editUserModal">
+                                                        <span class="material-icons">edit_note</span>
+                                                    </button>
                                                     <button class="btn btn-sm px-2 py-0 m-0 btn-danger"
-                                                        onclick="confirmDelete({{ $karyawan->id }}, '{{ $karyawan->nama }}')">
+                                                        onclick="confirmDelete({{ $user->id }}, '{{ $user->karyawan->nama }}')">
                                                         <span class="material-icons">delete</span>
                                                     </button>
                                                 </div>
@@ -68,7 +61,9 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <td colspan="6" class="text-center">Data Not Found</td>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Data Not Found</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -80,59 +75,44 @@
 
 
 
-    <!-- Modal add employee -->
+
+    <!-- Modal add User -->
     <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel">
-        <form method="post" action="{{ route('tambahKaryawan') }}">
+        <form method="post" action="{{ route('tambahUser') }}">
             @csrf
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Form Penambahan Karyawan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Form Penambahan User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
                     <div class="modal-body">
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nik" class="form-label">NIK</label>
-                                <input type="number" class="form-control" name="nik" required />
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="nama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="nama" required />
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id="password" required />
+                                    <button type="button" class="btn btn-outline-secondary"
+                                        onclick="togglePasswordVisibility()">
+                                        <i id="password-icon" class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" name="jabatan" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="daterange" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="text" class="form-control flatpickr1" name="tmt_bekerja" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="daterange" class="form-label">Tanggal Diangkat Menjadi Staf</label>
-                                <input type="text" class="form-control flatpickr1" name="tgl_diangkat_staf" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="id_posisi" class="form-label">ID Posisi</label>
+                                <label for="id_karyawan" class="form-label">ID Karyawan</label>
                                 <select class="form-select" id="select2" style="display: none; width: 100%"
-                                    aria-label="ID Posisi" name="id_posisi" required>
-                                    <option value="" disabled selected>Pilih Jabatan</option>
-                                    @foreach ($positions as $posisi)
-                                        <option value="{{ $posisi->id }}"
-                                            {{ old('id_posisi') == $posisi->id ? 'selected' : '' }}>
-                                            {{ $posisi->id }} - {{ $posisi->jabatan }}
-                                            ({{ $posisi->unitKerja->nama_unit_kerja }})
+                                    aria-label="ID Karyawan" name="id_karyawan" required>
+                                    <option value="" disabled selected>Pilih Karyawan</option>
+                                    @foreach ($karyawans as $karyawan)
+                                        <option value="{{ $karyawan->id }}">{{ $karyawan->NIK }} - {{ $karyawan->nama }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -151,65 +131,35 @@
 
 
     <!-- Edit Employee Modal -->
-    <div class="modal fade" id="editEmployeeModal" aria-labelledby="editEmployeeModalLabel">
-        <form id="editEmployeeForm" method="post" action="{{ route('updateKaryawan') }}">
+    <div class="modal fade" id="editUserModal" aria-labelledby="editUserModalLabel">
+        <form id="editUserForm" method="post" action="{{ route('updateUser') }}">
             @csrf
             @method('PUT')
 
-            <input type="hidden" name="id" id="editEmployeeId">
+            <input type="hidden" name="id" id="editUserId">
 
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editEmployeeModalLabel">Form Edit Karyawan</h5>
+                        <h5 class="modal-title" id="editUserModalLabel">Form Edit User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Form fields for editing employee -->
+                        <!-- Form fields for editing User -->
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="editnik" class="form-label">NIK</label>
-                                <input type="number" class="form-control" id="editnik" name="nik" required />
+                                <label for="editusername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="editusername" name="username" readonly />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="editnama" class="form-label">Nama</label>
-                                <input type="text" class="form-control" id="editnama" name="nama_karyawan"
-                                    required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="editjabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" id="editjabatan" name="jabatan" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="edittmt_bekerja" class="form-label">Tanggal Mulai Bekerja</label>
-                                <input type="text" class="form-control flatpickr1" id="edittmt_bekerja"
-                                    name="tmt_bekerja" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="edittgl_diangkat_staf" class="form-label">Tanggal Diangkat Menjadi
-                                    Staf</label>
-                                <input type="text" class="form-control flatpickr1" id="edittgl_diangkat_staf"
-                                    name="tgl_diangkat_staf" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="editid_posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" id="editid_posisi" style="display: none; width: 100%"
-                                    name="id_posisi" required>
-                                    <option selected value="">Pilih Jabatan</option>
-                                    @foreach ($positions as $posisi)
-                                        <option value="{{ $posisi->id }}">
-                                            {{ $posisi->id }} - {{ $posisi->jabatan }}
-                                            ({{ $posisi->unitKerja->nama_unit_kerja }})
+                                <label for="editid_karyawan" class="form-label">ID Karyawan</label>
+                                <select class="form-select" id="editid_karyawan" style="display: none; width: 100%"
+                                    aria-label="ID Karyawan" name="id_karyawan" required>
+                                    <option value="" disabled selected>Pilih Karyawan</option>
+                                    @foreach ($karyawans as $karyawan)
+                                        <option value="{{ $karyawan->id }}">{{ $karyawan->NIK }} - {{ $karyawan->nama }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -237,9 +187,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda Yakin Ingin Menghapus Data <b><span id="employeeName"></span></b>? <br> <br> Apakah Anda
-                        Yakin Karyawan Tersebut Sudah MBT atau Keluar?</p>
-                    <b> <span style="color: red;">NIK Yang Telah Digunakan Tidak Dapat Dipakai Kembali!!!</span></b>
+                    <p>Apakah Anda yakin ingin menghapus data <b><span id="employeeName"></span></b>?</p>
+                    <b> <span style="color: red;">ID Karyawan Yang Telah Digunakan Tidak Dapat Dipakai Kembali, Gantilah
+                            terlebih dahulu jika ingin menggunakan ID Karyawan Kembali!!!</span></b>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
@@ -273,34 +223,44 @@
             $('#select2').select2({
                 dropdownParent: $('#exampleModal .modal-content')
             });
-            $('#editid_posisi').select2({
-                dropdownParent: $('#editEmployeeModal .modal-content')
+            $('#editid_karyawan').select2({
+                dropdownParent: $('#editUserModal .modal-content')
             });
         });
 
-        function editEmployee(id) {
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.classList.remove('bi-eye');
+                passwordIcon.classList.add('bi-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.classList.remove('bi-eye-slash');
+                passwordIcon.classList.add('bi-eye');
+            }
+        }
+
+        function editUser(id) {
             $.ajax({
                 method: 'GET',
-                url: `/admin/karyawan/${id}/edit`, // Make sure this URL matches your route
+                url: `/admin/user/${id}/edit`, // Make sure this URL matches your route
                 success: function(data) {
                     // Fill modal form with data
-                    $('#editEmployeeId').val(data.id);
-                    $('#editnik').val(data.NIK);
-                    $('#editnama').val(data.nama);
-                    $('#editjabatan').val(data.jabatan);
-                    $('#edittmt_bekerja').val(data.TMT_bekerja);
-                    $('#edittgl_diangkat_staf').val(data.tgl_diangkat_staf);
-                    // $('#editid_posisi').val(data.id_posisi);
-                    $('#editid_posisi').val(data.id_posisi).trigger('change');
+                    $('#editUserId').val(data.id);
+                    $('#editusername').val(data.username);
+                    $('#editid_karyawan').val(data.id_karyawan).trigger('change');
                     // Show modal
-                    $('#editEmployeeModal').modal('show');
+                    $('#editUserModal').modal('show');
                 }
             });
         }
 
         function confirmDelete(id, name) {
             $('#employeeName').text(name); // Set the employee name in the modal
-            $('#deleteEmployeeForm').attr('action', `/admin/delete-karyawan/${id}`); // Set the form action URL
+            $('#deleteEmployeeForm').attr('action', `/admin/delete-user/${id}`); // Set the form action URL
             $('#deleteConfirmationModal').modal('show'); // Show the confirmation modal
         }
 

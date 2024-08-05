@@ -104,9 +104,13 @@ class AdminKaryawanController extends Controller
     public function delete($id)
     {
         // Check if the employee is associated with a user
-        $user = DB::table('users')->where('id_karyawan', $id)->first();
+        $user = User::withTrashed()->where('id_karyawan', $id)->first();
         if ($user) {
-            return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
+            // If the user exists and is not soft deleted
+            if (!$user->trashed()) {
+                return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
+            }
+            // If the user is soft deleted, proceed with deletion of karyawan
         }
 
         // Find the employee

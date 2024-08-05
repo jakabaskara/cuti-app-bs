@@ -6,6 +6,7 @@ use App\Http\Controllers\asisten\AsistenBeritaCutiController;
 use App\Http\Controllers\admin\AdminDashboardController;
 use App\Http\Controllers\admin\AdminBeritaCutiController;
 use App\Http\Controllers\admin\AdminRiwayatCutiController;
+use App\Http\Controllers\admin\AdminUserController;
 use App\Http\Controllers\AdminPairingController;
 // use App\Http\Controllers\asisten\ChangePasswordController;
 use App\Http\Controllers\asisten\CutiBersamaController as AsistenCutiBersamaController;
@@ -53,23 +54,28 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::put('/karyawan/update', [AdminKaryawanController::class, 'updateKaryawan'])->name('updateKaryawan');
     Route::delete('/delete-karyawan/{id}', [AdminKaryawanController::class, 'delete'])->name('admin.delete-karyawan');
 
-//  Sisa Cuti
+    // Sisa Cuti
     Route::get('/sisacuti', [SisaCutiController::class, 'index'])->name('admin.sisacuti.index');
     // Route::get('/sisacuti/{id}/edit', [SisaCutiController::class, 'edit'])->name('admin.sisacuti.edit');
     Route::get('/sisacuti/{id_karyawan}/edit', [SisaCutiController::class, 'edit'])->name('admin.sisacuti.edit');
     Route::post('sisacuti', [SisaCutiController::class, 'tambahCuti'])->name('tambahCuti');
     Route::put('/sisacuti/update', [SisaCutiController::class, 'updateCuti'])->name('updateCuti');
     Route::delete('/delete-sisacuti/{id_karyawan}', [SisaCutiController::class, 'delete'])->name('admin.delete-sisacuti');
+    Route::get('/data-sisa-cuti', [SisaCutiController::class, 'sisaCutiData'])->name('data-sisa-cuti');
 
+    // User
+    Route::get('/user', [AdminUserController::class, 'index'])->name('admin.user.index');
+    Route::post('user', [AdminUserController::class, 'tambahUser'])->name('tambahUser');
+    Route::get('/user/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/user/update', [AdminUserController::class, 'updateUser'])->name('updateUser');
+    Route::delete('/delete-user/{id}', [AdminUserController::class, 'delete'])->name('admin.delete-user');
 
 
 
     Route::get('/cuti', [AdminBeritaCutiController::class, 'index'])->name('admin.cuti.index');
-
     Route::get('/pairing', [AdminPairingController::class, 'index'])->name('admin.pairing.index');
     Route::get('/keanggotaan', [AdminPairingController::class, 'keanggotaan'])->name('admin.pairing.keanggotaan');
 
-    Route::get('/data-sisa-cuti', [SisaCutiController::class, 'sisaCutiData'])->name('data-sisa-cuti');
 
     // Riwayat Cuti
     Route::get('/riwayat-cuti', [AdminRiwayatCutiController::class, 'index'])->name('riwayat-cuti.index');

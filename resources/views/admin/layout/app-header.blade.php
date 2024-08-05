@@ -80,6 +80,8 @@
                                 Berita Karyawan Cuti
                             @elseif(request()->route()->uri == 'admin/riwayat-cuti')
                                 Riwayat Karyawan Cuti
+                            @elseif(request()->route()->uri == 'admin/user')
+                                Kelola User
                             @else
                                 Ganti Password
                             @endif
