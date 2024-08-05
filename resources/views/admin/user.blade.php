@@ -187,9 +187,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data <b><span id="employeeName"></span></b>?</p>
-                    <b> <span style="color: red;">ID Karyawan Yang Telah Digunakan Tidak Dapat Dipakai Kembali, Gantilah
-                            terlebih dahulu jika ingin menggunakan ID Karyawan Kembali!!!</span></b>
+                    <p>Apakah Anda yakin ingin menghapus data user <b><span id="employeeName"></span></b>?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
