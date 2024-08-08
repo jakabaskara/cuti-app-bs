@@ -25,8 +25,8 @@
             <tr>
                 <td>Nomor</td>
                 <td>:</td>
-                {{-- <td>lst</td> --}}
-                <td>{{ $permintaanCuti->id }}</td>
+                <td>lst</td>
+                {{-- <td>{{ $permintaanCuti->id }}</td> --}}
             </tr>
             <tr>
                 <td>Lampiran</td>
