@@ -95,7 +95,7 @@ class AdminKaryawanController extends Controller
         $karyawan->id_posisi = $request->id_posisi;
         $karyawan->save();
 
-        return redirect()->route('admin.karyawan.index')->with('message', 'Data karyawan berhasil diperbarui.');
+        return redirect()->route('admin.karyawan.index')->with('message', 'Data karyawan diperbarui, ganti id_karyawan di user jika karyawan mempunyai akun');
     }
 
 
