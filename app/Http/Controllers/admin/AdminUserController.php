@@ -50,10 +50,10 @@ class AdminUserController extends Controller
         }
 
         // Cek apakah id_karyawan sudah digunakan
-        $existingIdKaryawan = User::where('id_karyawan', $validate['id_karyawan'])->first();
-        if ($existingIdKaryawan) {
-            return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
-        }
+        // $existingIdKaryawan = User::where('id_karyawan', $validate['id_karyawan'])->first();
+        // if ($existingIdKaryawan) {
+        //     return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
+        // }
 
         DB::transaction(function () use ($validate) {
             $user = User::create([
@@ -82,12 +82,12 @@ class AdminUserController extends Controller
         ]);
 
         // Pastikan id_karyawan tidak sudah digunakan oleh user lain
-        $existingIdKaryawan = User::where('id_karyawan', $request->id_karyawan)
-                                  ->where('id', '!=', $request->id) // Pastikan pengecekan bukan untuk user yang sedang diupdate
-                                  ->first();
-        if ($existingIdKaryawan) {
-            return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
-        }
+        // $existingIdKaryawan = User::where('id_karyawan', $request->id_karyawan)
+        //                           ->where('id', '!=', $request->id) // Pastikan pengecekan bukan untuk user yang sedang diupdate
+        //                           ->first();
+        // if ($existingIdKaryawan) {
+        //     return redirect()->back()->with('warning_message', 'ID Karyawan sudah digunakan');
+        // }
 
         $user = User::findOrFail($request->id);
         $user->id_karyawan = $request->id_karyawan;
