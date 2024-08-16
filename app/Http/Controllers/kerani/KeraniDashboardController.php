@@ -341,11 +341,13 @@ class KeraniDashboardController extends Controller
     public function delete($id)
     {
         DB::transaction(function () use ($id) {
+            // Force delete related RiwayatCuti records
             $riwayatPermintaanCuti = RiwayatCuti::where('id_permintaan_cuti', $id);
-            $riwayatPermintaanCuti->delete();
+            $riwayatPermintaanCuti->forceDelete();
 
+            // Force delete PermintaanCuti record
             $permintaanCuti = PermintaanCuti::find($id);
-            $permintaanCuti->delete();
+            $permintaanCuti->forceDelete();
         });
 
         return redirect()->back()->with('error_message', 'Data Berhasil Dihapus');

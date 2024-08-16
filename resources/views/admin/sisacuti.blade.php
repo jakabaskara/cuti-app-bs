@@ -63,9 +63,9 @@
                                                     $totalCuti = $cutiTahunan;
                                                 } elseif ($cutiTahunan <= 0 && $cutiPanjang > 0) {
                                                     $totalCuti = $cutiPanjang;
-                                                } elseif ($cutiTahunan >= 0 && $cutiPanjang < 0) {
+                                                } elseif ($cutiTahunan == 0 && $cutiPanjang < 0) {
                                                     $totalCuti = $cutiPanjang;
-                                                } elseif ($cutiTahunan < 0 && $cutiPanjang >= 0) {
+                                                } elseif ($cutiTahunan < 0 && $cutiPanjang == 0) {
                                                     $totalCuti = $cutiTahunan;
                                                 } elseif ($cutiTahunan >= 0 && $cutiPanjang >= 0) {
                                                     $totalCuti = $cutiTahunan + $cutiPanjang;

@@ -194,9 +194,9 @@
                                                         $jumlahCuti = $sisaCutiTahunan;
                                                     } elseif ($sisaCutiTahunan <= 0 && $sisaCutiPanjang > 0) {
                                                         $jumlahCuti = $sisaCutiPanjang;
-                                                    } elseif ($sisaCutiTahunan >= 0 && $sisaCutiPanjang < 0) {
+                                                    } elseif ($sisaCutiTahunan == 0 && $sisaCutiPanjang < 0) {
                                                         $jumlahCuti = $sisaCutiPanjang;
-                                                    } elseif ($sisaCutiTahunan < 0 && $sisaCutiPanjang >= 0) {
+                                                    } elseif ($sisaCutiTahunan < 0 && $sisaCutiPanjang == 0) {
                                                         $jumlahCuti = $sisaCutiTahunan;
                                                     } elseif ($sisaCutiTahunan >= 0 && $sisaCutiPanjang >= 0) {
                                                         $jumlahCuti = $sisaCutiTahunan + $sisaCutiPanjang;
@@ -216,7 +216,9 @@
                 </div>
             </div>
             <div class="col">
-                <div class="card" style="min-height: 700px">
+                {{-- <div class="card" style="min-height: 700px"> --}}
+                <div class="card" style="min-height: 300px">
+
                     <div class="card-header">
                         <h5 class="text-center">Karyawan Cuti Hari Ini</h5>
                     </div>
