@@ -3,6 +3,7 @@
         <div class="card widget widget-stats">
             <div class="card-body">
                 <div class="widget-stats-container d-flex">
+                    {{-- <div class="widget-stats-icon widget-stats-icon-success" style="margin-top: 25px;"> --}}
                     <div class="widget-stats-icon widget-stats-icon-success">
                         <i class="material-icons-outlined">check_circle</i>
                     </div>
@@ -10,6 +11,7 @@
                         <span class="widget-stats-title text-dark">Disetujui</span>
                         <span class="widget-stats-amount" wire:model='totalDisetujui'>{{ $totalDisetujui }}</span>
                         <span class="widget-stats-info">Form Cuti Disetujui</span>
+                        {{-- <span class="widget-stats-info">Form Cuti yang Disetujui</span> --}}
                     </div>
                 </div>
             </div>
