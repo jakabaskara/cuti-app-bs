@@ -103,6 +103,12 @@
         'kerani' => [
             ['route' => 'kerani.index', 'uri' => 'kerani', 'icon' => 'dashboard', 'label' => 'Dashboard'],
             [
+                'route' => 'organizational-chart.index',
+                'uri' => 'auth/organizational-chart',
+                'icon' => 'account_tree',
+                'label' => 'Struktur Organisasi',
+            ],
+            [
                 'route' => 'kerani.cuti.index',
                 'uri' => 'kerani/cuti',
                 'icon' => 'inbox',
