@@ -70,12 +70,6 @@
         'asisten' => [
             ['route' => 'asisten.index', 'uri' => 'asisten', 'icon' => 'dashboard', 'label' => 'Dashboard'],
             [
-                'route' => 'admin.employee-sap.index',
-                'uri' => 'admin/employee-sap',
-                'icon' => 'badge',
-                'label' => 'Data Employee SAP',
-            ],
-            [
                 'route' => 'leave-balance-report.index',
                 'uri' => 'auth/leave-balance-report',
                 'icon' => 'assessment',
@@ -109,24 +103,6 @@
         'kerani' => [
             ['route' => 'kerani.index', 'uri' => 'kerani', 'icon' => 'dashboard', 'label' => 'Dashboard'],
             [
-                'route' => 'admin.employee-sap.index',
-                'uri' => 'admin/employee-sap',
-                'icon' => 'badge',
-                'label' => 'Data Employee SAP',
-            ],
-            [
-                'route' => 'leave-balance-report.index',
-                'uri' => 'auth/leave-balance-report',
-                'icon' => 'assessment',
-                'label' => 'Laporan Sisa Cuti',
-            ],
-            [
-                'route' => 'organizational-chart.index',
-                'uri' => 'auth/organizational-chart',
-                'icon' => 'account_tree',
-                'label' => 'Struktur Organisasi',
-            ],
-            [
                 'route' => 'kerani.cuti.index',
                 'uri' => 'kerani/cuti',
                 'icon' => 'inbox',
@@ -141,27 +117,63 @@
         ],
         'manajer' => [
             ['route' => 'manajer.index', 'uri' => 'manajer', 'icon' => 'dashboard', 'label' => 'Dashboard'],
-            ['route' => 'admin.employee-sap.index', 'uri' => 'admin/employee-sap', 'icon' => 'badge', 'label' => 'Data Employee SAP'],
-            ['route' => 'leave-balance-report.index', 'uri' => 'auth/leave-balance-report', 'icon' => 'assessment', 'label' => 'Laporan Sisa Cuti'],
-            ['route' => 'organizational-chart.index', 'uri' => 'auth/organizational-chart', 'icon' => 'account_tree', 'label' => 'Struktur Organisasi'],
+            [
+                'route' => 'leave-balance-report.index',
+                'uri' => 'auth/leave-balance-report',
+                'icon' => 'assessment',
+                'label' => 'Laporan Sisa Cuti',
+            ],
+            [
+                'route' => 'organizational-chart.index',
+                'uri' => 'auth/organizational-chart',
+                'icon' => 'account_tree',
+                'label' => 'Struktur Organisasi',
+            ],
         ],
         'kabag' => [
             ['route' => 'kabag.index', 'uri' => 'kabag', 'icon' => 'dashboard', 'label' => 'Dashboard'],
-            ['route' => 'admin.employee-sap.index', 'uri' => 'admin/employee-sap', 'icon' => 'badge', 'label' => 'Data Employee SAP'],
-            ['route' => 'leave-balance-report.index', 'uri' => 'auth/leave-balance-report', 'icon' => 'assessment', 'label' => 'Laporan Sisa Cuti'],
-            ['route' => 'organizational-chart.index', 'uri' => 'auth/organizational-chart', 'icon' => 'account_tree', 'label' => 'Struktur Organisasi'],
+            [
+                'route' => 'leave-balance-report.index',
+                'uri' => 'auth/leave-balance-report',
+                'icon' => 'assessment',
+                'label' => 'Laporan Sisa Cuti',
+            ],
+            [
+                'route' => 'organizational-chart.index',
+                'uri' => 'auth/organizational-chart',
+                'icon' => 'account_tree',
+                'label' => 'Struktur Organisasi',
+            ],
         ],
         'gm' => [
             ['route' => 'gm.index', 'uri' => 'gm', 'icon' => 'dashboard', 'label' => 'Dashboard'],
-            ['route' => 'admin.employee-sap.index', 'uri' => 'admin/employee-sap', 'icon' => 'badge', 'label' => 'Data Employee SAP'],
-            ['route' => 'leave-balance-report.index', 'uri' => 'auth/leave-balance-report', 'icon' => 'assessment', 'label' => 'Laporan Sisa Cuti'],
-            ['route' => 'organizational-chart.index', 'uri' => 'auth/organizational-chart', 'icon' => 'account_tree', 'label' => 'Struktur Organisasi'],
+            [
+                'route' => 'leave-balance-report.index',
+                'uri' => 'auth/leave-balance-report',
+                'icon' => 'assessment',
+                'label' => 'Laporan Sisa Cuti',
+            ],
+            [
+                'route' => 'organizational-chart.index',
+                'uri' => 'auth/organizational-chart',
+                'icon' => 'account_tree',
+                'label' => 'Struktur Organisasi',
+            ],
         ],
         'sevp' => [
             ['route' => 'sevp.index', 'uri' => 'sevp', 'icon' => 'dashboard', 'label' => 'Dashboard'],
-            ['route' => 'admin.employee-sap.index', 'uri' => 'admin/employee-sap', 'icon' => 'badge', 'label' => 'Data Employee SAP'],
-            ['route' => 'leave-balance-report.index', 'uri' => 'auth/leave-balance-report', 'icon' => 'assessment', 'label' => 'Laporan Sisa Cuti'],
-            ['route' => 'organizational-chart.index', 'uri' => 'auth/organizational-chart', 'icon' => 'account_tree', 'label' => 'Struktur Organisasi'],
+            [
+                'route' => 'leave-balance-report.index',
+                'uri' => 'auth/leave-balance-report',
+                'icon' => 'assessment',
+                'label' => 'Laporan Sisa Cuti',
+            ],
+            [
+                'route' => 'organizational-chart.index',
+                'uri' => 'auth/organizational-chart',
+                'icon' => 'account_tree',
+                'label' => 'Struktur Organisasi',
+            ],
             ['route' => 'sevp.cuti.index', 'uri' => 'sevp/cuti', 'icon' => 'event', 'label' => 'Berita Karyawan Cuti'],
         ],
         'pic' => [['route' => 'pic.index', 'uri' => 'pic', 'icon' => 'dashboard', 'label' => 'Dashboard']],
