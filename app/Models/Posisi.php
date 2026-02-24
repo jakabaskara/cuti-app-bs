@@ -19,38 +19,43 @@ class Posisi extends Model
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'id_role');
+        return $this->belongsTo(Role::class , 'id_role');
     }
 
 
     public function unitKerja()
     {
-        return $this->belongsTo(UnitKerja::class, 'id_unit_kerja');
+        return $this->belongsTo(UnitKerja::class , 'id_unit_kerja');
     }
 
     public function karyawan()
     {
-        return $this->hasMany(Karyawan::class, 'id_posisi');
+        return $this->hasMany(Karyawan::class , 'id_posisi');
     }
 
     public function atasan()
     {
-        return $this->hasMany(Pairing::class, 'id_atasan');
+        return $this->hasMany(Pairing::class , 'id_atasan');
     }
 
     public function bawahan()
     {
-        return $this->hasMany(Pairing::class, 'id_bawahan');
+        return $this->hasMany(Pairing::class , 'id_bawahan');
     }
 
     public function keanggotaan()
     {
-        return $this->hasMany(Keanggotaan::class, 'id_posisi');
+        return $this->hasMany(Keanggotaan::class , 'id_posisi');
     }
 
     public function permintaanCuti()
     {
-        return $this->hasMany(PermintaanCuti::class, 'id_posisi_pembuat');
+        return $this->hasMany(PermintaanCuti::class , 'id_posisi_pembuat');
+    }
+
+    public function employeePositions()
+    {
+        return $this->hasMany(EmployeePosition::class , 'id_position');
     }
 
     public static function isKebun($id)

@@ -19,21 +19,53 @@ class AdminUserController extends Controller
 {
     public function index()
     {
-    $idUser = Auth::user()->id;
-    $user = User::find($idUser);
-    $jabatan = $user->karyawan->posisi->jabatan;
-    $namaUser = $user->karyawan->nama;
+        $idUser = Auth::user()->id;
+        $user = User::find($idUser);
+        $jabatan = $user->karyawan->posisi->jabatan;
+        $namaUser = $user->karyawan->nama;
 
-    $users = User::with('karyawan')->get();
-    $karyawans = Karyawan::all();
+        return view('admin.user', [
+            'nama' => $namaUser,
+            'jabatan' => $jabatan,
+        ]);
+    }
 
-    return view('admin.user', [
-        'karyawans' => $karyawans,
-        'users' => $users,
-        'nama' => $namaUser,
-        'jabatan' => $jabatan,
+    public function getUserData(Request $request)
+    {
+        $perPage = $request->input('per_page', 25);
+        $page = $request->input('page', 1);
+        $search = $request->input('search', '');
 
-    ]);
+        $query = User::with('karyawan.posisi');
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('username', 'like', "%{$search}%")
+                  ->orWhereHas('karyawan', function($subQ) use ($search) {
+                      $subQ->where('nama', 'like', "%{$search}%")
+                           ->orWhere('nik', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $total = $query->count();
+        $users = $query->skip(($page - 1) * $perPage)
+                       ->take($perPage)
+                       ->get();
+
+        return response()->json([
+            'data' => $users,
+            'current_page' => $page,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => ceil($total / $perPage)
+        ]);
+    }
+
+    public function getKaryawanForSelect()
+    {
+        $karyawans = Karyawan::select('id', 'nik', 'nama')->get();
+        return response()->json($karyawans);
     }
 
     public function tambahUser(Request $request)

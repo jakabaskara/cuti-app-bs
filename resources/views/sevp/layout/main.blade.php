@@ -46,7 +46,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap ">
-        @include('sevp.layout.sidebar')
+        <x-sidebar :role="'sevp'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('sevp.layout.app-header')
             <div class="app-content">

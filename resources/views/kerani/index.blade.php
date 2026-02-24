@@ -374,19 +374,6 @@
                             @livewire('kerani-daftar-sisa-cuti')
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
-                                <label for="daterange" class="form-label">Tanggal Cuti</label>
-                                <input type="text" class="form-control flatpickr1" name="tanggal_cuti" required
-                                    id="tanggal_cuti" />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <p class="text-dark" id="jumlah-hari"> Jumlah Hari Cuti: 0</p>
-                                <input type="hidden" id="jumlahHari" name="jumlahHariCuti" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
                             @livewire('kerani-jenis-cuti')
                         </div>
                         <div class="row mb-3">
@@ -445,77 +432,216 @@
 
 
     <script>
-        var fp;
-        fetch("{{ asset('assets/libur.json') }}")
+        var fpTahunan, fpPanjang;
+        var selectedTahunan = [],
+            selectedPanjang = [];
+        var isKandir = {{ $isKandir ? 'true' : 'false' }};
+        var username = "{{ $username }}";
+
+        function countWorkdays(startDate, endDate, holidays) {
+            var count = 0;
+            var dates = [];
+            var cur = new Date(startDate);
+            var userStartsWith5 = username.startsWith('5');
+            var dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+            while (cur <= endDate) {
+                var dayOfWeek = cur.getDay();
+                var fmt = cur.toLocaleDateString('en-CA');
+                var holiday = holidays[fmt];
+                var isLiburBiasa = holiday && holiday.jenis_libur === 'libur_biasa';
+                var isWeekend;
+
+                if (userStartsWith5) {
+                    isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+                } else {
+                    isWeekend = (dayOfWeek === 0);
+                }
+
+                if (!isWeekend && !isLiburBiasa) {
+                    count++;
+                    dates.push(fmt + ' (' + dayNames[dayOfWeek] + ')');
+                }
+                cur.setDate(cur.getDate() + 1);
+            }
+            return {
+                count: count,
+                dates: dates
+            };
+        }
+
+        function countCalendarDays(startDate, endDate, holidays) {
+            var userStartsWith5 = username.startsWith('5');
+            var dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            var extendedStart = new Date(startDate);
+            var extendedEnd = new Date(endDate);
+
+            while (true) {
+                var prev = new Date(extendedStart);
+                prev.setDate(prev.getDate() - 1);
+                var dayOfWeek = prev.getDay();
+                var fmt = prev.toLocaleDateString('en-CA');
+                var isWeekend = userStartsWith5 ? (dayOfWeek === 0 || dayOfWeek === 6) : (dayOfWeek === 0);
+                var holiday = holidays[fmt];
+
+                if (isWeekend) {
+                    extendedStart = prev;
+                } else if (holiday) {
+                    extendedStart = prev;
+                } else {
+                    break;
+                }
+            }
+
+            while (true) {
+                var next = new Date(extendedEnd);
+                next.setDate(next.getDate() + 1);
+                var dayOfWeek = next.getDay();
+                var fmt = next.toLocaleDateString('en-CA');
+                var isWeekend = userStartsWith5 ? (dayOfWeek === 0 || dayOfWeek === 6) : (dayOfWeek === 0);
+                var holiday = holidays[fmt];
+
+                if (isWeekend) {
+                    extendedEnd = next;
+                } else if (holiday) {
+                    extendedEnd = next;
+                } else {
+                    break;
+                }
+            }
+
+            var count = 0;
+            var dates = [];
+            var cur = new Date(extendedStart);
+            while (cur <= extendedEnd) {
+                var dayOfWeek = cur.getDay();
+                var fmt = cur.toLocaleDateString('en-CA');
+                dates.push(fmt + ' (' + dayNames[dayOfWeek] + ')');
+                count++;
+                cur.setDate(cur.getDate() + 1);
+            }
+            return {
+                count: count,
+                dates: dates
+            };
+        }
+
+        function datesOverlap(s1, e1, s2, e2) {
+            if (!s1 || !e1 || !s2 || !e2) return false;
+            return s1 <= e2 && s2 <= e1;
+        }
+
+        function validateAndUpdate(holidays) {
+            var sisaTahunan = parseInt($('#sisa_cuti_tahunan').val()) || 0;
+            var sisaPanjang = parseInt($('#sisa_cuti_panjang').val()) || 0;
+
+            var hariTahunan = 0,
+                hariPanjang = 0;
+            var errorTahunan = '',
+                errorPanjang = '';
+            var hasOverlap = false;
+            var detailTahunan = [],
+                detailPanjang = [];
+
+            if (selectedTahunan.length >= 2) {
+                var resultTahunan = countWorkdays(selectedTahunan[0], selectedTahunan[1], holidays);
+                hariTahunan = resultTahunan.count;
+                detailTahunan = resultTahunan.dates;
+                if (hariTahunan > sisaTahunan) {
+                    errorTahunan = 'Melebihi sisa cuti tahunan (' + sisaTahunan + ' hari)!';
+                }
+            }
+
+            if (selectedPanjang.length >= 2) {
+                var resultPanjang = countCalendarDays(selectedPanjang[0], selectedPanjang[1], holidays);
+                hariPanjang = resultPanjang.count;
+                detailPanjang = resultPanjang.dates;
+                if (hariPanjang > sisaPanjang) {
+                    errorPanjang = 'Melebihi sisa cuti panjang (' + sisaPanjang + ' hari)!';
+                }
+            }
+
+            if (selectedTahunan.length >= 2 && selectedPanjang.length >= 2) {
+                hasOverlap = datesOverlap(selectedTahunan[0], selectedTahunan[1], selectedPanjang[0], selectedPanjang[1]);
+                if (hasOverlap) {
+                    errorTahunan = 'Tanggal bentrok dengan Cuti Panjang!';
+                    errorPanjang = 'Tanggal bentrok dengan Cuti Tahunan!';
+                }
+            }
+
+            var infoTahunan = document.getElementById('info-hari-tahunan');
+            var infoPanjang = document.getElementById('info-hari-panjang');
+            if (selectedTahunan.length >= 2) {
+                var detailText = detailTahunan.length <= 3 ? detailTahunan.join(', ') : detailTahunan.slice(0, 2).join(
+                    ', ') + ' ... ' + detailTahunan[detailTahunan.length - 1];
+                infoTahunan.innerHTML = errorTahunan ? '⚠ ' + errorTahunan : '✓ ' + hariTahunan + ' hari kerja<br><small>' +
+                    detailText + '</small>';
+                infoTahunan.className = errorTahunan ? 'text-danger' : 'text-success';
+            } else {
+                infoTahunan.innerHTML = '';
+            }
+            if (selectedPanjang.length >= 2) {
+                var detailText = detailPanjang.length <= 3 ? detailPanjang.join(', ') : detailPanjang.slice(0, 2).join(
+                    ', ') + ' ... ' + detailPanjang[detailPanjang.length - 1];
+                infoPanjang.innerHTML = errorPanjang ? '⚠ ' + errorPanjang : '✓ ' + hariPanjang + ' hari<br><small>' +
+                    detailText + '</small>';
+                infoPanjang.className = errorPanjang ? 'text-danger' : 'text-success';
+            } else {
+                infoPanjang.innerHTML = '';
+            }
+
+            var tahunanVal = selectedTahunan.length >= 2 ?
+                selectedTahunan[0].toLocaleDateString('en-CA') + ' to ' + selectedTahunan[1].toLocaleDateString('en-CA') :
+                '';
+            var panjangVal = selectedPanjang.length >= 2 ?
+                selectedPanjang[0].toLocaleDateString('en-CA') + ' to ' + selectedPanjang[1].toLocaleDateString('en-CA') :
+                '';
+
+            document.getElementById('tanggal_cuti_tahunan_val').value = tahunanVal;
+            document.getElementById('tanggal_cuti_panjang_val').value = panjangVal;
+            document.getElementById('jumlah_cuti_tahunan').value = hariTahunan;
+            document.getElementById('jumlah_cuti_panjang').value = hariPanjang;
+            document.getElementById('jumlahHariCuti').value = hariTahunan + hariPanjang;
+
+            Livewire.dispatch('setJumlahHariTahunan', {
+                jumlahHari: hariTahunan
+            });
+            Livewire.dispatch('setJumlahHariPanjang', {
+                jumlahHari: hariPanjang
+            });
+
+            var hasAny = selectedTahunan.length >= 2 || selectedPanjang.length >= 2;
+            var hasError = errorTahunan || errorPanjang;
+            if (hasAny && !hasError) {
+                $('#ajukan').show().prop('disabled', false);
+            } else {
+                $('#ajukan').prop('disabled', true);
+                if (hasError) $('#ajukan').show();
+            }
+        }
+
+        fetch("{{ route('api.libur-kalender') }}")
             .then(response => response.json())
             .then(data => {
                 var holidays = data;
-                fp = flatpickr('.flatpickr1', {
+                var sisaTahunan = parseInt($('#sisa_cuti_tahunan').val()) || 0;
+                var sisaPanjang = parseInt($('#sisa_cuti_panjang').val()) || 0;
+
+                fpTahunan = flatpickr('.flatpickr-tahunan', {
                     mode: 'range',
-                    onChange: function(selectedDates, dateStr, instance) {
-                        if (selectedDates.length >= 2) {
-                            var startDate = selectedDates[0];
-                            var endDate = selectedDates[selectedDates.length - 1];
-
-                            var difference = endDate.getTime() - startDate.getTime();
-
-                            var daysDifference = 0;
-
-                            // Loop through each day in the range
-                            var currentDate = new Date(startDate);
-
-                            while (currentDate <= endDate) {
-                                // Check if the current day is not Sunday (0)
-                                @if ($isKandir)
-                                    if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-                                        var formattedDate = currentDate.toLocaleDateString('en-CA');
-                                        if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
-                                            daysDifference++;
-                                        }
-                                    }
-                                @else
-                                    if (currentDate.getDay() !== 0) {
-                                        var formattedDate = currentDate.toLocaleDateString('en-CA');
-                                        if (!holidays[formattedDate] || !holidays[formattedDate].holiday) {
-                                            daysDifference++;
-                                        }
-                                    }
-                                @endif
-                                // Move to the next day
-                                currentDate.setDate(currentDate.getDate() + 1);
-                            }
-
-                            var sisaCutiPanjang = parseInt($('#sisa_cuti_panjang').val());
-                            var sisaCutiTahunan = parseInt($('#sisa_cuti_tahunan').val());
-                            // var totalCuti = sisaCutiPanjang + sisaCutiTahunan; "sebenarnya menggunakan ini juga bisa karena sudah diperbaiki di controller kerani jenis cuti"
-                            var totalCuti = Math.max(0, sisaCutiPanjang) + Math.max(0, sisaCutiTahunan);
-
-                            var content = document.getElementById("jumlah-hari");
-                            content.classList.add('text-dark');
-
-                            content.textContent = "Jumlah :" +
-                                daysDifference + " hari";
-
-                            if (daysDifference > totalCuti) {
-                                content.classList.remove('text-dark');
-                                content.classList.add('text-danger');
-                                $('#ajukan').prop('disabled', true).hide();
-
-                            } else {
-                                content.classList.remove('text-danger');
-                                content.classList.add('text-dark');
-                                $('#ajukan').show().prop('disabled', false);
-                            }
-
-                            document.getElementById("jumlahHari").value = daysDifference;
-
-                            Livewire.dispatch('setJumlahHariCuti', {
-                                daysDifference,
-                                totalCuti
-                            });
-                        }
+                    onChange: function(dates) {
+                        selectedTahunan = dates.length >= 2 ? [dates[0], dates[dates.length - 1]] : [];
+                        validateAndUpdate(holidays);
                     },
-                })
+                });
+
+                fpPanjang = flatpickr('.flatpickr-panjang', {
+                    mode: 'range',
+                    onChange: function(dates) {
+                        selectedPanjang = dates.length >= 2 ? [dates[0], dates[dates.length - 1]] : [];
+                        validateAndUpdate(holidays);
+                    },
+                });
             })
         $(document).ready(function() {
             $('#ajukan').click(function() {
@@ -548,17 +674,57 @@
 
         document.addEventListener('livewire:init', () => {
             Livewire.on('setNama', (event) => {
-                $('#jumlah-hari').text('');
-                $('#jumlahHari').val('');
+                // Reset state
+                selectedTahunan = [];
+                selectedPanjang = [];
                 try {
-                    fp.clear()
-                } catch (e) {
-                    console.log(e)
-                }
-            });
+                    fpTahunan.clear();
+                } catch (e) {}
+                try {
+                    fpPanjang.clear();
+                } catch (e) {}
 
-            Livewire.on('errorCuti', (e) => {
-                round_error_noti('Jumlah Cuti Tidak Mencukupi');
+                var infoT = document.getElementById('info-hari-tahunan');
+                var infoP = document.getElementById('info-hari-panjang');
+                if (infoT) {
+                    infoT.textContent = '';
+                    infoT.className = '';
+                }
+                if (infoP) {
+                    infoP.textContent = '';
+                    infoP.className = '';
+                }
+
+                var t = document.getElementById('tanggal_cuti_tahunan_val');
+                var p = document.getElementById('tanggal_cuti_panjang_val');
+                if (t) t.value = '';
+                if (p) p.value = '';
+                document.getElementById('jumlah_cuti_tahunan').value = 0;
+                document.getElementById('jumlah_cuti_panjang').value = 0;
+                document.getElementById('jumlahHariCuti').value = 0;
+                $('#ajukan').prop('disabled', true);
+
+                // Tunggu Livewire selesai render ulang sisa cuti, lalu update enable/disable pickers
+                setTimeout(function() {
+                    var sisaTahunan = parseInt($('#sisa_cuti_tahunan').val()) || 0;
+                    var sisaPanjang = parseInt($('#sisa_cuti_panjang').val()) || 0;
+
+                    var inputTahunan = document.getElementById('tanggal_cuti_tahunan_input');
+                    var inputPanjang = document.getElementById('tanggal_cuti_panjang_input');
+
+                    if (inputTahunan) {
+                        inputTahunan.disabled = sisaTahunan <= 0;
+                        inputTahunan.placeholder = sisaTahunan > 0 ?
+                            'Pilih Rentang Tanggal Cuti Tahunan' :
+                            'Tidak ada sisa cuti tahunan';
+                    }
+                    if (inputPanjang) {
+                        inputPanjang.disabled = sisaPanjang <= 0;
+                        inputPanjang.placeholder = sisaPanjang > 0 ?
+                            'Pilih Rentang Tanggal Cuti Panjang' :
+                            'Tidak ada sisa cuti panjang';
+                    }
+                }, 300);
             });
         });
 
@@ -570,7 +736,7 @@
             Livewire.dispatch('setname', {
                 id: selectedValue
             });
-            fp.clear();
+
         });
 
         @if ($errors->any())

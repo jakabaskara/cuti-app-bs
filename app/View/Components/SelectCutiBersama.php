@@ -2,10 +2,10 @@
 
 namespace App\View\Components;
 
+use App\Models\MasterLiburKalender;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\File;
 use Illuminate\View\Component;
 
 class SelectCutiBersama extends Component
@@ -17,24 +17,22 @@ class SelectCutiBersama extends Component
 
     public function __construct()
     {
-        $file = File::get(public_path('assets/cuti_bersama.json'));
-        $cutiBersama = json_decode($file, true);
+        $cutiBersama = MasterLiburKalender::where('jenis_libur', 'cuti_bersama')
+            ->orderBy('tanggal', 'asc')
+            ->get();
 
         $formattedDates = [];
-        foreach ($cutiBersama as $date => $data) {
-            // Mengakses data dari array asosiatif berdasarkan kunci (key) tanggal
-            $description = $data['summary'] ?? ''; // Misalnya, mengambil deskripsi
-            $holiday = $data['holiday'] ?? ''; // Misalnya, mengambil status libur
+        foreach ($cutiBersama as $item) {
+            $date = $item->tanggal;
+            $description = $item->description;
 
-            // Ubah format tanggal menggunakan Carbon
             $formattedDate = Carbon::createFromFormat('Y-m-d', $date)->translatedFormat('l, d F Y');
 
-            // Simpan data yang diinginkan ke dalam array hasil
             $formattedDates[$date] = [
                 'value' => $date,
                 'formatted_date' => $formattedDate,
                 'description' => $description,
-                'holiday' => $holiday,
+                'holiday' => true,
             ];
         }
 

@@ -49,7 +49,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap ">
-        @include('asisten.layout.sidebar')
+        <x-sidebar :role="'asisten'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('asisten.layout.app-header')
             <div class="app-content">

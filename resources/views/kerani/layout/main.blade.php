@@ -45,7 +45,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap">
-        @include('kerani.layout.sidebar')
+        <x-sidebar :role="'kerani'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('kerani.layout.app-header')
             <div class="app-content">

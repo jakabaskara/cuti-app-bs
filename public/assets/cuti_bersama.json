@@ -1,5 +1,5 @@
 {
-    "2024-02-09": {
+    "2026-02-16": {
         "description": [
             "Hari libur nasional"
         ],
@@ -8,18 +8,16 @@
             "Cuti Bersama Tahun Baru Imlek"
         ]
     },
-    "2024-03-12": {
+    "2026-03-18": {
         "description": [
-            "Hari libur nasional",
-            "Perayaan"
+            "Hari libur nasional"
         ],
         "holiday": true,
         "summary": [
-            "Cuti Bersama Hari Suci Nyepi (Tahun Baru Saka)",
-            "Ramadan Start"
+            "Cuti Bersama Hari Suci Nyepi (Tahun Baru Saka)"
         ]
     },
-    "2024-04-08": {
+    "2026-03-20": {
         "description": [
             "Hari libur nasional"
         ],
@@ -28,7 +26,7 @@
             "Cuti Bersama Idul Fitri"
         ]
     },
-    "2024-04-09": {
+    "2026-03-23": {
         "description": [
             "Hari libur nasional"
         ],
@@ -37,7 +35,7 @@
             "Cuti Bersama Idul Fitri"
         ]
     },
-    "2024-04-12": {
+    "2026-03-24": {
         "description": [
             "Hari libur nasional"
         ],
@@ -46,16 +44,7 @@
             "Cuti Bersama Idul Fitri"
         ]
     },
-    "2024-04-15": {
-        "description": [
-            "Hari libur nasional"
-        ],
-        "holiday": true,
-        "summary": [
-            "Cuti Bersama Idul Fitri"
-        ]
-    },
-    "2024-05-10": {
+    "2026-05-15": {
         "description": [
             "Hari libur nasional"
         ],
@@ -64,22 +53,22 @@
             "Cuti Bersama Kenaikan Isa Al Masih"
         ]
     },
-    "2024-05-24": {
+    "2026-05-28": {
         "description": [
             "Hari libur nasional"
         ],
         "holiday": true,
         "summary": [
-            "Cuti Bersama Waisak"
+            "Cuti Bersama Hari Raya Idul Adha 1447 Hijriah"
         ]
     },
-    "2024-12-26": {
+    "2026-12-24": {
         "description": [
             "Hari libur nasional"
         ],
         "holiday": true,
         "summary": [
-            "Cuti Bersama Natal (Hari Tinju)"
+            "Cuti Bersama Natal (Malam Natal)"
         ]
     }
 }

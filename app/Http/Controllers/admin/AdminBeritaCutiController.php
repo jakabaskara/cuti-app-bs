@@ -26,9 +26,11 @@ class AdminBeritaCutiController extends Controller
 
         // Mengambil semua permintaan cuti yang disetujui
         // $cutiDisetujui = PermintaanCuti::where('is_approved', 1)->get();
-        $cutiDisetujui = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
-            $query->withTrashed();
-        }])->where('is_approved', 1)->get();
+        $cutiDisetujui = PermintaanCuti::withTrashed()->with([
+            'karyawan' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->where('is_approved', 1)->get();
         $isKandir = $karyawan->posisi->unitKerja->nama_unit_kerja == 'Region Office' ? true : false;
 
         // Koleksi untuk menyimpan tanggal dan jumlah karyawan cuti
@@ -68,7 +70,7 @@ class AdminBeritaCutiController extends Controller
         $output = collect($tanggalCutiMap)->map(function ($jumlah, $tanggal) {
             return [
                 'start' => $tanggal,
-                'title' => $jumlah . ' orang',
+                'title' => $jumlah.' orang',
             ];
         })->values()->toJson();
 

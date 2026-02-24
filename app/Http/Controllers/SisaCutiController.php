@@ -8,8 +8,6 @@ use App\Models\Karyawan;
 use App\Models\JenisCuti;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Extension\Autolink\UrlAutolinkParser;
-use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
 
 
@@ -24,63 +22,96 @@ class SisaCutiController extends Controller
         $namaUser = $karyawan->nama;
         $jabatan = $karyawan->posisi->jabatan;
 
-        $karyawans = Karyawan::all();
         $jenisCutis = JenisCuti::all();
-
-        $sisaCuti = SisaCuti::select(
-            'id_karyawan',
-            \DB::raw('SUM(CASE WHEN id_jenis_cuti = 1 THEN jumlah ELSE 0 END) AS total_cuti_tahunan'),
-            \DB::raw('SUM(CASE WHEN id_jenis_cuti = 2 THEN jumlah ELSE 0 END) AS total_cuti_panjang')
-        )
-            ->groupBy('id_karyawan')
-            ->get();
 
         return view('admin.sisacuti', [
             'nama' => $namaUser,
             'jabatan' => $jabatan,
-            'sisaCutis' => $sisaCuti,
-            'karyawans' => $karyawans, // Pass the variable to the view
-            'jenisCutis' => $jenisCutis, // Make sure you also pass jenisCutis to the view
+            'jenisCutis' => $jenisCutis,
             'karyawan' => $karyawan,
         ]);
     }
 
-    public function sisaCutiData(Request $request)
+    public function getKaryawanForSelect()
     {
-        return DataTables::of(SisaCuti::with('karyawan.posisi.unitKerja'))
-            ->addIndexColumn()
-            ->addColumn('NIK', function ($row) {
-                return $row->karyawan->NIK;
-            })
-            ->addColumn('ID', function ($row) {
-                return $row->id;
-            })
-            ->addColumn('Nama', function ($row) {
-                return $row->karyawan->nama;
-            })
-            ->addColumn('UnitKerja', function ($row) {
-                return $row->karyawan->posisi->unitKerja->nama_unit_kerja;
-            })
-            ->addColumn('Posisi', function ($row) {
-                return $row->karyawan->posisi->jabatan;
-            })
-            ->addColumn('PeriodeCuti', function ($row) {
-                return date('d M Y', strtotime($row->periode_mulai)) . ' s.d ' . date('d M Y', strtotime($row->periode_akhir));
-            })
-            ->addColumn('JenisCuti', function ($row) {
-                return $row->jenisCuti->jenis_cuti;
-            })
-            ->addColumn('SisaCuti', function ($row) {
-                return $row->jumlah;
-            })
-            ->setRowClass(function ($row) {
-                return 'text-center'; // Menambahkan kelas 'text-center' pada setiap baris
-            })
-            ->setRowData([
-                'data-placement' => 'center', // Menambahkan data-placement 'center' pada setiap baris
-            ])
-            ->rawColumns(['NIK', 'ID', 'Nama', 'UnitKerja', 'Posisi', 'PeriodeCuti', 'JenisCuti', 'SisaCuti']) // Aktifkan pencarian dan pengurutan untuk setiap kolom
-            ->make(true);
+        $karyawans = Karyawan::select('id', 'nik', 'nama')->get();
+        return response()->json($karyawans);
+    }
+
+    public function getSisaCutiData(Request $request)
+    {
+        $perPage = $request->input('per_page', 25);
+        $page = $request->input('page', 1);
+        $search = $request->input('search', '');
+
+        $baseQuery = SisaCuti::select(
+            'id_karyawan',
+            DB::raw('SUM(CASE WHEN id_jenis_cuti = 1 THEN jumlah ELSE 0 END) AS total_cuti_panjang'),
+            DB::raw('SUM(CASE WHEN id_jenis_cuti = 2 THEN jumlah ELSE 0 END) AS total_cuti_tahunan')
+        )
+        ->groupBy('id_karyawan');
+
+        if ($search) {
+            $baseQuery->whereHas('karyawan', function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('nik', 'like', "%{$search}%")
+                  ->orWhereHas('posisi', function($subQ) use ($search) {
+                      $subQ->where('jabatan', 'like', "%{$search}%")
+                           ->orWhereHas('unitKerja', function($unitQ) use ($search) {
+                               $unitQ->where('nama_unit_kerja', 'like', "%{$search}%");
+                           });
+                  });
+            });
+        }
+
+        $total = DB::table(DB::raw("({$baseQuery->toSql()}) as grouped"))
+            ->mergeBindings($baseQuery->getQuery())
+            ->count();
+
+        $sisaCutis = $baseQuery->with('karyawan.posisi.unitKerja')
+            ->skip(($page - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        $formattedData = $sisaCutis->map(function($item) {
+            $karyawan = $item->karyawan;
+            $cutiTahunan = $item->total_cuti_tahunan ?? 0;
+            $cutiPanjang = $item->total_cuti_panjang ?? 0;
+            
+            if ($cutiTahunan < 0 && $cutiPanjang < 0) {
+                $totalCuti = $cutiTahunan + $cutiPanjang;
+            } elseif ($cutiTahunan > 0 && $cutiPanjang <= 0) {
+                $totalCuti = $cutiTahunan;
+            } elseif ($cutiTahunan <= 0 && $cutiPanjang > 0) {
+                $totalCuti = $cutiPanjang;
+            } elseif ($cutiTahunan == 0 && $cutiPanjang < 0) {
+                $totalCuti = $cutiPanjang;
+            } elseif ($cutiTahunan < 0 && $cutiPanjang == 0) {
+                $totalCuti = $cutiTahunan;
+            } elseif ($cutiTahunan >= 0 && $cutiPanjang >= 0) {
+                $totalCuti = $cutiTahunan + $cutiPanjang;
+            } else {
+                $totalCuti = 0;
+            }
+
+            return [
+                'id_karyawan' => $item->id_karyawan,
+                'nik' => $karyawan->nik ?? '',
+                'nama' => $karyawan->nama ?? '',
+                'unit_kerja' => $karyawan->posisi->unitKerja->nama_unit_kerja ?? '',
+                'total_cuti_tahunan' => $cutiTahunan,
+                'total_cuti_panjang' => $cutiPanjang,
+                'total_cuti' => $totalCuti,
+            ];
+        });
+
+        return response()->json([
+            'data' => $formattedData,
+            'current_page' => $page,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => ceil($total / $perPage)
+        ]);
     }
 
 

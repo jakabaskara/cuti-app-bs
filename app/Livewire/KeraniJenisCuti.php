@@ -14,14 +14,12 @@ class KeraniJenisCuti extends Component
     public $sisaCutiPanjang;
     public $sisaCutiTahunan;
 
-    public $cutiDiambil;
-    public $sisaCuti;
+    public $jumlahHariTahunan = 0;
+    public $jumlahHariPanjang = 0;
 
-    public $cutiPanjangDiambil;
-    public $cutiTahunanDiambil;
     public function mount()
     {
-        // $this->jenisCuti = JenisCuti::get();
+        // nothing
     }
 
     public function render()
@@ -35,52 +33,20 @@ class KeraniJenisCuti extends Component
         $this->sisaCutiPanjang = $sisaCutiPanjang;
         $this->sisaCutiTahunan = $sisaCutiTahunan;
 
-        $this->cutiTahunanDiambil = 0;
-        $this->cutiPanjangDiambil = 0;
+        $this->jumlahHariTahunan = 0;
+        $this->jumlahHariPanjang = 0;
     }
 
-    // #[On('setJumlahHariCuti')]
-    // public function validasiCuti($daysDifference, $totalCuti)
-    // {
-    //     // daydif = cuti di ambil
-    //     // totalCuti = sisa cuti keseluruhan
-
-
-    //     if ($daysDifference > $totalCuti) {
-    //         $this->cutiPanjangDiambil = 0;
-    //         $this->cutiTahunanDiambil = 0;
-    //         $this->dispatch('errorCuti');
-    //     } else {
-    //         if ($daysDifference > $this->sisaCutiTahunan) {
-    //             $this->cutiTahunanDiambil = $this->sisaCutiTahunan;
-    //             $this->cutiPanjangDiambil = $daysDifference - $this->sisaCutiTahunan;
-    //         } else {
-    //             $this->cutiTahunanDiambil = $daysDifference;
-    //             $this->cutiPanjangDiambil = 0;
-    //         }
-    //     }
-    // }
-
-
-    #[On('setJumlahHariCuti')]
-    public function validasiCuti($daysDifference, $totalCuti)
+    #[On('setJumlahHariTahunan')]
+    public function setJumlahHariTahunan($jumlahHari)
     {
-        if ($daysDifference > $totalCuti) {
-            $this->cutiPanjangDiambil = 0;
-            $this->cutiTahunanDiambil = 0;
-            $this->dispatch('errorCuti');
-        } else {
-            $this->cutiTahunanDiambil = max(0, min($daysDifference, $this->sisaCutiTahunan));
-            $this->cutiPanjangDiambil = max(0, $daysDifference - $this->cutiTahunanDiambil);
+        $this->jumlahHariTahunan = $jumlahHari;
+    }
 
-            // Adjust if any negative values exist
-            if ($this->cutiPanjangDiambil < 0) {
-                $this->cutiPanjangDiambil = 0;
-            }
-            if ($this->cutiTahunanDiambil < 0) {
-                $this->cutiTahunanDiambil = 0;
-            }
-        }
+    #[On('setJumlahHariPanjang')]
+    public function setJumlahHariPanjang($jumlahHari)
+    {
+        $this->jumlahHariPanjang = $jumlahHari;
     }
 
     public function setCuti()

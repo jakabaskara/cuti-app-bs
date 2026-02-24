@@ -17,3 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+/cron-min-cuti-bersama.php
+/cron-renew-cuti-new.php
+/cron-renew-cuti.php

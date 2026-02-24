@@ -26,6 +26,7 @@ class User extends Authenticatable
         'username',
         'password',
         'id_karyawan',
+        'kode_unit',
     ];
 
     /**
@@ -50,6 +51,11 @@ class User extends Authenticatable
 
     public function karyawan()
     {
-        return $this->belongsTo(Karyawan::class, 'id_karyawan');
+        return $this->belongsTo(Karyawan::class , 'id_karyawan');
+    }
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(UnitKerja::class , 'kode_unit', 'kode_unit_kerja');
     }
 }

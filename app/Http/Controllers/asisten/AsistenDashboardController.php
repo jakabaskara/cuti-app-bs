@@ -87,37 +87,83 @@ class AsistenDashboardController extends Controller
             $data->sisa_cuti_tahunan = SisaCuti::where('id_karyawan', $data->id)->where('id_jenis_cuti', 2)->first()->jumlah ?? '0';
         });
 
+        $isKandir = $user->karyawan->posisi->unitKerja->nama_unit_kerja == 'Region Office' ? true : false;
+        $username = $user->username;
+
         return view('asisten.pengajuan-cuti', [
             'riwayats' => $riwayat,
             'dataPairing' => $dataPairing,
             'anggotas' => $anggota,
             'nama' => $namaUser,
             'jabatan' => $jabatan,
+            'isKandir' => $isKandir,
+            'username' => $username,
         ]);
     }
 
 
     public function submitCuti(Request $request)
     {
-        $validate = $request->validate([
+        $request->validate([
             'karyawan' => 'required',
-            'tanggal_cuti' => 'required',
-            'jumlah_cuti_panjang' => 'required',
-            'jumlah_cuti_tahunan' => 'required',
             'alasan' => 'required',
             'alamat' => 'required',
-            'jumlahHariCuti' => 'required|min:1|numeric'
+            'jumlahHariCuti' => 'required|min:1|numeric',
         ]);
 
+        $idKaryawan = $request->karyawan;
+        $tanggalCutiTahunan = $request->tanggal_cuti_tahunan;
+        $tanggalCutiPanjang = $request->tanggal_cuti_panjang;
+        $jumlahCutiTahunan = (int) $request->jumlah_cuti_tahunan;
+        $jumlahCutiPanjang = (int) $request->jumlah_cuti_panjang;
+
+        if (empty($tanggalCutiTahunan) && empty($tanggalCutiPanjang)) {
+            return redirect()->back()->with('error_message', 'Harap pilih setidaknya satu tanggal cuti!');
+        }
+
+        $sisaTahunan = SisaCuti::where('id_karyawan', $idKaryawan)->where('id_jenis_cuti', 2)->first()->jumlah ?? 0;
+        $sisaPanjang = SisaCuti::where('id_karyawan', $idKaryawan)->where('id_jenis_cuti', 1)->first()->jumlah ?? 0;
+
+        if (!empty($tanggalCutiTahunan) && $jumlahCutiTahunan > $sisaTahunan) {
+            return redirect()->back()->with('error_message', 'Jumlah cuti tahunan melebihi sisa cuti tahunan!');
+        }
+        if (!empty($tanggalCutiPanjang) && $jumlahCutiPanjang > $sisaPanjang) {
+            return redirect()->back()->with('error_message', 'Jumlah cuti panjang melebihi sisa cuti panjang!');
+        }
+
+        $startTahunan = $endTahunan = null;
+        if (!empty($tanggalCutiTahunan)) {
+            if (strpos($tanggalCutiTahunan, ' to ') !== false) {
+                [$startTahunan, $endTahunan] = explode(' to ', $tanggalCutiTahunan);
+            } else {
+                $startTahunan = $endTahunan = $tanggalCutiTahunan;
+            }
+            $startTahunan = date('Y-m-d', strtotime($startTahunan));
+            $endTahunan = date('Y-m-d', strtotime($endTahunan));
+        }
+
+        $startPanjang = $endPanjang = null;
+        if (!empty($tanggalCutiPanjang)) {
+            if (strpos($tanggalCutiPanjang, ' to ') !== false) {
+                [$startPanjang, $endPanjang] = explode(' to ', $tanggalCutiPanjang);
+            } else {
+                $startPanjang = $endPanjang = $tanggalCutiPanjang;
+            }
+            $startPanjang = date('Y-m-d', strtotime($startPanjang));
+            $endPanjang = date('Y-m-d', strtotime($endPanjang));
+        }
+
+        $allStarts = array_filter([$startTahunan, $startPanjang]);
+        $allEnds = array_filter([$endTahunan, $endPanjang]);
+        $startDate = min($allStarts);
+        $endDate = max($allEnds);
 
         $idUser = Auth::user()->id;
         $user = User::find($idUser);
         $idPosisi = $user->karyawan->id_posisi;
         $karyawan = $user->karyawan;
 
-
-        // Cek apakah ada permintaan cuti yang belum diproses (is_approved atau is_rejected bukan 1)
-        $pendingCuti = PermintaanCuti::where('id_karyawan', $validate['karyawan'])
+        $pendingCuti = PermintaanCuti::where('id_karyawan', $idKaryawan)
             ->where('is_approved', 0)
             ->where('is_rejected', 0)
             ->exists();
@@ -126,122 +172,72 @@ class AsistenDashboardController extends Controller
             return redirect()->back()->with('error_message', 'Terdapat Permintaan Cuti Yang Belum Diproses!');
         }
 
-
-        // Memeriksa apakah karyawan sudah mengajukan cuti untuk tanggal yang sama
-        $startDate = $endDate = $validate['tanggal_cuti'];
-
-        if (strpos($validate['tanggal_cuti'], ' to ') !== false) {
-            list($startDate, $endDate) = explode(" to ", $validate['tanggal_cuti']);
-        }
-
-        $existingCuti = PermintaanCuti::where('id_karyawan', $validate['karyawan'])
+        $existingCuti = PermintaanCuti::where('id_karyawan', $idKaryawan)
             ->where(function ($query) use ($startDate, $endDate) {
-                $query->where(function ($query) use ($startDate, $endDate) {
-                    $query->where('tanggal_mulai', '<=', $startDate)
-                          ->where('tanggal_selesai', '>=', $startDate);
-                })->orWhere(function ($query) use ($startDate, $endDate) {
-                    $query->where('tanggal_mulai', '<=', $endDate)
-                          ->where('tanggal_selesai', '>=', $endDate);
-                })->orWhere(function ($query) use ($startDate, $endDate) {
-                    $query->where('tanggal_mulai', '>=', $startDate)
-                          ->where('tanggal_selesai', '<=', $endDate);
+                $query->where(function ($q) use ($startDate, $endDate) {
+                    $q->where('tanggal_mulai', '<=', $startDate)
+                        ->where('tanggal_selesai', '>=', $startDate);
+                })->orWhere(function ($q) use ($startDate, $endDate) {
+                    $q->where('tanggal_mulai', '<=', $endDate)
+                        ->where('tanggal_selesai', '>=', $endDate);
+                })->orWhere(function ($q) use ($startDate, $endDate) {
+                    $q->where('tanggal_mulai', '>=', $startDate)
+                        ->where('tanggal_selesai', '<=', $endDate);
                 });
             })
-            ->where('is_rejected', 0) //kondisi tambahan untuk  cuti yang belum ditolak
+            ->where('is_rejected', 0)
             ->exists();
 
         if ($existingCuti) {
-            return redirect()->back()->with('error_message', 'Cuti sudah ada!');
+            return redirect()->back()->with('error_message', 'Cuti sudah ada pada rentang tanggal tersebut!');
         }
 
-        // Lanjutkan dengan proses pembuatan permintaan cuti
-        if (strlen($request->tanggal_cuti) != 10) {
-            list($startDate, $endDate) = explode(" to ", $request->tanggal_cuti);
-            // Konversi string tanggal menjadi format timestamp
-            $startDate = strtotime($startDate);
-            $endDate = strtotime($endDate);
-
-            // Format ulang tanggal ke format yang diinginkan
-            $startDate = date("Y-m-d", $startDate);
-            $endDate = date("Y-m-d", $endDate);
-        } else {
-            $startDate = $request->tanggal_cuti;
-            $endDate = $request->tanggal_cuti;
-        };
-
-        $isManager = Karyawan::find($request->karyawan)->posisi->role->nama_role == 'manajer' ? true : false;
+        $isManager = Karyawan::find($idKaryawan)->posisi->role->nama_role == 'manajer' ? true : false;
         $isChecked = $isManager ? 0 : 1;
 
-        DB::transaction(function () use ($validate, $startDate, $endDate, $idPosisi, $isChecked, $karyawan) {
+        DB::transaction(function () use ($request, $idKaryawan, $startDate, $endDate, $jumlahCutiTahunan, $jumlahCutiPanjang, $idPosisi, $isChecked, $karyawan) {
 
             $permintaanCuti = PermintaanCuti::create([
-                'id_karyawan' => $validate['karyawan'],
+                'id_karyawan' => $idKaryawan,
                 'tanggal_mulai' => $startDate,
                 'tanggal_selesai' => $endDate,
-                'jumlah_cuti_panjang' => $validate['jumlah_cuti_panjang'],
-                'jumlah_cuti_tahunan' => $validate['jumlah_cuti_tahunan'],
-                'alamat' => $validate['alamat'],
-                'alasan' => $validate['alasan'],
+                'jumlah_cuti_panjang' => $jumlahCutiPanjang,
+                'jumlah_cuti_tahunan' => $jumlahCutiTahunan,
+                'alamat' => $request->alamat,
+                'alasan' => $request->alasan,
                 'id_posisi_pembuat' => $idPosisi,
                 'is_approved' => 0,
                 'is_rejected' => 0,
                 'is_checked' => $isChecked,
             ]);
 
-            $karyawan_req = Karyawan::find($validate['karyawan']);
+            $karyawan_req = Karyawan::find($idKaryawan);
             $periodeCuti = SisaCuti::where('id_karyawan', $karyawan_req->id)->get();
 
             $periode = $periodeCuti->flatMap(function ($data) {
                 if ($data->id_jenis_cuti == 1) {
-                    $tanggal['periode_cuti_panjang'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                    $tanggal['periode_cuti_panjang'] = date('Y', strtotime($data->periode_mulai))."/".date('Y', strtotime($data->periode_akhir));
                 } elseif ($data->id_jenis_cuti == 2) {
-                    $tanggal['periode_cuti_tahunan'] = date('Y', strtotime($data->periode_mulai)) . "/" . date('Y', strtotime($data->periode_akhir));
+                    $tanggal['periode_cuti_tahunan'] = date('Y', strtotime($data->periode_mulai))."/".date('Y', strtotime($data->periode_akhir));
                 } else {
                     $tanggal['periode_cuti_panjang'] = '';
-                    $tanggal['periode_cuti_panjang'] = '';
+                    $tanggal['periode_cuti_tahunan'] = '';
                 }
                 return $tanggal;
             });
-
 
             RiwayatCuti::create([
                 'id_permintaan_cuti' => $permintaanCuti->id,
                 'nama_pembuat' => $karyawan->nama,
                 'jabatan_pembuat' => $karyawan->posisi->jabatan,
-                'periode_cuti_tahunan' => $periode['periode_cuti_tahunan'],
-                'periode_cuti_panjang' => $periode['periode_cuti_panjang'],
+                'periode_cuti_tahunan' => $periode['periode_cuti_tahunan'] ?? '',
+                'periode_cuti_panjang' => $periode['periode_cuti_panjang'] ?? '',
             ]);
-
-            $nama = Karyawan::find($validate['karyawan'])->nama;
-            $message = "Terdapat Permintaan Cuti Baru\n";
-            $message .= "Nama: $nama\n";
-            $message .= "Tanggal Mulai: $startDate\n";
-            $message .= "Tanggal Selesai: $endDate\n";
-            $message .= "Alasan: " . $validate['alasan'];
-
-            // Notification::send($user, new SendNotification($message));
-
-            // // Mendefinisikan keyboard inline
-            // $keyboard = [
-            //     'inline_keyboard' => [
-            //         [
-            //             ['text' => 'Setujui', 'callback_data' => 'tombol1_data'],
-            //             ['text' => 'Tolak', 'callback_data' => 'tombol2_data']
-            //         ]
-            //     ]
-            // ];
-
-            // $pesan = 'Apakah Cuti Disetujui?';
-
-            // // Mengonversi keyboard menjadi JSON
-            // $keyboard = json_encode($keyboard);
-
-            // // Kirim pesan dengan keyboard inline
-            // $response = file_get_contents("https://api.telegram.org/bot7168138742:AAH7Nlo0YsgvIl4S-DexMsWK34_SOAocfqI/sendMessage?chat_id=1176854977&text=$pesan&reply_markup=$keyboard");
         });
 
         return redirect()->back()->with('message', 'Permintaan Cuti Berhasil Dibuat!');
     }
+
 
     public function delete($id)
     {
@@ -261,9 +257,11 @@ class AsistenDashboardController extends Controller
     public function downloadPermintaanCutiPDF($id)
     {
         // $permintaanCuti = PermintaanCuti::find($id);
-        $permintaanCuti = PermintaanCuti::withTrashed()->with(['karyawan' => function ($query) {
-            $query->withTrashed();
-        }])->find($id);
+        $permintaanCuti = PermintaanCuti::withTrashed()->with([
+            'karyawan' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->find($id);
         // if ($permintaanCuti->karyawan->trashed()) {
         //     return redirect()->back()->with('error_message', 'Data Karyawan tersebut sudah dihapus');
         // }
@@ -282,9 +280,11 @@ class AsistenDashboardController extends Controller
         $cutiTahunanDijalani = $permintaanCuti->jumlah_cuti_tahunan;
 
         // $riwayatCuti = RiwayatCuti::where('id_permintaan_cuti', $permintaanCuti->id)->first();
-        $riwayatCuti = RiwayatCuti::withTrashed()->with(['permintaanCuti' => function ($query) {
-            $query->withTrashed();
-        }])->where('id_permintaan_cuti', $permintaanCuti->id)->first();
+        $riwayatCuti = RiwayatCuti::withTrashed()->with([
+            'permintaanCuti' => function ($query) {
+                $query->withTrashed();
+            }
+        ])->where('id_permintaan_cuti', $permintaanCuti->id)->first();
         $checkedBy = $riwayatCuti->nama_checker;
         $jabatanChecker = $riwayatCuti->jabatan_checker;
         $nama_approver = $riwayatCuti->nama_approver;
@@ -360,6 +360,6 @@ class AsistenDashboardController extends Controller
 
         // return view('form');
 
-        return $pdf->download('Form Cuti ' . $karyawan->nama . ' .pdf');
+        return $pdf->download('Form Cuti '.$karyawan->nama.' .pdf');
     }
 }

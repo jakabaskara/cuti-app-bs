@@ -1,6 +1,7 @@
 @extends('admin.layout.main')
 
 @section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -9,8 +10,8 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3>Data Pairing</h3>
-                    <hr>
+                    <h5>Data Employee SAP</h5>
+                    <p class="text-muted mb-0">Data karyawan yang di-sync dari sistem SAP</p>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
@@ -38,26 +39,25 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-sm table-bordered table-hover table-striped" id="tableData1">
+                        <table class="table table-sm table-bordered table-hover" id="tableData1">
                             <thead class="table-dark">
                                 <tr class="text-center align-middle">
-                                    <th rowspan="2" class="text-dark">No.</th>
-                                    <th rowspan="2" class="text-dark">Unit Kerja</th>
-                                    <th colspan="3" class="text-dark">Atasan</th>
-                                    <th colspan="3" class="text-dark">Bawahan</th>
-                                </tr>
-                                <tr class="text-center">
+                                    <th class="text-dark">No.</th>
+                                    <th class="text-dark">SAP</th>
                                     <th class="text-dark">Nama</th>
                                     <th class="text-dark">Jabatan</th>
-                                    <th class="text-dark">Posisi</th>
-                                    <th class="text-dark">Nama</th>
-                                    <th class="text-dark">Jabatan</th>
-                                    <th class="text-dark">Posisi</th>
+                                    <th class="text-dark">Unit Organisasi</th>
+                                    <th class="text-dark">Employee Group</th>
+                                    <th class="text-dark">Level</th>
+                                    <th class="text-dark">Region</th>
+                                    <th class="text-dark">Gender</th>
+                                    <th class="text-dark">Email</th>
+                                    <th class="text-dark">Phone</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
                                 <tr>
-                                    <td colspan="8" class="text-center">Loading...</td>
+                                    <td colspan="11" class="text-center">Loading...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -79,6 +79,9 @@
 @endsection
 
 @section('script')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+
     <script>
         let currentPage = 1;
         let perPage = 25;
@@ -86,13 +89,11 @@
         let searchTimeout;
         let totalPages = 1;
 
-        function loadPairingData() {
+        function loadEmployeeData() {
             const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = '<tr><td colspan="8" class="text-center">Loading...</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="11" class="text-center">Loading...</td></tr>';
 
-            fetch(
-                    `{{ route('admin.pairing.data') }}?page=${currentPage}&per_page=${perPage}&search=${encodeURIComponent(searchQuery)}`
-                    )
+            fetch(`{{ route('admin.employee-sap.data') }}?page=${currentPage}&per_page=${perPage}&search=${searchQuery}`)
                 .then(response => response.json())
                 .then(data => {
                     renderTable(data);
@@ -102,14 +103,14 @@
                 .catch(error => {
                     console.error('Error:', error);
                     tableBody.innerHTML =
-                        '<tr><td colspan="8" class="text-center text-danger">Error loading data</td></tr>';
+                        '<tr><td colspan="11" class="text-center text-danger">Error loading data</td></tr>';
                 });
         }
 
         function renderTable(data) {
             const tableBody = document.getElementById('tableBody');
             if (data.data.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="8" class="text-center">No data found</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="11" class="text-center">No data found</td></tr>';
                 return;
             }
 
@@ -117,15 +118,18 @@
             data.data.forEach((item, index) => {
                 const no = ((data.current_page - 1) * data.per_page) + index + 1;
                 html += `
-                    <tr class="align-middle">
-                        <td class="text-dark text-center">${no}.</td>
-                        <td class="text-dark">${item.unit_kerja || '-'}</td>
-                        <td class="text-dark">${item.atasan_nama || '-'}</td>
-                        <td class="text-dark">${item.atasan_jabatan || '-'}</td>
-                        <td class="text-dark">${item.atasan_posisi || '-'}</td>
-                        <td class="text-dark">${item.bawahan_nama || '-'}</td>
-                        <td class="text-dark">${item.bawahan_jabatan || '-'}</td>
-                        <td class="text-dark">${item.bawahan_posisi || '-'}</td>
+                    <tr class="text-center align-middle">
+                        <th>${no}</th>
+                        <td>${item.sap || '-'}</td>
+                        <td>${item.name || '-'}</td>
+                        <td>${item.desc_position || '-'}</td>
+                        <td>${item.desc_org_unit || '-'}</td>
+                        <td>${item.desc_employee_group || '-'}</td>
+                        <td>${item.level || '-'}</td>
+                        <td>${item.region || '-'}</td>
+                        <td>${item.gender || '-'}</td>
+                        <td>${item.email || '-'}</td>
+                        <td>${item.phone || '-'}</td>
                     </tr>
                 `;
             });
@@ -215,7 +219,7 @@
 
         function changePage(page) {
             currentPage = page;
-            loadPairingData();
+            loadEmployeeData();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -243,7 +247,7 @@
         document.getElementById('perPageSelect').addEventListener('change', function() {
             perPage = parseInt(this.value);
             currentPage = 1;
-            loadPairingData();
+            loadEmployeeData();
         });
 
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -251,12 +255,12 @@
             searchTimeout = setTimeout(() => {
                 searchQuery = this.value;
                 currentPage = 1;
-                loadPairingData();
+                loadEmployeeData();
             }, 500);
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadPairingData();
+            loadEmployeeData();
         });
     </script>
 @endsection

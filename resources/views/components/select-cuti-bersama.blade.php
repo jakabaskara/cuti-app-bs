@@ -3,7 +3,7 @@
     <select class="form-select" aria-label="Default select example" id="selectTanggal" name="selectTanggal">
         <option> </option>
         @foreach ($dates as $date)
-            <option value="{{ $date['value'] }}">{{ $date['formatted_date'] . ' - ' . $date['description'][0] }}
+            <option value="{{ $date['value'] }}">{{ $date['formatted_date'] . ' - ' . $date['description'] }}
             </option>
         @endforeach
     </select>

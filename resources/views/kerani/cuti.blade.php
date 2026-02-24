@@ -70,7 +70,7 @@
         // Kode event handler Anda
 
 
-        fetch("{{ asset('assets/libur.json') }}")
+        fetch("{{ route('api.libur-kalender') }}")
             .then(response => response.json())
             .then(data => {
                 var holidays = data;
@@ -115,7 +115,7 @@
 
                     var year = date.getFullYear();
                     var month = String(date.getMonth() + 1).padStart(2,
-                    '0'); // Tambahkan leading zero jika perlu
+                        '0'); // Tambahkan leading zero jika perlu
                     var day = String(date.getDate()).padStart(2, '0'); // Tambahkan leading zero jika perlu
 
                     var formattedDate = year + '-' + month + '-' + day;

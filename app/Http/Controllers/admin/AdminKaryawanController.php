@@ -15,7 +15,6 @@ use App\Models\SisaCuti;
 use App\Models\KaryawanCutiBersama;
 use App\Models\RiwayatCuti;
 use App\Models\PermintaanCuti;
-// use App\Models\User;
 
 
 class AdminKaryawanController extends Controller
@@ -28,13 +27,41 @@ class AdminKaryawanController extends Controller
         $jabatan = $user->karyawan->posisi->jabatan;
         $namaUser = $user->karyawan->nama;
         $idPosisi = $user->karyawan->posisi->id;
-        $karyawan = Karyawan::all();
 
         return view('admin.karyawan', [
-            'karyawan' => $karyawan,
             'jabatan' => $jabatan,
             'nama' => $namaUser,
             'positions' => $positions,
+        ]);
+    }
+
+    public function getKaryawanData(Request $request)
+    {
+        $perPage = $request->input('per_page', 10);
+        $page = $request->input('page', 1);
+        $search = $request->input('search', '');
+
+        $query = Karyawan::with('posisi.unitKerja');
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('nik', 'like', "%{$search}%")
+                  ->orWhere('nama', 'like', "%{$search}%")
+                  ->orWhere('jabatan', 'like', "%{$search}%");
+            });
+        }
+
+        $total = $query->count();
+        $karyawan = $query->skip(($page - 1) * $perPage)
+                          ->take($perPage)
+                          ->get();
+
+        return response()->json([
+            'data' => $karyawan,
+            'current_page' => $page,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => ceil($total / $perPage)
         ]);
     }
 

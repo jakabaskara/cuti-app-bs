@@ -2,20 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MasterLiburKalender;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class CutiBersamaController extends Controller
 {
     public function getCutiBersama()
     {
-        // Path ke file JSON
-        $filePath = public_path('assets/cuti_bersama.json');
+        $cutiBersama = MasterLiburKalender::where('jenis_libur', 'cuti_bersama')
+            ->orderBy('tanggal', 'asc')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [
+                    $item->tanggal => [
+                        'summary' => $item->description,
+                        'holiday' => true,
+                        'date' => $item->tanggal
+                    ]
+                ];
+            });
 
-        // Membaca isi file JSON
-        $cutiBersama = file_get_contents($filePath);
+        return response()->json($cutiBersama, 200);
+    }
 
-        // Mengembalikan JSON sebagai respons dengan header yang sesuai
-        return response()->json(json_decode($cutiBersama), 200);
+    public function getLiburKalender()
+    {
+        $libur = MasterLiburKalender::orderBy('tanggal', 'asc')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [
+                    $item->tanggal => [
+                        'summary' => $item->description,
+                        'holiday' => true,
+                        'jenis_libur' => $item->jenis_libur
+                    ]
+                ];
+            });
+
+        return response()->json($libur, 200);
     }
 }

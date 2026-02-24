@@ -69,7 +69,7 @@
         // });
         // Kode event handler Anda
 
-        fetch("{{ asset('assets/libur.json') }}")
+        fetch("{{ route('api.libur-kalender') }}")
             .then(response => response.json())
             .then(data => {
                 var holidays = data;

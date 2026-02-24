@@ -48,7 +48,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap ">
-        @include('kabag.layout.sidebar')
+        <x-sidebar :role="'kabag'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('kabag.layout.app-header')
             <div class="app-content">

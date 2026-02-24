@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Sync employee data from API every night at midnight
+        $schedule->command('employees:sync')
+            ->everyMinute('00:00')
+            ->onSuccess(function () {
+                \Log::info('Employee sync scheduled task completed successfully');
+            })
+            ->onFailure(function () {
+                \Log::error('Employee sync scheduled task failed');
+            });
     }
 
     /**

@@ -45,7 +45,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap ">
-        @include('pic.layout.sidebar')
+        <x-sidebar :role="'pic'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('pic.layout.app-header')
             <div class="app-content">

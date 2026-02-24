@@ -46,7 +46,7 @@
 
 <body>
     <div class="app align-content-stretch d-flex flex-wrap ">
-        @include('manajer.layout.sidebar')
+        <x-sidebar :role="'manajer'" :nama="$nama ?? 'User'" :jabatan="$jabatan ?? 'Position'" />
         <div class="app-container">
             @include('manajer.layout.app-header')
             <div class="app-content">
