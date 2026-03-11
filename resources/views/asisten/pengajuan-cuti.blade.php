@@ -259,37 +259,34 @@
             var extendedStart = new Date(startDate);
             var extendedEnd = new Date(endDate);
 
-            while (true) {
-                var prev = new Date(extendedStart);
-                prev.setDate(prev.getDate() - 1);
-                var dayOfWeek = prev.getDay();
-                var fmt = prev.toLocaleDateString('en-CA');
-                var isWeekend = userStartsWith5 ? (dayOfWeek === 0 || dayOfWeek === 6) : (dayOfWeek === 0);
-                var holiday = holidays[fmt];
+            function isNonWorkDay(date) {
+                var day = date.getDay();
+                var fmt = date.toLocaleDateString('en-CA');
+                var weekend = userStartsWith5 ? (day === 0 || day === 6) : (day === 0);
+                return weekend || !!holidays[fmt];
+            }
 
-                if (isWeekend) {
-                    extendedStart = prev;
-                } else if (holiday) {
-                    extendedStart = prev;
-                } else {
-                    break;
+            if (isNonWorkDay(extendedStart)) {
+                while (true) {
+                    var prev = new Date(extendedStart);
+                    prev.setDate(prev.getDate() - 1);
+                    if (isNonWorkDay(prev)) {
+                        extendedStart = prev;
+                    } else {
+                        break;
+                    }
                 }
             }
 
-            while (true) {
-                var next = new Date(extendedEnd);
-                next.setDate(next.getDate() + 1);
-                var dayOfWeek = next.getDay();
-                var fmt = next.toLocaleDateString('en-CA');
-                var isWeekend = userStartsWith5 ? (dayOfWeek === 0 || dayOfWeek === 6) : (dayOfWeek === 0);
-                var holiday = holidays[fmt];
-
-                if (isWeekend) {
-                    extendedEnd = next;
-                } else if (holiday) {
-                    extendedEnd = next;
-                } else {
-                    break;
+            if (isNonWorkDay(extendedEnd)) {
+                while (true) {
+                    var next = new Date(extendedEnd);
+                    next.setDate(next.getDate() + 1);
+                    if (isNonWorkDay(next)) {
+                        extendedEnd = next;
+                    } else {
+                        break;
+                    }
                 }
             }
 
