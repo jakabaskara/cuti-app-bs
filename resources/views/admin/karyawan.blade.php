@@ -2,8 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
@@ -132,10 +131,9 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col" wire:ignore>
                                 <label for="id_posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" id="select2" style="display: none; width: 100%"
-                                    aria-label="ID Posisi" name="id_posisi" required>
+                                <select class="form-select" id="select2" aria-label="ID Posisi" name="id_posisi" required>
                                     <option value="" disabled selected>Pilih Jabatan</option>
                                     @foreach ($positions as $posisi)
                                         <option value="{{ $posisi->id }}"
@@ -210,11 +208,10 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col">
+                            <div class="col" wire:ignore>
                                 <label for="editid_posisi" class="form-label">ID Posisi</label>
-                                <select class="form-select" id="editid_posisi" style="display: none; width: 100%"
-                                    name="id_posisi" required>
-                                    <option selected value="">Pilih Jabatan</option>
+                                <select class="form-select" id="editid_posisi" name="id_posisi" required>
+                                    <option value="">Pilih Jabatan</option>
                                     @foreach ($positions as $posisi)
                                         <option value="{{ $posisi->id }}">
                                             {{ $posisi->id }} - {{ $posisi->jabatan }}
@@ -263,10 +260,6 @@
     </div>
 @endsection
 @section('script')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
@@ -274,43 +267,65 @@
 
     <script>
         $(document).ready(function() {
-            $('#tableData1').DataTable();
-
             $('.flatpickr1').flatpickr({
                 dateFormat: "Y-m-d",
             });
-            $('#select2').select2({
-                dropdownParent: $('#exampleModal .modal-content')
-            });
-            $('#editid_posisi').select2({
-                dropdownParent: $('#editEmployeeModal .modal-content')
+
+            // Select2 untuk modal Tambah Karyawan — init saat modal terbuka penuh
+            document.getElementById('exampleModal').addEventListener('shown.bs.modal', function() {
+                if (!$('#select2').data('select2')) {
+                    $('#select2').select2({
+                        dropdownParent: $('#exampleModal .modal-content'),
+                        placeholder: 'Pilih Jabatan',
+                        allowClear: true,
+                        width: '100%',
+                    });
+                }
             });
         });
 
         function editEmployee(id) {
             $.ajax({
                 method: 'GET',
-                url: `/admin/karyawan/${id}/edit`, // Make sure this URL matches your route
+                url: `/admin/karyawan/${id}/edit`,
                 success: function(data) {
-                    // Fill modal form with data
                     $('#editEmployeeId').val(data.id);
                     $('#editnik').val(data.NIK);
                     $('#editnama').val(data.nama);
                     $('#editjabatan').val(data.jabatan);
                     $('#edittmt_bekerja').val(data.TMT_bekerja);
                     $('#edittgl_diangkat_staf').val(data.tgl_diangkat_staf);
-                    // $('#editid_posisi').val(data.id_posisi);
-                    $('#editid_posisi').val(data.id_posisi).trigger('change');
-                    // Show modal
-                    $('#editEmployeeModal').modal('show');
+
+                    const modalEl = document.getElementById('editEmployeeModal');
+
+                    // Init Select2 saat modal edit terbuka penuh, lalu set nilai
+                    modalEl.addEventListener('shown.bs.modal', function handler() {
+                        modalEl.removeEventListener('shown.bs.modal', handler);
+
+                        if ($('#editid_posisi').data('select2')) {
+                            $('#editid_posisi').select2('destroy');
+                        }
+                        $('#editid_posisi').select2({
+                            dropdownParent: $('#editEmployeeModal .modal-content'),
+                            placeholder: 'Pilih Jabatan',
+                            allowClear: true,
+                            width: '100%',
+                        });
+                        $('#editid_posisi').val(String(data.id_posisi)).trigger('change');
+                    });
+
+                    const editModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                    editModal.show();
                 }
             });
         }
 
         function confirmDelete(id, name) {
-            $('#employeeName').text(name); // Set the employee name in the modal
-            $('#deleteEmployeeForm').attr('action', `/admin/delete-karyawan/${id}`); // Set the form action URL
-            $('#deleteConfirmationModal').modal('show'); // Show the confirmation modal
+            $('#employeeName').text(name);
+            $('#deleteEmployeeForm').attr('action', `/admin/delete-karyawan/${id}`);
+            const deleteModalEl = document.getElementById('deleteConfirmationModal');
+            const deleteModal = bootstrap.Modal.getInstance(deleteModalEl) || new bootstrap.Modal(deleteModalEl);
+            deleteModal.show();
         }
 
 
@@ -420,7 +435,7 @@
                 html += `
                     <tr class="text-center align-middle">
                         <th>${no}</th>
-                        <td>${item.nik}</td>
+                        <td>${item.NIK}</td>
                         <td>${item.nama}</td>
                         <td>${item.jabatan}</td>
                         <td>${item.posisi?.unit_kerja?.nama_unit_kerja || '-'}</td>
@@ -429,8 +444,7 @@
                         <td>${item.id}</td>
                         <td>
                             <button class="btn btn-sm px-2 py-0 m-0 btn-warning"
-                                onclick="editEmployee(${item.id})" data-bs-toggle="modal"
-                                data-bs-target="#editEmployeeModal">
+                                onclick="editEmployee(${item.id})">
                                 <span class="material-icons">edit_note</span>
                             </button>
                             <button class="btn btn-sm px-2 py-0 m-0 btn-danger"
