@@ -21,9 +21,9 @@
                 @else
                     @foreach ($daftarCuti as $cuti)
                         <tr class="">
-                            <td class="text-center">{{ $cuti->karyawan->NIK }}</td>
-                            <td>{{ $cuti->karyawan->nama }}</td>
-                            <td>{{ $cuti->karyawan->jabatan }}</td>
+                            <td class="text-center">{{ $cuti->karyawan?->NIK }}</td>
+                            <td>{{ $cuti->karyawan?->nama }}</td>
+                            <td>{{ $cuti->karyawan?->jabatan }}</td>
                             <td class="text-center"> <input type="checkbox" name="checkKaryawan" id="checkKaryawan"
                                     wire:model='checkKaryawan' value="{{ $cuti->id }}"> </td>
                         </tr>
