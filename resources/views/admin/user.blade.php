@@ -202,6 +202,41 @@
             </div>
         </div>
     </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="post" action="{{ route('admin.user.reset-password') }}">
+                @csrf
+                @method('PUT')
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Reset password untuk user <b><span id="resetUsername"></span></b></p>
+                        <input type="hidden" name="id" id="resetUserId" />
+                        <div class="mb-3">
+                            <label class="form-label" for="resetPassword">Password Baru</label>
+                            <input type="password" class="form-control" name="password" id="resetPassword" required
+                                minlength="3" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="resetPasswordConfirmation">Konfirmasi Password</label>
+                            <input type="password" class="form-control" name="password_confirmation"
+                                id="resetPasswordConfirmation" required minlength="3" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -276,9 +311,19 @@
         }
 
         function confirmDelete(id, name) {
-            $('#employeeName').text(name); // Set the employee name in the modal
-            $('#deleteEmployeeForm').attr('action', `/admin/delete-user/${id}`); // Set the form action URL
-            $('#deleteConfirmationModal').modal('show'); // Show the confirmation modal
+            $('#employeeName').text(name);
+            $('#deleteEmployeeForm').attr('action', `/admin/user/${id}`);
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        function openResetPassword(id, username) {
+            $('#resetUserId').val(id);
+            $('#resetUsername').text(username);
+            $('#resetPassword').val('');
+            $('#resetPasswordConfirmation').val('');
+            const modalEl = document.getElementById('resetPasswordModal');
+            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+            modal.show();
         }
 
 
@@ -388,6 +433,8 @@
             data.data.forEach((item, index) => {
                 const no = ((data.current_page - 1) * data.per_page) + index + 1;
                 const namaKaryawan = item.karyawan ? item.karyawan.nama : '-';
+                const safeNama = String(namaKaryawan).replace(/'/g, "\\'");
+                const safeUsername = String(item.username || '').replace(/'/g, "\\'");
                 html += `
                     <tr class="text-center align-middle">
                         <th>${no}</th>
@@ -400,8 +447,12 @@
                                 data-bs-target="#editUserModal">
                                 <span class="material-icons">edit_note</span>
                             </button>
+                            <button class="btn btn-sm px-2 py-0 m-0 btn-info"
+                                onclick="openResetPassword(${item.id}, '${safeUsername}')">
+                                <span class="material-icons">lock_reset</span>
+                            </button>
                             <button class="btn btn-sm px-2 py-0 m-0 btn-danger"
-                                onclick="confirmDelete(${item.id}, '${namaKaryawan}')">
+                                onclick="confirmDelete(${item.id}, '${safeNama}')">
                                 <span class="material-icons">delete</span>
                             </button>
                         </td>

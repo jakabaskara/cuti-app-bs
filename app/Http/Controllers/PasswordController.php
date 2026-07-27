@@ -51,7 +51,7 @@ class PasswordController extends Controller
             return back()->withErrors(['current_password' => 'Password Salah']);
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = $request->password;
         $user->save();
 
         return redirect()->back()->with('success', 'Password Berhasil Diubah!');

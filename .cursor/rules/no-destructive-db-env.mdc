@@ -1,0 +1,26 @@
+---
+description: Larang operasi yang merusak database atau .env
+alwaysApply: true
+---
+
+# Jangan Rusak DB / Env
+
+Dilarang keras menjalankan apa pun yang mengubah data database, skema, atau file environment.
+
+## Dilarang
+
+- `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, `DROP`, `ALTER`
+- `php artisan migrate` / `migrate:fresh` / `migrate:refresh` / `migrate:rollback` / `db:seed` / `db:wipe`
+- Modifikasi file `.env` atau credentials
+- Menulis/menghapus data lewat tinker, raw SQL, atau script yang menyentuh DB production/dev yang dipakai
+- Menggunakan `DB::`, Eloquent `create`/`update`/`delete`/`save` dalam perintah shell/artisan yang dijalankan agent
+
+## Diizinkan
+
+- Baca saja: `SELECT`, `php artisan tinker` read-only, inspeksi schema tanpa ubah
+- Baca `.env` jika perlu debug, tapi jangan edit
+- Ubah kode aplikasi (model, migration file di repo) hanya jika user minta eksplisit — tetap **jangan jalankan** migration-nya
+
+## Jika ragu
+
+Tanya user dulu. Default = tidak menyentuh DB/env.

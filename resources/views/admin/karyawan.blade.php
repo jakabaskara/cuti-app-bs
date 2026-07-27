@@ -14,12 +14,20 @@
             <div class="card">
                 <div class="card-header">
                     <h5>Data Karyawan</h5>
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 + Tambah Karyawan
                             </button>
+                        </div>
+                        <div class="col-auto">
+                            <div class="btn-group" role="group" aria-label="Status filter">
+                                <button type="button" class="btn btn-outline-secondary active" id="filterActiveBtn"
+                                    onclick="setStatusFilter('active')">Aktif</button>
+                                <button type="button" class="btn btn-outline-secondary" id="filterTrashedBtn"
+                                    onclick="setStatusFilter('trashed')">Terhapus</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,6 +266,29 @@
             </div>
         </div>
     </div>
+
+    <!-- Restore Confirmation Modal -->
+    <div class="modal fade" id="restoreConfirmationModal" tabindex="-1" aria-labelledby="restoreConfirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="restoreConfirmationModalLabel">Konfirmasi Pemulihan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Pulihkan data <b><span id="restoreEmployeeName"></span></b> beserta akun user terkait?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                    <form id="restoreEmployeeForm" action="" method="post" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Pulihkan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
@@ -322,10 +353,26 @@
 
         function confirmDelete(id, name) {
             $('#employeeName').text(name);
-            $('#deleteEmployeeForm').attr('action', `/admin/delete-karyawan/${id}`);
+            $('#deleteEmployeeForm').attr('action', `/admin/karyawan/${id}`);
             const deleteModalEl = document.getElementById('deleteConfirmationModal');
             const deleteModal = bootstrap.Modal.getInstance(deleteModalEl) || new bootstrap.Modal(deleteModalEl);
             deleteModal.show();
+        }
+
+        function confirmRestore(id, name) {
+            $('#restoreEmployeeName').text(name);
+            $('#restoreEmployeeForm').attr('action', `/admin/karyawan/${id}/restore`);
+            const restoreModalEl = document.getElementById('restoreConfirmationModal');
+            const restoreModal = bootstrap.Modal.getInstance(restoreModalEl) || new bootstrap.Modal(restoreModalEl);
+            restoreModal.show();
+        }
+
+        function setStatusFilter(status) {
+            statusFilter = status;
+            currentPage = 1;
+            document.getElementById('filterActiveBtn').classList.toggle('active', status === 'active');
+            document.getElementById('filterTrashedBtn').classList.toggle('active', status === 'trashed');
+            loadKaryawanData();
         }
 
 
@@ -403,12 +450,13 @@
         let searchQuery = '';
         let searchTimeout;
         let totalPages = 1;
+        let statusFilter = 'active';
 
         function loadKaryawanData() {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '<tr><td colspan="9" class="text-center">Loading...</td></tr>';
 
-            fetch(`{{ route('admin.karyawan.data') }}?page=${currentPage}&per_page=${perPage}&search=${searchQuery}`)
+            fetch(`{{ route('admin.karyawan.data') }}?page=${currentPage}&per_page=${perPage}&search=${encodeURIComponent(searchQuery)}&status=${statusFilter}`)
                 .then(response => response.json())
                 .then(data => {
                     renderTable(data);
@@ -432,26 +480,37 @@
             let html = '';
             data.data.forEach((item, index) => {
                 const no = ((data.current_page - 1) * data.per_page) + index + 1;
+                const nik = item.nik || item.NIK || '-';
+                const safeName = String(item.nama || '').replace(/'/g, "\\'");
+                let actions = '';
+                if (statusFilter === 'trashed') {
+                    actions = `
+                            <button class="btn btn-sm px-2 py-0 m-0 btn-success"
+                                onclick="confirmRestore(${item.id}, '${safeName}')">
+                                <span class="material-icons">restore</span>
+                            </button>`;
+                } else {
+                    actions = `
+                            <button class="btn btn-sm px-2 py-0 m-0 btn-warning"
+                                onclick="editEmployee(${item.id})">
+                                <span class="material-icons">edit_note</span>
+                            </button>
+                            <button class="btn btn-sm px-2 py-0 m-0 btn-danger"
+                                onclick="confirmDelete(${item.id}, '${safeName}')">
+                                <span class="material-icons">delete</span>
+                            </button>`;
+                }
                 html += `
                     <tr class="text-center align-middle">
                         <th>${no}</th>
-                        <td>${item.NIK}</td>
+                        <td>${nik}</td>
                         <td>${item.nama}</td>
                         <td>${item.jabatan}</td>
                         <td>${item.posisi?.unit_kerja?.nama_unit_kerja || '-'}</td>
                         <td>${item.posisi?.jabatan || '-'}</td>
                         <td>${item.id_posisi}</td>
                         <td>${item.id}</td>
-                        <td>
-                            <button class="btn btn-sm px-2 py-0 m-0 btn-warning"
-                                onclick="editEmployee(${item.id})">
-                                <span class="material-icons">edit_note</span>
-                            </button>
-                            <button class="btn btn-sm px-2 py-0 m-0 btn-danger"
-                                onclick="confirmDelete(${item.id}, '${item.nama}')">
-                                <span class="material-icons">delete</span>
-                            </button>
-                        </td>
+                        <td>${actions}</td>
                     </tr>
                 `;
             });
