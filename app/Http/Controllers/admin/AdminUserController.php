@@ -88,14 +88,28 @@ class AdminUserController extends Controller
         // }
 
         DB::transaction(function () use ($validate) {
-            $user = User::create([
-                    'username' => $validate['username'],
-                    'password' => bcrypt($validate['password']),
-                    'id_karyawan' => $validate['id_karyawan'],
+            User::create([
+                'username' => $validate['username'],
+                'password' => $validate['password'],
+                'id_karyawan' => $validate['id_karyawan'],
             ]);
         });
 
         return redirect()->back()->with('message', 'User berhasil ditambahkan!');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validate = $request->validate([
+            'id' => 'required|exists:users,id',
+            'password' => 'required|min:3|confirmed',
+        ]);
+
+        $user = User::findOrFail($validate['id']);
+        $user->password = $validate['password'];
+        $user->save();
+
+        return redirect()->back()->with('message', 'Password berhasil direset');
     }
 
 

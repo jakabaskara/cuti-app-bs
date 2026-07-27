@@ -98,6 +98,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
             Route::get('/{id}/edit', [AdminKaryawanController::class , 'edit'])->name('admin.karyawan.edit');
             Route::post('/', [AdminKaryawanController::class , 'tambahKaryawan'])->name('tambahKaryawan');
             Route::put('/update', [AdminKaryawanController::class , 'updateKaryawan'])->name('updateKaryawan');
+            Route::post('/{id}/restore', [AdminKaryawanController::class , 'restore'])->name('admin.karyawan.restore');
             Route::delete('/{id}', [AdminKaryawanController::class , 'delete'])->name('admin.delete-karyawan');
         }
         );
@@ -109,6 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
             Route::get('/{id}/edit', [AdminUserController::class , 'edit'])->name('admin.user.edit');
             Route::post('/', [AdminUserController::class , 'tambahUser'])->name('tambahUser');
             Route::put('/update', [AdminUserController::class , 'updateUser'])->name('updateUser');
+            Route::put('/reset-password', [AdminUserController::class , 'resetPassword'])->name('admin.user.reset-password');
             Route::delete('/{id}', [AdminUserController::class , 'delete'])->name('admin.delete-user');
         }
         );

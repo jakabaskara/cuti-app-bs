@@ -15,6 +15,7 @@ use App\Models\SisaCuti;
 use App\Models\KaryawanCutiBersama;
 use App\Models\RiwayatCuti;
 use App\Models\PermintaanCuti;
+use Illuminate\Support\Facades\Schema;
 
 
 class AdminKaryawanController extends Controller
@@ -42,6 +43,11 @@ class AdminKaryawanController extends Controller
         $search = $request->input('search', '');
 
         $query = Karyawan::with('posisi.unitKerja');
+
+        $status = $request->input('status', 'active');
+        if ($status === 'trashed') {
+            $query->onlyTrashed();
+        }
 
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -130,72 +136,109 @@ class AdminKaryawanController extends Controller
 //soft delete
     public function delete($id)
     {
-        // Check if the employee is associated with a user
-        $user = User::withTrashed()->where('id_karyawan', $id)->first();
-        if ($user) {
-            // If the user exists and is not soft deleted
-            if (!$user->trashed()) {
-                return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
-            }
-            // If the user is soft deleted, proceed with deletion of karyawan
-        }
-
-        // Find the employee
         $karyawan = Karyawan::find($id);
-
-        // Check if the employee exists
         if (!$karyawan) {
             return redirect()->back()->with('warning_message', 'Data karyawan tidak ditemukan');
         }
 
-        // Delete related records
-        SisaCuti::where('id_karyawan', $id)->delete();
-        KaryawanCutiBersama::where('id_karyawan', $id)->delete();
-        $permintaanCutiIds = PermintaanCuti::where('id_karyawan', $id)->pluck('id');
-        RiwayatCuti::whereIn('id_permintaan_cuti', $permintaanCutiIds)->delete();
-        PermintaanCuti::where('id_karyawan', $id)->delete();
-        DB::table('log_pengurangan_cuti')->where('id_karyawan', $id)->update(['deleted_at' => now()]);
+        DB::transaction(function () use ($id) {
+            $deletedAt = now();
 
-        // Finally, delete the employee
-        $karyawan->delete();
+            User::where('id_karyawan', $id)->get()->each(function (User $user) use ($deletedAt) {
+                $user->deleted_at = $deletedAt;
+                $user->save();
+            });
 
-        return redirect()->back()->with('error_message', 'Data karyawan berhasil dihapus');
+            SisaCuti::where('id_karyawan', $id)->whereNull('deleted_at')->get()->each(function ($row) use ($deletedAt) {
+                $row->deleted_at = $deletedAt;
+                $row->save();
+            });
+
+            KaryawanCutiBersama::where('id_karyawan', $id)->whereNull('deleted_at')->get()->each(function ($row) use ($deletedAt) {
+                $row->deleted_at = $deletedAt;
+                $row->save();
+            });
+
+            $permintaan = PermintaanCuti::where('id_karyawan', $id)->whereNull('deleted_at')->get();
+            $permintaanIds = $permintaan->pluck('id');
+
+            RiwayatCuti::whereIn('id_permintaan_cuti', $permintaanIds)->whereNull('deleted_at')->get()->each(function ($row) use ($deletedAt) {
+                $row->deleted_at = $deletedAt;
+                $row->save();
+            });
+
+            $permintaan->each(function ($row) use ($deletedAt) {
+                $row->deleted_at = $deletedAt;
+                $row->save();
+            });
+
+            if (Schema::hasTable('log_pengurangan_cuti') && Schema::hasColumn('log_pengurangan_cuti', 'deleted_at')) {
+                DB::table('log_pengurangan_cuti')
+                    ->where('id_karyawan', $id)
+                    ->whereNull('deleted_at')
+                    ->update(['deleted_at' => $deletedAt]);
+            }
+
+            $karyawan = Karyawan::find($id);
+            $karyawan->deleted_at = $deletedAt;
+            $karyawan->save();
+        });
+
+        return redirect()->back()->with('error_message', 'Data karyawan berhasil dihapus (soft delete)');
     }
 
+    public function restore($id)
+    {
+        $karyawan = Karyawan::withTrashed()->find($id);
+        if (!$karyawan || !$karyawan->trashed()) {
+            return redirect()->back()->with('warning_message', 'Data karyawan terhapus tidak ditemukan');
+        }
 
-//delete semua data karyawan sampai database
-//     public function delete($id)
-// {
-//     // Check if the employee is associated with a user
-//     $user = DB::table('users')->where('id_karyawan', $id)->first();
-//     if ($user) {
-//         return redirect()->back()->with('warning_message', 'Data karyawan ini ada di tabel users dan tidak dapat dihapus. Ganti id_karyawan di User terlebih dahulu');
-//     }
+        DB::transaction(function () use ($karyawan) {
+            $marker = $karyawan->deleted_at;
+            $from = $marker->copy()->subSeconds(2);
+            $to = $marker->copy()->addSeconds(2);
 
-//     DB::transaction(function () use ($id) {
-//         // Find the employee
-//         $karyawan = Karyawan::find($id);
+            User::withTrashed()
+                ->where('id_karyawan', $karyawan->id)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->restore();
 
-//         // Check if the employee exists
-//         if (!$karyawan) {
-//             return redirect()->back()->with('warning_message', 'Data karyawan tidak ditemukan');
-//         }
+            SisaCuti::withTrashed()
+                ->where('id_karyawan', $karyawan->id)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->restore();
 
-//         // Delete related records
-//         SisaCuti::where('id_karyawan', $id)->delete();
-//         KaryawanCutiBersama::where('id_karyawan', $id)->delete();
-//         $permintaanCutiIds = PermintaanCuti::where('id_karyawan', $id)->pluck('id');
-//         RiwayatCuti::whereIn('id_permintaan_cuti', $permintaanCutiIds)->delete();
-//         PermintaanCuti::where('id_karyawan', $id)->delete();
-//         DB::table('log_pengurangan_cuti')->where('id_karyawan', $id)->delete();
+            KaryawanCutiBersama::withTrashed()
+                ->where('id_karyawan', $karyawan->id)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->restore();
 
-//         // Finally, delete the employee
-//         $karyawan->delete();
-//     });
+            $permintaanIds = PermintaanCuti::withTrashed()
+                ->where('id_karyawan', $karyawan->id)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->pluck('id');
 
-//     return redirect()->back()->with('error_message', 'Data karyawan berhasil dihapus');
-// }
+            RiwayatCuti::withTrashed()
+                ->whereIn('id_permintaan_cuti', $permintaanIds)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->restore();
 
+            PermintaanCuti::withTrashed()
+                ->where('id_karyawan', $karyawan->id)
+                ->whereBetween('deleted_at', [$from, $to])
+                ->restore();
 
+            if (Schema::hasTable('log_pengurangan_cuti') && Schema::hasColumn('log_pengurangan_cuti', 'deleted_at')) {
+                DB::table('log_pengurangan_cuti')
+                    ->where('id_karyawan', $karyawan->id)
+                    ->whereBetween('deleted_at', [$from, $to])
+                    ->update(['deleted_at' => null]);
+            }
 
+            $karyawan->restore();
+        });
+
+        return redirect()->back()->with('message', 'Data karyawan berhasil dipulihkan');
+    }
 }
